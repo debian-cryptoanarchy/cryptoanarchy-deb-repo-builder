@@ -1,0 +1,5 @@
+usr/bin/bitcoind
+usr/lib/libbitcoinconsensus.so
+usr/lib/libbitcoinconsensus.so.0
+usr/lib/libbitcoinconsensus.so.0.0.0
+usr/share/man/man1/bitcoind.1

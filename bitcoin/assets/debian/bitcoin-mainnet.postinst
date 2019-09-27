@@ -1,0 +1,69 @@
+#!/bin/bash
+
+. /usr/share/debconf/confmodule
+
+NETWORK=mainnet
+
+if [ "$1" = triggered ];
+then
+	true
+else
+	adduser --system --group --home /var/bitcoin/$NETWORK bitcoin-$NETWORK
+fi
+
+db_get bitcoin-$NETWORK/datadir
+DATA_DIR="$RET"
+db_get bitcoin-$NETWORK/rpcport
+RPC_PORT="$RET"
+db_get bitcoin-$NETWORK/rpcuser
+RPC_USER="$RET"
+db_get bitcoin-$NETWORK/dbcache
+DB_CACHE="$RET"
+
+CONFDIR=/etc/bitcoin/$NETWORK
+
+if grep -Eq '^(datadir|rpcport|rpcuser|rpcpassword|dbcache|txindex|prune)=' /etc/bitcoin/conf.d/* 2>/dev/null;
+then
+	echo "Error: don't configure datadir, rpcport, rpcuser, dbcache, txindex, prune manually!" >&2
+	echo "You would break the system. Install bitcoind-fullchain package to turn off pruning." >&2
+	echo "Install bitcoind-indexed to set txindex. Use debconf to configure everything else." >&2
+	echo "Don't set the password manually - it's auto-generated correctly!" >&2
+	exit 1
+fi
+
+cat << EOF > $CONFDIR/bitcoin.conf
+# Automatically generated - DO NOT MODIFY!
+# In order to set (no)pruning/txindex or zmq install or remove relevant packages
+# (bitcoind-fullchain, bitcoind-indexed, bitcoind-zmq)
+# Use debconf for the remaining configuration.
+# Put non-debconf configuration into $CONFDIR/conf.d
+# Consider making a pull request for debconf options if you need something more. :)
+EOF
+
+chmod 640 $CONFDIR/bitcoin.conf
+chgrp bitcoin-$NETWORK $CONFDIR/bitcoin.conf
+
+if [ -d $CONFDIR/conf.d ] && [ `ls $CONFDIR/conf.d | wc -l` -gt 0 ];
+then
+	cat $CONFDIR/conf.d/* >> $CONFDIR/bitcoin.conf
+fi
+
+cat $CONFDIR/chain_mode >> $CONFDIR/bitcoin.conf
+
+cat << EOF >> $CONFDIR/bitcoin.conf
+rpcuser=$RPC_USER
+rpcpassword=$(head -c 18 /dev/urandom | base64)
+datadir=$DATA_DIR
+rpcport=$RPC_PORT
+EOF
+
+test -z "$DB_CACHE" || echo "dbcache=$DB_CACHE" >> "$DEBCONF_TMP"
+
+if [ "$1" = "triggered" ];
+then
+	systemctl restart bitcoin-$NETWORK
+fi
+
+#DEBHELPER#
+
+exit 0

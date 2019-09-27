@@ -1,0 +1,78 @@
+Source: bitcoin
+Section: net
+Priority: optional
+Maintainer: Martin Habovstiak <martin.habovstiak@gmail.com>
+Build-Depends: autotools-dev,
+               debhelper (>= 9),
+               dh-systemd (>= 1.15.5),
+               build-essential,
+               libtool,
+               automake,
+               pkg-config,
+               bsdmainutils,
+               python3,
+               libssl-dev,
+               libevent-dev,
+               libboost-system-dev,
+               libboost-filesystem-dev,
+               libboost-chrono-dev,
+               libboost-test-dev,
+               libboost-thread-dev,
+               libzmq3-dev 
+
+Package: bitcoind
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends} ${misc:Depends}
+Suggests: bitcoin-mainnet
+Description: Bitcoin full node daemon binaries
+ Bitcoin Core is the original Bitcoin client and it builds the backbone
+ of the network. This binary downloads and verifies the entire history
+ of Bitcoin transactions.
+ .
+ Note that this is just a binary and does nothing unless configured and
+ executed. Consider using bitcoin-mainnet to automatically manage the
+ daemon using main Bitcoin network.
+
+Package: bitcoin-mainnet
+Priority: optional
+Architecture: all
+Depends: bitcoind, ${misc:Depends}
+Suggests: bitcoin-mainnet-rpc-proxy
+Provides: bitcoin-mainnet-p2p
+Description: Bitcoin full node mainnet service
+ This package provides Bitcoin full node service with automatic
+ management. It is configured to automatically prune the database.
+ Pruning can be turned off by installing bitcoin-mainnet-fullchain
+ package.
+
+Package: bitcoin-mainnet-fullchain
+Priority: optional
+Architecture: all
+Depends: bitcoin-mainnet, ${misc:Depends}
+Replaces: bitcoin-mainnet
+Description: Bitcoin full node mainnet service
+ This package provides Bitcoin full node service with automatic
+ management. It is configured to keep the blocks in the database.
+ Removing this package turns on pruning. (But some services might
+ depend on this package.)
+
+Package: bitcoin-mainnet-txindex
+Priority: optional
+Architecture: all
+Depends: bitcoin-mainnet-fullchain, ${misc:Depends}
+Replaces: bitcoin-mainnet, bitcoin-mainnet-fullchain
+Description: Bitcoin full node mainnet service
+ This package provides Bitcoin full node service with automatic
+ management. It is configured to keep the blocks in the database
+ and maintain index of transactions. Removing this package turns
+ off indexing. (But some services might depend on this package.)
+
+Package: bitcoin-mainnet-zmq
+Priority: optional
+Architecture: all
+Depends: bitcoin-mainnet, ${misc:Depends}
+Description: ZMQ configuration for Bitcoin full node
+ This package configures Bitcoin full node to provide ZMQ
+ interface. Other packages might depend on it to ensure correct
+ configuration.

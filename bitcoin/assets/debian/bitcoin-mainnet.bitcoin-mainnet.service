@@ -1,0 +1,15 @@
+[Unit]
+Description=Bitcoin fully validating node
+After=network.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/bitcoind -conf=/etc/bitcoin/mainnet/bitcoin.conf
+User=bitcoin-mainnet
+Group=bitcoin-mainnet
+# Stopping bitcoind can take a very long time
+TimeoutStopSec=300
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

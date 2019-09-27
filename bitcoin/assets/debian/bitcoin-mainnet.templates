@@ -1,0 +1,25 @@
+Template: bitcoin-mainnet/datadir
+Type: string
+Default: /var/bitcoin/mainnet
+Description: Directory containing the timechain data
+ The full path to the directory which will contain timechain data (blocks and chainstate).
+ Important: you need around 10GB of free space!
+
+Template: bitcoin-mainnet/rpcport
+Type: string
+Default: 8332
+Description: RPC port number
+ This port will be used to control bitcoind.
+
+Template: bitcoin-mainnet/rpcuser
+Type: string
+Default: bitcoinrpc
+Description: RPC user name
+ This user name will be required when connecting to bitcoind.
+
+Template: bitcoin-mainnet/dbcache
+Type: string
+Default:
+Description: Database cache size
+ How much of the chainstate should be chached in RAM. Bigger values make sync
+ faster but obviously eat more RAM. Setting more than 4096 is probably wasteful.

@@ -1,0 +1,12 @@
+Template: bitcoin-mainnet-zmq/block
+Type: string
+Default: tcp://127.0.0.1:28332
+Description: ZMQ address for publishing raw Bitcoin blocks
+ The raw Bitcoin blocks will be published using ZMQ on this address.
+
+Template: bitcoin-mainnet-zmq/tx
+Type: string
+Default: tcp://127.0.0.1:28333
+Description: ZMQ address for publishing raw Bitcoin transactions
+ The raw Bitcoin transactions will be published using ZMQ on this address.
+
