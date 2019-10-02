@@ -27,6 +27,12 @@ installs whatever he needs and lets it run on its own. Even in the case of contr
 the consistency of configuration is maintained (e.g. changing RPC port of one package causes
 change in the other package).
 
+Build Dependencies
+------------------
+Only needed first time:
+
+`make build-dep`
+
 Building
 --------
 
