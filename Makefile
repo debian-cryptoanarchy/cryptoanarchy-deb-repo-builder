@@ -8,6 +8,9 @@ include bitcoin-rpc-proxy/vars.mk
 
 all: $(BITCOIN_PACKAGES) $(BITCOIN_RPC_PROXY_PACKAGES)
 
+build-dep:
+	sudo apt-get build-dep ./bitcoin/assets/
+
 clean: clean_bitcoin clean_bitcoin_rpc_proxy
 
 include bitcoin/build.mk
