@@ -1,0 +1,15 @@
+Source: service-deb-utils0
+Section: utils
+Priority: optional
+Maintainer: Martin Habovstiak <martin.habovstiak@gmail.com>
+Build-Depends: debhelper (>= 9)
+
+Package: service-deb-utils0
+Priority: optional
+Architecture: all
+Depends: bash ${misc:Depends}
+Description: A set of utilities helping with deb packaging
+ Creating Debian packages for services is pretty tedious process even with
+ use of modern tools like debhelper systemd etc. This small library helps
+ with various tasks done mainly in postinst scripts. This is intended for
+ always-running services.
