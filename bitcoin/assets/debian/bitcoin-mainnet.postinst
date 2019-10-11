@@ -1,28 +1,15 @@
 #!/bin/bash
 
-. /usr/share/debconf/confmodule
+. /usr/share/service-deb-utils0/postinst
 
 NETWORK=mainnet
 
-if [ "$1" = triggered ];
-then
-	true
-else
-	adduser --system --group --home /var/bitcoin/$NETWORK bitcoin-$NETWORK
-fi
+CONF_DIR=/etc/bitcoin/$NETWORK
+CONF_FILE="$CONF_DIR/bitcoin.conf"
 
-db_get bitcoin-$NETWORK/datadir
-DATA_DIR="$RET"
-db_get bitcoin-$NETWORK/rpcport
-RPC_PORT="$RET"
-db_get bitcoin-$NETWORK/rpcuser
-RPC_USER="$RET"
-db_get bitcoin-$NETWORK/dbcache
-DB_CACHE="$RET"
+sdu_context_create "$1" bitcoin-$NETWORK "$CONF_FILE" plain
 
-CONFDIR=/etc/bitcoin/$NETWORK
-
-if grep -Eq '^(datadir|rpcport|rpcuser|rpcpassword|dbcache|txindex|prune)=' /etc/bitcoin/conf.d/* 2>/dev/null;
+if grep -Eq '^(datadir|rpcport|rpcuser|rpcpassword|dbcache|txindex|prune)=' "$CONF_DIR"/conf.d/* 2>/dev/null;
 then
 	echo "Error: don't configure datadir, rpcport, rpcuser, dbcache, txindex, prune manually!" >&2
 	echo "You would break the system. Install bitcoind-fullchain package to turn off pruning." >&2
@@ -31,38 +18,34 @@ then
 	exit 1
 fi
 
-cat << EOF > $CONFDIR/bitcoin.conf
-# Automatically generated - DO NOT MODIFY!
+sdu_prepare_user
+sdu_prepare_conf
+
+# Document conf file
+cat << EOF >> "$CONF_FILE"
 # In order to set (no)pruning/txindex or zmq install or remove relevant packages
 # (bitcoind-fullchain, bitcoind-indexed, bitcoind-zmq)
 # Use debconf for the remaining configuration.
-# Put non-debconf configuration into $CONFDIR/conf.d
+# Put non-debconf configuration into $CONF_DIR/conf.d
 # Consider making a pull request for debconf options if you need something more. :)
 EOF
 
-chmod 640 $CONFDIR/bitcoin.conf
-chgrp bitcoin-$NETWORK $CONFDIR/bitcoin.conf
+sdu_cat_conf_d "$CONF_DIR/conf.d"
 
-if [ -d $CONFDIR/conf.d ] && [ `ls $CONFDIR/conf.d | wc -l` -gt 0 ];
-then
-	cat $CONFDIR/conf.d/* >> $CONFDIR/bitcoin.conf
-fi
+cat "$CONF_DIR/chain_mode" >> "$CONF_FILE"
 
-cat $CONFDIR/chain_mode >> $CONFDIR/bitcoin.conf
+# Types don't matter for plain format
+sdu_vars rpcuser datadir rpcport dbcache
 
-cat << EOF >> $CONFDIR/bitcoin.conf
-rpcuser=$RPC_USER
-rpcpassword=$(head -c 18 /dev/urandom | base64)
-datadir=$DATA_DIR
-rpcport=$RPC_PORT
-EOF
+# Prepare datadir
+mkdir -p "${SDU_CONFIG[bitcoin-$NETWORK/datadir]}"
+chown bitcoin-$NETWORK "${SDU_CONFIG[bitcoin-$NETWORK/datadir]}"
+chgrp bitcoin-$NETWORK "${SDU_CONFIG[bitcoin-$NETWORK/datadir]}"
+chmod 755 "${SDU_CONFIG[bitcoin-$NETWORK/datadir]}"
 
-test -z "$DB_CACHE" || echo "dbcache=$DB_CACHE" >> "$DEBCONF_TMP"
+sdu_store_plain rpcpassword "$(head -c 18 /dev/urandom | base64)"
 
-if [ "$1" = "triggered" ];
-then
-	systemctl restart bitcoin-$NETWORK
-fi
+sdu_restart_if_needed
 
 #DEBHELPER#
 

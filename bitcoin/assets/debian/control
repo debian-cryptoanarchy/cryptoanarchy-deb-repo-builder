@@ -37,7 +37,7 @@ Description: Bitcoin full node daemon binaries
 Package: bitcoin-mainnet
 Priority: optional
 Architecture: all
-Depends: bitcoind, ${misc:Depends}
+Depends: bitcoind, service-deb-utils0, ${misc:Depends}
 Suggests: bitcoin-mainnet-rpc-proxy
 Provides: bitcoin-mainnet-p2p
 Description: Bitcoin full node mainnet service
