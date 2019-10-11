@@ -1,6 +1,6 @@
 Template: bitcoin-mainnet/datadir
 Type: string
-Default: /var/bitcoin/mainnet
+Default: /var/lib/bitcoin-mainnet
 Description: Directory containing the timechain data
  The full path to the directory which will contain timechain data (blocks and chainstate).
  Important: you need around 10GB of free space!
@@ -19,7 +19,7 @@ Description: RPC user name
 
 Template: bitcoin-mainnet/dbcache
 Type: string
-Default:
+Default: 450
 Description: Database cache size
  How much of the chainstate should be chached in RAM. Bigger values make sync
  faster but obviously eat more RAM. Setting more than 4096 is probably wasteful.
