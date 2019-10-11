@@ -47,6 +47,8 @@ sdu_store_plain rpcpassword "$(head -c 18 /dev/urandom | base64)"
 
 sdu_restart_if_needed
 
+dpkg-trigger --no-await bitcoin-mainnet-config-changed
+
 #DEBHELPER#
 
 exit 0
