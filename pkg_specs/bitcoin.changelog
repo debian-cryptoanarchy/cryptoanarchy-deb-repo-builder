@@ -1,0 +1,13 @@
+bitcoin (0.18.1-2) stretch; urgency=medium
+
+  * Migrated to debcrafter
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 23 Oct 2019 14:56:01 +0100
+
+
+bitcoin (0.18.1-1) stretch; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 23 Sep 2019 23:44:28 +0100
+

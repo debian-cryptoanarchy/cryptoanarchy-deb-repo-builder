@@ -6,18 +6,21 @@ include common_vars.mk
 include bitcoin/vars.mk
 include bitcoin-rpc-proxy/vars.mk
 
-all: service-deb-utils0_0.1-1_all.deb $(BITCOIN_PACKAGES) $(BITCOIN_RPC_PROXY_PACKAGES)
+all: $(BITCOIN_PACKAGES) $(BITCOIN_RPC_PROXY_PACKAGES)
 
-build-dep:
-	sudo apt-get build-dep ./bitcoin/assets/
+clean: clean_bitcoin clean_bitcoin_rpc_proxy
 
-clean: clean_service_deb_utils clean_bitcoin clean_bitcoin_rpc_proxy
-
+include common_rules.mk
 include bitcoin/build.mk
 include bitcoin-rpc-proxy/build.mk
 
-service-deb-utils0_0.1-1_all.deb: service-deb-utils/usr/share/service-deb-utils0/postinst
-	cd service-deb-utils; dpkg-buildpackage $(BUILD_PACKAGE_FLAGS)
+$(BUILD_DIR)/repository.stamp: pkg_specs/packages.srs $(wildcard pkg_specs/*.sps) $(shell which gen_deb_repository) | $(BITCOIN_DEPS) $(BITCOIN_RPC_PROXY_DEPS) $(ELECTRS_DEPS)
+	gen_deb_repository $< $(BUILD_DIR)
+	$(BITCOIN_REPO_PATCH)
+	$(BITCOIN_RPC_PROXY_REPO_PATCH)
+	touch $@
 
-clean_service_deb_utils:
-	rm -f service-deb-utils0_0.1-1_all.deb  service-deb-utils0_0.1-1_amd64.buildinfo  service-deb-utils0_0.1-1_amd64.changes  service-deb-utils0_0.1-1.dsc  service-deb-utils0_0.1-1.tar.gz
+fetch: $(BITCOIN_FETCH_FILES) $(BITCOIN_RPC_PROXY_FETCH_FILES) $(ELECTRS_FETCH_FILES)
+
+build-dep: $(BUILD_DIR)/repository.stamp
+	sudo apt-get build-dep $(realpath $(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION))

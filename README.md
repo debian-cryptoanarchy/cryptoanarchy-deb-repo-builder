@@ -31,7 +31,11 @@ Build Dependencies
 ------------------
 Only needed first time:
 
-`make build-dep`
+```
+sudo apt-get install cargo
+cargo install --bin gen_deb_repository --git https://github.com/Kixunil/debcrafter
+cargo install --git https://github.com/Kixunil/cfg_me
+```
 
 Building
 --------
@@ -46,14 +50,14 @@ This project is work in progress and is missing tons of packages! Do not use in 
 (Probably incomplete) TODO list:
 
 - [x] bitcoind
-- [x] bitcoin-mainnet
+- [x] bitcoin-mainnet (BUG: misses password, will be replaced with cookie anyway)
 - [x] bitcoin-mainnet-fullchain
 - [x] bitcoin-mainnet-txindex
 - [x] bitcoin-mainnet-zmq
-- [x] bitcoin-mainnet-p2p (virtual, Bitcoin P2P protocol)
-- [x] bitcoin-rpc-proxy (upstream needs patches)
-- [ ] bitcoin-rpc-proxy-mainnet
-- [ ] bitcoin-timechain-mainnet (public timechain RPC calls)
+- [ ] bitcoin-mainnet-p2p (virtual, Bitcoin P2P protocol)
+- [x] bitcoin-rpc-proxy
+- [x] bitcoin-rpc-proxy-mainnet
+- [x] bitcoin-timechain-mainnet (public timechain RPC calls)
 - [ ] electrs
 - [ ] electrs-mainnet
 - [ ] electrumx
@@ -72,6 +76,7 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] eclair-turbo
 - [ ] eclair-turbo-system-mainnet
 - [ ] ln-system-mainnet (virtual, provides system-wide Lightning Network implementation)
+- [ ] lighter
 - [ ] multiuser-ln (completely new application allowing multiple users to share a LN implementation)
 - [ ] multiuser-ln-mainnet
 - [ ] liblightning (a completely new library abstracting away implementation details and allowing multiple wallets)

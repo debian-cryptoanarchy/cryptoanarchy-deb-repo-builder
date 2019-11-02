@@ -1,0 +1,16 @@
+maintainer = "Martin Habostiak <martin.habovstiak@gmail.com>"
+
+[sources.bitcoin]
+version = "0.18.1"
+section = "net"
+packages = ["bitcoin-mainnet", "bitcoin-fullchain-mainnet", "bitcoin-txindex-mainnet", "bitcoin-zmq-mainnet"]
+
+[sources.btc-rpc-proxy]
+version = "0.1.0"
+section = "net"
+packages = ["bitcoin-rpc-proxy-mainnet", "bitcoin-timechain-mainnet"]
+
+[sources.electrs]
+version = "0.8.0"
+section = "net"
+packages = ["electrs-mainnet"]

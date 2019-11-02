@@ -7,4 +7,5 @@ all: $(BITCOIN_PACKAGES)
 
 clean: clean_bitcoin
 
+include ../common_rules.mk
 include $(BITCOIN_SOURCE_DIR)build.mk

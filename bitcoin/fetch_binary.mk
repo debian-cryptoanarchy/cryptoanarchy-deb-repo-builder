@@ -1,30 +1,33 @@
 BITCOIN_ARCH_LONG=$(ARCH)-linux-gnu
 
-BITCOIN_ARCHIVE_NAME=bitcoin-$(BITCOIN_VERSION)-$(BITCOIN_ARCH_LONG).tar.gz
+BITCOIN_BIN_ARCHIVE_NAME=bitcoin-$(BITCOIN_VERSION)-$(BITCOIN_ARCH_LONG).tar.gz
+BITCOIN_BIN_ARCHIVE=$(BUILD_DIR)/$(BITCOIN_BIN_ARCHIVE_NAME)
 LAANWJ_KEY_ID=$(shell echo $(LAANWJ_FPRINT) | cut -b 25-)
-BITCOIN_STRATEGY_DEPS=bitcoin-$(BITCOIN_VERSION)/Makefile
+BITCOIN_STRATEGY_DEPS=$(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION)/Makefile
+BITCOIN_DEPS=$(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION) $(BITCOIN_STRATEGY_DEPS)
+BITCOIN_FETCH_FILES=$(BITCOIN_BIN_ARCHIVE) $(BUILD_DIR)/bitcoin-SHA256SUMS.asc $(BUILD_DIR)/laanwj.gpg
 
-bitcoin-$(BITCOIN_VERSION): $(BITCOIN_ARCHIVE_NAME) SHA256SUMS
-	sha256sum --check SHA256SUMS
-	tar -xzmf $<
+$(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION): $(BITCOIN_BIN_ARCHIVE) $(BUILD_DIR)/bitcoin-SHA256SUMS
+	cd $(BUILD_DIR) && sha256sum --check bitcoin-SHA256SUMS
+	tar -C $(BUILD_DIR) -xzmf $<
 
-bitcoin-$(BITCOIN_VERSION)/Makefile: $(BITCOIN_SOURCE_DIR)assets/bin-makefile bitcoin-$(BITCOIN_VERSION)
+$(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION)/Makefile: $(BITCOIN_SOURCE_DIR)assets/bin-makefile | $(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION)
 	cp $< $@
 
-laanwj.gpg:
-	gpg --no-default-keyring --keyring ./$@ --recv-keys $(LAANWJ_FPRINT)
+$(BUILD_DIR)/laanwj.gpg: | $(BUILD_DIR)
+	gpg --no-default-keyring --keyring $@ --keyserver hkp://keyserver.ubuntu.com --recv-keys $(LAANWJ_FPRINT)
 
-bitcoin-$(BITCOIN_VERSION)-$(BITCOIN_ARCH_LONG).tar.gz:
-	wget --no-verbose https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/$(BITCOIN_ARCHIVE_NAME)
+$(BITCOIN_BIN_ARCHIVE): | $(BUILD_DIR)
+	wget -O $@ --no-verbose https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/$(BITCOIN_BIN_ARCHIVE_NAME)
 
-SHA256SUMS.asc:
-	wget --no-verbose https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
+$(BUILD_DIR)/bitcoin-SHA256SUMS.asc: | $(BUILD_DIR)
+	wget -O $@ --no-verbose https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
 
-SHA256SUMS: SHA256SUMS.asc laanwj.gpg
-	gpg --no-default-keyring --keyring ./laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) --verify $<
-	gpg --no-default-keyring --keyring ./laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) -d $< | grep $(BITCOIN_ARCHIVE_NAME) > $@
+$(BUILD_DIR)/bitcoin-SHA256SUMS: $(BUILD_DIR)/bitcoin-SHA256SUMS.asc $(BUILD_DIR)/laanwj.gpg
+	gpg --no-default-keyring --keyring $(BUILD_DIR)/laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) --verify $<
+	gpg --no-default-keyring --keyring $(BUILD_DIR)/laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) -d $< | grep $(BITCOIN_BIN_ARCHIVE_NAME) > $@
 
 clean_bitcoin_strategy_specific:
-	rm -rf bitcoin-$(BITCOIN_VERSION) $(BITCOIN_ARCHIVE_NAME) SHA256SUMS SHA256SUMS.asc laanwj.gpg laanwj.gpg~ 
+	rm -rf bitcoin-$(BITCOIN_VERSION) $(BITCOIN_BIN_ARCHIVE) bitcoin-SHA256SUMS bitcoin-SHA256SUMS.asc laanwj.gpg laanwj.gpg~ 
 
 .PHONY: clean_strategy_specific

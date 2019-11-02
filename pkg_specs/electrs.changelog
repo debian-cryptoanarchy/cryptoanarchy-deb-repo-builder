@@ -1,0 +1,5 @@
+electrs (0.8.0-1) stretch; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 23 Oct 2019 18:26:32 +0100
