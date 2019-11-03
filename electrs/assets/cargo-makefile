@@ -1,0 +1,12 @@
+all:
+	cargo build --release
+
+install:
+	mkdir -p target/man
+	cfg_me --output target/man/electrs.1 man
+
+check:
+	cargo test
+
+clean:
+	cargo clean

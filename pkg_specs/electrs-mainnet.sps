@@ -2,8 +2,8 @@ name = "electrs-mainnet"
 bin_package = "electrs"
 binary = "/usr/bin/electrs"
 conf_param = "--conf"
-conf_dir = { name = "conf.d", param = "--conf-dir" }
-user = { group = false, create = { home = true } }
+conf_d = { name = "conf.d", param = "--conf-dir" }
+user = { group = true, create = { home = true } }
 summary = "An efficient re-implementation of Electrum Server"
 extra_service_config = """
 Restart=always
@@ -29,11 +29,11 @@ summary = "Prometheus monitoring 'addr:port' to listen on"
 format = "toml"
 public = true
 
-[config."conf.d/behavior.toml".ivars.jsonrpc_import]
-type = "bool"
-default = "false"
-priority = "medium"
-summary = "Use JSONRPC instead of directly importing blk*.dat files."
+#[config."conf.d/behavior.toml".ivars.jsonrpc_import]
+#type = "bool"
+#default = "false"
+#priority = "medium"
+#summary = "Use JSONRPC instead of directly importing blk*.dat files."
 
 [config."conf.d/credentials.conf"]
 format = "toml"
@@ -47,4 +47,4 @@ constant = "public:public"
 
 [config."conf.d/credentials.conf".hvars.daemon_rpc_addr]
 type = "string"
-script = "grep '^bitcoind_port *=' | sed 's/^bitcoind_port *= *\\([0-9]*\\) *$/127.0.0.1:\\1/'"
+script = "grep '^bind_port *=' /etc/bitcoin-rpc-proxy-mainnet/conf.d/interface.conf | sed 's/^bind_port *= *\\([0-9]*\\) *$/127.0.0.1:\\1/'"
