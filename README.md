@@ -58,8 +58,8 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] bitcoin-rpc-proxy
 - [x] bitcoin-rpc-proxy-mainnet
 - [x] bitcoin-timechain-mainnet (public timechain RPC calls)
-- [ ] electrs
-- [ ] electrs-mainnet
+- [x] electrs
+- [x] electrs-mainnet
 - [ ] electrumx
 - [ ] electrumx-mainnet (low priority)
 - [ ] electrum-server-mainnet (virtual, electrum server implementation)

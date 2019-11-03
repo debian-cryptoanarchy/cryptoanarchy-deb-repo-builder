@@ -18,7 +18,7 @@ $(BITCOIN_RPC_PROXY_BUILD_DIR)/Makefile: $(SOURCE_DIR)bitcoin-rpc-proxy/assets/c
 	cp $< $@
 
 $(BITCOIN_RPC_PROXY_PACKAGES): $(BUILD_DIR)/bitcoin-rpc-proxy.stamp
-	touch $@
+	touch -c $@
 
 $(BUILD_DIR)/bitcoin-rpc-proxy.stamp: $(BITCOIN_RPC_PROXY_DEPS) $(BUILD_DIR)/repository.stamp $(BITCOIN_RPC_PROXY_BUILD_DIR)/debian/bitcoin-rpc-proxy.install $(BITCOIN_RPC_PROXY_BUILD_DIR)/debian/bitcoin-rpc-proxy.manpages
 	cd $(BITCOIN_RPC_PROXY_BUILD_DIR) && dpkg-buildpackage $(BUILD_PACKAGE_FLAGS)

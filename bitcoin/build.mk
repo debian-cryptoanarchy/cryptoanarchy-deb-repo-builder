@@ -9,7 +9,7 @@ $(BUILD_DIR)/bitcoin.stamp: $(BUILD_DIR)/repository.stamp $(BITCOIN_DEPS)
 	touch $@
 
 $(BITCOIN_PACKAGES): $(BUILD_DIR)/bitcoin.stamp
-	touch $@
+	touch -c $@
 
 clean_bitcoin: clean_bitcoin_strategy_specific
 	rm -f $(BITCOIN_PACKAGES) $(BITCOIN_EXTRA_FILES) $(BUILD_DIR)/bitcoin.stamp
