@@ -5,6 +5,7 @@ replaces = true
 summary = "Activates txindex on Bitcoin full node"
 
 [config."chain_mode"]
+internal = true
 content = """
 prune=0
 txindex=1
