@@ -50,7 +50,7 @@ This project is work in progress and is missing tons of packages! Do not use in 
 (Probably incomplete) TODO list:
 
 - [x] bitcoind
-- [x] bitcoin-mainnet (BUG: misses password, will be replaced with cookie anyway)
+- [x] bitcoin-mainnet
 - [x] bitcoin-mainnet-fullchain
 - [x] bitcoin-mainnet-txindex
 - [x] bitcoin-mainnet-zmq

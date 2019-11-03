@@ -34,21 +34,15 @@ default = "8331"
 priority = "low"
 summary = "Bitcoin RPC port"
 
-[config."bitcoin.conf".ivars.rpcuser]
-type = "string"
-default = "bitcoinrpc"
-priority = "low"
-summary = "Bitcoin RPC port"
-
 [config."bitcoin.conf".ivars.dbcache]
 type = "uint"
 default = "450"
 priority = "medium"
 summary = "Size of database cache in MB"
 
-[config."bitcoin.conf".hvars.rpcpassword]
+[config."bitcoin.conf".hvars.rpccookiefile]
 type = "string"
-script = "head -c 18 /dev/urandom | base64"
+constant = "/var/lib/bitcoin-mainnet/cookie"
 
 [config."chain_mode"]
 internal = true

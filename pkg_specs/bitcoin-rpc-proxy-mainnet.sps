@@ -32,9 +32,6 @@ format = "toml"
 [config."conf.d/credentials.conf".evars.bitcoin-mainnet.rpcport]
 name = "bitcoind_port"
 
-[config."conf.d/credentials.conf".evars.bitcoin-mainnet.rpcuser]
-name = "bitcoind_user"
-
-[config."conf.d/credentials.conf".hvars.bitcoind_password]
+[config."conf.d/credentials.conf".hvars.cookie_file]
 type = "string"
-script = "grep '^rpcpassword=' /etc/bitcoin-mainnet/bitcoin.conf | sed 's/^rpcpassword=//'"
+constant = "/var/lib/bitcoin-mainnet/cookie"
