@@ -8,11 +8,11 @@ packages = ["bitcoin-mainnet", "bitcoin-fullchain-mainnet", "bitcoin-txindex-mai
 [sources.btc-rpc-proxy]
 version = "0.1.0"
 section = "net"
-build-depends = ["cargo (>= 0.34.0)"]
+build_depends = ["cargo (>= 0.34.0)"]
 packages = ["bitcoin-rpc-proxy-mainnet", "bitcoin-timechain-mainnet"]
 
 [sources.electrs]
 version = "0.8.0"
 section = "net"
-build-depends = ["cargo (>= 0.34.0)", "cmake (>= 3.13.4)", "clang (>= 1:7.0)"]
+build_depends = ["cargo (>= 0.34.0)", "cmake (>= 3.13.4)", "clang (>= 1:7.0)"]
 packages = ["electrs-mainnet"]
