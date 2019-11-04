@@ -60,12 +60,13 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] bitcoin-timechain-mainnet (public timechain RPC calls)
 - [x] electrs
 - [x] electrs-mainnet
-- [ ] electrumx
+- [ ] electrumx (low priority)
 - [ ] electrumx-mainnet (low priority)
 - [ ] electrum-server-mainnet (virtual, electrum server implementation)
+- [ ] electrum (desktop package without .desktop file)
 - [ ] electrum-trustless-mainnet (desktop package configured to use electrum-server-mainnet)
 - [ ] wasabi-trustless-mainnet
-- [ ] wasabi
+- [ ] wasabi (desktop package without .desktop file)
 - [ ] nbxplorer
 - [ ] nbxplorer-mainnet
 - [ ] btcpayserver
