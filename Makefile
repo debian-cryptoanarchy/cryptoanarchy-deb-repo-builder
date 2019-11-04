@@ -28,4 +28,4 @@ $(BUILD_DIR)/repository.stamp: pkg_specs/packages.srs $(wildcard pkg_specs/*.sps
 fetch: $(BITCOIN_FETCH_FILES) $(BITCOIN_RPC_PROXY_FETCH_FILES) $(ELECTRS_FETCH_FILES)
 
 build-dep: $(BUILD_DIR)/repository.stamp
-	sudo apt-get build-dep $(realpath $(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION))
+	sudo apt-get build-dep $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR))
