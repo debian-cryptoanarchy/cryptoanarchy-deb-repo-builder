@@ -33,6 +33,7 @@ Only needed first time:
 
 ```
 sudo apt-get install cargo
+# Required version >= 0.1.1
 cargo install --bin gen_deb_repository --git https://github.com/Kixunil/debcrafter
 cargo install --git https://github.com/Kixunil/cfg_me
 ```
