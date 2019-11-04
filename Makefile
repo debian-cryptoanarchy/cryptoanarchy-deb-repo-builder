@@ -1,6 +1,8 @@
 SOURCE_DIR:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
 
+.DELETE_ON_ERROR:
+
 include common_vars.mk
 
 include bitcoin/vars.mk
