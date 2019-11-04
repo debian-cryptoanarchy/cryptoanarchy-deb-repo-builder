@@ -5,4 +5,4 @@ ifeq ($(ARCH),x86_64)
 	DEB_ARCH=amd64
 endif
 
-BUILD_DIR=.
+BUILD_DIR=build
