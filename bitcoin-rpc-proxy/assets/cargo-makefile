@@ -6,7 +6,7 @@ install:
 	cfg_me --output target/man/btc_rpc_proxy.1 man
 
 check:
-	cargo test
+	cargo test --release
 
 clean:
 	cargo clean

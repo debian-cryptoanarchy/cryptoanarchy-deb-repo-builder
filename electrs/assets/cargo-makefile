@@ -6,7 +6,7 @@ install:
 	cfg_me --output target/man/electrs.1 man
 
 check:
-	cargo test
+	cargo test --release
 
 clean:
 	cargo clean
