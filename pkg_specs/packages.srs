@@ -16,3 +16,11 @@ version = "0.8.0"
 section = "net"
 build_depends = ["cargo (>= 0.34.0)", "cmake (>= 3.13.4)", "clang (>= 1:7.0)"]
 packages = ["electrs-mainnet"]
+
+[sources.electrum]
+version = "3.3.8"
+section = "net"
+build_depends = [
+	"python3 | python3-all | python3-all-dev"
+]
+packages = []

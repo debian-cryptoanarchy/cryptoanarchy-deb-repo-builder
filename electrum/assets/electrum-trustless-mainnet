@@ -1,7 +1,9 @@
 #!/bin/bash
 
+SERVER="`grep '^electrum_rpc_addr' /etc/electrs-mainnet/conf.d/interface.toml | sed -e 's/^electrum_rpc_addr *= *"//' -e 's/"$//'`:t" || exit 1
+
 # Skipmerklecheck is safe because we connect to our own local server
 # Currently this is hardcoded to electrs, but should use /etc/electrum-server/interface
 # or something similar with update-alternatives. This needs implementation of interface
 # feature in debcrafter (see #2).
-electrum --oneserver --skipmerklecheck --server "`grep '^electrum_rpc_addr' /etc/electrs/conf.d/interface.conf | sed -e 's/^^electrum_rpc_addr *= *"//' -e 's/"$//'`:t"
+electrum --oneserver --skipmerklecheck --server "$SERVER"

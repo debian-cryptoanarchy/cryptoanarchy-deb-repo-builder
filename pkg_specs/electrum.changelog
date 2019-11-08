@@ -1,0 +1,5 @@
+electrum (3.3.8-1) stretch; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 04 Nov 2019 16:06:15 +0100
