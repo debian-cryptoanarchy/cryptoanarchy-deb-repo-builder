@@ -41,10 +41,13 @@ format = "toml"
 [config."conf.d/credentials.conf".evars.bitcoin-mainnet.datadir]
 name = "daemon_dir"
 
+[config."conf.d/credentials.conf".evars.bitcoin-rpc-proxy-mainnet.bind_port]
+store = false
+
 [config."conf.d/credentials.conf".hvars.cookie]
 type = "string"
 constant = "public:public"
 
 [config."conf.d/credentials.conf".hvars.daemon_rpc_addr]
 type = "string"
-script = "grep '^bind_port *=' /etc/bitcoin-rpc-proxy-mainnet/conf.d/interface.conf | sed 's/^bind_port *= *\\([0-9]*\\) *$/127.0.0.1:\\1/'"
+script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-mainnet/bind_port\"]}\""
