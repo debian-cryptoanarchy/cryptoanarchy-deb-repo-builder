@@ -5,7 +5,7 @@ BITCOIN_CONFIG_FILES=$(addprefix $(BITCOIN_DIR)config/,zmq pruned/chain_mode ful
 BITCOIN_REPO_PATCH=cat $(BITCOIN_SOURCE_DIR)/assets/bitcoind-control >> $(BITCOIN_DIR)debian/control && cp $(BITCOIN_SOURCE_DIR)/assets/debian/bitcoind.install $(BITCOIN_DIR)debian/
 
 $(BUILD_DIR)/bitcoin.stamp: $(BUILD_DIR)/repository.stamp $(BITCOIN_DEPS)
-	cd $(BITCOIN_DIR) && dpkg-buildpackage $(BUILD_PACKAGE_FLAGS)
+	cd $(BITCOIN_DIR) && dpkg-buildpackage -a $(DEB_ARCH) $(BUILD_PACKAGE_FLAGS)
 	touch $@
 
 $(BITCOIN_PACKAGES): $(BUILD_DIR)/bitcoin.stamp

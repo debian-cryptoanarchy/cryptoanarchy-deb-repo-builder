@@ -1,12 +1,32 @@
+ifeq ($(DEB_HOST_ARCH),amd64)
+	CARGO_ARCH=x86_64-unknown-linux-gnu
+else ifeq ($(DEB_HOST_ARCH),arm64)
+	CARGO_ARCH=aarch64-unknown-linux-gnu
+endif
+
+ifeq ($(DEB_BUILD_ARCH),amd64)
+	CARGO_BUILD_CC=x86_64-linux-gnu-gcc
+else ifeq ($(DEB_BUILD_ARCH),arm64)
+	CARGO_BUILD_CC=aarch64-linux-gnu-gcc
+endif
+
+ifeq ($(DEB_HOST_ARCH),$(DEB_BUILD_ARCH))
+	TEST_COMMAND=cargo test --release
+else
+	TEST_COMMAND=
+endif
+
 all:
-	cargo build --release
+	HOST_CC=$(CARGO_BUILD_CC) cargo build --target $(CARGO_ARCH) --release
+	mkdir -p target/release
+	cp target/$(CARGO_ARCH)/release/btc_rpc_proxy target/release
 
 install:
 	mkdir -p target/man
 	cfg_me --output target/man/btc_rpc_proxy.1 man
 
 check:
-	cargo test --release
+	$(TEST_COMMAND)
 
 clean:
 	cargo clean
