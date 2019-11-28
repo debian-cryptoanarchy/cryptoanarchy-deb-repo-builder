@@ -1,0 +1,5 @@
+tor-extras (1.0-1) stretch; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 27 Oct 2019 17:00:00 +0100

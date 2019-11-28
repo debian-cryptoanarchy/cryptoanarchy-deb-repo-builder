@@ -25,3 +25,9 @@ build_depends = [
 	"python3:native | python3-all:native | python3-all-dev:native"
 ]
 packages = []
+
+[sources.tor-extras]
+version = "1.0"
+section = "net"
+build_depends = []
+packages = ["tor-hs-patch-config"]

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+ORIG_FILE="`dpkg-divert --truename /usr/share/tor/tor-service-defaults-torrc`"
+
+test -r "$ORIG_FILE"
+patch -o /usr/share/tor/tor-service-defaults-torrc "$ORIG_FILE"  /usr/share/tor-hs-patch-config/defaults.patch
+chown --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
+chmod --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
+
+#DEBHELPER#
