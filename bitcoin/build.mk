@@ -1,4 +1,4 @@
-include $(BITCOIN_SOURCE_DIR)$(BUILD_STRATEGY).mk
+include $(BITCOIN_SOURCE_DIR)$(BITCOIN_BUILD_STRATEGY).mk
 
 BITCOIN_DIR=$(BUILD_DIR)/bitcoin-$(BITCOIN_VERSION)/
 BITCOIN_CONFIG_FILES=$(addprefix $(BITCOIN_DIR)config/,zmq pruned/chain_mode fullchain/chain_mode txindex/chain_mode)
