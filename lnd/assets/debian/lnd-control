@@ -1,0 +1,15 @@
+
+Package: lnd
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends} ${misc:Depends}
+Suggests: lnd-system-mainnet
+Description: Lightnning Network Daemon
+ The Lightning Network Daemon (lnd) - is a complete implementation of a
+ Lightning Network node. lnd has several pluggable back-end chain services
+ including btcd (a full-node), bitcoind, and neutrino (a new experimental light
+ client). 
+ .
+ Note that this is just a binary and does nothing unless configured and
+ executed. Consider using lnd-system-mainnet to automatically manage the
+ daemon using main Bitcoin network.

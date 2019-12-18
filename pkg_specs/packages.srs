@@ -31,3 +31,9 @@ version = "1.0"
 section = "net"
 build_depends = []
 packages = ["tor-hs-patch-config"]
+
+[sources.lnd]
+version = "0.8.1"
+section = "net"
+build_depends = []
+packages = ["lnd-system-mainnet"]
