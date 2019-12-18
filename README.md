@@ -73,8 +73,10 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] nbxplorer-mainnet
 - [ ] btcpayserver
 - [ ] btcpayserver-mainnet
-- [ ] lnd
-- [ ] lnd-system-mainnet
+- [x] lnd
+- [x] lnd-system-mainnet
+- [ ] lncli
+- [ ] lncli-system-mainnet (makes lncli default to local implementation)
 - [ ] eclair
 - [ ] eclair-system-mainnet
 - [ ] eclair-turbo
