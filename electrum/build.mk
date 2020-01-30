@@ -38,7 +38,7 @@ $(ELECTRUM_BUILD_DIR)/electrum: $(ELECTRUM_APPIMAGE) | $(ELECTRUM_BUILD_DIR)
 	cp $< $@
 
 $(ELECTRUM_BUILD_DIR): $(ELECTRUM_FETCH_FILES)
-	gpg --no-default-keyring --keyring $(BUILD_DIR)/thomasv.gpg --trusted-key $(THOMASV_KEY_ID) --verify $(ELECTRUM_APPIMAGE).asc
+	gpgv --keyring $(BUILD_DIR)/thomasv.gpg $(ELECTRUM_APPIMAGE).asc $(ELECTRUM_APPIMAGE)
 	mkdir $@
 
 $(BUILD_DIR)/electrum.stamp: $(BUILD_DIR)/repository.stamp $(ELECTRUM_DEPS) $(ELECTRUM_ASSETS) $(ELECTRUM_BUILD_DIR)/electrum

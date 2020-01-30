@@ -24,8 +24,7 @@ $(BUILD_DIR)/bitcoin-SHA256SUMS.asc: | $(BUILD_DIR)
 	wget -O $@ --no-verbose https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
 
 $(BUILD_DIR)/bitcoin-SHA256SUMS: $(BUILD_DIR)/bitcoin-SHA256SUMS.asc $(BUILD_DIR)/laanwj.gpg
-	gpg --no-default-keyring --keyring $(BUILD_DIR)/laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) --verify $<
-	gpg --no-default-keyring --keyring $(BUILD_DIR)/laanwj.gpg --trusted-key $(LAANWJ_KEY_ID) -d $< | grep $(BITCOIN_BIN_ARCHIVE_NAME) > $@
+	gpgv --keyring $(BUILD_DIR)/laanwj.gpg -o - $< | grep $(BITCOIN_BIN_ARCHIVE_NAME) > $@
 
 clean_bitcoin_strategy_specific:
 	rm -rf bitcoin-$(BITCOIN_VERSION) $(BITCOIN_BIN_ARCHIVE) bitcoin-SHA256SUMS bitcoin-SHA256SUMS.asc laanwj.gpg laanwj.gpg~ 
