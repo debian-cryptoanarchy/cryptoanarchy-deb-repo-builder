@@ -15,7 +15,7 @@ packages = ["bitcoin-rpc-proxy-mainnet", "bitcoin-timechain-mainnet"]
 [sources.electrs]
 version = "0.8.0"
 section = "net"
-build_depends = ["cargo:native (>= 0.34.0)", "cmake:native (>= 3.13.4)", "clang:native (>= 1:7.0)", "llvm-dev:native", "gcc-aarch64-linux-gnu:native [arm64]", "librocksdb-dev"]
+build_depends = ["cargo:native (>= 0.34.0)", "cmake (>= 3.13.4)", "clang:native (>= 1:7.0)", "llvm-dev:native", "gcc-aarch64-linux-gnu:native [arm64]", "librocksdb-dev"]
 packages = ["electrs-mainnet"]
 
 [sources.electrum]
