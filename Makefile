@@ -1,5 +1,7 @@
 SOURCE_DIR:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
+# Forgetting to type this resulted in lot of time wasted.
+BUILD_PACKAGE_FLAGS=-nc --no-sign
 
 .DELETE_ON_ERROR:
 
