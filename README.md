@@ -69,8 +69,8 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] electrum-trustless-mainnet (desktop package configured to use electrum-server-mainnet)
 - [ ] wasabi-trustless-mainnet
 - [ ] wasabi (desktop package without .desktop file)
-- [ ] nbxplorer
-- [ ] nbxplorer-mainnet
+- [x] nbxplorer
+- [x] nbxplorer-mainnet
 - [ ] btcpayserver
 - [ ] btcpayserver-mainnet
 - [x] lnd

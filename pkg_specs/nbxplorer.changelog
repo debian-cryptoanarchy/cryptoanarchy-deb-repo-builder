@@ -1,0 +1,6 @@
+nbxplorer (2.1.8-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 3 Feb 2020 15:43:27 +0100
+

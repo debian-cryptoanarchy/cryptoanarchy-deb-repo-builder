@@ -1,0 +1,18 @@
+INSTDIR=$(DESTDIR)/usr/lib/NBXplorer
+
+all:
+	dotnet publish --no-self-contained --nologo -c Release -o release NBXplorer/NBXplorer.csproj
+
+install:
+	mkdir -p $(INSTDIR)
+	mkdir -p $(DESTDIR)/usr/bin
+	cp -rt $(INSTDIR) -- release/*
+	echo '#!/bin/bash' > $(INSTDIR)/nbxplorer
+	echo 'dotnet /usr/lib/NBXplorer/NBXplorer.dll "$$@"' >> $(INSTDIR)/nbxplorer
+	chmod +x $(INSTDIR)/nbxplorer
+	ln -s ../lib/NBXplorer/NBXplorer $(DESTDIR)/usr/bin/nbxplorer
+
+check:
+
+clean:
+	rm -rf release

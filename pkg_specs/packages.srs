@@ -37,3 +37,9 @@ version = "0.8.1"
 section = "net"
 build_depends = []
 packages = ["lnd-system-mainnet"]
+
+[sources.nbxplorer]
+version = "2.1.8"
+section = "net"
+build_depends = ["dotnet-sdk-3.1"]
+packages = ["nbxplorer-mainnet"]
