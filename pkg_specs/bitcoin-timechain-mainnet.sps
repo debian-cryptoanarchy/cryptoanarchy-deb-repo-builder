@@ -9,6 +9,8 @@ content = '''
 [user.public]
 password = "public"
 allowed_calls = [
+	# Deprecated, but LND still accesses it. WTF
+	"getinfo",
 	"getblock",
 	"getblockchaininfo",
 	"getbestblockhash",
@@ -32,6 +34,16 @@ allowed_calls = [
 	"estimatefee",
 	"estimatepriority",
 	"estimatesmartfee",
-	"estimatesmartpriority"
+	"estimatesmartpriority",
+	"validateaddress",
+	"signrawtransactionwithkey",
+	# Warning: may be used for DoS and possibly to correlate identities!
+	# Used for NBXplorer - see below.
+	"scantxoutset",
+	# NBXplorer needs this call to be enabled
+	# There's a proposal to fix that
+	# See https://github.com/MetacoSA/NBitcoin/issues/808
+	# So hopefully, this is temporary.
+	"generatetoaddress",
 ]
 '''
