@@ -1,0 +1,6 @@
+btcpayserver (1.0.3.156-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Feb 2020 21:57:03 +0100
+

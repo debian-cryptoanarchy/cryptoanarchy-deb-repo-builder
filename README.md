@@ -70,9 +70,9 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] wasabi-trustless-mainnet
 - [ ] wasabi (desktop package without .desktop file)
 - [x] nbxplorer
-- [x] nbxplorer-mainnet
-- [ ] btcpayserver
-- [ ] btcpayserver-mainnet
+- [x] nbxplorer-mainnet (no integration into nginx yet)
+- [x] btcpayserver
+- [x] btcpayserver-system-mainnet
 - [x] lnd
 - [x] lnd-system-mainnet
 - [ ] lncli

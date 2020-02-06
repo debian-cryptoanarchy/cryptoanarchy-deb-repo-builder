@@ -43,3 +43,9 @@ version = "2.1.8"
 section = "net"
 build_depends = ["dotnet-sdk-3.1"]
 packages = ["nbxplorer-mainnet"]
+
+[sources.btcpayserver]
+version = "1.0.3.156"
+section = "net"
+build_depends = ["dotnet-sdk-3.1"]
+packages = ["btcpayserver-system-mainnet"]
