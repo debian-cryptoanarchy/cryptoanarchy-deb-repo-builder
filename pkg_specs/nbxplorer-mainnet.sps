@@ -8,6 +8,9 @@ extra_service_config = """
 Restart=always
 """
 
+[extra_groups."nbxplorer-mainnet-access-rpc"]
+create = true
+
 [config."nbxplorer.conf"]
 format = "plain"
 public = true
@@ -17,7 +20,7 @@ cat_dir = "conf.d"
 type = "path"
 file_type = "dir"
 default = "/var/lib/nbxplorer-mainnet"
-create = { mode = 750, owner = "nbxplorer-mainnet", group = "nbxplorer-mainnet"}
+create = { mode = 750, owner = "nbxplorer-mainnet", group = "nbxplorer-mainnet-access-rpc" }
 priority = "low"
 summary = "NBXplorer data directory"
 
