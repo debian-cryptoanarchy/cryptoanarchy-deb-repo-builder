@@ -6,6 +6,8 @@ NBXPLORER_FETCH_FILES=$(NBXPLORER_BUILD_DIR)
 
 $(NBXPLORER_BUILD_DIR):
 	git clone -b v$(NBXPLORER_VERSION) https://github.com/dgarage/NBXplorer $@
+	# Temporary measure until https://github.com/dgarage/NBXplorer/issues/239 is resolved
+	cd $@ && patch -p1 < $(NBXPLORER_SOURCE_DIR)/assets/remove_banlist.patch
 
 $(NBXPLORER_BUILD_DIR)/debian/nbxplorer.install: | $(BUILD_DIR)/repository.stamp
 	echo /usr/lib/NBXplorer > $@

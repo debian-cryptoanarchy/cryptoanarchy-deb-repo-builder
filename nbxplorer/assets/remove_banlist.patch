@@ -1,0 +1,18 @@
+diff --git a/NBXplorer/BitcoinDWaiter.cs b/NBXplorer/BitcoinDWaiter.cs
+index 5afe901..eeb2e1e 100644
+--- a/NBXplorer/BitcoinDWaiter.cs
++++ b/NBXplorer/BitcoinDWaiter.cs
+@@ -263,13 +263,6 @@ namespace NBXplorer
+ 					try
+ 					{
+ 						blockchainInfo = await _RPCWithTimeout.GetBlockchainInfoAsyncEx();
+-						if (_Network.CryptoCode == "BTC" &&
+-							_Network.NBitcoinNetwork.NetworkType == NetworkType.Mainnet &&
+-							!_BanListLoaded)
+-						{
+-							if (await LoadBanList())
+-								_BanListLoaded = true;
+-						}
+ 						if (blockchainInfo != null && _Network.NBitcoinNetwork.NetworkType == NetworkType.Regtest)
+ 						{
+ 							if (await WarmupBlockchain())
