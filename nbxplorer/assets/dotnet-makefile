@@ -7,9 +7,6 @@ install:
 	mkdir -p $(INSTDIR)
 	mkdir -p $(DESTDIR)/usr/bin
 	cp -rt $(INSTDIR) -- release/*
-	echo '#!/bin/bash' > $(INSTDIR)/nbxplorer
-	echo 'dotnet /usr/lib/NBXplorer/NBXplorer.dll "$$@"' >> $(INSTDIR)/nbxplorer
-	chmod +x $(INSTDIR)/nbxplorer
 	ln -s ../lib/NBXplorer/NBXplorer $(DESTDIR)/usr/bin/nbxplorer
 
 check:
