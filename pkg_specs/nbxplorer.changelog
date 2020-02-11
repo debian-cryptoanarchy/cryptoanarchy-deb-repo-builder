@@ -1,3 +1,9 @@
+nbxplorer (2.1.9-1) buster; urgency=medium
+
+  * Removed need for generatetoaddress permission
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 11 Feb 2020 09:04:01 +0100
+
 nbxplorer (2.1.8-1) buster; urgency=medium
 
   * Attempt to create debian package
