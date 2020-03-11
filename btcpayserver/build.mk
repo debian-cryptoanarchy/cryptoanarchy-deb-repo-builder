@@ -1,7 +1,7 @@
 BTCPAYSERVER_BUILD_DIR=$(BUILD_DIR)/btcpayserver-$(BTCPAYSERVER_VERSION)
 BTCPAYSERVER_DEPS=$(BTCPAYSERVER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR)/Makefile
-BTCPAYSERVER_ASSETS=
-BTCPAYSERVER_REPO_PATCH=cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-control >> $(BTCPAYSERVER_BUILD_DIR)/debian/control
+BTCPAYSERVER_ASSETS=$(BTCPAYSERVER_BUILD_DIR)/nginx-integration
+BTCPAYSERVER_REPO_PATCH=cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-control >> $(BTCPAYSERVER_BUILD_DIR)/debian/control && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-mainnet.install >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-mainnet.install
 BTCPAYSERVER_FETCH_FILES=$(BTCPAYSERVER_BUILD_DIR)
 
 $(BTCPAYSERVER_BUILD_DIR):
@@ -10,6 +10,10 @@ $(BTCPAYSERVER_BUILD_DIR):
 $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver.install: | $(BUILD_DIR)/repository.stamp
 	echo /usr/lib/BTCPayServer > $@
 	echo /usr/bin/btcpayserver >> $@
+
+$(BTCPAYSERVER_BUILD_DIR)/nginx-integration: $(BTCPAYSERVER_SOURCE_DIR)/nginx-integration $(wildcard $(BTCPAYSERVER_SOURCE_DIR)/nginx-integration/*)
+	cp -rT $< $@
+	touch $@
 
 $(BTCPAYSERVER_BUILD_DIR)/Makefile: $(BTCPAYSERVER_SOURCE_DIR)/assets/dotnet-makefile | $(BTCPAYSERVER_BUILD_DIR)
 	cp $< $@

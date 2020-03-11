@@ -1,0 +1,32 @@
+server {
+{{#tls_key}}
+	listen {{#public}}0.0.0.0{{/public}}{{^public}}127.0.0.1{{/public}}:443 ssl http2;
+	ssl_certificate {{{tls_cert}}};
+	ssl_certificate_key {{{tls_cert}}};
+	{{#tls_include}}
+	include {{{tls_include}}};
+	{{/tls_include}}
+	{{#tls_dhparams}}
+	ssl_dhparam {{{tls_dhparams}}};
+	{{/tls_dhparams}}
+
+	ssl_stapling on;
+	ssl_stapling_verify on;
+	{{#hsts}}
+	add_header Strict-Transport-Security "max-age={{#hsts_max_age}}{{hsts_max_age}}{{/hsts_max_age}}{{^hsts_max_age}}31536000{{/hsts_max_age}}; includeSubDomains";
+	{{/hsts}}
+{{/tls_key}}
+{{^tls_key}}
+	listen {{#public}}0.0.0.0{{/public}}{{^public}}127.0.0.1{{/public}}:80;
+{{/tls_key}}
+	server_name {{{btcpayserver_domain}}};
+
+	include /etc/nginx/cryptoanarchy-subsites-enabled/*.conf;
+}
+{{#tls_key}}
+{{#public}}
+	listen 0.0.0.0:80;
+	server_name {{{btcpayserver_domain}}};
+	return 301 https://$host$request_uri;
+{{/public}}
+{{/tls_key}}
