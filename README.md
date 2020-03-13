@@ -85,6 +85,7 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] eclair-turbo
 - [ ] eclair-turbo-system-mainnet
 - [ ] ln-system-mainnet (virtual, provides system-wide Lightning Network implementation)
+- [ ] ridethelightning-system-mainnet
 - [ ] lighter
 - [ ] multiuser-ln (completely new application allowing multiple users to share a LN implementation)
 - [ ] multiuser-ln-mainnet
