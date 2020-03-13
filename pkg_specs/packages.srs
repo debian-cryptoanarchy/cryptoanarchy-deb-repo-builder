@@ -48,4 +48,4 @@ packages = ["nbxplorer-mainnet"]
 version = "1.0.3.156"
 section = "net"
 build_depends = ["dotnet-sdk-3.1"]
-packages = ["btcpayserver-system-mainnet", "btcpayserver-system-nginx-mainnet"]
+packages = ["btcpayserver-system-mainnet", "btcpayserver-system-nginx-mainnet", "btcpayserver-system-nginx-certbot-mainnet"]

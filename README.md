@@ -73,6 +73,9 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] nbxplorer-mainnet (no integration into nginx yet)
 - [x] btcpayserver
 - [x] btcpayserver-system-mainnet
+- [x] btcpayserver-system-nginx-mainnet (automatically sets up BTCPayServer with nginx)
+- [x] btcpayserver-system-nginx-certbot-mainnet (automatically sets up Let's Encrypt for BTCPayServer)
+- [ ] btcpayserver-system-nginx-onion-mainnet (automatically sets up onion address for BTCPayServer)
 - [x] lnd
 - [x] lnd-system-mainnet
 - [ ] lncli

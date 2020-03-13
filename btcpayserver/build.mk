@@ -1,7 +1,7 @@
 BTCPAYSERVER_BUILD_DIR=$(BUILD_DIR)/btcpayserver-$(BTCPAYSERVER_VERSION)
 BTCPAYSERVER_DEPS=$(BTCPAYSERVER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR)/Makefile
-BTCPAYSERVER_ASSETS=$(BTCPAYSERVER_BUILD_DIR)/nginx-integration
-BTCPAYSERVER_REPO_PATCH=cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-control >> $(BTCPAYSERVER_BUILD_DIR)/debian/control && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-mainnet.install >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-mainnet.install
+BTCPAYSERVER_ASSETS=$(BTCPAYSERVER_BUILD_DIR)/nginx-integration $(BTCPAYSERVER_BUILD_DIR)/certbot-nginx-integration
+BTCPAYSERVER_REPO_PATCH=cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-control >> $(BTCPAYSERVER_BUILD_DIR)/debian/control && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-mainnet.install >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-mainnet.install && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-certbot-mainnet.install >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-certbot-mainnet.install && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-mainnet.install >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-mainnet.install && cat $(BTCPAYSERVER_SOURCE_DIR)/assets/btcpayserver-system-nginx-certbot-mainnet.links >> $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver-system-nginx-certbot-mainnet.links
 BTCPAYSERVER_FETCH_FILES=$(BTCPAYSERVER_BUILD_DIR)
 
 $(BTCPAYSERVER_BUILD_DIR):
@@ -12,6 +12,10 @@ $(BTCPAYSERVER_BUILD_DIR)/debian/btcpayserver.install: | $(BUILD_DIR)/repository
 	echo /usr/bin/btcpayserver >> $@
 
 $(BTCPAYSERVER_BUILD_DIR)/nginx-integration: $(BTCPAYSERVER_SOURCE_DIR)/nginx-integration $(wildcard $(BTCPAYSERVER_SOURCE_DIR)/nginx-integration/*)
+	cp -rT $< $@
+	touch $@
+
+$(BTCPAYSERVER_BUILD_DIR)/certbot-nginx-integration: $(BTCPAYSERVER_SOURCE_DIR)/certbot-nginx-integration $(wildcard $(BTCPAYSERVER_SOURCE_DIR)/certbot-nginx-integration/*)
 	cp -rT $< $@
 	touch $@
 
