@@ -20,9 +20,9 @@ ln -sf /etc/nginx/sites-available/cryptoanarchy-node.conf /etc/nginx/sites-enabl
 # Verify the configuration to improve robustness
 if /usr/sbin/nginx -t;
 then
+	dpkg-trigger nginx-reload || exit 1
+else
 	# If this fails, we're screwed even more, but we have no way to fix that
 	rm -f /etc/nginx/sites-enabled/cryptoanarchy-node.conf
 	exit 1
-else
-	dpkg-trigger nginx-reload || exit 1
 fi
