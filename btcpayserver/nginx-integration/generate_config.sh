@@ -14,8 +14,8 @@ mkdir -p /etc/nginx/cryptoanarchy-subsites-available || exit 1
 mustache "/etc/btcpayserver-system-mainnet/btcpayserver-system-nginx-mainnet.conf" /usr/share/btcpayserver-system-nginx-mainnet/config_sub_template.mustache > /etc/nginx/cryptoanarchy-subsites-available/btcpayserver-system-mainnet.conf || exit 1
 
 mkdir -p /etc/nginx/cryptoanarchy-subsites-enabled || exit 1
-ln -s /etc/nginx/cryptoanarchy-subsites-available/btcpayserver-system-mainnet.conf /etc/nginx/cryptoanarchy-subsites-enabled/ || exit 1
-ln -s /etc/nginx/sites-available/cryptoanarchy-node.conf /etc/nginx/sites-enabled/ || exit 1
+ln -sf /etc/nginx/cryptoanarchy-subsites-available/btcpayserver-system-mainnet.conf /etc/nginx/cryptoanarchy-subsites-enabled/ || exit 1
+ln -sf /etc/nginx/sites-available/cryptoanarchy-node.conf /etc/nginx/sites-enabled/ || exit 1
 
 # Verify the configuration to improve robustness
 if /usr/sbin/nginx -t;
