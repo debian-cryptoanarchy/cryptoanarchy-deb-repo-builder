@@ -2,7 +2,7 @@ server {
 {{#tls_key}}
 	listen {{#public}}0.0.0.0{{/public}}{{^public}}127.0.0.1{{/public}}:443 ssl http2;
 	ssl_certificate {{{tls_cert}}};
-	ssl_certificate_key {{{tls_cert}}};
+	ssl_certificate_key {{{tls_key}}};
 	{{#tls_include}}
 	include {{{tls_include}}};
 	{{/tls_include}}
@@ -25,8 +25,10 @@ server {
 }
 {{#tls_key}}
 {{#public}}
+server {
 	listen 0.0.0.0:80;
 	server_name {{{btcpayserver_domain}}};
 	return 301 https://$host$request_uri;
+}
 {{/public}}
 {{/tls_key}}
