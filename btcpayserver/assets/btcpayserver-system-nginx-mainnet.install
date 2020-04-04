@@ -1,3 +1,0 @@
-nginx-integration/config_top_template.mustache /usr/share/btcpayserver-system-nginx-mainnet
-nginx-integration/config_sub_template.mustache /usr/share/btcpayserver-system-nginx-mainnet
-nginx-integration/generate_config.sh /usr/share/btcpayserver-system-nginx-mainnet

@@ -1,0 +1,5 @@
+selfhost (0.1.0-1) stretch; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 3 Apr 2020 12:04:00 +0100

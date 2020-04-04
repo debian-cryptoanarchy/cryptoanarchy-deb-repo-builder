@@ -19,15 +19,15 @@ server {
 {{^tls_key}}
 	listen {{#public}}0.0.0.0{{/public}}{{^public}}127.0.0.1{{/public}}:80;
 {{/tls_key}}
-	server_name {{{btcpayserver_domain}}};
+	server_name {{{domain}}};
 
-	include /etc/nginx/cryptoanarchy-subsites-enabled/*.conf;
+	include /etc/nginx/selfhost-subsites-enabled/*.conf;
 }
 {{#tls_key}}
 {{#public}}
 server {
 	listen 0.0.0.0:80;
-	server_name {{{btcpayserver_domain}}};
+	server_name {{{domain}}};
 	return 301 https://$host$request_uri;
 }
 {{/public}}

@@ -1,0 +1,4 @@
+nginx/config_top_template.mustache /usr/share/selfhost-nginx
+nginx/config_sub_template.mustache /usr/share/selfhost-nginx
+nginx/generate_apps.sh /usr/share/selfhost-nginx
+nginx/generate_domains.sh /usr/share/selfhost-nginx

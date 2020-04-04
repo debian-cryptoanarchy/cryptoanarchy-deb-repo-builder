@@ -1,5 +1,5 @@
-location {{{btcpay_root_path}}} {
-	proxy_pass http://localhost:{{btcpay_port}};
+location {{{root_path}}} {
+	proxy_pass http://localhost:{{port}};
 	proxy_http_version 1.1;
 	proxy_set_header Host $http_host;
 	proxy_set_header X-Forwarded-Proto $scheme;

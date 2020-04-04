@@ -73,9 +73,12 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] nbxplorer-mainnet (no integration into nginx yet)
 - [x] btcpayserver
 - [x] btcpayserver-system-mainnet
-- [x] btcpayserver-system-nginx-mainnet (automatically sets up BTCPayServer with nginx)
-- [x] btcpayserver-system-nginx-certbot-mainnet (automatically sets up Let's Encrypt for BTCPayServer)
-- [ ] btcpayserver-system-nginx-onion-mainnet (automatically sets up onion address for BTCPayServer)
+- [x] btcpayserver-system-selfhost-mainnet (automatically sets up BTCPayServer with selfhost framework)
+- [x] selfhost (a tooling/framework for selfhosting applications easily)
+- [x] selfhost-nginx (nginx gateway for selfhost)
+- [x] selfhost-clearnet (sets up clearnet domain)
+- [x] selfhost-clearnet-certbot (automatically sets up Let's Encrypt for selfhost-clearnet)
+- [ ] selfhost-onion (automatically sets up onion address for selfhost)
 - [x] lnd
 - [x] lnd-system-mainnet
 - [ ] lncli

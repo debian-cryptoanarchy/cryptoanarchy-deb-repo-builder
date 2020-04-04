@@ -15,10 +15,11 @@ include tor-extras/vars.mk
 include lnd/vars.mk
 include nbxplorer/vars.mk
 include btcpayserver/vars.mk
+include selfhost/vars.mk
 
-all: $(BITCOIN_PACKAGES) $(BITCOIN_RPC_PROXY_PACKAGES) $(ELECTRS_PACKAGES) $(ELECTRUM_PACKAGES) $(TOR_EXTRAS_PACKAGES) $(LND_PACKAGES) $(NBXPLORER_PACKAGES) $(BTCPAYSERVER_PACKAGES)
+all: $(BITCOIN_PACKAGES) $(BITCOIN_RPC_PROXY_PACKAGES) $(ELECTRS_PACKAGES) $(ELECTRUM_PACKAGES) $(TOR_EXTRAS_PACKAGES) $(LND_PACKAGES) $(NBXPLORER_PACKAGES) $(BTCPAYSERVER_PACKAGES) $(SELFHOST_PACKAGES)
 
-clean: clean_bitcoin clean_bitcoin_rpc_proxy clean_electrs clean_electrum clean_tor_extras clean_lnd
+clean: clean_bitcoin clean_bitcoin_rpc_proxy clean_electrs clean_electrum clean_tor_extras clean_lnd clean_selfhost
 
 include common_rules.mk
 include bitcoin/build.mk
@@ -29,8 +30,9 @@ include tor-extras/build.mk
 include lnd/build.mk
 include nbxplorer/build.mk
 include btcpayserver/build.mk
+include selfhost/build.mk
 
-$(BUILD_DIR)/repository.stamp: pkg_specs/packages.srs $(wildcard pkg_specs/*.sps) $(shell which gen_deb_repository) | $(BITCOIN_DEPS) $(BITCOIN_RPC_PROXY_DEPS) $(ELECTRS_DEPS) $(ELECTRUM_DEPS) $(TOR_EXTRAS_DEPS) $(LND_DEPS) $(NBXPLORER_DEPS) $(BTCPAYSERVER_DEPS)
+$(BUILD_DIR)/repository.stamp: pkg_specs/packages.srs $(wildcard pkg_specs/*.sps) $(shell which gen_deb_repository) | $(BITCOIN_DEPS) $(BITCOIN_RPC_PROXY_DEPS) $(ELECTRS_DEPS) $(ELECTRUM_DEPS) $(TOR_EXTRAS_DEPS) $(LND_DEPS) $(NBXPLORER_DEPS) $(BTCPAYSERVER_DEPS) $(SELFHOST_DEPS)
 	gen_deb_repository $< $(BUILD_DIR)
 	$(BITCOIN_REPO_PATCH)
 	$(BITCOIN_RPC_PROXY_REPO_PATCH)
@@ -40,9 +42,10 @@ $(BUILD_DIR)/repository.stamp: pkg_specs/packages.srs $(wildcard pkg_specs/*.sps
 	$(LND_REPO_PATCH)
 	$(NBXPLORER_REPO_PATCH)
 	$(BTCPAYSERVER_REPO_PATCH)
+	$(SELFHOST_REPO_PATCH)
 	touch $@
 
-fetch: $(BITCOIN_FETCH_FILES) $(BITCOIN_RPC_PROXY_FETCH_FILES) $(ELECTRS_FETCH_FILES) $(ELECTRUM_FETCH_FILES) $(TOR_EXTRAS_FILES) $(LND_FETCH_FILES) $(NBXPLORER_FETCH_FILES) $(BTCPAYSERVER_FETCH_FILES)
+fetch: $(BITCOIN_FETCH_FILES) $(BITCOIN_RPC_PROXY_FETCH_FILES) $(ELECTRS_FETCH_FILES) $(ELECTRUM_FETCH_FILES) $(TOR_EXTRAS_FILES) $(LND_FETCH_FILES) $(NBXPLORER_FETCH_FILES) $(BTCPAYSERVER_FETCH_FILES) $(SELFHOST_FETCH_FILES)
 
 build-dep: $(BUILD_DIR)/repository.stamp
-	sudo apt-get build-dep $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR))
+	sudo apt-get build-dep $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR) $(SELFHOST_BUILD_DIR))

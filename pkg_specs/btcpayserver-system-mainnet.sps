@@ -23,12 +23,6 @@ format = "plain"
 cat_dir = "conf.d"
 cat_files = ["database"]
 
-[config."btcpayserver.conf".ivars.rootPath]
-type = "string"
-default = "/btcpay"
-priority = "medium"
-summary = "Web prefix of web path to BTCPayServer"
-
 [config."btcpayserver.conf".ivars."port"]
 type = "bind_port"
 default = "23000"
