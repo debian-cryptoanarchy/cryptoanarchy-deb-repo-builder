@@ -99,5 +99,9 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] qpay-client
 - [ ] ln-mime (makes sure to register appropriate mime types and launch correct application)
 - [ ] remote-service-bridge (a framework for securely bridging services to remote computers, needs to be written)
+- [ ] samourai-dojo
+- [ ] samourai-dojo-mainnet
+- [ ] joinmarket
+- [ ] joinmarket-mainnet
 - [ ] translations
 - [ ] all services for testnet (`s/mainnet/testnet/` should suffice)
