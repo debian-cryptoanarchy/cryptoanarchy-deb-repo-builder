@@ -73,7 +73,7 @@ summary = "Readonly macaroon path"
 
 [config."lnd.conf".ivars.tlskeypath]
 type = "path"
-default = "/var/lib/lnd-system-mainnet/private/tls.cert"
+default = "/var/lib/lnd-system-mainnet/private/tls.key"
 priority = "low"
 summary = "Path to key file"
 
