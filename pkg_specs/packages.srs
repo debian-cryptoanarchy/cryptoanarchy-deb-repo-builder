@@ -1,7 +1,7 @@
 maintainer = "Martin Habostiak <martin.habovstiak@gmail.com>"
 
 [sources.bitcoin]
-version = "0.18.1"
+version = "0.19.1"
 section = "net"
 build-depends = ["libstdc++-dev", "libm17n-dev", "libgcc-8-dev", "libc-dev", "libstdc++-dev"]
 packages = ["bitcoin-mainnet", "bitcoin-fullchain-mainnet", "bitcoin-txindex-mainnet", "bitcoin-zmq-mainnet"]
@@ -13,7 +13,7 @@ build_depends = ["cargo:native (>= 0.34.0)", "gcc-aarch64-linux-gnu:native [arm6
 packages = ["bitcoin-rpc-proxy-mainnet", "bitcoin-timechain-mainnet"]
 
 [sources.electrs]
-version = "0.8.0"
+version = "0.8.3"
 section = "net"
 build_depends = ["cargo:native (>= 0.34.0)", "cmake (>= 3.13.4)", "clang:native (>= 1:7.0)", "llvm-dev:native", "gcc-aarch64-linux-gnu:native [arm64]", "librocksdb-dev"]
 packages = ["electrs-mainnet"]
@@ -33,19 +33,19 @@ build_depends = []
 packages = ["tor-hs-patch-config"]
 
 [sources.lnd]
-version = "0.8.1"
+version = "0.9.2"
 section = "net"
 build_depends = []
 packages = ["lnd-system-mainnet"]
 
 [sources.nbxplorer]
-version = "2.1.9"
+version = "2.1.23"
 section = "net"
 build_depends = ["dotnet-sdk-3.1"]
 packages = ["nbxplorer-mainnet"]
 
 [sources.btcpayserver]
-version = "1.0.3.156"
+version = "1.0.3.164"
 section = "net"
 build_depends = ["dotnet-sdk-3.1"]
 packages = ["btcpayserver-system-mainnet", "btcpayserver-system-selfhost-mainnet"]

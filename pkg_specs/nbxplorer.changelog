@@ -1,3 +1,9 @@
+nbxplorer (2.1.23-1) buster; urgency=medium
+
+  * Upgraded to 2.1.23
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 15 Apr 2020 15:56:23 +0100
+
 nbxplorer (2.1.9-1) buster; urgency=medium
 
   * Removed need for generatetoaddress permission
