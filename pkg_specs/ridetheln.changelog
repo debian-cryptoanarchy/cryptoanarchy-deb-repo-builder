@@ -1,0 +1,6 @@
+ridetheln (0.7.0) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 6 Apr 2020 20:15:00 +0100
+

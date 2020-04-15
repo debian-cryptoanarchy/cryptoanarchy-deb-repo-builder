@@ -55,3 +55,9 @@ version = "0.1.0"
 section = "net"
 build_depends = []
 packages = ["selfhost", "selfhost-nginx", "selfhost-clearnet", "selfhost-clearnet-certbot"]
+
+[sources.ridetheln]
+version = "0.7.0"
+section = "net"
+build_depends = ["npm"]
+packages = ["ridetheln-system", "ridetheln-lnd-system-mainnet", "ridetheln-system-selfhost"]

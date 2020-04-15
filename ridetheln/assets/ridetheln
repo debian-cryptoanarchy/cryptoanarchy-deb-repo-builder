@@ -1,0 +1,3 @@
+#!/bin/sh
+
+node /usr/share/ridetheln/rtl.js
