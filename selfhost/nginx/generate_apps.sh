@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Skip the whole thing if no app is available
+if [ -d /etc/selfhost/apps ];
+then
+	if [ "`ls -l "/etc/selfhost/apps" | wc -l`" -eq 0 ];
+	then
+		exit 0
+	fi
+else
+	exit 0
+fi
+
 # Remove the links in order to avoid inconsistency
 rm -f /etc/nginx/selfhost-subsites-enabled/apps.conf || exit 1
 
