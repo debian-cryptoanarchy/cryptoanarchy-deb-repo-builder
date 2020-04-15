@@ -20,6 +20,8 @@ else
 	cp "$cfg_file" "$rt_temp" || exit 1
 fi
 
+chown ridetheln-system "$rt_temp"
+chgrp ridetheln-system "$rt_temp"
 sync "$rt_temp" || exit 1
 mv "$rt_temp" "$rt_file" || exit 1
 sync "$rt_file" || exit 1
