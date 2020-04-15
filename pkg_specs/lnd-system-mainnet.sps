@@ -134,6 +134,17 @@ default = "6"
 priority = "medium"
 summary = "The default number of confirmations to wait for channel to open"
 
+[config."lnd.conf".ivars.rest_port]
+type = "bind_port"
+default = "9090"
+priority = "low"
+summary = "LND REST RPC port"
+store = false
+
+[config."lnd.conf".hvars.restlisten]
+type = "string"
+script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-mainnet/rest_port\"]}\""
+
 # Separate file to deflect possible future danger.
 [config."conf.d/bitcoin_iface.conf"]
 format = "plain"
