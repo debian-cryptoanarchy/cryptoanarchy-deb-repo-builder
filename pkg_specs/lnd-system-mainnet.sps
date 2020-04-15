@@ -8,6 +8,12 @@ extra_service_config = """
 Restart=always
 """
 
+[extra_groups.lnd-system-mainnet-invoice]
+create = true
+
+[extra_groups.lnd-system-mainnet-readonly]
+create = true
+
 [config."lnd.conf"]
 format = "plain"
 public = true
@@ -59,7 +65,7 @@ summary = "Maximum size of a log file in MB"
 type = "path"
 file_type = "regular"
 default = "/var/lib/lnd-system-mainnet/invoice/invoice.macaroon"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet", only_parent = true }
+create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet-invoice", only_parent = true }
 priority = "low"
 summary = "Invoice macaroon path"
 
@@ -67,7 +73,7 @@ summary = "Invoice macaroon path"
 type = "path"
 file_type = "regular"
 default = "/var/lib/lnd-system-mainnet/readonly/readonly.macaroon"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet", only_parent = true }
+create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet-readonly", only_parent = true }
 priority = "low"
 summary = "Readonly macaroon path"
 
