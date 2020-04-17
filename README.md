@@ -27,8 +27,39 @@ installs whatever he needs and lets it run on its own. Even in the case of contr
 the consistency of configuration is maintained (e.g. changing RPC port of one package causes
 change in the other package).
 
+Produced repository and its security limitations
+------------------------------------------------
+
+There's [an official experimental repository](https://deb.ln-ask.me) for this project. It should
+work, but all the limitations of this project apply. Further, security is limited due to these
+factors:
+
+* The buld is performed in a **signle** Qubes VM that **is** connected to the Internet.
+* **Not all** signatures are checked
+* Build is **not** deterministic
+* **Neither** the code nor the output was widely reviewed by independent developers
+
+Keep in mind however, that this project may already beat others in terms of security thanks to
+cautious use of Qubes OS. There are already plans to improve this further.
+
+Known functional limitations/bugs
+---------------------------------
+
+As any other software, this one is not perfect. Look at the issues to see all of them, here are
+some highlights that you may want to know about before you try it:
+
+* RTL can't initialize the wallet https://github.com/Ride-The-Lightning/RTL/issues/314
+* There's no package to provide `lncli`, so there's no convenient solution to the above #50
+* LND is **not** connected to BTCPayServer automatically #52
+* Txindex is broken #19
+* `bitcoin-cli` is not provided #51
+* No automated unlock of LND #26
+* No automated backups #53
+
 Build Dependencies
 ------------------
+
+This part is relevant only if you want to develop the repository or verify it on your own.
 Only needed first time:
 
 ```
