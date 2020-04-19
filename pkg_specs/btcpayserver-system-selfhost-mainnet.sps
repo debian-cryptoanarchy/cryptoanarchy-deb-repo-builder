@@ -15,6 +15,7 @@ summary = "Web prefix of web path to BTCPayServer"
 
 [config."../selfhost/apps/btcpayserver-system-mainnet.conf"]
 format = "yaml"
+with_header = true
 
 [config."../selfhost/apps/btcpayserver-system-mainnet.conf".evars.btcpayserver-system-selfhost-mainnet.rootPath]
 name = "root_path"

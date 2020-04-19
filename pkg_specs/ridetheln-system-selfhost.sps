@@ -7,6 +7,7 @@ depends = ["ridetheln-system"]
 
 [config."apps/ridetheln-system.conf"]
 format = "yaml"
+with_header = true
 
 [config."apps/ridetheln-system.conf".ivars.root_path]
 type = "string"
