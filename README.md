@@ -109,7 +109,7 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] selfhost-nginx (nginx gateway for selfhost)
 - [x] selfhost-clearnet (sets up clearnet domain)
 - [x] selfhost-clearnet-certbot (automatically sets up Let's Encrypt for selfhost-clearnet)
-- [ ] selfhost-onion (automatically sets up onion address for selfhost)
+- [x] selfhost-onion (automatically sets up onion address for selfhost)
 - [x] lnd
 - [x] lnd-system-mainnet
 - [ ] lncli

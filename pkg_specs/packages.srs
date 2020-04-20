@@ -54,7 +54,7 @@ packages = ["btcpayserver-system-mainnet", "btcpayserver-system-selfhost-mainnet
 version = "0.1.0"
 section = "net"
 build_depends = []
-packages = ["selfhost", "selfhost-nginx", "selfhost-clearnet", "selfhost-clearnet-certbot"]
+packages = ["selfhost", "selfhost-nginx", "selfhost-clearnet", "selfhost-clearnet-certbot", "selfhost-onion"]
 
 [sources.ridetheln]
 version = "0.7.0"
