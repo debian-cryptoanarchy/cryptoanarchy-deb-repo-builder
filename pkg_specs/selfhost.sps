@@ -10,7 +10,7 @@ format = "yaml"
 cat_dir = "domains"
 
 [config."domains.conf".postprocess]
-command = ["bash", "/usr/share/selfhost-nginx/generate_domains.sh"]
+command = ["bash", "/usr/share/selfhost-nginx/generate_config.sh", "domains"]
 
 [[config."domains.conf".postprocess.generates]]
 file = "/etc/nginx/sites-available/selfhost.conf"
@@ -25,12 +25,12 @@ format = "yaml"
 cat_dir = "apps"
 
 [config."apps.conf".postprocess]
-command = ["bash", "/usr/share/selfhost-nginx/generate_apps.sh"]
+command = ["bash", "/usr/share/selfhost-nginx/generate_config.sh", "apps"]
 
 [[config."apps.conf".postprocess.generates]]
-file = "/etc/nginx/selfhost-subsites-available/apps.conf"
+dir = "/etc/nginx/selfhost-subsites-available"
 internal = true
 
 [[config."apps.conf".postprocess.generates]]
-file = "/etc/nginx/selfhost-subsites-enabled/apps.conf"
+dir = "/etc/nginx/selfhost-subsites-enabled"
 internal = true
