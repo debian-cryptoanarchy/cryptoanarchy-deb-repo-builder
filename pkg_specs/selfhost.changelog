@@ -1,3 +1,11 @@
+selfhost (0.1.1-1) stretch; urgency=medium
+
+  * Fixed merging issue
+  * Fixed bucket size issue
+  * Added native onion package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 20 Apr 2020 21:51:48 +0100
+
 selfhost (0.1.0-1) stretch; urgency=medium
 
   * Attempt to create debian package
