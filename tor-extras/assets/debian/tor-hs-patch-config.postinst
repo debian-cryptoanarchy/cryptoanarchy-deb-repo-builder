@@ -9,4 +9,6 @@ patch -o /usr/share/tor/tor-service-defaults-torrc "$ORIG_FILE"  /usr/share/tor-
 chown --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
 chmod --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
 
+deb-systemd-invoke restart tor@default.service
+
 #DEBHELPER#
