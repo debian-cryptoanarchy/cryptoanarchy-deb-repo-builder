@@ -4,6 +4,7 @@ binary = "/usr/bin/ridetheln"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
 depends = ["jq"]
+recommends = ["selfhost", "ridetheln-lnd-system-mainnet"]
 extra_service_config = """
 Restart=always
 Environment=RTL_CONFIG_PATH=/var/lib/ridetheln-system

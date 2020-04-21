@@ -3,7 +3,7 @@ Package: nbxplorer
 Priority: optional
 Architecture: any
 Depends: dotnet-runtime-3.1, aspnetcore-runtime-3.1 ${shlib:Depends} ${misc:Depends}
-Suggests: btcpayserver-system-mainnet
+Recommends: btcpayserver-system-mainnet
 Description: A minimalist UTXO tracker for HD Wallets.
  The goal is to have a flexible, .NET based UTXO tracker for HD wallets. The
  explorer supports P2SH,P2PKH,P2WPKH,P2WSH and Multi-sig derivation.

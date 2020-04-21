@@ -3,8 +3,7 @@ Package: electrum
 Priority: optional
 Architecture: amd64
 Depends: ${misc:Depends}
-Recommends: python3-pyqt5
-Suggests: electrum-trustless-mainnet
+Recommends: electrum-trustless-mainnet, python3-pyqt5
 Description: Electrum - Lightweight Bitcoin client (exeutable)
  Electrum is a powerful Bitcoin wallet capable of using hardware wallets.
 

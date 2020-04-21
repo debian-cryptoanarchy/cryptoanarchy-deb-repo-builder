@@ -3,6 +3,8 @@ version = "0.1.0"
 extends = "selfhost"
 replaces = false
 depends = ["certbot", "python3-certbot-nginx", "bash"]
+provides = ["default-selfhost-tls (= 1.0)", "selfhost-tls (= 1.0)"]
+recommends = ["certbot-clearnet"]
 summary = "Integration of certbot into selfhost/nginx"
 
 [config."clearnet/tls.conf"]

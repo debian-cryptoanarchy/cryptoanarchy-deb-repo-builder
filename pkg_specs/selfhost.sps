@@ -3,7 +3,7 @@ version = "0.1.0"
 summary = "Tooling for hosting web applications"
 # The gateway implementation is separated out, but rigid now.
 # We want to decouple it completely at some point, but that's not a priority right now.
-depends = ["selfhost-nginx"]
+depends = ["selfhost-nginx", "default-selfhost-domain (>= 1.0) | selfhost-domain (>= 1.0)", "default-selfhost-domain (<< 2.0) | selfhost-domain (<< 2.0)"]
 
 [config."domains.conf"]
 format = "yaml"

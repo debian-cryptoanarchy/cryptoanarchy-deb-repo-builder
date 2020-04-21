@@ -3,7 +3,8 @@ Package: btcpayserver
 Priority: optional
 Architecture: any
 Depends: dotnet-runtime-3.1, aspnetcore-runtime-3.1 ${shlib:Depends} ${misc:Depends}
-Suggests: btcpayserver-system-mainnet, lnd-system-mainnet
+Recommends: btcpayserver-system-mainnet
+Suggests: lnd-system-mainnet
 Description: A cross platform, self-hosted server compatible with Bitpay API
  BTCPay Server is a free and open-source cryptocurrency payment processor which
  allows you to receive payments in Bitcoin and altcoins directly, with no fees,

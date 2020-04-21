@@ -3,7 +3,7 @@ Package: lnd
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Suggests: lnd-system-mainnet
+Recommends: lnd-system-mainnet
 Description: Lightnning Network Daemon
  The Lightning Network Daemon (lnd) - is a complete implementation of a
  Lightning Network node. lnd has several pluggable back-end chain services
