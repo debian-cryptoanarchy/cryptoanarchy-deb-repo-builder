@@ -1,5 +1,6 @@
 name = "ridetheln-lnd-system-mainnet"
 extends = "ridetheln-system"
+depends_on_extended = true
 summary = "A bridge for integrating lnd into Ride The Lightning"
 
 [config."nodes.d/lnd-system-mainnet"]
