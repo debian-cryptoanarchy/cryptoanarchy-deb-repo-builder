@@ -10,14 +10,14 @@ bitcoin (0.19.1-1) buster; urgency=medium
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 15 Apr 2020 15:56:23 +0100
 
-bitcoin (0.18.1-2) stretch; urgency=medium
+bitcoin (0.18.1-2) buster; urgency=medium
 
   * Migrated to debcrafter
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 23 Oct 2019 14:56:01 +0100
 
 
-bitcoin (0.18.1-1) stretch; urgency=medium
+bitcoin (0.18.1-1) buster; urgency=medium
 
   * Attempt to create debian package
 

@@ -1,4 +1,4 @@
-electrum (3.3.8-1) stretch; urgency=medium
+electrum (3.3.8-1) buster; urgency=medium
 
   * Attempt to create debian package
 

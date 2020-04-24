@@ -1,4 +1,4 @@
-btc-rpc-proxy (0.1-1) stretch; urgency=medium
+btc-rpc-proxy (0.1-1) buster; urgency=medium
 
   * Attempt to create debian package
 

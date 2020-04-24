@@ -1,11 +1,11 @@
-tor-extras (1.1-1) stretch; urgency=medium
+tor-extras (1.1-1) buster; urgency=medium
 
   * Fixed missing dirs
   * Fixed service (instance) name
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 20 Apr 2020 21:38:09 +0100
 
-tor-extras (1.0-1) stretch; urgency=medium
+tor-extras (1.0-1) buster; urgency=medium
 
   * Attempt to create debian package
 

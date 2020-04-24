@@ -1,10 +1,10 @@
-selfhost (0.1.1-2) stretch; urgency=medium
+selfhost (0.1.1-2) buster; urgency=medium
 
   * Improved dependency relationships
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 10:47:35 +0100
 
-selfhost (0.1.1-1) stretch; urgency=medium
+selfhost (0.1.1-1) buster; urgency=medium
 
   * Fixed merging issue
   * Fixed bucket size issue
@@ -12,7 +12,7 @@ selfhost (0.1.1-1) stretch; urgency=medium
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 20 Apr 2020 21:51:48 +0100
 
-selfhost (0.1.0-1) stretch; urgency=medium
+selfhost (0.1.0-1) buster; urgency=medium
 
   * Attempt to create debian package
 

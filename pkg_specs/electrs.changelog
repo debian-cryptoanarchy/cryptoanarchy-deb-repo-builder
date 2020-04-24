@@ -1,16 +1,16 @@
-electrs (0.8.3-2) stretch; urgency=medium
+electrs (0.8.3-2) buster; urgency=medium
 
   * Improved dependency relationships
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 10:28:58 +0100
 
-electrs (0.8.3-1) stretch; urgency=medium
+electrs (0.8.3-1) buster; urgency=medium
 
   * Upgraded to 0.8.3
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 15 Apr 2020 15:56:23 +0100
 
-electrs (0.8.0-1) stretch; urgency=medium
+electrs (0.8.0-1) buster; urgency=medium
 
   * Attempt to create debian package
 
