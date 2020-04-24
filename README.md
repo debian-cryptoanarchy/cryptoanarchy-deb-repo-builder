@@ -52,7 +52,6 @@ some highlights that you may want to know about before you try it:
   do it manually using lncli. (use sudo to get macaroon or add the user to group
   `lnd-system-mainnet`)
 * LND is **not** connected to BTCPayServer automatically #52
-* Txindex is broken #19
 * `bitcoin-cli` is not provided #51
 * No automated unlock of LND #26
 * No automated backups #53
