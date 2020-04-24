@@ -84,8 +84,10 @@ This project is work in progress and is missing tons of packages! Do not use in 
 
 - [x] bitcoind
 - [x] bitcoin-mainnet
-- [x] bitcoin-fullchain-mainnet
-- [x] bitcoin-txindex-mainnet
+- [x] bitcoin-pruned-mainnet (provides bitcoin-chain-mode-mainnet) DO NOT DEPEND ON THIS ONE!!!
+- [x] bitcoin-fullchain-mainnet (provides bitcoin-chain-mode-mainnet)
+- [x] bitcoin-txindex-mainnet (provides bitcoin-chain-mode-mainnet)
+- [x] bitcoin-chain-mode-mainnet makes sure to consistently select pruned/non-pruned/txindex
 - [x] bitcoin-zmq-mainnet
 - [ ] bitcoin-p2p-mainnet (virtual, Bitcoin P2P protocol)
 - [x] bitcoin-rpc-proxy
