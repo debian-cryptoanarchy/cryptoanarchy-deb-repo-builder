@@ -3,6 +3,7 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
+depends = ["bitcoin-fullchain-mainnet", "bitcoin-timechain-mainnet"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always

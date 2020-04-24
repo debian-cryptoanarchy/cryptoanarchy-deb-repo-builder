@@ -1,3 +1,9 @@
+selfhost (0.1.1-2) stretch; urgency=medium
+
+  * Improved dependency relationships
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 10:47:35 +0100
+
 selfhost (0.1.1-1) stretch; urgency=medium
 
   * Fixed merging issue

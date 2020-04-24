@@ -1,12 +1,17 @@
 name = "bitcoin-txindex-mainnet"
-version = "0.1"
 extends = "bitcoin-mainnet"
-replaces = true
+provides = ["bitcoin-chain-mode-mainnet", "bitcoin-fullchain-mainnet"]
+replaces = ["bitcoin-chain-mode-mainnet"]
+conflicts = ["bitcoin-chain-mode-mainnet"]
 summary = "Activates txindex on Bitcoin full node"
 
 [config."chain_mode"]
-internal = true
-content = """
-prune=0
-txindex=1
-"""
+format = "plain"
+
+[config."chain_mode".hvars.prune]
+type = "uint"
+constant = "0"
+
+[config."chain_mode".hvars.txindex]
+type = "uint"
+constant = "1"

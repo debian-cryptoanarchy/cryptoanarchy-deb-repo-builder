@@ -4,6 +4,8 @@ bin_package = "bitcoind"
 binary = "/usr/bin/bitcoind"
 conf_param = "-conf="
 user = { group = true, create = { home = true } }
+# bitcoin-chain-mode-mainnet | bitcoin-zmq-mainnet is a hack avoiding restarts of bitcoind
+depends = ["bitcoin-pruned-mainnet | bitcoin-chain-mode-mainnet", "bitcoin-chain-mode-mainnet | bitcoin-zmq-mainnet"]
 summary = "Bitcoin fully validating node"
 extra_service_config = """
 # Stopping bitcoind can take a very long time

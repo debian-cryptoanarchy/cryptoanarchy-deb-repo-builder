@@ -5,6 +5,7 @@ binary = "/usr/bin/btc_rpc_proxy"
 conf_param = "--conf"
 conf_d = { name = "conf.d", param = "--conf-dir" }
 user = { name = "bitcoin-mainnet", group = true }
+depends = ["bitcoin-mainnet"]
 summary = "RPC proxy for Bitcoin"
 extra_service_config = """
 Restart=always

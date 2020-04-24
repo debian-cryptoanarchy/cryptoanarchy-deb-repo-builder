@@ -5,7 +5,7 @@ conf_param = "--conf"
 conf_d = { name = "conf.d", param = "--conf-dir" }
 user = { group = true, create = { home = true } }
 summary = "An efficient re-implementation of Electrum Server"
-depends = ["bitcoin-fullchain-mainnet"]
+depends = ["bitcoin-fullchain-mainnet", "bitcoin-timechain-mainnet"]
 extra_service_config = """
 Restart=always
 """
