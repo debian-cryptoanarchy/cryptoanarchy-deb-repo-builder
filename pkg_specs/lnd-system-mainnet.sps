@@ -141,6 +141,17 @@ default = "6"
 priority = "medium"
 summary = "The default number of confirmations to wait for channel to open"
 
+[config."lnd.conf".ivars.grpc_port]
+type = "bind_port"
+default = "10009"
+priority = "low"
+summary = "LND GRPC port"
+store = false
+
+[config."lnd.conf".hvars.rpclisten]
+type = "string"
+script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-mainnet/grpc_port\"]}\""
+
 [config."lnd.conf".ivars.rest_port]
 type = "bind_port"
 default = "9090"
