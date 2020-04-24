@@ -1,3 +1,3 @@
 certbot/generate_certs.sh /usr/share/selfhost-clearnet-certbot
-certbot/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-available
+certbot/selfhost-clearnet-certbot-webroot.conf /usr/share/selfhost-clearnet-certbot
 certbot/reload_nginx.sh /etc/letsencrypt/renewal-hooks/deploy

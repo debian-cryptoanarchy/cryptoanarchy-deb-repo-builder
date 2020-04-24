@@ -1,1 +1,1 @@
-/etc/nginx/selfhost-subsites-available/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-enabled/selfhost-clearnet-certbot-webroot.conf
+/etc/nginx/selfhost-subsites-available/selfhost-clearnet-certbot-webroot.conf /usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf
