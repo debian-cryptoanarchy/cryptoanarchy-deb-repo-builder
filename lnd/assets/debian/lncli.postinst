@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+if [ "$1" = configure ];
+then
+	update-alternatives --install /usr/bin/lncli lncli /usr/share/lncli/xlncli 100
+	update-alternatives --install /usr/bin/lncli lncli /usr/lib/lncli/lncli 50
+fi

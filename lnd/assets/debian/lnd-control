@@ -13,3 +13,14 @@ Description: Lightnning Network Daemon
  Note that this is just a binary and does nothing unless configured and
  executed. Consider using lnd-system-mainnet to automatically manage the
  daemon using main Bitcoin network.
+
+Package: lncli
+Priority: optional
+Architecture: any
+Depends: ${shlibs:Depends} ${misc:Depends}
+Recommends: lnd-system-mainnet
+Description: Lightnning Network Daemon CLI
+ lncli is a tool used for managing lnd from the command line. This package
+ also contains a wrapper used to connect to the system-wide LND by default.
+ You can still use --macaroonpath --rpcserver and --tlscertpath to access a
+ different lnd.

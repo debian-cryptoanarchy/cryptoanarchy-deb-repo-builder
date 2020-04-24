@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ];
+then
+	update-alternatives --remove lncli /usr/lib/lncli/lncli
+	update-alternatives --remove lncli /usr/share/lncli/xlncli
+fi
