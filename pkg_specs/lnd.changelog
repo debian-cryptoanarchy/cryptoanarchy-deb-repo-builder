@@ -1,3 +1,9 @@
+lnd (0.9.2-3) buster; urgency=medium
+
+  * Added lncli
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 19:38:50 +0100
+
 lnd (0.9.2-2) buster; urgency=medium
 
   * Improved dependency relationships

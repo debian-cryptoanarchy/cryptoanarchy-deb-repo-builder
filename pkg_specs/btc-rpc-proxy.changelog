@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.1-2) buster; urgency=medium
+
+  * Improved dependency relationships
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 25 Apr 2020 15:50:46 +0100
+
 btc-rpc-proxy (0.1-1) buster; urgency=medium
 
   * Attempt to create debian package

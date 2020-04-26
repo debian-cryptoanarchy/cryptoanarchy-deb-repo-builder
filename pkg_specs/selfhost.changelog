@@ -1,3 +1,9 @@
+selfhost (0.1.2-1) buster; urgency=medium
+
+  * Fixed messed up conffiles
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 19:38:35 +0100
+
 selfhost (0.1.1-2) buster; urgency=medium
 
   * Improved dependency relationships

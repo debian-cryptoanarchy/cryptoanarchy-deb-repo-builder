@@ -1,3 +1,9 @@
+tor-extras (1.1-2) buster; urgency=medium
+
+  * Improved dependency relationships
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 25 Apr 2020 15:50:46 +0100
+
 tor-extras (1.1-1) buster; urgency=medium
 
   * Fixed missing dirs

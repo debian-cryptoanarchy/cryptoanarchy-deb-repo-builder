@@ -1,10 +1,10 @@
-ridetheln (0.7.0) buster; urgency=medium
+ridetheln (0.7.0-2) buster; urgency=medium
 
   * Improved dependency relationships
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 24 Apr 2020 10:43:58 +0100
 
-ridetheln (0.7.0) buster; urgency=medium
+ridetheln (0.7.0-1) buster; urgency=medium
 
   * Attempt to create debian package
 

@@ -1,4 +1,4 @@
-name = "ridetheln-selfhost-mainnet"
+name = "ridetheln-system-selfhost"
 version = "0.1.0"
 extends = "selfhost"
 replaces = false
