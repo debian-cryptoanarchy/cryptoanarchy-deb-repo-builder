@@ -1,3 +1,9 @@
+tor-extras (1.1-3) buster; urgency=medium
+
+  * Upgrade/reinstall fix and improvements of robustness
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 27 Apr 2020 14:08:33 +0100
+
 tor-extras (1.1-2) buster; urgency=medium
 
   * Improved dependency relationships

@@ -2,13 +2,24 @@
 
 set -e
 
-ORIG_FILE="`dpkg-divert --truename /usr/share/tor/tor-service-defaults-torrc`"
+DEFAULTS_FILE="/usr/share/tor/tor-service-defaults-torrc"
+PATCH_FILE="/usr/share/tor-hs-patch-config/defaults.patch"
+
+DIVERTED="`dpkg-divert --list "$DEFAULTS_FILE" | wc -l`"
+
+# This can only happen on abort-upgrade
+if [ "$DIVERTED" -eq 0 ];
+then
+	dpkg-divert --add --rename --package tor-hs-patch-config "$DEFAULTS_FILE"
+fi
+
+ORIG_FILE="`dpkg-divert --truename "$DEFAULTS_FILE"`"
 
 test -r "$ORIG_FILE"
-patch -o /usr/share/tor/tor-service-defaults-torrc "$ORIG_FILE"  /usr/share/tor-hs-patch-config/defaults.patch
-chown --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
-chmod --reference="$ORIG_FILE" /usr/share/tor/tor-service-defaults-torrc
+patch -o "$DEFAULTS_FILE" "$ORIG_FILE"  "$PATCH_FILE"
+chown --reference="$ORIG_FILE" "$DEFAULTS_FILE"
+chmod --reference="$ORIG_FILE" "$DEFAULTS_FILE"
 
-deb-systemd-invoke restart tor@default.service
+deb-systemd-invoke reload-or-restart tor@default.service
 
 #DEBHELPER#
