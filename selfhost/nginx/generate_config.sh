@@ -22,6 +22,7 @@ case "$1" in
 	*)
 		echo "Invalid input" >&2
 		echo "Usage: $0 apps|domains" >&2
+		exit 1
 		;;
 esac
 
