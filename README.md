@@ -34,7 +34,7 @@ There's [an official experimental repository](https://deb.ln-ask.me) for this pr
 work, but all the limitations of this project apply. Further, security is limited due to these
 factors:
 
-* The buld is performed in a **signle** Qubes VM that **is** connected to the Internet.
+* The buld is performed in a **single** Qubes VM that **is** connected to the Internet.
 * **Not all** signatures are checked
 * Build is **not** deterministic
 * **Neither** the code nor the output was widely reviewed by independent developers
