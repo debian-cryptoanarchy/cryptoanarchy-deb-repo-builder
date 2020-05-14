@@ -11,6 +11,8 @@ extra_service_config = """
 # Stopping bitcoind can take a very long time
 TimeoutStopSec=300
 Restart=always
+RuntimeDirectory=bitcoin-mainnet
+RuntimeDirectoryMode=0750
 """
 
 [config."bitcoin.conf"]
@@ -44,7 +46,7 @@ summary = "Size of database cache in MB"
 
 [config."bitcoin.conf".hvars.rpccookiefile]
 type = "string"
-constant = "/var/lib/bitcoin-mainnet/cookie"
+constant = "/var/run/bitcoin-mainnet/cookie"
 
 [config."chain_mode"]
 internal = true

@@ -35,4 +35,4 @@ name = "bitcoind_port"
 
 [config."conf.d/credentials.conf".hvars.cookie_file]
 type = "string"
-constant = "/var/lib/bitcoin-mainnet/cookie"
+constant = "/var/run/bitcoin-mainnet/cookie"
