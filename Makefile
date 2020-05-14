@@ -2,6 +2,13 @@ SOURCE_DIR:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
 # Forgetting to type this resulted in lot of time wasted.
 BUILD_PACKAGE_FLAGS=-nc --no-sign
+HAS_QVM_RUN_VM=$(shell which qvm-run-vm 2>&1 >/dev/null; echo $$?)
+
+ifeq ($(HAS_QVM_RUN_VM),0)
+	TEST_DEPS=test-in-qubes-dvm
+else
+	TEST_DEPS=test-here
+endif
 
 .DELETE_ON_ERROR:
 
@@ -52,3 +59,11 @@ fetch: $(BITCOIN_FETCH_FILES) $(BITCOIN_RPC_PROXY_FETCH_FILES) $(ELECTRS_FETCH_F
 
 build-dep: $(BUILD_DIR)/repository.stamp
 	sudo apt-get build-dep $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR) $(SELFHOST_BUILD_DIR) $(RIDETHELN_BUILD_DIR))
+
+test: $(TEST_DEPS)
+
+test-here:
+	$(SOURCE_DIR)/tests/integration.sh "$(BUILD_DIR)"
+
+test-in-qubes-dvm:
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" test-here

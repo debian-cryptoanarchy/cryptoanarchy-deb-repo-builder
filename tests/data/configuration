@@ -1,0 +1,6 @@
+# The clearnet domain name used for your server
+selfhost-clearnet	selfhost-clearnet/domain	string	example.com
+# Should your e-mail address be shared with Electronic Frontier Foundation?
+selfhost-clearnet-certbot	selfhost-clearnet-certbot/eff_email	boolean	false
+# An e-mail address to use for letsencrypt registration and security notifications.
+selfhost-clearnet-certbot	selfhost-clearnet-certbot/email	string	
