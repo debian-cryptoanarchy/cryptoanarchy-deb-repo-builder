@@ -62,7 +62,7 @@ function process_item() {
 }
 
 # Skip the whole thing if no app is available
-if [ -d "$input_dir" ] && [ "`ls "$input_dir"` | wc -l" -gt 0 ];
+if [ -d "$input_dir" ] && [ "`ls "$input_dir" | wc -l`" -gt 0 ];
 then
 	mkdir -p "$avail_dir" || exit 1
 	mkdir -p "$enabled_dir" || exit 1
