@@ -1,14 +1,20 @@
 #!/bin/bash
 
 tmpdir="`mktemp -d`" || exit 1
+script_dir="`dirname "$0"`"
+pkg_dir="$1"
+shift
+source_dir="$1"
+shift
+source_dir_name="`basename "$source_dir"`"
 
-cp "$1"/*.deb "$tmpdir" || exit 1
-cp -r "$2" "$tmpdir" || exit 1
+cp "$pkg_dir"/*.deb "$tmpdir" || exit 1
+cp -r "$source_dir" "$tmpdir" || exit 1
 cd "$tmpdir" || exit 1
 
 echo 'Copying to DVM' >&2
 
-`dirname "$0"`/qvm-filter-in-dispvm.sh . gnome-terminal --wait -- "./`basename "$2"`/tests/qubes-tools/wait-enter-on-fail.sh" make -C "`basename "$2"`" BUILD_DIR=.. $3
+"$script_dir"/qvm-filter-in-dispvm.sh . gnome-terminal --wait -- "./$source_dir_name/tests/qubes-tools/wait-enter-on-fail.sh" make -C "$source_dir_name" BUILD_DIR=.. "$@"
 
 status=$?
 
