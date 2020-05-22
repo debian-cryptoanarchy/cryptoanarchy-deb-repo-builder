@@ -79,7 +79,7 @@ test-here: test-here-all-basic test-here-all-nonconfict-upgrade
 test-in-qubes-dvm: test-split-$(SPLIT_STRATEGY)
 
 test-split-none:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" test-here
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" test-here
 
 test-split-upgrade: test-in-qubes-dvm-all-basic $(addprefix test-in-qubes-dvm-upgrade-,$(TEST_ALL_PACKAGES))
 
@@ -112,10 +112,10 @@ test-here-prepare-machine:
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
 
 test-in-qubes-dvm-all-basic:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" test-here-all-basic
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" test-here-all-basic
 
 test-in-qubes-dvm-basic-%:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "test-here-basic-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-basic-$*"
 
 test-in-qubes-dvm-upgrade-%: | test-in-qubes-dvm-all-basic
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "test-here-upgrade-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-upgrade-$*"
