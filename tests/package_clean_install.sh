@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 test_dir="`dirname "$0"`"
 pkg_dir="$1"
 package="$2"
