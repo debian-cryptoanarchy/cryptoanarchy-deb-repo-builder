@@ -8,14 +8,21 @@ check() {
 	package="$1"
 	package_type="$2"
 	action="$3"
+	per_package_dir="$test_dir/per-package/$package"
+	if [ -e "$per_package_dir/alone/$action.sh" ];
+	then
+		"$per_package_dir/alone/$action.sh" || return 1
+	fi
+	dpkg --get-selections | awk '{ print $1 }' | while read dep;
+	do
+		if [ -e "$test_dir/per-package/$dep/$action.sh" ];
+		then
+			"$test_dir/per-package/$dep/$action.sh" || return 1
+		fi
+	done
 	if [ -n "$package_type" ];
 	then
-		if "$common_script_dir/$package_type/$action.sh" "$package";
-		then
-			return 0
-		else
-			return 1
-		fi
+		"$common_script_dir/$package_type/$action.sh" "$package" || return 1
 	fi
 }
 
