@@ -1,4 +1,5 @@
-test_data_dir="$test_dir/data"
+. "$test_dir/common_vars.sh"
+
 apt_repo_dir="/srv/local-apt-repository"
 common_script_dir="$test_dir/common"
 
