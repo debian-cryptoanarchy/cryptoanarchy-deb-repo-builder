@@ -119,6 +119,9 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] eclair-system-mainnet
 - [ ] eclair-turbo
 - [ ] eclair-turbo-system-mainnet
+- [ ] eclair-rpc-proxy
+- [ ] eclair-rpc-proxy-mainnet
+- [ ] eclair-invoice-mainnet (virtual, I guess)
 - [ ] ln-system-mainnet (virtual, provides system-wide Lightning Network implementation)
 - [x] ridetheln
 - [x] ridetheln-system
