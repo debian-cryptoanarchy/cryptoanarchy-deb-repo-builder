@@ -1,4 +1,10 @@
-selfhost (0.1.2-1) buster; urgency=medium
+selfhost (0.1.3-1) buster; urgency=medium
+
+  * selfhost-clearnet-certbot fixed to work for real
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 26 May 2020 09:06:23 +0100
+
+selfhost (0.1.2-2) buster; urgency=medium
 
   * Fixed failure when there are no apps or domains
 

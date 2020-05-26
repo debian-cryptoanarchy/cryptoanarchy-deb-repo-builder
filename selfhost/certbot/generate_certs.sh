@@ -39,6 +39,7 @@ then
 	chmod 700 /etc/selfhost/tls || exit 1
 
 	mkdir -p /var/lib/selfhost-clearnet-certbot/webroot || exit 1
+	chgrp www-data /var/lib/selfhost-clearnet-certbot || exit 1
 	chgrp www-data /var/lib/selfhost-clearnet-certbot/webroot || exit 1
 	chmod 750 /var/lib/selfhost-clearnet-certbot/webroot || exit 1
 
@@ -54,11 +55,18 @@ then
 		# Trigger would fire too late.
 		systemctl reload nginx || exit 1
 
-		certbot certonly -q $CERTBOT_CERTONLY_TEST_PARAM -d "$domain" --webroot \
-			--webroot-path "/var/lib/selfhost-clearnet-certbot/webroot" \
-			--cert-path "/etc/selfhost/tls/$domain.cert" \
-			--key-path "/etc/selfhost/tls/$domain.key" \
-			--fullchain-path "/etc/selfhost/tls/$domain.fullchain" \
-			--chain-path "/etc/selfhost/tls/$domain.chain" < /dev/null >&2 || exit 1
+		if [ \! \( -f "/etc/letsencrypt/live/$domain/fullchain.pem" -a -f "/etc/letsencrypt/live/$domain/privkey.pem" \) ];
+		then
+			certbot certonly -q $CERTBOT_CERTONLY_TEST_PARAM -d "$domain" --webroot \
+				--webroot-path "/var/lib/selfhost-clearnet-certbot/webroot" < /dev/null >&2 || exit 1
+		fi
+
+		ln -sf "/etc/letsencrypt/live/$domain/fullchain.pem" "/etc/selfhost/tls/$domain.fullchain" || exit 1
+		ln -sf "/etc/letsencrypt/live/$domain/privkey.pem" "/etc/selfhost/tls/$domain.key" || exit 1
 	fi
 fi
+
+# Enable TLS only after certs were generated, nginx will fail otherwise
+mkdir -p /etc/selfhost/clearnet-enabled || exit 1
+ln -sf /etc/selfhost/clearnet-wip/tls.conf /etc/selfhost/clearnet-enabled/tls.conf || exit 1
+dpkg-trigger /etc/selfhost/clearnet-enabled || exit 1
