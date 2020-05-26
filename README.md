@@ -38,6 +38,8 @@ factors:
 * **Not all** signatures are checked
 * Build is **not** deterministic
 * **Neither** the code nor the output was widely reviewed by independent developers
+* `tor-hs-patch-config` and `selfhost-onion` don't work with apparmor! Boot with `apparmor=0`
+  kernel param or don't use! See #72
 
 Keep in mind however, that this project may already beat others in terms of security thanks to
 cautious use of Qubes OS. There are already plans to improve this further.
