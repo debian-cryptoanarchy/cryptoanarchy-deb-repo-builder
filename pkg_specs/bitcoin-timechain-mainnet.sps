@@ -40,5 +40,6 @@ allowed_calls = [
 	# Warning: may be used for DoS and possibly to correlate identities!
 	# Used for NBXplorer
 	"scantxoutset",
+	"testmempoolaccept",
 ]
 '''
