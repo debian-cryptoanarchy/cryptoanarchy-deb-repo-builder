@@ -31,6 +31,15 @@ sudo() {
 	/usr/bin/sudo -E "$@"
 }
 
+preload_config() {
+	# Detect Qubes and redirect paths with big files to /rw
+	if [ -d /rw -a -e /etc/qubes ];
+	then
+		sudo debconf-set-selections < "$test_data_dir/qubes-configuration" || return 1
+	fi
+	sudo debconf-set-selections < "$test_data_dir/configuration" || return 1
+}
+
 service_packages="bitcoin-mainnet bitcoin-rpc-proxy-mainnet electrs-mainnet nbxplorer-mainnet btcpayserver-system-mainnet lnd-mainnet ridetheln-system"
 
 declare -A remove_depends

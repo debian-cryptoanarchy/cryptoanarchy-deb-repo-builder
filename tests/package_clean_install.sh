@@ -12,13 +12,7 @@ package_type="${package_type["$package"]}"
 
 # selfhost-clearnet-related options are needed several times, so we needed
 # to init them at the beginning of each run due to purge being at the end.
-sudo debconf-set-selections < "$test_data_dir/configuration"
-# Detect Qubes and redirect paths with big files to /rw
-if [ -d /rw -a -e /etc/qubes ];
-then
-	sudo debconf-set-selections < "$test_data_dir/qubes-configuration"
-fi
-sudo debconf-set-selections < "$test_data_dir/configuration"
+preload_config
 echo "Installing package $package" >&2
 sudo apt install -y "$package"
 echo "Checking package $package" >&2
