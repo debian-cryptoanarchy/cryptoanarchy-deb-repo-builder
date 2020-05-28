@@ -47,10 +47,3 @@ summary = "Size of database cache in MB"
 [config."bitcoin.conf".hvars.rpccookiefile]
 type = "string"
 constant = "/var/run/bitcoin-mainnet/cookie"
-
-[config."chain_mode"]
-internal = true
-content = """
-prune=1
-txindex=0
-"""
