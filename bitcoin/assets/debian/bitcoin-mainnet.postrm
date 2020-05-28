@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ "$1" = purge ];
-then
-	rm -f /etc/bitcoin/mainnet/bitcoin.conf
-fi
-
-#DEBHELPER#
