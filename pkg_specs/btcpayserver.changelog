@@ -1,3 +1,9 @@
+btcpayserver (1.0.4.4-1) buster; urgency=medium
+
+  * Updated to 1.0.4.4
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 28 Apr 2020 06:26:46 +0100
+
 btcpayserver (1.0.4.2-1) buster; urgency=medium
 
   * Updated to support PayJoin.

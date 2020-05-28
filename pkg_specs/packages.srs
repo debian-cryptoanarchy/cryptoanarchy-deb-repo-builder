@@ -45,9 +45,9 @@ build_depends = ["dotnet-sdk-3.1"]
 packages = ["nbxplorer-mainnet"]
 
 [sources.btcpayserver]
-version = "1.0.4.2"
+version = "1.0.4.4"
 section = "net"
-build_depends = ["dotnet-sdk-3.1"]
+build_depends = ["dotnet-sdk-3.1 (<< 3.1.300-1)"]
 packages = ["btcpayserver-system-mainnet", "btcpayserver-system-selfhost-mainnet"]
 
 [sources.selfhost]
