@@ -3,7 +3,7 @@ Package: electrs
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Recommends: electrs-mainnet
+Recommends: electrs-mainnet | electrs-regtest
 Description: An efficient re-implementation of Electrum Server in Rust
  The motivation behind this project is to enable a user to run his own Electrum
  server, with required hardware resources not much beyond those of a full node.

@@ -3,7 +3,7 @@ Package: bitcoin-rpc-proxy
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Recommends: bitcoin-rpc-proxy-mainnet
+Recommends: bitcoin-rpc-proxy-mainnet | bitcoin-rpc-proxy-regtest
 Description: Bitcoin RPC proxy
  This is a proxy made specifically for bitcoind to allow finer-grained control
  of permissions. It enables you to specify several users and for each user the

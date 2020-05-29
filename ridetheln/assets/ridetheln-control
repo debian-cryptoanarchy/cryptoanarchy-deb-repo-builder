@@ -3,7 +3,7 @@ Package: ridetheln
 Priority: optional
 Architecture: all
 Depends: nodejs (>= 8.0.0)
-Recommends: ridetheln-system, ridetheln-lnd-system-mainnet, ridetheln-system-selfhost
+Recommends: ridetheln-system, ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest, ridetheln-system-selfhost
 Description: A full function web browser app for LND and C-Lightning.
  RTL is a full function, device agnostic, web user interface to help manage
  lightning node operations. RTL is available on LND and C-Lightning

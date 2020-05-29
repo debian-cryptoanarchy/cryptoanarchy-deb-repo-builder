@@ -4,7 +4,7 @@ BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
 BUILD_PACKAGE_FLAGS=-nc --no-sign
 HAS_QVM_RUN_VM=$(shell which qvm-run-vm 2>&1 >/dev/null; echo $$?)
 TEST_SPLIT_STRATEGY=none
-TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-pruned-mainnet bitcoin-fullchain-mainnet bitcoin-txindex-mainnet bitcoin-zmq-mainnet bitcoin-rpc-proxy bitcoin-rpc-proxy-mainnet bitcoin-timechain-mainnet electrs electrs-mainnet btcpayserver btcpayserver-system-mainnet btcpayserver-system-selfhost-mainnet lnd lnd-system-mainnet ridetheln ridetheln-system ridetheln-system-selfhost ridetheln-lnd-system-mainnet selfhost selfhost-nginx selfhost-onion selfhost-clearnet selfhost-clearnet-certbot tor-hs-patch-config
+TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-regtest bitcoin-pruned-mainnet bitcoin-fullchain-mainnet bitcoin-fullchain-regtest bitcoin-txindex-mainnet bitcoin-zmq-mainnet bitcoin-zmq-regtest bitcoin-rpc-proxy bitcoin-rpc-proxy-mainnet bitcoin-rpc-proxy-regtest bitcoin-timechain-mainnet electrs electrs-mainnet electrs-regtest btcpayserver btcpayserver-system-mainnet btcpayserver-system-regtest btcpayserver-system-selfhost-mainnet lnd lnd-system-mainnet lnd-system-regtest ridetheln ridetheln-system ridetheln-system-selfhost ridetheln-lnd-system-mainnet ridetheln-lnd-system-regtest selfhost selfhost-nginx selfhost-onion selfhost-clearnet selfhost-clearnet-certbot tor-hs-patch-config
 TEST_ALL_PACKAGES_NON_CONFLICT=$(filter-out bitcoin-pruned bitcoin-fullchain,$(TEST_ALL_PACKAGES))
 SPLIT_STRATEGY=none
 

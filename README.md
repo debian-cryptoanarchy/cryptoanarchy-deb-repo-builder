@@ -144,4 +144,6 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [ ] joinmarket
 - [ ] joinmarket-mainnet
 - [ ] translations
-- [ ] all services for testnet (`s/mainnet/testnet/` should suffice)
+- [x] all services for regtest
+- [ ] all services for signet
+- [ ] all services for testnet

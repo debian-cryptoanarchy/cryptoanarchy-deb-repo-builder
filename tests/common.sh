@@ -40,7 +40,7 @@ preload_config() {
 	sudo debconf-set-selections < "$test_data_dir/configuration" || return 1
 }
 
-service_packages="bitcoin-mainnet bitcoin-rpc-proxy-mainnet electrs-mainnet nbxplorer-mainnet btcpayserver-system-mainnet lnd-mainnet ridetheln-system"
+service_packages="bitcoin-mainnet bitcoin-regtest bitcoin-rpc-proxy-mainnet electrs-mainnet electrs-regtest nbxplorer-mainnet btcpayserver-system-mainnet btcpayserver-system-regtest lnd-mainnet ridetheln-system"
 
 declare -A remove_depends
 
@@ -50,6 +50,10 @@ remove_depends["bitcoin-pruned-mainnet"]="bitcoin-mainnet"
 remove_depends["bitcoin-fullchain-mainnet"]="bitcoin-mainnet"
 remove_depends["bitcoin-txindex-mainnet"]="bitcoin-mainnet"
 remove_depends["bitcoin-zmq-mainnet"]="bitcoin-mainnet"
+remove_depends["bitcoin-pruned-regtest"]="bitcoin-regtest"
+remove_depends["bitcoin-fullchain-regtest"]="bitcoin-regtest"
+remove_depends["bitcoin-txindex-regtest"]="bitcoin-regtest"
+remove_depends["bitcoin-zmq-regtest"]="bitcoin-regtest"
 remove_depends["selfhost-onion"]="selfhost"
 remove_depends["selfhost-clearnet"]="selfhost"
 remove_depends["selfhost-clearnet-certbot"]="selfhost-clearnet selfhost"

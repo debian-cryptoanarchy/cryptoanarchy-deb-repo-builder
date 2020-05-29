@@ -3,7 +3,7 @@ Package: lnd
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Recommends: lnd-system-mainnet
+Recommends: lnd-system-mainnet | lnd-system-regtest
 Description: Lightnning Network Daemon
  The Lightning Network Daemon (lnd) - is a complete implementation of a
  Lightning Network node. lnd has several pluggable back-end chain services
@@ -18,7 +18,7 @@ Package: lncli
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Recommends: lnd-system-mainnet
+Recommends: lnd-system-mainnet | lnd-system-regtest
 Description: Lightnning Network Daemon CLI
  lncli is a tool used for managing lnd from the command line. This package
  also contains a wrapper used to connect to the system-wide LND by default.

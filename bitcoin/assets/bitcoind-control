@@ -3,7 +3,7 @@ Package: bitcoind
 Priority: optional
 Architecture: any
 Depends: ${shlibs:Depends} ${misc:Depends}
-Recommends: bitcoin-mainnet
+Recommends: bitcoin-mainnet | bitcoin-regtest
 Description: Bitcoin full node daemon binaries
  Bitcoin Core is the original Bitcoin client and it builds the backbone
  of the network. This binary downloads and verifies the entire history
