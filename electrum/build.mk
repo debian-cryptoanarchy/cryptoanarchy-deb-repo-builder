@@ -9,7 +9,6 @@ else
 	ELECTRUM_FETCH_FILES=
 	ELECTRUM_DEPS=
 endif
-ELECTRUM_REPO_PATCH=cat $(SOURCE_DIR)/electrum/assets/electrum-control >> $(ELECTRUM_BUILD_DIR)/debian/control
 ELECTRUM_ASSETS=$(ELECTRUM_BUILD_DIR)/debian/electrum.install $(ELECTRUM_BUILD_DIR)/debian/electrum-trustless-mainnet.install $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet.desktop
 THOMASV_KEY_ID=$(shell echo $(THOMASV_FPRINT) | cut -b 25-)
 

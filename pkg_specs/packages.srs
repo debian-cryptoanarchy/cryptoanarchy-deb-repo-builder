@@ -4,19 +4,19 @@ maintainer = "Martin Habostiak <martin.habovstiak@gmail.com>"
 version = "0.19.1"
 section = "net"
 build-depends = ["libstdc++-dev", "libm17n-dev", "libgcc-8-dev", "libc-dev", "libstdc++-dev"]
-packages = ["bitcoin-mainnet", "bitcoin-regtest", "bitcoin-fullchain-mainnet", "bitcoin-fullchain-regtest", "bitcoin-pruned-mainnet", "bitcoin-pruned-regtest", "bitcoin-txindex-mainnet", "bitcoin-txindex-regtest", "bitcoin-zmq-mainnet", "bitcoin-zmq-regtest"]
+packages = ["bitcoind", "bitcoin-mainnet", "bitcoin-regtest", "bitcoin-fullchain-mainnet", "bitcoin-fullchain-regtest", "bitcoin-pruned-mainnet", "bitcoin-pruned-regtest", "bitcoin-txindex-mainnet", "bitcoin-txindex-regtest", "bitcoin-zmq-mainnet", "bitcoin-zmq-regtest"]
 
 [sources.btc-rpc-proxy]
 version = "0.1.0"
 section = "net"
 build_depends = ["cargo:native (>= 0.34.0)", "gcc-aarch64-linux-gnu:native [arm64]"]
-packages = ["bitcoin-rpc-proxy-mainnet", "bitcoin-rpc-proxy-regtest", "bitcoin-timechain-mainnet", "bitcoin-timechain-regtest"]
+packages = ["bitcoin-rpc-proxy", "bitcoin-rpc-proxy-mainnet", "bitcoin-rpc-proxy-regtest", "bitcoin-timechain-mainnet", "bitcoin-timechain-regtest"]
 
 [sources.electrs]
 version = "0.8.3"
 section = "net"
 build_depends = ["cargo:native (>= 0.34.0)", "cmake (>= 3.13.4)", "clang:native (>= 1:7.0)", "llvm-dev:native", "gcc-aarch64-linux-gnu:native [arm64]", "librocksdb-dev"]
-packages = ["electrs-mainnet", "electrs-regtest"]
+packages = ["electrs", "electrs-mainnet", "electrs-regtest"]
 
 [sources.electrum]
 version = "3.3.8"
@@ -24,7 +24,7 @@ section = "net"
 build_depends = [
 	"python3:native | python3-all:native | python3-all-dev:native"
 ]
-packages = []
+packages = ["electrum", "electrum-trustless-mainnet"]
 
 [sources.tor-extras]
 version = "1.1"
@@ -36,19 +36,19 @@ packages = ["tor-hs-patch-config"]
 version = "0.10.0"
 section = "net"
 build_depends = []
-packages = ["lnd-system-mainnet", "lnd-system-regtest"]
+packages = ["lnd", "lncli", "lnd-system-mainnet", "lnd-system-regtest"]
 
 [sources.nbxplorer]
 version = "2.1.30"
 section = "net"
 build_depends = ["dotnet-sdk-3.1"]
-packages = ["nbxplorer-mainnet", "nbxplorer-regtest"]
+packages = ["nbxplorer", "nbxplorer-mainnet", "nbxplorer-regtest"]
 
 [sources.btcpayserver]
 version = "1.0.4.4"
 section = "net"
-packages = ["btcpayserver-system-mainnet", "btcpayserver-system-regtest", "btcpayserver-system-selfhost-mainnet", "btcpayserver-system-selfhost-regtest"]
 build_depends = ["dotnet-sdk-3.1 (<< 3.1.300-1) | dotnet-sdk-3.1 (>= 3.1.301-1)"]
+packages = ["btcpayserver", "btcpayserver-system-mainnet", "btcpayserver-system-regtest", "btcpayserver-system-selfhost-mainnet", "btcpayserver-system-selfhost-regtest"]
 
 [sources.selfhost]
 version = "0.1.3"
@@ -60,4 +60,4 @@ packages = ["selfhost", "selfhost-nginx", "selfhost-clearnet", "selfhost-clearne
 version = "0.7.0"
 section = "net"
 build_depends = ["npm"]
-packages = ["ridetheln-system", "ridetheln-lnd-system-mainnet", "ridetheln-lnd-system-regtest", "ridetheln-system-selfhost"]
+packages = ["ridetheln", "ridetheln-system", "ridetheln-lnd-system-mainnet", "ridetheln-lnd-system-regtest", "ridetheln-system-selfhost"]
