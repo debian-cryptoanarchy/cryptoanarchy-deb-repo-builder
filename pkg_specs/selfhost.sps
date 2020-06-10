@@ -1,4 +1,5 @@
 name = "selfhost"
+architecture = "all"
 version = "0.1.0"
 summary = "Tooling for hosting web applications"
 # The gateway implementation is separated out, but rigid now.

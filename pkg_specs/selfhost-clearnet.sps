@@ -1,4 +1,5 @@
 name = "selfhost-clearnet"
+architecture = "all"
 version = "0.1.0"
 summary = "Tooling for hosting web applications over clearnet domain"
 extends = "selfhost"

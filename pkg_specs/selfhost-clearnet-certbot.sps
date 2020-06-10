@@ -1,4 +1,5 @@
 name = "selfhost-clearnet-certbot"
+architecture = "all"
 version = "0.1.0"
 extends = "selfhost"
 replaces = false
