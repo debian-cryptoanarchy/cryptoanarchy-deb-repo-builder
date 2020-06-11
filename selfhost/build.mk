@@ -1,7 +1,6 @@
 SELFHOST_BUILD_DIR=$(BUILD_DIR)/selfhost-$(SELFHOST_VERSION)
 SELFHOST_DEPS=$(SELFHOST_BUILD_DIR)
 SELFHOST_ASSETS=$(SELFHOST_BUILD_DIR)/nginx $(SELFHOST_BUILD_DIR)/certbot $(SELFHOST_BUILD_DIR)/onion
-SELFHOST_REPO_PATCH=cat $(SELFHOST_SOURCE_DIR)/assets/debian/selfhost-nginx.install >> $(SELFHOST_BUILD_DIR)/debian/selfhost-nginx.install && cat $(SELFHOST_SOURCE_DIR)/assets/debian/selfhost-clearnet-certbot.install >> $(SELFHOST_BUILD_DIR)/debian/selfhost-clearnet-certbot.install && cat $(SELFHOST_SOURCE_DIR)/assets/debian/selfhost-nginx.install >> $(SELFHOST_BUILD_DIR)/debian/selfhost-nginx.install && cat $(SELFHOST_SOURCE_DIR)/assets/debian/selfhost-clearnet-certbot.links >> $(SELFHOST_BUILD_DIR)/debian/selfhost-clearnet-certbot.links && cat $(SELFHOST_SOURCE_DIR)/assets/debian/selfhost-onion.install >> $(SELFHOST_BUILD_DIR)/debian/selfhost-onion.install
 SELFHOST_FETCH_FILES=
 
 $(SELFHOST_BUILD_DIR):

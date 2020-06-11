@@ -9,7 +9,7 @@ else
 	ELECTRUM_FETCH_FILES=
 	ELECTRUM_DEPS=
 endif
-ELECTRUM_ASSETS=$(ELECTRUM_BUILD_DIR)/debian/electrum.install $(ELECTRUM_BUILD_DIR)/debian/electrum-trustless-mainnet.install $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet.desktop
+ELECTRUM_ASSETS=$(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet.desktop
 THOMASV_KEY_ID=$(shell echo $(THOMASV_FPRINT) | cut -b 25-)
 
 $(BUILD_DIR)/thomasv.gpg: | $(BUILD_DIR)
@@ -20,12 +20,6 @@ $(ELECTRUM_APPIMAGE): | $(BUILD_DIR)
 
 $(ELECTRUM_APPIMAGE).asc: | $(BUILD_DIR)
 	wget -O $@ --no-verbose https://download.electrum.org/$(ELECTRUM_VERSION)/$(ELECTRUM_APPIMAGE_NAME).asc
-
-$(ELECTRUM_BUILD_DIR)/debian/electrum-trustless-mainnet.install: electrum/assets/debian/electrum-trustless-mainnet.install | $(ELECTRUM_BUILD_DIR)
-	cp $< $@
-
-$(ELECTRUM_BUILD_DIR)/debian/electrum.install: electrum/assets/debian/electrum.install | $(ELECTRUM_BUILD_DIR)
-	cp $< $@
 
 $(ELECTRUM_BUILD_DIR)/electrum-trustless-mainnet: electrum/assets/electrum-trustless-mainnet | $(ELECTRUM_BUILD_DIR)
 	cp $< $@

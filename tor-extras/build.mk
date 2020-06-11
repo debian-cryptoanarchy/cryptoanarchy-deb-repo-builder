@@ -7,7 +7,7 @@ $(TOR_EXTRAS_BUILD_DIR)/debian/tor-hs-patch-config.%: $(TOR_EXTRAS_SOURCE_DIR)/a
 $(TOR_EXTRAS_BUILD_DIR)/defaults.patch: $(SOURCE_DIR)tor-extras/assets/defaults.patch | $(BUILD_DIR)/repository.stamp
 	cp $< $@
 
-$(BUILD_DIR)/tor-extras.stamp: $(BUILD_DIR)/repository.stamp $(TOR_EXTRAS_DEPS) $(TOR_EXTRAS_ASSETS) $(addprefix $(TOR_EXTRAS_BUILD_DIR)/debian/tor-hs-patch-config., install preinst postinst prerm triggers dirs)
+$(BUILD_DIR)/tor-extras.stamp: $(BUILD_DIR)/repository.stamp $(TOR_EXTRAS_DEPS) $(TOR_EXTRAS_ASSETS) $(addprefix $(TOR_EXTRAS_BUILD_DIR)/debian/tor-hs-patch-config., preinst postinst prerm triggers)
 	cd $(TOR_EXTRAS_BUILD_DIR) && dpkg-buildpackage -a $(DEB_ARCH) $(BUILD_PACKAGE_FLAGS)
 	touch $@
 

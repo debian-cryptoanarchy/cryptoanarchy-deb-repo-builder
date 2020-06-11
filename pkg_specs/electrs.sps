@@ -3,6 +3,8 @@ architecture = "any"
 summary = "An efficient re-implementation of Electrum Server in Rust"
 depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["electrs-mainnet | electrs-regtest"]
+add_files = ["target/release/electrs usr/bin"]
+add_manpages = ["target/man/electrs.1"]
 long_doc = """The motivation behind this project is to enable a user to run his own Electrum
 server, with required hardware resources not much beyond those of a full node.
 The server indexes the entire Bitcoin blockchain, and the resulting index 
