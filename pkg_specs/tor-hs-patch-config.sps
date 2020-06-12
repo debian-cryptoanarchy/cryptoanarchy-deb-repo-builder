@@ -8,3 +8,6 @@ add_dirs = [
 	"/etc/tor/torrc.d",
 	"/etc/tor/hidden-services.d",
 ]
+
+[patch_foreign]
+"/usr/share/tor/tor-service-defaults-torrc" = "/usr/share/tor-hs-patch-config/defaults.patch"

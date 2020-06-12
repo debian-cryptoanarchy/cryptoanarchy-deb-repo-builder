@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -e
-
-dpkg-divert --add --rename --package tor-hs-patch-config /usr/share/tor/tor-service-defaults-torrc
-
-#DEBHELPER#

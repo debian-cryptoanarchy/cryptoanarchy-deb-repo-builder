@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ `dpkg-divert --list /usr/share/tor/tor-service-defaults-torrc | wc -l` -gt 0 ];
-then
-	rm -f /usr/share/tor/tor-service-defaults-torrc
-	dpkg-divert --remove --rename /usr/share/tor/tor-service-defaults-torrc
-fi
