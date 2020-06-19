@@ -1,0 +1,15 @@
+pkg_name_upper: ELECTRS
+pkg_name_snake: electrs
+source_name: electrs
+
+clone_url: https://github.com/romanz/electrs
+git_tag: v$(ELECTRS_VERSION)
+
+copy_assets:
+        - from: electrs/assets/cargo-makefile
+          to: Makefile
+        - from: common/cross-cargo-conf
+          to: .cargo/config
+
+dirs:
+        - dir: .cargo

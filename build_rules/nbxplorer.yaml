@@ -1,0 +1,10 @@
+pkg_name_upper: NBXPLORER
+pkg_name_snake: nbxplorer
+source_name: nbxplorer
+
+clone_url: https://github.com/dgarage/NBXplorer
+git_tag: v$(NBXPLORER_VERSION)
+
+copy_assets:
+        - from: nbxplorer/assets/dotnet-makefile
+          to: Makefile

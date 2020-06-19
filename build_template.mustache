@@ -1,0 +1,121 @@
+{{#include}}
+include $(SOURCE_DIR){{{include}}}
+{{/include}}
+
+{{pkg_name_upper}}_BUILD_DIR=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)
+{{pkg_name_upper}}_DEPS=$({{{pkg_name_upper}}}_BUILD_DIR)
+{{pkg_name_upper}}_ASSETS={{#copy_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}} {{/copy_assets}}{{#get_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} {{/get_assets}}
+{{#shasums}}
+{{pkg_name_upper}}_SHASUMS_SIG=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}.sig{{/detached_sig}}{{^detached_sig}}.asc{{/detached_sig}}
+{{pkg_name_upper}}_FILTERED_SHASUMS=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}-filtered{{/detached_sig}}
+{{/shasums}}
+{{pkg_name_upper}}_FETCH_FILES=$(addprefix $(BUILD_DIR)/,{{#clone_url}}fetch-{{{source_name}}}.stamp{{/clone_url}} {{#unpack}}{{{file_name}}}{{/unpack}} {{#fingerprint}}{{{fingerprint}}}.gpg{{/fingerprint}}) {{#shasums}}$({{{pkg_name_upper}}}_SHASUMS_SIG){{#detached_sig}} $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}}{{/shasums}}
+
+{{#clone_url}}
+$(BUILD_DIR)/fetch-{{{source_name}}}.stamp: | $(BUILD_DIR)
+	git clone {{#git_tag}}-b {{{git_tag}}}{{/git_tag}} '{{{clone_url}}}' $({{{pkg_name_upper}}}_BUILD_DIR)
+	{{#remove}}
+	rm -rf "$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
+	{{/remove}}
+	touch $@
+
+$({{{pkg_name_upper}}}_BUILD_DIR)/: $(BUILD_DIR)/fetch-{{{source_name}}}.stamp
+
+{{/clone_url}}
+{{#unpack}}
+$(BUILD_DIR)/{{{file_name}}}: | $(BUILD_DIR)
+	wget -O $@ '{{{url}}}'
+
+{{/unpack}}
+{{^clone_url}}
+{{^unpack}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/: | $(BUILD_DIR)
+	mkdir -p $@
+
+{{/unpack}}
+{{/clone_url}}
+{{#get_assets}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}: | $(dir $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}})
+	wget -O $@ "{{{url}}}"
+
+{{#signature}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig: | $(dir $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}})
+	wget -O $@ "{{{signature}}}"
+
+{{/signature}}
+{{/get_assets}}
+{{#shasums}}
+$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{^detached_sig}}.asc{{/detached_sig}}: | $(BUILD_DIR)
+	wget -O $@ '{{{url}}}'
+
+{{#detached_sig}}
+$({{{pkg_name_upper}}}_SHASUMS_SIG): | $(BUILD_DIR)
+	wget -O $@ '{{{detached_sig}}}'
+
+{{/detached_sig}}
+{{/shasums}}
+{{#fingerprint}}
+$(BUILD_DIR)/{{{fingerprint}}}.gpg: | $(BUILD_DIR)
+	gpg --no-default-keyring --keyring $@ --keyserver hkp://keyserver.ubuntu.com --recv-keys {{{fingerprint}}}
+{{/fingerprint}}
+
+{{#copy_assets}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}}: $(SOURCE_DIR){{{from}}} $(BUILD_DIR)/verify-{{{source_name}}}.stamp | $(dir $({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}})
+	cp $< $@
+
+{{/copy_assets}}
+{{#dirs}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/{{{dir}}}/: $(BUILD_DIR)/verify-{{{source_name}}}.stamp | $(dir $({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}})
+	mkdir -p $@
+{{/dirs}}
+
+$({{{pkg_name_upper}}}_PACKAGES): $(BUILD_DIR)/packages-{{{source_name}}}.stamp
+	touch -c $@
+
+{{#unpack}}
+{{#shasums}}
+$({{{pkg_name_upper}}}_FILTERED_SHASUMS): $({{{pkg_name_upper}}}_SHASUMS_SIG) {{#detached_sig}}$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}} $(BUILD_DIR)/{{{fingerprint}}}.gpg
+{{#detached_sig}}
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg $< $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums
+	grep "{{{file_name}}}" $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums > $@
+{{/detached_sig}}
+{{^detached_sig}}
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg -o - $< | grep "{{{file_name}}}" > $@
+{{/detached_sig}}
+{{/shasums}}
+{{/unpack}}
+
+$(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}.gpg{{/signature}}{{/get_assets}}
+{{#unpack}}
+{{#shasums}}
+	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS)
+{{/shasums}}
+	tar -C $(BUILD_DIR) -xzmf $<
+	{{#rename}}
+	mv -T {{{rename}}} $({{{pkg_name_upper}}}_BUILD_DIR)
+	{{/rename}}
+	{{#remove}}
+	"$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
+	{{/remove}}
+{{/unpack}}
+	{{#get_assets}}
+	{{#signature}}
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}
+	{{/signature}}
+	{{/get_assets}}
+	touch $@
+
+{{#unpack}}
+$({{{pkg_name_upper}}}_BUILD_DIR)/: $(BUILD_DIR)/verify-{{{source_name}}}.stamp
+{{/unpack}}
+
+$(BUILD_DIR)/packages-{{{source_name}}}.stamp: $({{{pkg_name_upper}}}_ASSETS)
+
+all: $(BUILD_DIR)/packages-{{{source_name}}}.stamp
+
+fetch: $({{{pkg_name_upper}}}_FETCH_FILES)
+
+build-dep: $(BUILD_DIR)/debcrafter-{{{source_name}}}.stamp
+
+clean_{{{pkg_name_snake}}}:
+	rm -rf $({{{pkg_name_upper}}}_PACKAGES) $({{{pkg_name_upper}}}_EXTRA_FILES) $(BUILD_DIR)/packages-{{{source_name}}}.stamp

@@ -1,17 +1,3 @@
-LND_VERSION=0.10.0
-ROASBEEF_FPRINT=9769140D255C759B1EB77B46A96387A57CAAE94D
-LND_BUILD_STRATEGY=fetch_binary
-
-LND_SOURCE_DIR=$(SOURCE_DIR)lnd/
-LND_DEB_VERSION=$(LND_VERSION)-3
-LND_BIN_VERSION=$(LND_DEB_VERSION)_$(DEB_ARCH)
-LND_SHARE_VERSION=$(LND_DEB_VERSION)_all
-
-LND_BIN_PACKAGES=$(addsuffix _$(LND_BIN_VERSION), lnd)
-LND_SHARE_PACKAGES=$(addsuffix _$(LND_SHARE_VERSION), lnd-system-mainnet)
-LND_PACKAGES=$(addprefix $(BUILD_DIR)/, $(addsuffix .deb, $(LND_BIN_PACKAGES) $(LND_SHARE_PACKAGES)))
-LND_EXTRA_FILES=$(addprefix $(BUILD_DIR)/,lnd_$(LND_BIN_VERSION).buildinfo lnd_$(LND_BIN_VERSION).changes bitcoin_$(LND_DEB_VERSION).dsc lnd_$(LND_DEB_VERSION).tar.gz)
-
 ifeq ($(ARCH),x86_64)
 	LND_ARCH=amd64
 else ifeq ($(ARCH),aarch64)
@@ -19,3 +5,5 @@ else ifeq ($(ARCH),aarch64)
 else
 	$(error Unsupported architecture)
 endif
+
+LND_ARCH_LONG=linux-$(LND_ARCH)

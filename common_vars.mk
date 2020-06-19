@@ -11,3 +11,10 @@ endif
 
 
 BUILD_DIR=build
+
+$(BUILD_DIR)/vars-%.mk: $(SOURCE_DIR)build_rules/%.yaml $(SOURCE_DIR)vars_template.mustache | $(BUILD_DIR)
+	mustache $^ > $@
+
+.PRECIOUS: $(BUILD_DIR)/vars-%.mk
+
+-include $(addprefix $(BUILD_DIR)/vars-,$(addsuffix .mk,$(SOURCES)))

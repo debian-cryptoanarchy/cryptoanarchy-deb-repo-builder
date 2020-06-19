@@ -17,7 +17,13 @@ fi
 
 which inotifywait &>/dev/null && use_inotify=1 || use_inotify=0
 
-systemctl reload-or-restart tor@default.service || exit 1
+# reload-or-restart doesn't actually start the service when not active
+if systemctl is-active -q tor@default.service;
+then
+	systemctl reload-or-restart tor@default.service || exit 1
+else
+	systemctl start tor@default.service || exit 1
+fi
 
 retries=0
 while [ '!' -e "$hostname_file" ] && [ $retries -lt 5 ];

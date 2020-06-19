@@ -1,3 +1,0 @@
-BTC_RPC_PROXY_VERSION=0.1.0
-
-BITCOIN_RPC_PROXY_PACKAGES=$(BUILD_DIR)/bitcoin-rpc-proxy_$(BTC_RPC_PROXY_VERSION)_$(DEB_ARCH).deb $(BUILD_DIR)/bitcoin-rpc-proxy-mainnet_$(BTC_RPC_PROXY_VERSION)_all.deb

@@ -1,0 +1,22 @@
+pkg_name_upper: LND
+pkg_name_snake: lnd
+source_name: lnd
+
+include: lnd/vars.mk
+
+fingerprint: 9769140D255C759B1EB77B46A96387A57CAAE94D
+
+unpack:
+        url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/lnd-$(LND_ARCH_LONG)-v$(LND_VERSION)-beta.tar.gz
+        file_name: lnd-$(LND_ARCH_LONG)-v$(LND_VERSION)-beta.tar.gz
+        rename: $(BUILD_DIR)/lnd-$(LND_ARCH_LONG)-v$(LND_VERSION)-beta
+
+shasums:
+        url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt
+        detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt.sig
+
+copy_assets:
+        from: lnd/assets/bin-makefile
+        to: Makefile
+        from: lnd/xlncli
+        to: xlncli

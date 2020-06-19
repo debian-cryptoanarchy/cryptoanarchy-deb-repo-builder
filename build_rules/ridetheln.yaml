@@ -1,0 +1,19 @@
+pkg_name_upper: RIDETHELN
+pkg_name_snake: ridetheln
+source_name: ridetheln
+
+clone_url: https://github.com/Ride-The-Lightning/RTL
+git_tag: v$(RIDETHELN_VERSION)
+
+copy_assets:
+        - from: ridetheln/assets/npm-makefile
+          to: Makefile
+        - from: ridetheln/alloc_index.sh
+          to: alloc_index.sh
+        - from: ridetheln/update_config.sh
+          to: update_config.sh
+        - from: ridetheln/assets/ridetheln
+          to: ridetheln
+
+remove:
+        path: "product management"

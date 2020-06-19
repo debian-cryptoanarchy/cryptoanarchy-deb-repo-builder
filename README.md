@@ -65,10 +65,10 @@ This part is relevant only if you want to develop the repository or verify it on
 Only needed first time:
 
 ```
-sudo apt-get install cargo
+sudo apt-get install cargo npm ruby-mustache
 # Required version >= 0.1.1
 cargo install --bin gen_deb_repository --git https://github.com/Kixunil/debcrafter
-cargo install --git https://github.com/Kixunil/cfg_me
+cargo install cfg_me
 make build-dep
 ```
 

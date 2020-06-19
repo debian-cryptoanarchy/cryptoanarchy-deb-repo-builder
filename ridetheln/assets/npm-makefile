@@ -3,6 +3,7 @@ COPY_FILES=$(filter-out debian Dockerfile% docker docs screenshots README.md rid
 all:
 
 install:
+	npm install --production
 	mkdir -p $(DESTDIR)/usr/share/ridetheln
 	mkdir -p $(DESTDIR)/usr/bin
 	cp -rt $(DESTDIR)/usr/share/ridetheln $(COPY_FILES)

@@ -1,0 +1,26 @@
+pkg_name_upper: SELFHOST
+pkg_name_snake: selfhost
+source_name: selfhost
+
+copy_assets:
+        - from: selfhost/nginx/generate_config.sh
+          to: nginx/generate_config.sh
+        - from: selfhost/nginx/config_sub_template.mustache
+          to: nginx/config_sub_template.mustache
+        - from: selfhost/nginx/config_top_template.mustache
+          to: nginx/config_top_template.mustache
+        - from: selfhost/certbot/reload_nginx.sh
+          to: certbot/reload_nginx.sh
+        - from: selfhost/certbot/generate_certs.sh
+          to: certbot/generate_certs.sh
+        - from: selfhost/certbot/selfhost-clearnet-certbot-webroot.conf
+          to: certbot/selfhost-clearnet-certbot-webroot.conf
+        - from: selfhost/onion/onion_domain.sh
+          to: onion/onion_domain.sh
+        - from: selfhost/onion/hidden_service.conf
+          to: onion/hidden_service.conf
+
+dirs:
+        - dir: nginx
+        - dir: certbot
+        - dir: onion

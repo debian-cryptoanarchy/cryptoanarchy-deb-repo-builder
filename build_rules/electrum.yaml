@@ -1,0 +1,16 @@
+pkg_name_upper: ELECTRUM
+pkg_name_snake: electrum
+source_name: electrum
+
+fingerprint: 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6
+
+get_assets:
+        - url: https://download.electrum.org/$(ELECTRUM_VERSION)/electrum-$(ELECTRUM_VERSION)-$(ARCH).AppImage
+          file_name: electrum
+          signature: https://download.electrum.org/$(ELECTRUM_VERSION)/electrum-$(ELECTRUM_VERSION)-$(ARCH).AppImage.asc
+
+copy_assets:
+        - from: electrum/assets/electrum-trustless-mainnet.desktop
+          to: electrum-trustless-mainnet.desktop
+        - from: electrum/assets/electrum-trustless-mainnet
+          to: electrum-trustless-mainnet

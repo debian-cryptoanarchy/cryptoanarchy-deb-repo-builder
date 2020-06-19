@@ -1,0 +1,10 @@
+pkg_name_upper: BTCPAYSERVER
+pkg_name_snake: btcpayserver
+source_name: btcpayserver
+
+clone_url: https://github.com/btcpayserver/btcpayserver
+git_tag: v$(BTCPAYSERVER_VERSION)
+
+copy_assets:
+        - from: btcpayserver/assets/dotnet-makefile
+          to: Makefile

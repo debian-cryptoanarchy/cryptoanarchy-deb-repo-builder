@@ -1,0 +1,14 @@
+pkg_name_upper: BITCOIN_RPC_PROXY
+pkg_name_snake: bitcoin_rpc_proxy
+source_name: btc-rpc-proxy
+
+clone_url: https://github.com/Kixunil/btc-rpc-proxy
+
+copy_assets:
+        - from: bitcoin-rpc-proxy/assets/cargo-makefile
+          to: Makefile
+        - from: common/cross-cargo-conf
+          to: .cargo/config
+
+dirs:
+        - dir: .cargo

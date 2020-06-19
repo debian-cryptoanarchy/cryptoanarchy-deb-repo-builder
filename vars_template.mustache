@@ -1,0 +1,4 @@
+{{pkg_name_upper}}_VERSION=$(shell $(SOURCE_DIR)get_version.sh $(SOURCE_DIR)pkg_specs/{{source_name}}.changelog --strip-deb)
+{{pkg_name_upper}}_DEB_VERSION=$(shell $(SOURCE_DIR)get_version.sh $(SOURCE_DIR)pkg_specs/{{source_name}}.changelog)
+{{pkg_name_upper}}_BIN_VERSION=$({{pkg_name_upper}}_DEB_VERSION)_$(DEB_ARCH)
+{{pkg_name_upper}}_SHARE_VERSION=$({{pkg_name_upper}}_DEB_VERSION)_all
