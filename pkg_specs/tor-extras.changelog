@@ -1,3 +1,10 @@
+tor-extras (1.1-5) buster; urgency=medium
+
+  * Removed meaningless restarting of tor right after patching
+  * Removed patching in preinst script which was interfering with tor
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 3 Jul 2020 09:10:00 +0100
+
 tor-extras (1.1-4) buster; urgency=medium
 
   * Robust reloading of the tor daemon
