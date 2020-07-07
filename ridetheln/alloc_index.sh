@@ -50,7 +50,7 @@ fi
 
 if [ -e "$2/last_index" ];
 then
-	last_index="`tr -d '\n' "$2/last_index"`" || exit 1
+	last_index="`tr -d '\n' < "$2/last_index"`" || exit 1
 else
 	# This handles running the script for the first time, so it writes a warning to a visible file
 	echo 'WARNING: Changes to data in this directory may lead to financial loss!' > "$2/_WARNING_README_" || exit 1
