@@ -1,3 +1,9 @@
+ridetheln (0.7.1-2) buster; urgency=medium
+
+  * Fixed connecting RTL to system LND
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 7 Jul 2020 08:55:18 +0100
+
 ridetheln (0.7.1-1) buster; urgency=medium
 
   * Updated upstream version to 0.7.1

@@ -37,5 +37,5 @@ constant = "LND"
 
 [config."nodes.d/lnd-system-mainnet".hvars.server_url]
 type = "string"
-script = "echo \"https://127.0.0.1:${CONFIG[\"lnd-system-mainnet/rest_port\"]}\""
+script = "echo \"https://127.0.0.1:${CONFIG[\"lnd-system-mainnet/rest_port\"]}/v1\""
 structure = ["Settings", "lnServerUrl"]
