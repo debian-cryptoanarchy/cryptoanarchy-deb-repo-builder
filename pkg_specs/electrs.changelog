@@ -1,3 +1,11 @@
+electrs (0.8.5-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Several bug fixes
+  * A new option to set blocks dir
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 8 Jun 2020 7:32:04 +0100
+
 electrs (0.8.3-2) buster; urgency=medium
 
   * Improved dependency relationships
