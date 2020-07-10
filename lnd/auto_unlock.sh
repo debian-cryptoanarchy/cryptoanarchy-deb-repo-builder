@@ -52,6 +52,9 @@ fi
 # If an admin removes it, he breaks more stuff than just auto unlocker, so we don't care.
 if [ -e "$macaroon_file" ];
 then
+	# Fix permissions of admin.macaroon to allow group access
+	# This is in case something prevents this command to run after init
+	chmod 640 "$macaroon_file"
 	# The password is fixed and small, so using shm makes the most sense
 	tmp_post_data="`mktemp /dev/shm/lnd-unlock.XXXXXXX`"
 	echo '{"wallet_password": "'"$wallet_password"'"}' > "$tmp_post_data"
@@ -65,5 +68,18 @@ else
 	lnd_call initwallet "$tmp_seed_file"
 	ret=$?
 	rm -f "$tmp_seed_file"
+	if [ $ret -eq 0 ];
+	then
+		while [ '!' -e "$macaroon_file" ];
+		do
+			if which inotifywait &>/dev/null
+			then
+				inotifywait -e create "`dirname "$macaroon_file"`" || sleep 1
+			else
+				sleep 1
+			fi
+		done
+		chmod 640 "$macaroon_file"
+	fi
 	exit $ret
 fi

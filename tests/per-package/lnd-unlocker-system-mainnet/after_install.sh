@@ -18,6 +18,15 @@ assert_exists /var/lib/lnd-system-mainnet/private/admin.macaroon
 assert_exists /var/lib/lnd-system-mainnet/readonly/readonly.macaroon
 assert_exists /var/lib/lnd-system-mainnet/invoice/invoice.macaroon
 
+if sudo ls -l /var/lib/lnd-system-mainnet/private/admin.macaroon | grep -q '^-rw-r----- ';
+then
+	echo 'Permissions OK'
+else
+	echo 'Bad permissions on /var/lib/lnd-system-mainnet/private/admin.macaroon:'
+	ls -l /var/lib/lnd-system-mainnet/private/admin.macaroon
+	sudo exit 1
+fi
+
 # TODO: parse as json and check it's an array of 12 strings
 if [ `sudo cat /var/lib/lnd-system-mainnet/.seed.txt | wc -c` -eq 0 ];
 then
