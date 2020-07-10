@@ -5,7 +5,7 @@ binary = "/usr/bin/bitcoind"
 conf_param = "-conf="
 user = { group = true, create = { home = true } }
 # dpkg | bitcoin-zmq-mainnet is a hack avoiding restarts of bitcoind
-depends = ["bitcoin-pruned-mainnet | bitcoin-chain-mode-mainnet", "dpkg | bitcoin-zmq-mainnet"]
+depends = ["bitcoin-pruned-mainnet (>= 0.20.0-1) | bitcoin-chain-mode-mainnet (>= 1.0)", "bitcoin-pruned-mainnet (>= 0.20.0-1) | bitcoin-chain-mode-mainnet (<< 2.0)", "dpkg | bitcoin-zmq-mainnet"]
 summary = "Bitcoin fully validating node"
 extra_service_config = """
 # Stopping bitcoind can take a very long time

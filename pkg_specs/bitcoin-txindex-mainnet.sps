@@ -1,6 +1,6 @@
 name = "bitcoin-txindex-mainnet"
 extends = "bitcoin-mainnet"
-provides = ["bitcoin-chain-mode-mainnet", "bitcoin-fullchain-mainnet"]
+provides = ["bitcoin-chain-mode-mainnet (= 1.0)", "bitcoin-fullchain-mainnet"]
 replaces = ["bitcoin-chain-mode-mainnet"]
 conflicts = ["bitcoin-chain-mode-mainnet"]
 summary = "Activates txindex on Bitcoin full node"

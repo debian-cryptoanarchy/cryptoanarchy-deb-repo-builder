@@ -1,6 +1,6 @@
 name = "bitcoin-pruned-mainnet"
 extends = "bitcoin-mainnet"
-provides = ["bitcoin-chain-mode-mainnet"]
+provides = ["bitcoin-chain-mode-mainnet (= 1.0)"]
 replaces = ["bitcoin-chain-mode-mainnet"]
 conflicts = ["bitcoin-chain-mode-mainnet"]
 summary = "Bitcoin fully validating node without pruning"

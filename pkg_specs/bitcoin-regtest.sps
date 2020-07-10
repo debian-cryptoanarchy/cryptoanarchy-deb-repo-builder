@@ -5,7 +5,7 @@ binary = "/usr/bin/bitcoind"
 conf_param = "-conf="
 user = { group = true, create = { home = true } }
 # dpkg | bitcoin-zmq-regtest is a hack avoiding restarts of bitcoind
-depends = ["bitcoin-pruned-regtest | bitcoin-chain-mode-regtest", "dpkg | bitcoin-zmq-regtest"]
+depends = ["bitcoin-pruned-regtest (>= 0.20.0-1) | bitcoin-chain-mode-regtest (>= 1.0)", "bitcoin-pruned-regtest (>= 0.20.0-1) | bitcoin-chain-mode-regtest (<< 2.0)", "dpkg | bitcoin-zmq-regtest"]
 summary = "Bitcoin fully validating node"
 extra_service_config = """
 # Stopping bitcoind can take a very long time

@@ -1,6 +1,6 @@
 name = "bitcoin-txindex-regtest"
 extends = "bitcoin-regtest"
-provides = ["bitcoin-chain-mode-regtest", "bitcoin-fullchain-regtest"]
+provides = ["bitcoin-chain-mode-regtest (= 1.0)", "bitcoin-fullchain-regtest"]
 replaces = ["bitcoin-chain-mode-regtest"]
 conflicts = ["bitcoin-chain-mode-regtest"]
 summary = "Activates txindex on Bitcoin full node"

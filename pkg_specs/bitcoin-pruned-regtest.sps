@@ -1,6 +1,6 @@
 name = "bitcoin-pruned-regtest"
 extends = "bitcoin-regtest"
-provides = ["bitcoin-chain-mode-regtest"]
+provides = ["bitcoin-chain-mode-regtest (= 1.0)"]
 replaces = ["bitcoin-chain-mode-regtest"]
 conflicts = ["bitcoin-chain-mode-regtest"]
 summary = "Bitcoin fully validating node without pruning"
