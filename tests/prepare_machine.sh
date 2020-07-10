@@ -7,6 +7,8 @@ pkg_dir="$1"
 
 . "$test_dir/common.sh"
 
+echo 'debug 1000' | sudo tee /etc/dpkg/dpkg.cfg.d/cadr-test >/dev/null
+
 # If we don't care to run a new VM for each upgrade, we can reuse the repo
 if [ -e "$apt_repo_dir.tmp" ];
 then

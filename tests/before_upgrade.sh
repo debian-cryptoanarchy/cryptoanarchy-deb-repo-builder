@@ -8,6 +8,8 @@ packages="$2"
 
 . "$test_dir/common.sh"
 
+echo 'debug 1000' | sudo tee /etc/dpkg/dpkg.cfg.d/cadr-test >/dev/null
+
 "$test_dir/setup_deb_ln_ask_me.sh" "--internal-test"
 
 preload_config
