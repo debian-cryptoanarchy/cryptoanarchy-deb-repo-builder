@@ -1,3 +1,10 @@
+lnd (0.10.2-2) buster; urgency=medium
+
+  * Added auto unlock with recommendation
+  * compat increased to 12
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 10 May 2020 14:29:50 +0100
+
 lnd (0.10.2-1) buster; urgency=medium
 
   * Updated to the newest LND
