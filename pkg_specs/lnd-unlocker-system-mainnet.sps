@@ -7,10 +7,11 @@ summary = "Automatic unlocker for Lightning Network Daemon (mainnet)"
 service_type = "oneshot"
 # We just need to simulate stateful behavior
 exec_stop = "/bin/true"
-binds_to = "lnd-system-mainnet"
+binds_to = "lnd-system-mainnet.service"
 wanted_by = "lnd-system-mainnet.service"
-after = "lnd-system-mainnet"
+after = "lnd-system-mainnet.service"
 refuse_manual_stop = true
 extra_service_config = """
 Environment="BITCOIN_NETWORK=mainnet"
+RemainAfterExit=true
 """
