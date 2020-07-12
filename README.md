@@ -3,6 +3,32 @@ Cryptoanarchistic repository builder
 
 Tooling for building a Debian repository containing interconnected, well-working applications.
 
+Motivation
+----------
+
+* If you install `gnome-desktop` `apt` also installs X server and configures everything properly
+* If you install `gimp` `apt` knows which libraries it needs
+* If you install `apache`, `mysql`, `php` it works out-of-the-box
+
+**We want the same to work for Bitcoin apps**, examples:
+
+* `sudo apt install btcpayserver` should install `btcpayserver`, `bitcoind`, `nginx`, `tor` connect them together and generate an `onion` address for you
+* `sudo apt install electrs` should be smart enough to turn off pruning
+* `sudo apt install ridetheln` should install `lnd`, `bitcoind` without pruning, `nginx`, `tor`...
+
+You should get the point at this point. :) It actually works now, if you setup the repository.
+
+Ultimate setup:
+
+`sudo apt install btcpayserver electrs ridetheln lncli` - and you have your own full node!
+
+However, there are still some pain points! The biggest ones is `lnd` **not** being connected
+to `btcpayserver`. Also, warning: beta-qulity software!!!
+
+If you want to try it out, see `docs/` directory to learn the details.
+
+This repository is actually meta - it's a set of tools to get the resulting Debian repository.
+
 About
 -----
 
@@ -50,12 +76,8 @@ Known functional limitations/bugs
 As any other software, this one is not perfect. Look at the issues to see all of them, here are
 some highlights that you may want to know about before you try it:
 
-* RTL can't initialize the wallet https://github.com/Ride-The-Lightning/RTL/issues/314 you must
-  do it manually using lncli. (use sudo to get macaroon or add the user to group
-  `lnd-system-mainnet`)
 * LND is **not** connected to BTCPayServer automatically #52
 * `bitcoin-cli` is not provided #51
-* No automated unlock of LND #26
 * No automated backups #53
 
 Build Dependencies
@@ -80,7 +102,8 @@ Building
 Important note
 --------------
 
-This project is work in progress and is missing tons of packages! Do not use in production!
+This project is work in progress and is missing important features! Beta-quality software
+- use with caution!
 
 (Probably incomplete) TODO list:
 
@@ -97,6 +120,10 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] bitcoin-timechain-mainnet (public timechain RPC calls)
 - [x] electrs
 - [x] electrs-mainnet
+- [ ] electrs-esplora
+- [ ] electrs-esplora-mainnet
+- [ ] esplora
+- [ ] esplora-mainnet
 - [ ] electrumx (low priority)
 - [ ] electrumx-mainnet (low priority)
 - [ ] electrum-server-mainnet (virtual, electrum server implementation)
@@ -116,6 +143,8 @@ This project is work in progress and is missing tons of packages! Do not use in 
 - [x] selfhost-onion (automatically sets up onion address for selfhost)
 - [x] lnd
 - [x] lnd-system-mainnet
+- [x] lnd-auto-unlock
+- [x] lnd-unlocker-system-mainnet
 - [x] lncli (with a wrapper that uses lnd-system-mainnet by default)
 - [ ] eclair
 - [ ] eclair-system-mainnet

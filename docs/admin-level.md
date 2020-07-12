@@ -104,6 +104,7 @@ Aside from configuration, there are various other differences when compared to m
 * `btcpayserver` connects to the database using standard Debian tool called `dbconfig`. It creates the user and database automatically.
 * `btcpayserver` purposefuly does **not** use `docker`. This gives us all the advantages packaging has over `docker` and as a side effect avoids shitcoins.
 * `ridetheln` forces SSO. The `access_key` is stored in `/var/lib/ridetheln-system/sso/cookie`. There are plans to make it easier to open in the future.
+* `lnd` (transitively) recommends `lnd-unlocker-system-mainnet`, which initializes the wallet and unlocks it after each (re)start of lnd. The seed is stored in `/var/lib/lnd-system-mainnet/.seed.txt`
 
 ### Accessing lnd
 
@@ -115,7 +116,7 @@ In order for this to work, the user running `lncli` must have the permission to 
 
 There are two ways to access BTCPayServer: over Tor hidden service (`.onion` domain) and over "clearnet" - using regular domain. The former is much easier and more secure for general users, but more difficult to access for their customers. `onion` is picked by default since it doesn't require any additional input. If you wish to use clearnet domain, you must install `selfhost-clearnet` package, which will ask you about the domain name during config phase using `debconf`. Unless you use `--no-install-recommends`, it will also install `selfhost-clearnet-certbot`, which asks for an e-mail address and creates a TLS certificate for you using Letsencrypt. If you use clearnet domain during initial installation, onion is skipped by default. You must specify it explicitly if you want both.
 
-Once you have the appropriate packages installed, go to `http(s)://domain/btcpay` (unless you adjusted the path during debconf phase). You can get the onion domain by running `sudo cat /var/lib/tor/selfhost_hidden_service/hostname`. BTCPayServer will ask you to register an admin account. Thus, it's recommended to visit the domain and register the account ASAP. You can then continue using BTCPayServer as you normally would. You might find some features missing, that are pressent in the docker version. These features are being worked on (except for shitcoins; not that I'd hate them too much, I just don't have time for them, whent there are more important things to address). You can affect the priority by letting me know which features do you need the most.
+Once you have the appropriate packages installed, go to `http(s)://domain/btcpay` (unless you adjusted the path during debconf phase). You can get the onion domain by running `sudo cat /var/lib/tor/selfhost_hidden_service/hostname`. BTCPayServer will ask you to register an admin account. Thus, it's recommended to visit the domain and register the account ASAP. You can then continue using BTCPayServer as you normally would. You might find some features missing, that are pressent in the docker version. These features are being worked on (except for shitcoins; not that I'd hate them too much, I just don't have time for them, when there are more important things to address). You can affect the priority by letting me know which features do you need the most.
 
 ### Accessing RTL (Ride The Lightning)
 

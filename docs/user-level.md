@@ -39,7 +39,7 @@ With that out of the way, let's talk about the general structure first. There ar
 * Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
 * Any change to configuration requires running `dpkg-reconfigure`
 * Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
-* When you cahnge the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
+* When you change the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
 * Many dependencies are specified using `Recommends`, which means installing stuff with `--no-install-recommends` will work, but won't be very useful.
 * Lot of stuff here is intended for servers. While it can be used on desktop and the goal is to make it useful there eventually, it will take many months to get there.
 * The server stuff is still considered advanced topic - read (the end of) the admin docs!
@@ -49,6 +49,7 @@ With that out of the way, let's talk about the general structure first. There ar
 If all that seems too long to you, here's a short version:
 
 * **Keep in mind the project is still experimental**
+* **LND seed is in /var/lib/lnd-system-mainnet/.seed.txt**
 * Make sure you have at least 350 GB of free space
 * Do **not** run `apt` with any funny switches
 * Do **not** attempt to configure anything - it will just work
