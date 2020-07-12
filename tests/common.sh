@@ -40,7 +40,7 @@ preload_config() {
 	sudo debconf-set-selections < "$test_data_dir/configuration" || return 1
 }
 
-service_packages="bitcoin-mainnet bitcoin-regtest bitcoin-rpc-proxy-mainnet electrs-mainnet electrs-regtest nbxplorer-mainnet btcpayserver-system-mainnet btcpayserver-system-regtest lnd-mainnet ridetheln-system"
+service_packages="bitcoin-mainnet bitcoin-regtest bitcoin-rpc-proxy-mainnet electrs-mainnet electrs-regtest nbxplorer-mainnet btcpayserver-system-mainnet btcpayserver-system-regtest lnd-system-mainnet lnd-system-regtest ridetheln-system"
 
 declare -A remove_depends
 

@@ -4,6 +4,7 @@ binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
 depends = ["bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
+recommends = ["lnd-unlocker-system-regtest"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always
