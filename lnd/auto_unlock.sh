@@ -40,7 +40,7 @@ umask 177
 # Give LND some time to bind ports
 sleep 3
 
-if [ '!' -e "$seed_file" ];
+if [ '!' -e "$seed_file" ] && [ '!' -e "$macaroon_file" ];
 then
 	lnd_call genseed | jq .cipher_seed_mnemonic > "$tmp_seed_file" || exit 1
 	sync "$tmp_seed_file" || exit 1
