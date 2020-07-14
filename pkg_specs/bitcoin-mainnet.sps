@@ -25,11 +25,15 @@ type = "path"
 file_type = "dir"
 create = { mode = 755, owner = "$service", group = "$service" }
 default = "/var/lib/bitcoin-mainnet"
-priority = { dynamic = { script = "test `df /var | tail -1 | awk '{ print $4; }'` -lt 10000000 && PRIORITY=high || PRIORITY=medium"} }
+priority = { dynamic = { script = """
+. /etc/bitcoin-mainnet/chain_mode
+test "$prune" -eq 0 && expected_chain_size="`expr 350000000 + 30000000 '*' $txindex`" || expected_chain_size="`expr $prune '*' 1000 + 5000000`"
+test "`df /var | tail -1 | awk '{ print $4; }'`" -lt "$expected_chain_size" && PRIORITY=high || PRIORITY=medium
+""" } }
 summary = "Directory containing the bitcoind data"
 long_doc = """
 The full path to the directory which will contain timechain data (blocks and chainstate).
-Important: you need around 10GB of free space!
+Important: you need around 10-400GB of free space!
 """
 
 [config."bitcoin.conf".ivars.rpcport]

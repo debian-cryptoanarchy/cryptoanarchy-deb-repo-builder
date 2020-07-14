@@ -30,7 +30,7 @@ type = "path"
 file_type = "dir"
 create = { mode = 755, owner = "$service", group = "$service" }
 default = "/var/lib/bitcoin-regtest"
-priority = { dynamic = { script = "test `df /var | tail -1 | awk '{ print $4; }'` -lt 10000000 && PRIORITY=high || PRIORITY=medium"} }
+priority = "medium"
 summary = "Directory containing the bitcoind data"
 long_doc = """
 The full path to the directory which will contain timechain data (blocks and chainstate).
