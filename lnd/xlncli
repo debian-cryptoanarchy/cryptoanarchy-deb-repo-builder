@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function find_arg() {
+find_arg() {
 	local arg="$1"
 	local var="$2"
 	shift 2
@@ -9,7 +9,7 @@ function find_arg() {
 	do
 		if [ "$1" = "--$arg" ];
 		then
-			test -n "$var" declare -g "$var=$2"
+			test -n "$var" && declare -g "$var=$2"
 			return 1
 		fi
 		shift
@@ -17,51 +17,50 @@ function find_arg() {
 	return 0
 }
 
+doesnt_need_macaroon() {
+	while [ $# -gt 0 ];
+	do
+		if echo "$1" | grep -q '^--';
+		then
+			shift
+		else
+			test "$1" = "create" || test "$1" = "unlock"
+			return $?
+		fi
+	done
+	return 1
+}
+
 lncli=/usr/lib/lncli/lncli
 lnd_network=mainnet
 find_arg "network" "lnd_network" "$@"
 
-# This is currently the same, but we're future-proofing if we need to do some mapping
-internal_network="$lnd_network"
+. /usr/share/lnd/lib/bash.sh
 
-tlscert_path="/var/lib/lnd-system-$internal_network/public/tls.cert"
-admin_macaroonpath="/var/lib/lnd-system-$internal_network/private/admin.macaroon"
-invoice_macaroonpath="/var/lib/lnd-system-$internal_network/invoice/invoice.macaroon"
-readonly_macaroonpath="/var/lib/lnd-system-$internal_network/readonly/readonly.macaroon"
-
-extra_flags=""
-
-if [ '!' -r "$tlscert_path" ];
+# Don't mess with command line if any of the arguments is present
+if find_arg tlscertpath "" "$@" || find_arg macaroonpath "" "$@" || find_arg rpcserver "" "$@";
 then
-	tlscert_path=""
-fi
-
-if find_arg tlscertpath "" "$@";
-then
-	extra_flags="$extra_flags --tlscertpath $tlscert_path"
-fi
-
-if find_arg macaroonpath "" "$@";
-then
-	if [ -r "$admin_macaroonpath" ];
+	exec "$lncli" "$@"
+	exit $?
+else
+	if [ -n "$lnd_max_macaroon_file" ];
 	then
-		macaroon_path="$admin_macaroonpath"
+		exec "$lncli" --tlscertpath "$lnd_cert_file" --macaroonpath "$lnd_max_macaroon_file" --rpcserver "localhost:$lnd_grpc_port"
+		exit $?
 	else
-		if [ -r "$invoice_macaroonpath" ];
+		if doesnt_need_macaroon "$@";
 		then
-			macaroon_path="$invoice_macaroonpath"
+			exec "$lncli" --tlscertpath "$lnd_cert_file" --rpcserver "localhost:$lnd_grpc_port"
+			exit $?
 		else
-			macaroon_path="$readonly_macaroonpath"
+			echo "You don't have the permissions to access LND macaroons or the wallet is not initialized" >&2
+			echo "Consider runnig with sudo installing the package lnd-auto-unlock, or manually initializing the wallet" >&2
+			echo >&2
+			echo "Note: access attempted to these macaroons:" >&2
+			echo "$lnd_admin_macaroon_file" >&2
+			echo "$lnd_invoice_macaroon_file" >&2
+			echo "$lnd_readonly_macaroon_file" >&2
+			exit 1
 		fi
 	fi
-	extra_flags="$extra_flags --macaroonpath $macaroon_path"
 fi
-
-if find_arg rpcserver "" "$@";
-then
-	grpc_port="`grep '^rpclisten=' "/etc/lnd-system-$internal_network/lnd.conf" | sed 's/^.*://'`"
-	extra_flags="$extra_flags --rpcserver localhost:$grpc_port"
-fi
-
-exec "$lncli" $extra_flags "$@"
-exit $?
