@@ -149,9 +149,16 @@ priority = "low"
 summary = "LND GRPC port"
 store = false
 
+[config."lnd.conf".ivars.grpc_bind_addr]
+type = "bind_host"
+default = "127.0.0.1"
+priority = "medium"
+summary = "LND GRPC bind address (use 0.0.0.0 to publish GRPC)"
+store = false
+
 [config."lnd.conf".hvars.rpclisten]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-regtest/grpc_port\"]}\""
+script = "echo \"${CONFIG[\"lnd-system-regtest/grpc_bind_addr\"]}:${CONFIG[\"lnd-system-regtest/grpc_port\"]}\""
 
 [config."lnd.conf".ivars.rest_port]
 type = "bind_port"
@@ -160,9 +167,16 @@ priority = "low"
 summary = "LND REST RPC port"
 store = false
 
+[config."lnd.conf".ivars.rest_bind_addr]
+type = "bind_host"
+default = "127.0.0.1"
+priority = "medium"
+summary = "LND REST bind address (use 0.0.0.0 to publish REST)"
+store = false
+
 [config."lnd.conf".hvars.restlisten]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-regtest/rest_port\"]}\""
+script = "echo \"${CONFIG[\"lnd-system-regtest/rest_bind_addr\"]}:${CONFIG[\"lnd-system-regtest/rest_port\"]}\""
 
 # Separate file to deflect possible future danger.
 [config."conf.d/bitcoin_iface.conf"]
