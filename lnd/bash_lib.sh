@@ -44,3 +44,15 @@ else
 		fi
 	fi
 fi
+
+lnd_wait_init() {
+	while [ '!' -e "$lnd_admin_macaroon_file" ];
+	do
+		if which inotifywait &>/dev/null
+		then
+			inotifywait -e create "`dirname "$lnd_admin_macaroon_file"`" || sleep 1
+		else
+			sleep 1
+		fi
+	done
+}

@@ -65,15 +65,7 @@ else
 	rm -f "$tmp_seed_file"
 	if [ $ret -eq 0 ];
 	then
-		while [ '!' -e "$lnd_admin_macaroon_file" ];
-		do
-			if which inotifywait &>/dev/null
-			then
-				inotifywait -e create "`dirname "$lnd_admin_macaroon_file"`" || sleep 1
-			else
-				sleep 1
-			fi
-		done
+		lnd_wait_init
 		chmod 640 "$lnd_admin_macaroon_file"
 	fi
 	exit $ret
