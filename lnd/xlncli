@@ -10,11 +10,11 @@ find_arg() {
 		if [ "$1" = "--$arg" ];
 		then
 			test -n "$var" && declare -g "$var=$2"
-			return 1
+			return 0
 		fi
 		shift
 	done
-	return 0
+	return 1
 }
 
 doesnt_need_macaroon() {
@@ -45,12 +45,12 @@ then
 else
 	if [ -n "$lnd_max_macaroon_file" ];
 	then
-		exec "$lncli" --tlscertpath "$lnd_cert_file" --macaroonpath "$lnd_max_macaroon_file" --rpcserver "localhost:$lnd_grpc_port"
+		exec "$lncli" --tlscertpath "$lnd_cert_file" --macaroonpath "$lnd_max_macaroon_file" --rpcserver "localhost:$lnd_grpc_port" "$@"
 		exit $?
 	else
 		if doesnt_need_macaroon "$@";
 		then
-			exec "$lncli" --tlscertpath "$lnd_cert_file" --rpcserver "localhost:$lnd_grpc_port"
+			exec "$lncli" --tlscertpath "$lnd_cert_file" --rpcserver "localhost:$lnd_grpc_port" "$@"
 			exit $?
 		else
 			echo "You don't have the permissions to access LND macaroons or the wallet is not initialized" >&2
