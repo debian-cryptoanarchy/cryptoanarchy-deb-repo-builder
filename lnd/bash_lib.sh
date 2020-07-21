@@ -25,7 +25,7 @@ lnd_admin_macaroon_file="`lnd_get_option adminmacaroonpath`"
 lnd_invoice_macaroon_file="`lnd_get_option invoicemacaroonpath`"
 lnd_readonly_macaroon_file="`lnd_get_option readonlymacaroonpath`"
 lnd_cert_file="`lnd_get_option tlscertpath`"
-lnd_grpc_port="`lnd_get_option grpclisten | sed 's/^.*://'`"
+lnd_grpc_port="`lnd_get_option rpclisten | sed 's/^.*://'`"
 lnd_rest_port="`lnd_get_option restlisten | sed 's/^.*://'`"
 
 if [ -r "$lnd_admin_macaroon_file" ];
