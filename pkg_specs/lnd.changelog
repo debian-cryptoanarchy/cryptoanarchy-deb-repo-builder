@@ -1,3 +1,12 @@
+lnd (0.10.2-3) buster; urgency=medium
+
+  * Improved xlncli logic
+  * Added bash library
+  * Bind address settable via debconf
+  * Added genmacaroon package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 22 Jul 2020 12:44:38 +0100
+
 lnd (0.10.2-2) buster; urgency=medium
 
   * Added auto unlock with recommendation

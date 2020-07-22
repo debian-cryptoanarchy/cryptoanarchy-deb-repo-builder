@@ -1,3 +1,10 @@
+btcpayserver (1.0.5.0-2) buster; urgency=medium
+
+  * Fixed recommends
+  * Implemented connecting to system LND
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 22 Jul 2020 12:47:17 +0100
+
 btcpayserver (1.0.5.0-1) buster; urgency=medium
 
   * Updated to 1.0.5.0
