@@ -22,6 +22,8 @@ copy_assets:
           to: xlncli
         - from: lnd/auto_unlock.sh
           to: auto_unlock.sh
+        - from: lnd/gen_macaroons.sh
+          to: gen_macaroons.sh
         - from: lnd/bash_lib.sh
           to: lib/bash.sh
 
