@@ -25,7 +25,7 @@ getinfo() {
 	return $?
 }
 
-sleep 20
+sleep 60
 
 assert_exists /var/lib/lnd-system-$lnd_network/.seed.txt
 assert_exists "$lnd_admin_macaroon_file"
