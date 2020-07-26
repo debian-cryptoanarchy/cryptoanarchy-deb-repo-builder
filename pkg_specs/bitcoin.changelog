@@ -1,3 +1,10 @@
+bitcoin (0.20.0-3) buster; urgency=medium
+
+  * Fixed regtest
+  * Fixed disk size check on upgrade
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 26 Jul 2020 20:06:31 +0100
+
 bitcoin (0.20.0-2) buster; urgency=medium
 
   * Fixed disk size check
