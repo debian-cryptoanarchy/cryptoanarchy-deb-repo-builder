@@ -28,6 +28,9 @@ default = "/var/lib/bitcoin-mainnet"
 priority = { dynamic = { script = """
 . /etc/bitcoin-mainnet/chain_mode
 test "$prune" -eq 0 && expected_chain_size="`expr 350000000 + 30000000 '*' $txindex`" || expected_chain_size="`expr $prune '*' 1000 + 5000000`"
+used_size="`du -s /var/lib/bitcoin-mainnet 2>/dev/null`"
+test -n "$used_size" && used_size="`echo "$used_size" | cut -d $'\t' -f 1`" || used_size=0
+expected_chain_size="`expr $expected_chain_size - $used_size`"
 test "`df /var | tail -1 | awk '{ print $4; }'`" -lt "$expected_chain_size" && PRIORITY=high || PRIORITY=medium
 """ } }
 summary = "Directory containing the bitcoind data"
