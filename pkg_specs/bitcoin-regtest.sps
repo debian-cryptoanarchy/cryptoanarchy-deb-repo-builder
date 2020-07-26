@@ -17,13 +17,9 @@ RuntimeDirectoryMode=0750
 
 [config."bitcoin.conf"]
 format = "plain"
-insert_header = "[regtest]"
+insert_header = "regtest=1\n[regtest]"
 cat_dir = "conf.d"
 cat_files = ["chain_mode"]
-
-[config."bitcoin.conf".hvars.regtest]
-type = "bool"
-constant = "1"
 
 [config."bitcoin.conf".ivars.datadir]
 type = "path"
