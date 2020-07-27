@@ -1,0 +1,75 @@
+#!/bin/bash
+
+bitcoin_cli="/usr/lib/bitcoin-cli/bitcoin-cli"
+
+find_arg() {
+	local arg="$1"
+	local var="$2"
+	shift 2
+
+	while [ $# -gt 0 ];
+	do
+		if [ "$1" = "-$arg" ];
+		then
+			test -n "$var" && declare -g "$var=$2"
+			return 0
+		fi
+		if echo "$1" | grep -q -- '^-'"$arg=";
+		then
+			test -n "$var" && declare -g "$var=`echo "$1" | sed 's/^-'"$arg"'=//'`"
+			return 0
+		fi
+		shift
+	done
+	return 1
+}
+
+get_option() {
+	grep "^$1 *=" "/etc/bitcoin-$BITCOIN_NETWORK/bitcoin.conf" | sed 's/^'"$1"' *=//'
+}
+
+if find_arg rpcconnect "" "$@" || find_arg rpccookiefile "" "$@" || find_arg rpcpassword "" "$@" || find_arg rpcport "" "$@" || find_arg rpcuser "" "$@" || find_arg stdinrpcpass "" "$@";
+then
+	exec "$bitcoin_cli" "$@"
+	exit $?
+fi
+
+if [ -n "BITCOIN_NETWORK" ];
+then
+	if find_arg "testnet" "" "$@";
+	then
+		BITCOIN_NETWORK=testnet
+	else
+		if find_arg "chain" "BITCOIN_NETWORK" "$@";
+		then
+			if [ "$BITCOIN_NETWORK" = "main" ];
+			then
+				BITCOIN_NETWORK=mainnet
+			fi
+		else
+			BITCOIN_NETWORK=mainnet
+		fi
+	fi
+fi
+
+if [ -r "/etc/bitcoin-$BITCOIN_NETWORK/bitcoin.conf" ];
+then
+	rpc_port="`get_option rpcport`"
+	cookie_file="`get_option rpccookiefile`"
+else
+	if [ -r "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" -a -e "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" ];
+	then
+		rpc_port="`grep '^ *bind_port' "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" | sed 's/^ *bind_port *= *//' | tr -d ' \n'`"
+		cookie_file_is_tmp=1
+		cookie_file="`mktemp`" || exit 1
+		echo -n 'public:public' > "$cookie_file" || exit 1
+	else
+		exec "$bitcoin_cli" "$@"
+		exit $?
+	fi
+fi
+
+"$bitcoin_cli" "-rpcport=$rpc_port" "-rpccookiefile=$cookie_file" "$@"
+exit_code=$?
+test "$cookie_file_is_tmp" = "1" && rm -f "$cookie_file"
+exit $exit_code

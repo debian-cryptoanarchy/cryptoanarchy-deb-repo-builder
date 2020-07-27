@@ -12,5 +12,7 @@ shasums:
         url:  https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
 
 copy_assets:
-        from: bitcoin/assets/bin-makefile
-        to: Makefile
+        - from: bitcoin/assets/bin-makefile
+          to: Makefile
+        - from: bitcoin/xbitcoin-cli
+          to: xbitcoin-cli
