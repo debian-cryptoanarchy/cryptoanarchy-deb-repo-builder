@@ -21,6 +21,14 @@ insert_header = "regtest=1\n[regtest]"
 cat_dir = "conf.d"
 cat_files = ["chain_mode"]
 
+[config."bitcoin.conf".ivars.fallbackfee]
+# ugly hack while float doesn't exist
+type = "uint"
+default = "0.00001"
+priority = "medium"
+summary = "Fallback fee when estimation fails (recommended for regtest)"
+ignore_empty = true
+
 [config."bitcoin.conf".ivars.datadir]
 type = "path"
 file_type = "dir"
