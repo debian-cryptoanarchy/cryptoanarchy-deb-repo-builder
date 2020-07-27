@@ -46,7 +46,7 @@ script = "echo \"http://127.0.0.1:${CONFIG[\"nbxplorer-regtest/port\"]}/\""
 
 [config."btcpayserver.conf".hvars."btc.explorer.cookiefile"]
 type = "string"
-script = "echo \"${CONFIG[\"nbxplorer-regtest/datadir\"]}/Main/.cookie\""
+script = "echo \"${CONFIG[\"nbxplorer-regtest/datadir\"]}/RegTest/.cookie\""
 
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
