@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.1.0-4) buster; urgency=medium
+
+  * Allow getpeerinfo RPC call in regtest
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 27 Jul 2020 15:39:39 +0100
+
 btc-rpc-proxy (0.1.0-3) buster; urgency=medium
 
   * Allow testmempoolaccept RPC call

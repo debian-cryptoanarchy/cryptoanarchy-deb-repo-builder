@@ -41,5 +41,7 @@ allowed_calls = [
 	# Used for NBXplorer
 	"scantxoutset",
 	"testmempoolaccept",
+	# Required for nbxplorer-regtest
+	"getpeerinfo",
 ]
 '''
