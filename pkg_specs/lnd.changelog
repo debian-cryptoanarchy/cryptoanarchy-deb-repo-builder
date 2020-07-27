@@ -1,3 +1,11 @@
+lnd (0.10.2-4) buster; urgency=medium
+
+  * lncli made to work without lnd
+  * lncli recommends changed to suggests
+  * lnd suggests lncli
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 27 Jul 2020 08:22:45 +0100
+
 lnd (0.10.2-3) buster; urgency=medium
 
   * Improved xlncli logic
