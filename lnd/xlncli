@@ -35,7 +35,14 @@ lncli=/usr/lib/lncli/lncli
 lnd_network=mainnet
 find_arg "network" "lnd_network" "$@"
 
-. /usr/share/lnd/lib/bash.sh
+if [ -e /usr/share/lnd/lib/bash.sh ];
+then
+	. /usr/share/lnd/lib/bash.sh
+else
+	exec "$lncli" "$@"
+	exit $?
+fi
+
 
 # Don't mess with command line if any of the arguments is present
 if find_arg tlscertpath "" "$@" || find_arg macaroonpath "" "$@" || find_arg rpcserver "" "$@";
