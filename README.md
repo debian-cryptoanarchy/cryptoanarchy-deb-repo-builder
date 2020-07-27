@@ -83,6 +83,9 @@ some highlights that you may want to know about before you try it:
 Build Dependencies
 ------------------
 
+The only officially supported OS for building and running is currently **Debian 10 (Buster)**!
+It may work on recent version of Ubuntu and derived systems, but it's not tested. Contributions
+(trying it and reportin) welcome!
 This part is relevant only if you want to develop the repository or verify it on your own.
 Only needed first time:
 
@@ -114,6 +117,7 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] bitcoin-txindex-mainnet (provides bitcoin-chain-mode-mainnet)
 - [x] bitcoin-chain-mode-mainnet makes sure to consistently select pruned/non-pruned/txindex
 - [x] bitcoin-zmq-mainnet
+- [x] bitcoin-cli (with a wrapper that uses bitcoin-mainnet by default)
 - [ ] bitcoin-p2p-mainnet (virtual, Bitcoin P2P protocol)
 - [x] bitcoin-rpc-proxy
 - [x] bitcoin-rpc-proxy-mainnet
@@ -135,6 +139,7 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] nbxplorer-mainnet (no integration into nginx yet)
 - [x] btcpayserver
 - [x] btcpayserver-system-mainnet
+- [x] btcpayserver-lnp-system-mainnet (connects LND with BTCPayServer)
 - [x] btcpayserver-system-selfhost-mainnet (automatically sets up BTCPayServer with selfhost framework)
 - [x] selfhost (a tooling/framework for selfhosting applications easily)
 - [x] selfhost-nginx (nginx gateway for selfhost)
@@ -145,6 +150,8 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] lnd-system-mainnet
 - [x] lnd-auto-unlock
 - [x] lnd-unlocker-system-mainnet
+- [x] lnd-genmacaroon (generates additional macaroons - currently only invoice+readonly for use with btcpay)
+- [x] lnd-genmacaroon-mainnet
 - [x] lncli (with a wrapper that uses lnd-system-mainnet by default)
 - [ ] eclair
 - [ ] eclair-system-mainnet
