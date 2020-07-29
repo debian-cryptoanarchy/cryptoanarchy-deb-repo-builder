@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /usr/lib/thunderhub
+./node_modules/next/dist/bin/next start -- -p "$BIND_PORT"
