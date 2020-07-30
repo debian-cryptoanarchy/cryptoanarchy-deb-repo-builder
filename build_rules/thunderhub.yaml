@@ -1,0 +1,12 @@
+pkg_name_upper: THUNDERHUB
+pkg_name_snake: thunderhub
+source_name: thunderhub
+
+clone_url: https://github.com/apotdevin/thunderhub
+git_tag: v$(THUNDERHUB_VERSION)
+
+copy_assets:
+        - from: thunderhub/assets/npm-makefile
+          to: Makefile
+        - from: thunderhub/thunderhub
+          to: thunderhub

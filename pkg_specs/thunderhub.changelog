@@ -1,0 +1,5 @@
+thunderhub (0.8.13-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 29 Jul 2020 09:15:24 +0100
