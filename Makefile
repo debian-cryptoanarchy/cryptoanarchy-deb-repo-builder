@@ -7,6 +7,7 @@ BUILD_PACKAGE_FLAGS=-nc --no-sign
 HAS_QVM_RUN_VM=$(shell which qvm-run-vm 2>&1 >/dev/null; echo $$?)
 TEST_SPLIT_STRATEGY=none
 TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-regtest bitcoin-pruned-mainnet bitcoin-fullchain-mainnet bitcoin-fullchain-regtest bitcoin-txindex-mainnet bitcoin-zmq-mainnet bitcoin-zmq-regtest bitcoin-rpc-proxy bitcoin-rpc-proxy-mainnet bitcoin-rpc-proxy-regtest bitcoin-timechain-mainnet electrs electrs-mainnet electrs-regtest btcpayserver btcpayserver-system-mainnet btcpayserver-system-regtest btcpayserver-system-selfhost-mainnet lnd lnd-system-mainnet lnd-system-regtest lnd-unlocker-system-mainnet lnd-unlocker-system-mainnet ridetheln ridetheln-system ridetheln-system-selfhost ridetheln-lnd-system-mainnet ridetheln-lnd-system-regtest selfhost selfhost-nginx selfhost-onion selfhost-clearnet selfhost-clearnet-certbot tor-hs-patch-config thunderhub thunderhub-system-mainnet thunderhub-system-regtest thunderhub-system-selfhost-mainnet thunderhub-system-selfhost-regtest
+TEST_MULTI_PACKAGE=lnd-regtest
 TEST_ALL_PACKAGES_NON_CONFLICT=$(filter-out bitcoin-pruned bitcoin-fullchain,$(TEST_ALL_PACKAGES))
 SPLIT_STRATEGY=none
 
@@ -43,7 +44,7 @@ test: $(TEST_DEPS)
 
 test-here: test-here-all-basic test-here-all-nonconfict-upgrade
 
-test-in-qubes-dvm: test-split-$(SPLIT_STRATEGY)
+test-in-qubes-dvm: test-split-$(SPLIT_STRATEGY) $(TEST_MULTI_PACKAGE)
 
 test-split-none:
 	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" test-here
@@ -53,6 +54,13 @@ test-split-upgrade: test-in-qubes-dvm-all-basic $(addprefix test-in-qubes-dvm-up
 test-split-all: $(addprefix test-in-qubes-dvm-basic-,$(TEST_ALL_PACKAGES)) $(addprefix test-in-qubes-dvm-upgrade-,$(TEST_ALL_PACKAGES))
 
 test-package-%: test-$(TEST_STRATEGY)-basic-%
+
+test-in-qubes-dvm-multi-package-%: tests/multi-package/%.sh
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-multi-package-$*"
+
+test-here-multi-package-%: tests/multi-package/%.sh
+	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
+	$<
 
 test-here-all-basic: $(addprefix test-here-basic-,$(TEST_ALL_PACKAGES))
 	echo "Basic test done" >&2
