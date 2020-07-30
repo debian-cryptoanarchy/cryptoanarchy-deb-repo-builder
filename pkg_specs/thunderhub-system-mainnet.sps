@@ -1,12 +1,15 @@
 name = "thunderhub-system-mainnet"
-bin_package = "ridetheln"
-binary = "/usr/bin/ridetheln"
+bin_package = "thunderhub"
+binary = "/usr/bin/thunderhub"
 user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
-recommends = ["thunderhub-system-selfhost"]
+depends = ["thunderhub"]
+recommends = ["thunderhub-system-selfhost-mainnet"]
 extra_service_config = """
 Restart=always
-EnvironmentFile=/etc/thunderhub-system-mainnet
+EnvironmentFile=/etc/thunderhub-system-mainnet/thunderhub.conf
+RuntimeDirectory=thunderhub-system-mainnet
+RuntimeDirectoryMode=755
 """
 
 [extra_groups."thunderhub-system-mainnet-sso"]
@@ -17,7 +20,7 @@ format = "plain"
 cat_dir = "conf.d"
 
 [config."thunderhub.conf".postprocess]
-command = ["usermod", "-a", "-G", "ridetheln-system-mainnet"]
+command = ["usermod", "-a", "-G", "lnd-system-mainnet", "thunderhub-system-mainnet"]
 
 [config."thunderhub.conf".ivars.BIND_PORT]
 type = "bind_port"
@@ -28,11 +31,14 @@ summary = "Bind port for ThunderHub"
 [config."thunderhub.conf".hvars.COOKIE_PATH]
 type = "path"
 file_type = "regular"
-create = { mode = 750, owner = "$service", group = "thunderhub-system-mainnet-sso", only_parent = true }
-constant = "/var/lib/thunderhub-system-mainnet/sso/cookie"
+constant = "/var/run/thunderhub-system-mainnet/sso/cookie"
 
 [config."thunderhub.conf".evars.lnd-system-mainnet.grpc_port]
 store = false
+
+[config."thunderhub.conf".hvars.BITCOIN_NETWORK]
+type = "string"
+constant = "mainnet"
 
 [config."thunderhub.conf".hvars.SSO_SERVER_URL]
 type = "string"
@@ -42,7 +48,11 @@ script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-mainnet/grpc_port\"]}\""
 name = "SSO_CERT_PATH"
 
 [config."thunderhub.conf".evars.lnd-system-mainnet.adminmacaroonpath]
-name = "SSO_MACAROON_PATH"
+store = false
+
+[config."thunderhub.conf".hvars.SSO_MACAROON_PATH]
+type = "path"
+script = "dirname ${CONFIG[\"lnd-system-mainnet/adminmacaroonpath\"]}"
 
 [config."thunderhub.conf".ivars.NO_CLIENT_ACCOUNTS]
 type = "bool"
