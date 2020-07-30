@@ -48,7 +48,11 @@ script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-regtest/grpc_port\"]}\""
 name = "SSO_CERT_PATH"
 
 [config."thunderhub.conf".evars.lnd-system-regtest.adminmacaroonpath]
-name = "SSO_MACAROON_PATH"
+store = false
+
+[config."thunderhub.conf".hvars.SSO_MACAROON_PATH]
+type = "path"
+script = "dirname ${CONFIG[\"lnd-system-regtest/adminmacaroonpath\"]}"
 
 [config."thunderhub.conf".ivars.NO_CLIENT_ACCOUNTS]
 type = "bool"
