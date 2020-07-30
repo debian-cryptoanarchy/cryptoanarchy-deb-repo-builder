@@ -1,4 +1,12 @@
 #!/bin/bash
 
-cd /usr/lib/thunderhub
-./node_modules/next/dist/bin/next start -- -p "$BIND_PORT"
+cookie_dir="/var/run/thunderhub-system-$BITCOIN_NETWORK/sso"
+mkdir -p "$cookie_dir" || exit 1
+chgrp "thunderhub-system-$BITCOIN_NETWORK-sso" "$cookie_dir" || exit 1
+chmod 750 "$cookie_dir" || exit 1
+# thunderhub is unable to create the cookie until someone accesses it, which is impossible without cookie...
+head -c 18 /dev/urandom | base64 > "$cookie_dir/cookie" || exit 1
+
+cd /usr/lib/thunderhub || exit 1
+exec ./node_modules/next/dist/bin/next start -- -p "$BIND_PORT"
+exit $?

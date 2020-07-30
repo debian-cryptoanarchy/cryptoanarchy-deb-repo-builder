@@ -8,6 +8,8 @@ recommends = ["thunderhub-system-selfhost-regtest"]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/thunderhub-system-regtest/thunderhub.conf
+RuntimeDirectory=thunderhub-system-regtest
+RuntimeDirectoryMode=755
 """
 
 [extra_groups."thunderhub-system-regtest-sso"]
@@ -29,11 +31,14 @@ summary = "Bind port for ThunderHub"
 [config."thunderhub.conf".hvars.COOKIE_PATH]
 type = "path"
 file_type = "regular"
-create = { mode = 750, owner = "$service", group = "thunderhub-system-regtest-sso", only_parent = true }
-constant = "/var/lib/thunderhub-system-regtest/sso/cookie"
+constant = "/var/run/thunderhub-system-regtest/sso/cookie"
 
 [config."thunderhub.conf".evars.lnd-system-regtest.grpc_port]
 store = false
+
+[config."thunderhub.conf".hvars.BITCOIN_NETWORK]
+type = "string"
+constant = "regtest"
 
 [config."thunderhub.conf".hvars.SSO_SERVER_URL]
 type = "string"
