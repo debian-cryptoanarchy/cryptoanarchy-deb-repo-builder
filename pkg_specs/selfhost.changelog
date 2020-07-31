@@ -1,3 +1,9 @@
+selfhost (0.1.4-2) buster; urgency=medium
+
+  * Fixed dependency declaration
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 31 Jul 2020 08:17:51 +0100
+
 selfhost (0.1.4-1) buster; urgency=medium
 
   * Added ability to create rewrite rule
