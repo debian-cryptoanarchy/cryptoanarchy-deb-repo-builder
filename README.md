@@ -20,10 +20,9 @@ You should get the point at this point. :) It actually works now, if you setup t
 
 Ultimate setup:
 
-`sudo apt install btcpayserver electrs ridetheln lncli` - and you have your own full node!
+`sudo apt install btcpayserver electrs thunderhub lncli bitcoin-cli` - and you have your own full node!
 
-However, there are still some pain points! The biggest ones is `lnd` **not** being connected
-to `btcpayserver`. Also, warning: beta-qulity software!!!
+However, there are still some pain points! The biggest ones is onvenience when accessing your node remotely. Also, warning: beta-quality software!!!
 
 If you want to try it out, see `docs/` directory to learn the details.
 
@@ -42,6 +41,8 @@ The main components of the resulting packages are:
 
 * packages containing binaries - they do nothing after installation
 * service packages - these ensure configuration and launching of the services
+* configuration-extension packages - they make sure some combinations of other packages are
+  configured properly (see below)
 * interface packages - whenever an application depends on certain service being present, the
   package depends on a virtual interface package
 
@@ -76,8 +77,6 @@ Known functional limitations/bugs
 As any other software, this one is not perfect. Look at the issues to see all of them, here are
 some highlights that you may want to know about before you try it:
 
-* LND is **not** connected to BTCPayServer automatically #52
-* `bitcoin-cli` is not provided #51
 * No automated backups #53
 
 Build Dependencies
@@ -165,6 +164,9 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] ridetheln-system
 - [x] ridetheln-system-selfhost
 - [x] ridetheln-lnd-system-mainnet
+- [x] thunderhub
+- [x] thunderhub-system-mainnet
+- [x] thunderhub-system-selfhost-mainnet
 - [ ] lighter
 - [ ] multiuser-ln (completely new application allowing multiple users to share a LN implementation)
 - [ ] multiuser-ln-mainnet
