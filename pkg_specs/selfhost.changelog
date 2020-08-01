@@ -1,3 +1,9 @@
+selfhost (0.1.5-1) buster; urgency=medium
+
+  * Added a script for getting the default domain
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 1 Aug 2020 09:15:08 +0100
+
 selfhost (0.1.4-2) buster; urgency=medium
 
   * Fixed dependency declaration

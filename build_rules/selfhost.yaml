@@ -19,8 +19,11 @@ copy_assets:
           to: onion/onion_domain.sh
         - from: selfhost/onion/hidden_service.conf
           to: onion/hidden_service.conf
+        - from: selfhost/lib/get_default_domain.sh
+          to: lib/get_default_domain.sh
 
 dirs:
         - dir: nginx
         - dir: certbot
         - dir: onion
+        - dir: lib
