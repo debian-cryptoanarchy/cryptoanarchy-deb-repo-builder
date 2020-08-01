@@ -10,6 +10,7 @@ TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-regtest bitcoin-pruned-mainne
 TEST_MULTI_PACKAGE=lnd-regtest
 TEST_ALL_PACKAGES_NON_CONFLICT=$(filter-out bitcoin-pruned bitcoin-fullchain,$(TEST_ALL_PACKAGES))
 SPLIT_STRATEGY=none
+export DPKG_DEBUG_LEVEL
 
 ifeq ($(HAS_QVM_RUN_VM),0)
 	TEST_DEPS=test-in-qubes-dvm
@@ -47,7 +48,7 @@ test-here: test-here-all-basic test-here-all-nonconfict-upgrade
 test-in-qubes-dvm: test-split-$(SPLIT_STRATEGY) $(TEST_MULTI_PACKAGE)
 
 test-split-none:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" test-here
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" test-here
 
 test-split-upgrade: test-in-qubes-dvm-all-basic $(addprefix test-in-qubes-dvm-upgrade-,$(TEST_ALL_PACKAGES))
 
@@ -56,7 +57,7 @@ test-split-all: $(addprefix test-in-qubes-dvm-basic-,$(TEST_ALL_PACKAGES)) $(add
 test-package-%: test-$(TEST_STRATEGY)-basic-%
 
 test-in-qubes-dvm-multi-package-%: tests/multi-package/%.sh
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-multi-package-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_MULTI_PACKAGE=$(TEST_MULTI_PACKAGE)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-multi-package-$*"
 
 test-here-multi-package-%: tests/multi-package/%.sh
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
@@ -87,10 +88,10 @@ test-here-prepare-machine:
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
 
 test-in-qubes-dvm-all-basic:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" test-here-all-basic
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" test-here-all-basic
 
 test-in-qubes-dvm-basic-%:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-basic-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-basic-$*"
 
 test-in-qubes-dvm-upgrade-%: | test-in-qubes-dvm-all-basic
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "test-here-upgrade-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-upgrade-$*"
