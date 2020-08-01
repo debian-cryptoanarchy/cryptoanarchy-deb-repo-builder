@@ -20,15 +20,16 @@ Motivation
 
 You should get the point at this point. :) It actually works now, if you setup the repository.
 
-Ultimate setup:
+However, there are still some pain points! The biggest ones is inconvenience when accessing your node remotely. Also, warning: beta-quality software!!!
 
-`sudo apt install btcpayserver electrs thunderhub lncli bitcoin-cli` - and you have your own full node!
+Supported applications
+----------------------
 
-However, there are still some pain points! The biggest ones is onvenience when accessing your node remotely. Also, warning: beta-quality software!!!
+<img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" width="64"> <img src="https://electrum.org/logo/electrum_logo.png" width="64"> <img src="https://raw.githubusercontent.com/lightningnetwork/lnd/master/logo.png" width="64"> <img src="https://avatars0.githubusercontent.com/u/31132886?s=200&v=4" width="64"> <img src="external-logos/thunderhub.svg" width="64">
+
+Plus several internal tools to improve security and UX. Read below for the complete list.
 
 If you want to try it out, see `docs/` directory to learn the details.
-
-This repository is actually meta - it's a set of tools to get the resulting Debian repository.
 
 About
 -----
