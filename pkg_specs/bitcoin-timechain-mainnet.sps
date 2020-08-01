@@ -41,5 +41,12 @@ allowed_calls = [
 	# Used for NBXplorer
 	"scantxoutset",
 	"testmempoolaccept",
+	"getnetworkhashps",
+	"getmininginfo",
+	"getblockstats",
+	"getchaintxstats",
+	"uptime",
+	"getnettotals",
+	"help",
 ]
 '''
