@@ -1,0 +1,12 @@
+COPY_FILES=$(filter-out debian Dockerfile% %.Dockerfile docker README.md thunderhub .%, $(wildcard *))
+
+all:
+
+install:
+	npm install --production
+	mkdir -p $(DESTDIR)/usr/lib/btc-rpc-explorer
+	mkdir -p $(DESTDIR)/usr/bin
+	cp -at $(DESTDIR)/usr/lib/btc-rpc-explorer $(COPY_FILES)
+	cp -t $(DESTDIR)/usr/bin btc-rpc-explorer
+
+check:

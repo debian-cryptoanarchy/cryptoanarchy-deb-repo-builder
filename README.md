@@ -170,6 +170,9 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] thunderhub
 - [x] thunderhub-system-mainnet
 - [x] thunderhub-system-selfhost-mainnet
+- [x] btc-rpc-explorer
+- [x] btc-rpc-explorer-mainnet
+- [x] btc-rpc-explorer-selfhost-mainnet
 - [ ] lighter
 - [ ] multiuser-ln (completely new application allowing multiple users to share a LN implementation)
 - [ ] multiuser-ln-mainnet

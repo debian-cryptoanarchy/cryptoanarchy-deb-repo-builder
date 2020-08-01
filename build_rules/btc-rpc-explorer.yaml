@@ -1,0 +1,16 @@
+pkg_name_upper: BTC_RPC_EXPLORER
+pkg_name_snake: btc-rpc-explorer
+source_name: btc-rpc-explorer
+
+#clone_url: https://github.com/janoside/btc-rpc-explorer
+#git_tag: v$(BTC_RPC_EXPLORER_VERSION)
+
+# The official version doesn't support BASE_URL yet
+clone_url: https://github.com/ketominer/btc-rpc-explorer
+git_tag: baseurl
+
+copy_assets:
+        - from: btc-rpc-explorer/assets/npm-makefile
+          to: Makefile
+        - from: btc-rpc-explorer/btc-rpc-explorer
+          to: btc-rpc-explorer

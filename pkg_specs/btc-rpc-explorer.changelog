@@ -1,0 +1,5 @@
+btc-rpc-explorer (2.0.2-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 1 Aug 2020 18:51:27 +0100

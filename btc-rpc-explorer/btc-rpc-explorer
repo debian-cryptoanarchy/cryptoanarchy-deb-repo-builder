@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /usr/lib/btc-rpc-explorer || exit 1
+exec node ./bin/www
+exit $?
