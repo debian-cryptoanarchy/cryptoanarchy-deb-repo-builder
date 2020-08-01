@@ -2,7 +2,7 @@ name = "thunderhub-system-selfhost-mainnet"
 extends = "thunderhub-system-mainnet"
 replaces = false
 summary = "Integration of rtl into nginx"
-depends = ["selfhost (>=0.1.4)", "selfhost (<<0.2.0)"]
+depends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 
 [config."conf.d/root_path.conf"]
 format = "plain"

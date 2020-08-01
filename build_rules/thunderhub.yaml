@@ -10,3 +10,5 @@ copy_assets:
           to: Makefile
         - from: thunderhub/thunderhub
           to: thunderhub
+        - from: thunderhub/open-browser.sh
+          to: thunderhub-open

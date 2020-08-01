@@ -1,3 +1,9 @@
+thunderhub (0.8.13-2) buster; urgency=medium
+
+  * Added a script for accessing ThunderHub more easily
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 1 Aug 2020 09:17:24 +0100
+
 thunderhub (0.8.13-1) buster; urgency=medium
 
   * Attempt to create debian package
