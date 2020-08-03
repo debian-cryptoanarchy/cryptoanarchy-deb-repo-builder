@@ -5,7 +5,7 @@ user = { group = true, create = { home = true } }
 summary = "Simple, database-free Bitcoin blockchain explorer (mainnet)"
 depends = ["bitcoin-timechain-mainnet (>= 0.1.0-5)", "bitcoin-txindex-mainnet"]
 recommends = ["btc-rpc-explorer-selfhost-mainnet"]
-suggests = ["electrs-mainnet"]
+extended_by = ["electrs-mainnet"]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/btc-rpc-explorer-mainnet/btc-rpc-explorer.conf

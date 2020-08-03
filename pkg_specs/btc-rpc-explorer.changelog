@@ -1,3 +1,9 @@
+btc-rpc-explorer (2.0.2-3) buster; urgency=medium
+
+  * React to triggers of electrs
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 2 Aug 2020 13:26:03 +0100
+
 btc-rpc-explorer (2.0.2-2) buster; urgency=medium
 
   * Fixed password config

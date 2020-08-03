@@ -5,7 +5,7 @@ user = { group = true, create = { home = true } }
 summary = "Simple, database-free Bitcoin blockchain explorer (regtest)"
 depends = ["bitcoin-timechain-regtest (>= 0.1.0-5)", "bitcoin-txindex-regtest"]
 recommends = ["btc-rpc-explorer-selfhost-regtest"]
-suggests = ["electrs-regtest"]
+extended_by = ["electrs-regtest"]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/btc-rpc-explorer-regtest/btc-rpc-explorer.conf
