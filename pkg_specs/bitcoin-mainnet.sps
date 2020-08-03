@@ -39,6 +39,24 @@ The full path to the directory which will contain timechain data (blocks and cha
 Important: you need around 10-400GB of free space!
 """
 
+[config."bitcoin.conf".ivars.p2p_bind_port]
+type = "bind_port"
+default = "8333"
+priority = "low"
+summary = "Bitcoin P2P port (mainnet)"
+store = false
+
+[config."bitcoin.conf".ivars.p2p_bind_host]
+type = "bind_host"
+default = "0.0.0.0"
+priority = "low"
+summary = "Bitcoin P2P port (mainnet)"
+store = false
+
+[config."bitcoin.conf".hvars.bind]
+type = "string"
+script = "echo \"${CONFIG[\"bitcoin-mainnet/p2p_bind_host\"]}:${CONFIG[\"bitcoin-mainnet/p2p_bind_port\"]}\""
+
 [config."bitcoin.conf".ivars.rpcport]
 type = "bind_port"
 default = "8331"
