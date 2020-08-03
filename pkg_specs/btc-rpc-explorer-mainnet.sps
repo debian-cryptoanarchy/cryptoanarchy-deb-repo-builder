@@ -41,7 +41,7 @@ name = "BTCEXP_BITCOIND_PORT"
 [config."btc-rpc-explorer.conf".hvars.BTCEXP_ADDRESS_API]
 type = "string"
 script = """
-if [ -r "/etc/electrs/conf.d/interface.conf" ];
+if [ -r "/etc/electrs-mainnet/conf.d/interface.toml" ];
 then
     echo electrumx
 fi
@@ -50,9 +50,9 @@ fi
 [config."btc-rpc-explorer.conf".hvars.BTCEXP_ELECTRUMX_SERVERS]
 type = "string"
 script = """
-if [ -r "/etc/electrs/conf.d/interface.conf" ];
+if [ -r "/etc/electrs-mainnet/conf.d/interface.toml" ];
 then
-    echo "tcp://127.0.0.1:`grep '^ *bind_host' | sed 's/^ *bind_host *= *"[^:]*:\\([0-9]*\\)".*$/\\1/'`"
+    echo "tcp://127.0.0.1:`grep '^ *electrum_rpc_addr' "/etc/electrs-mainnet/conf.d/interface.toml" | sed 's/^ *electrum_rpc_addr *= *"[^:]*:\\([0-9]*\\)".*$/\\1/'`"
 fi
 """
 ignore_empty = true
@@ -73,9 +73,9 @@ store = false
 [config."btc-rpc-explorer.conf".hvars.BTCEXP_BASIC_AUTH_PASSWORD]
 type = "string"
 script = """
-if [ -n "${CONFIG[\"bitcoin-rpc-explorer-mainnet/http_password\"]}" ];
+if [ -n "${CONFIG[\"btc-rpc-explorer-mainnet/http_password\"]}" ];
 then
-    echo "$http_password"
+    echo "${CONFIG[\"btc-rpc-explorer-mainnet/http_password\"]}"
 else
     head -c 18 /dev/urandom | base64 | tr -d '\\n'
 fi
