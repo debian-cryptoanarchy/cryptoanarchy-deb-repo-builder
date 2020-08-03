@@ -3,7 +3,7 @@ bin_package = "nbxplorer"
 binary = "/usr/bin/nbxplorer"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-timechain-mainnet"]
+depends = ["bitcoin-mainnet (>= 0.20.0-6)", "bitcoin-timechain-mainnet"]
 summary = "A minimalist UTXO tracker for HD Wallets."
 extra_service_config = """
 Restart=always
@@ -39,6 +39,13 @@ format = "plain"
 type = "string"
 constant = "public:public"
 
+[config."conf.d/bitcoin_iface.conf".evars.bitcoin-mainnet.p2p_bind_port]
+store = false
+
+[config."conf.d/bitcoin_iface.conf".hvars."btc.node.endpoint"]
+type = "string"
+script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-mainnet/p2p_bind_port\"]}\""
+
 [config."conf.d/bitcoin_iface.conf".hvars."chains"]
 type = "string"
 constant = "btc"
@@ -53,6 +60,13 @@ store = false
 [config."conf.d/bitcoin_iface.conf".hvars."btc.rpc.url"]
 type = "string"
 script = "echo \"http://127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-mainnet/bind_port\"]}/\""
+
+# This is useful for nbxplorer and I'm not sure if it should be configurable.
+# If you read this because you'd like to configure it, please file an issue and describe
+# your use case.
+[config."conf.d/bitcoin_iface.conf".hvars.whitelist]
+type = "string"
+constant = "127.0.0.1"
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.hastxindex"]
 type = "bool"

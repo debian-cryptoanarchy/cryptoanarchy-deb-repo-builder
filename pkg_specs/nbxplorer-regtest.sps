@@ -3,7 +3,7 @@ bin_package = "nbxplorer"
 binary = "/usr/bin/nbxplorer"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-timechain-regtest"]
+depends = ["bitcoin-regtest (>= 0.20.0-6)", "bitcoin-timechain-regtest"]
 summary = "A minimalist UTXO tracker for HD Wallets."
 extra_service_config = """
 Restart=always
@@ -42,6 +42,13 @@ format = "plain"
 [config."conf.d/bitcoin_iface.conf".hvars."btc.rpc.auth"]
 type = "string"
 constant = "public:public"
+
+[config."conf.d/bitcoin_iface.conf".evars.bitcoin-regtest.p2p_bind_port]
+store = false
+
+[config."conf.d/bitcoin_iface.conf".hvars."btc.node.endpoint"]
+type = "string"
+script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-regtest/p2p_bind_port\"]}\""
 
 [config."conf.d/bitcoin_iface.conf".hvars."chains"]
 type = "string"
