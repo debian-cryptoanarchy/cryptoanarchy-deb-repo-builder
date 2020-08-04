@@ -4,6 +4,8 @@ source_name: ridetheln
 
 clone_url: https://github.com/Ride-The-Lightning/RTL
 git_tag: v$(RIDETHELN_VERSION)
+fingerprint: 3E9BD4436C288039CA827A9200C9E2BC2E45666F
+verify_tag: true
 
 copy_assets:
         - from: ridetheln/assets/npm-makefile
