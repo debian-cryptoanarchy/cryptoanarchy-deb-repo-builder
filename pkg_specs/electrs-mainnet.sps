@@ -30,11 +30,17 @@ summary = "Prometheus monitoring 'addr:port' to listen on"
 format = "toml"
 public = true
 
-#[config."conf.d/behavior.toml".ivars.jsonrpc_import]
-#type = "bool"
-#default = "false"
-#priority = "medium"
-#summary = "Use JSONRPC instead of directly importing blk*.dat files."
+[config."conf.d/behavior.toml".hvars.jsonrpc_import]
+type = "bool"
+script = "grep -q sysperms=1 /etc/bitcoin-mainnet/bitcoin.conf && echo -n false || echo -n true"
+
+[config."conf.d/behavior.toml".ivars.db_dir]
+type = "path"
+file_type = "dir"
+create = { mode = 755, owner = "$service", group = "$service" }
+default = "/var/lib/electrs-mainnet"
+priority = "low"
+summary = "Database directory of electrs (mainnet)"
 
 [config."conf.d/credentials.conf"]
 format = "toml"
