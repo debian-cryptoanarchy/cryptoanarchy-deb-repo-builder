@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.1.0-7) buster; urgency=medium
+
+  * Improved recommends
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Aug 2020 11:23:41 +0100
+
 btc-rpc-proxy (0.1.0-6) buster; urgency=medium
 
   * Allow even more RPC calls

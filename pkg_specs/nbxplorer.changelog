@@ -1,3 +1,9 @@
+nbxplorer (2.1.30-3) buster; urgency=medium
+
+  * Improved recommends
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Aug 2020 11:23:41 +0100
+
 nbxplorer (2.1.30-2) buster; urgency=medium
 
   * Imports P2P port from Bitcoind

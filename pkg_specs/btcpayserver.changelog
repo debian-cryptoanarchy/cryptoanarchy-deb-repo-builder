@@ -1,3 +1,9 @@
+btcpayserver (1.0.5.0-5) buster; urgency=medium
+
+  * Improved recommends
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Aug 2020 11:23:41 +0100
+
 btcpayserver (1.0.5.0-4) buster; urgency=medium
 
   * Fixed regtest version

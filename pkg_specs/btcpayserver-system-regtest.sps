@@ -3,7 +3,7 @@ bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-recommends = ["btcpayserver-system-selfhost-regtest"]
+recommends = ["btcpayserver-system-selfhost-regtest", "btcpayserver-no-lnp-system-regtest | lnd-system-regtest, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
 extra_service_config = """
 Restart=always

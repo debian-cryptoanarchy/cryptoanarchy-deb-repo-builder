@@ -1,3 +1,9 @@
+thunderhub (0.8.14-2) buster; urgency=medium
+
+  * Improved recommends
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Aug 2020 11:23:41 +0100
+
 thunderhub (0.8.14-1) buster; urgency=medium
 
   * Updated upstream version

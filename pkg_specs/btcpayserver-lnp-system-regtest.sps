@@ -2,7 +2,7 @@ name = "btcpayserver-lnp-system-regtest"
 extends = "btcpayserver-system-regtest"
 depends_on_extended = true
 summary = "Package integrating LND into BTCPayServer"
-depends = ["btcpayserver-lnp-system-regtest", "lnd-genmacaroon-system-regtest", "openssl"]
+depends = ["btcpayserver-system-regtest", "lnd-genmacaroon-system-regtest", "openssl"]
 
 [config."conf.d/lnd.conf"]
 format = "plain"

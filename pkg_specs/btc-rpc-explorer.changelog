@@ -1,3 +1,9 @@
+btc-rpc-explorer (2.0.2-4) buster; urgency=medium
+
+  * Improved recommends
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 5 Aug 2020 11:23:41 +0100
+
 btc-rpc-explorer (2.0.2-3) buster; urgency=medium
 
   * React to triggers of electrs
