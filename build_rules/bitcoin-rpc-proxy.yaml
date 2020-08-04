@@ -3,6 +3,8 @@ pkg_name_snake: bitcoin_rpc_proxy
 source_name: btc-rpc-proxy
 
 clone_url: https://github.com/Kixunil/btc-rpc-proxy
+fingerprint: 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+verify_tag: true
 
 copy_assets:
         - from: bitcoin-rpc-proxy/assets/cargo-makefile
