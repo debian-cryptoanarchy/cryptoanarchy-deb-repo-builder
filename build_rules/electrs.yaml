@@ -4,6 +4,8 @@ source_name: electrs
 
 clone_url: https://github.com/romanz/electrs
 git_tag: v$(ELECTRS_VERSION)
+fingerprint: 15C8C3574AE4F1E25F3F35C587CAE5FA46917CBB
+verify_tag: true
 
 copy_assets:
         - from: electrs/assets/cargo-makefile
