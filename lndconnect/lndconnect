@@ -1,0 +1,45 @@
+#!/bin/bash
+
+prog_name="$0"
+
+macaroon=admin
+lnd_network=mainnet
+while [ $# -gt 0 ];
+do
+	case "$1" in
+		--help)
+			echo "Usage: $prog_name [--network mainnet|regtest] [--macaroon admin|invoice|readonly]"
+			exit 0
+			;;
+		--network)
+			lnd_network="$2"
+			shift
+			;;
+		--macaroon)
+			macaroon="$2"
+			shift
+			;;
+	esac
+	shift
+done
+
+. /usr/share/lnd/lib/bash.sh || exit 1
+
+case "$macaroon" in
+	admin)
+		macaroon_file="$lnd_admin_macaroon_file"
+		;;
+	invoice)
+		macaroon_file="$lnd_invoice_macaroon_file"
+		;;
+	readonly)
+		macaroon_file="$lnd_readonly_macaroon_file"
+		;;
+	*)
+		echo "Unknown macaroon: $macaroon" >&2
+		exit 1
+esac
+
+domain="`cat /var/lib/tor/lndconnect_hidden_service/hostname`"
+
+echo "lndconnect://$domain:$lnd_grpc_port?cert=`grep -v 'CERTIFICATE' "$lnd_cert_file" | tr -d '=' | tr '/+' '_-'`"'&macaroon='"`base64 "$macaroon_file" | tr -d '=' | tr '/+' '_-'`" | tr -d '\n'

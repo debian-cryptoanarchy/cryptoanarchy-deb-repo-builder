@@ -155,6 +155,7 @@ This project is work in progress and is missing important features! Beta-quality
 - [x] lnd-genmacaroon (generates additional macaroons - currently only invoice+readonly for use with btcpay)
 - [x] lnd-genmacaroon-mainnet
 - [x] lncli (with a wrapper that uses lnd-system-mainnet by default)
+- [x] lndconnect a CLI tool for creating lndconnect link
 - [ ] eclair
 - [ ] eclair-system-mainnet
 - [ ] eclair-turbo

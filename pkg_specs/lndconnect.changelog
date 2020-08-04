@@ -1,0 +1,6 @@
+lndconnect (0.1-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 4 Aug 2020 09:20:00 +0100
+
