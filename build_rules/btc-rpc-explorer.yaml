@@ -4,6 +4,8 @@ source_name: btc-rpc-explorer
 
 #clone_url: https://github.com/janoside/btc-rpc-explorer
 #git_tag: v$(BTC_RPC_EXPLORER_VERSION)
+#fingerprint: F8C4D8BFB1F02CAE3A8F9057C6F8CE9FFDB2CED2
+#verify_commit: true
 
 # The official version doesn't support BASE_URL yet
 clone_url: https://github.com/ketominer/btc-rpc-explorer
