@@ -93,5 +93,5 @@ test-in-qubes-dvm-all-basic:
 test-in-qubes-dvm-basic-%:
 	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-basic-$*"
 
-test-in-qubes-dvm-upgrade-%: | test-in-qubes-dvm-all-basic
+test-in-qubes-dvm-upgrade-%:
 	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-upgrade-$*"
