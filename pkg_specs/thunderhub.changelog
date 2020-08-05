@@ -1,3 +1,9 @@
+thunderhub (0.8.14-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 5 Aug 2020 08:57:43 +0100
+
 thunderhub (0.8.13-2) buster; urgency=medium
 
   * Added a script for accessing ThunderHub more easily
