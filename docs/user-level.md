@@ -30,14 +30,14 @@ Yes, installing any Bitcoin/freedom-related application is now going to be as ea
 
 The most important information is that **the project is still work in progress**! While the user-level documentation is written for those who don't want to care about the details, it does **not** imply you don't need admin skills! Quite the opposite. You should have the admin skills, at least the ability to use terminal and a GitHub account for communicating issues!
 
-With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They the have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
+With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
 
 * Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure.
 * Beware: as explained above, bitcoin and all related services will run automatically right after boot until you shutdown the computer!
 * Some packages require bitcoin **without pruning** to be configured. And they will do it automatically. That means, if you have less than 350 GB of free space, you should be very careful about what you install! Basically, the only (somewhat) useful packages that you can install now are `bitcoin-rpc-proxy`, `nbxplorer`, `btcpayserver`, `selfhost*`, `tor-hs-patch-config`
 * The data does **not** go to your home directory, but under `/var/lib` if you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
 * Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
-* Any change to configuration requires running `dpkg-reconfigure`
+* Any change to configuration requires running `dpkg-reconfigure PACKAGENAME` `electrs` and `bitcoin-rpc-proxy` are smarter and they only need `systemctl restart`.
 * Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
 * When you change the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
 * Many dependencies are specified using `Recommends`, which means installing stuff with `--no-install-recommends` will work, but won't be very useful.
@@ -45,6 +45,7 @@ With that out of the way, let's talk about the general structure first. There ar
 * The server stuff is still considered advanced topic - read (the end of) the admin docs!
 * `btcpayserver` and `ridetheln` (a better name for RTL, AKA Ride The Lightning) use a custom system of integration into `nginx` in order to get an onion domain, or even a clearnet domain with HTTPS certificate automatically. This is really great for user experience, but may be surprising to people who don't read the docs!
 * If you want a clearnet domain, install `selfhost-clearnet` package. This will skip `clearnet-onion` unless you install both, of course. This operation can **not** be performed non-interactively, without preseting debconf!
+* If you install `bitcoin-regtest`, all following packages will install regtest version (e.g. installing `lnd` will install `lnd-system-regtest`). If you have `bitcoin-mainnet` and `bitcoin-regtest` and would like install only one package, just install the single version you want e.g. `lnd-system-mainnet`
 
 If all that seems too long to you, here's a short version:
 
@@ -59,3 +60,189 @@ If all that seems too long to you, here's a short version:
 * When in doubt, ask on GitHub
 
 Happy bitcoining!
+
+## Using applications
+
+This section explains specifics of various applications packaged in the repository.
+
+### bitcoind and bitcoin-cli
+
+#### About
+
+`bitcoind` is the full node implementation, the heart of Bitcoin ecosystem.
+`bitcoin-cli` package/command can be used to control `bitcoind` from command line.
+
+#### Usage
+
+* If you want to change the location of datadir install `bitcoin-mainnet` with `DEBIAN_PRIORITY=medium` and answer the question.
+* Check `btc-rpc-explorer` package for a nice graphical interface.
+* You need `sudo` to run `bitcoin-cli`, group support not implemented yet, PRs welcome.
+* `bitcoin-cli` is not actual binary, it forwards your commands to the real binary in order to work out of the box
+* `bitcoin-tx` is not packaged yet because I'm not sure where into which package it should go
+* Use `bitcoin-cli -chain=regtest` for regtest (assuming `bitcoin-regtest` is installed).
+
+### bitcoin-rpc-proxy
+
+#### About
+
+Protects `bitcoind` from other applications if they become compromised.
+
+#### Usage
+
+* There's not much to do with it, but you can add new users by adding a file to `/etc/bitcoin-rpc-proxy-mainnet/conf.d` and then restarting (`systemctl restart`)
+* Take a look at `bitcoin-timechain-mainnet` to get a read-only user installed with `public:public` credentials.
+
+### electrs
+
+#### About
+
+An efficient re-implementation of Electrum server in Rust. A perfect choice for user-friendly personal use.
+
+#### Usage
+
+* `electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work
+* `/etc/electrs-mainnet/conf.d/interface.toml` contains all information required for accesing `electrs`, but you probably only need port.
+* If you want to use `electrs` remotely you need some kind of tunnel - so far manual only, look at the port above
+
+### electrum
+
+#### About
+
+Electrum is a powerful Bitcoin wallet that has many interesting features, the most important being ability to use hardware wallets.
+It needs a server to fetch data from.
+The server (`electrs`) is provided in this repository.
+
+#### Usage
+
+* **Important: you need to have `desktop` component active in order to install `electrum`**
+* You shouldn't notice a huge difference from running ordinary Electrum
+* The only noteworthy change to the official app is that launching it from menu will make sure it's conneted to your own local full node.
+* Please keep in mind you'll need to wait for `electrs` to sync before you can use Electrum
+
+### lnd and lncli
+
+#### About
+
+`lnd` is a feature-full implementation of Lightning Network.
+It can be controlled from other graphical apps or from command line using `lncli`.
+
+#### Usage
+
+* **Installing `lnd` automatically installs `lnd-unlocker`, which stores the seed in `/var/lib/lnd-system-mainnet/.seed.txt`**
+* The above behavior can be overriden by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
+* Check `thunderhub` and `ridetheln` packages for a nice graphical interface.
+* Check `lndconnect` package to connect to LND with Zap.
+* You can use `sudo` to run `lncli` or add yourself to group `lnd-system-mainnet`.
+* If you want to grant some user readonly or invoice access, add them to group `lnd-system-mainnet-readonly` or `lnd-system-mainnet-invoice`
+* A special package `lnd-genmacaroon` takes care of generating a special macaroon that is a union of readonly and invoice. It's stored at `/var/lib/lnd-system-mainnet/invoice/invoice+readonly.macaroon`. This is currently used by BTCPayServer.
+
+### lndconnect
+
+#### About
+
+`lndconnect` is a helper tool to allow connecting from Zap or other compatible UI to your LND.
+**Important: This package is temporary and will be eventually replaced with a graphical version!**
+
+#### Usage
+
+For the time being you will have to perform the following configuration steps before first use:
+1. `sudo rm /var/lib/lnd-system-mainnet/public/tls.cert /var/lib/lnd-system-mainnet/private/tls.key`
+2. `dpkg-reconfigure lnd-system-mainnet` and set extra TLS domain to the content of `/var/lib/tor/lndconnect_hidden_service/hostname`.
+
+It's not automated because we want to get rid of this requirement entirely.
+After configuring the domain, you can just run `sudo lndconnect` to get the connection string.
+
+You can create the QR code by installing `qrencode` and running `sudo lndconnect | qrencode -o lndconnect.png`
+
+The package is currently Tor-only due to security and other technical reasons.
+
+### nbxplorer
+
+#### About
+
+A minimalist UTXO tracker for HD Wallets. Used priarily with BTCPayServer.
+
+#### Usage
+
+You probably don't want to use `nbxplorer` directly but install BTCPayServer.
+If you need to use it directly, you can find the port in `/etc/nbxplorer-mainnet/nbxplorer.conf`
+and the cookie in `/var/lib/nbxplorer-mainnet/Main/.cookie`.
+
+**Warning: this is not considered a public API and may change!**
+
+### btcpayserver
+
+#### About
+
+BTCPayServer is a self-hosted server compatible with Bitpay API.
+
+#### Usage
+
+* When you install `btcpayserver` it automatically installs tooling to get onion domain
+* You can get the host name using `sudo /usr/share/selfhost/lib/get_default_domain.sh && echo`
+* **You must access `http://....onion/btcpay` right after installation and register an admin account!**
+* Integrated with `selfhost` - please read the docs of `selfhost`.
+
+Notable differences from the Docker deployment:
+
+* No shitcoins (not that I'd hate them, I just don't have the time for them)
+* Lightning setup is more secure (uses a specialized macaroon to prevent BTCPayServer from spending money)
+* LND seed is not exposed to BTCPayServer, thus not visible in the UI.
+* Lower attack surface (Docker not needed)
+* "External services" not provided via BTCPayServer UI for security reasons. There will be a specialized UI for securely handling installed services.
+* Some questionable packages are not available now (alpha stuff like transmuter or kitchen-sink like pihole)
+* Some useful packages not packaged yet.
+
+### thunderhub
+
+#### About
+
+ThunderHub is a powerful and beautiful web UI for LND.
+
+#### Usage
+
+* To open ThunderHub run `sudo thunderhub-open`
+* If you use it on a remote node, the command above will print out the link that you need to copy into the browser
+* Integrated with `selfhost` - please read the docs of `selfhost`.
+
+### ridetheln
+
+#### About
+
+RTL (Ride The Lightning) is a multi-node Lightning web UI.
+
+#### Usage
+
+* Run `sudo /usr/share/selfhost/lib/get_default_domain.sh && echo -n '/rtl/?access-key=' && sudo cat /var/lib/ridetheln-system/sso/cookie` to get the link to RTL.
+* Sorry, not a nice command, will be added in the future.
+* Both mainnet and regtest LND use the same RTL!
+* Integrated with `selfhost` - please read the docs of `selfhost`.
+
+### btc-rpc-explorer
+
+#### About
+
+BTC RPC Explorer is a very powerful Bitcoin explorer that uses your own full node and doesn't require (but supports) additional indexing (beyond `txindex`).
+
+#### Usage
+
+* Run `sudo /usr/share/selfhost/lib/get_default_domain.sh && echo '/btc-rpc-explorer'` to get the link
+* Run `sudo grep '^BTCEXP_BASIC_AUTH_PASSWORD' /etc/btc-rpc-explorer-mainnet/btc-rpc-explorer.conf | sed 's/^BTCEXP_BASIC_AUTH_PASSWORD=//'` to get the password
+* Enter the password into the password field in the browser, username doesn't matter (can be empty)
+* Integrated with `selfhost` - please read the docs of `selfhost`.
+
+### selfhost
+
+#### About
+
+`selfhost` is a flexible set of tools used to automate hosting web applications on your own server with minimal effort.
+
+#### Usage
+
+* Each installed app that suports `selfhost` integrates with it out of the box.
+* Tor onion domain is generated by default.
+* Install `selfhost-clearnet` to activate clearnet domain **continue reading the docs!**
+* Installation of `selfhost-clearnet` **requires interaction** because it asks for domain.
+* **You must have a working domain pointing to your node for `selfhost-clearnet` to work!**
+* `selfhost-clearnet-certbot` is installed by default and **needs a working e-mail address** for receiving **important security notifications**!
+* `selfhost-clearnet-certbot` will create a TLS certificate for you so that HTTPS works.
