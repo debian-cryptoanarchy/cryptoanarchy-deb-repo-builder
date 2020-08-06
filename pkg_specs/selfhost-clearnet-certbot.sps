@@ -12,6 +12,7 @@ add_files = [
 	"certbot/reload_nginx.sh /etc/letsencrypt/renewal-hooks/deploy",
 ]
 add_links = ["/usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-available/selfhost-clearnet-certbot-webroot.conf"]
+extra_triggers = ["/usr/sbin/nginx", "/usr/bin/certbot", "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "/usr/lib/python3/dist-packages/certbot_nginx"]
 
 [config."clearnet-wip/tls.conf"]
 format = "yaml"
@@ -43,10 +44,9 @@ file_type = "regular"
 script = "echo \"/etc/selfhost/tls/${CONFIG[\"selfhost-clearnet/domain\"]}.fullchain\""
 create = { mode = 750, owner = "root", group = "root", only_parent = true }
 
-# Inactive due to unresolved issue: https://github.com/certbot/certbot/issues/7584
-#[config."clearnet-wip/tls.conf".hvars.tls_include]
-#type = "path"
-#constant = "/etc/letsencrypt/options-ssl-nginx.conf"
+[config."clearnet-wip/tls.conf".hvars.tls_include]
+type = "path"
+constant = "/etc/letsencrypt/options-ssl-nginx.conf"
 
 [config."clearnet-certbot.conf"]
 format = "plain"

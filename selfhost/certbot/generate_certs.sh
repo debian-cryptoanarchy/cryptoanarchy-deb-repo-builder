@@ -66,6 +66,8 @@ then
 	fi
 fi
 
+certbot plugins --prepare || exit 1
+
 # Enable TLS only after certs were generated, nginx will fail otherwise
 mkdir -p /etc/selfhost/clearnet-enabled || exit 1
 ln -sf /etc/selfhost/clearnet-wip/tls.conf /etc/selfhost/clearnet-enabled/tls.conf || exit 1

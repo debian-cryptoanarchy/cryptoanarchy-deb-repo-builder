@@ -1,3 +1,10 @@
+selfhost (0.1.5-2) buster; urgency=medium
+
+  * selfhost-clearnet-certbot now makes sure nginx includes tls configuration
+  * TLS configuration is regenerated when dependencies change
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 6 Aug 2020 09:18:08 +0100
+
 selfhost (0.1.5-1) buster; urgency=medium
 
   * Added a script for getting the default domain
