@@ -22,16 +22,16 @@ lnd_wait_init
 echo "Waiting for LND to unlock" >&2
 while :;
 do
-	"$xlncli" getinfo &>/dev/null && break
+	"$xlncli" --network "$lnd_network" getinfo &>/dev/null && break
 done
 
 echo "Preparing macaroon temp file" >&2
 echo -n > "$tmp_invoice_readonly_macaroon_path" || exit 1
-chgrp lnd-system-mainnet-readonly "$tmp_invoice_readonly_macaroon_path" || exit 1
+chgrp "lnd-system-$lnd_network-readonly" "$tmp_invoice_readonly_macaroon_path" || exit 1
 chmod 640 "$tmp_invoice_readonly_macaroon_path" || exit 1
 
 echo "Baking macaroon" >&2
-"$xlncli" bakemacaroon 'info:read' 'onchain:read' 'offchain:read' 'address:read' 'message:read' 'peers:read' 'signer:read' 'invoices:read' 'invoices:write' 'address:write' | xxd -p -r > "$tmp_invoice_readonly_macaroon_path" || exit 1
+"$xlncli" --network "$lnd_network" bakemacaroon 'info:read' 'onchain:read' 'offchain:read' 'address:read' 'message:read' 'peers:read' 'signer:read' 'invoices:read' 'invoices:write' 'address:write' | xxd -p -r > "$tmp_invoice_readonly_macaroon_path" || exit 1
 sync "$tmp_invoice_readonly_macaroon_path"
 
 echo "Committing macaroon" >&2
