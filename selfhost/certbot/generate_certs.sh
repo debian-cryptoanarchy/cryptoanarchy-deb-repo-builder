@@ -19,7 +19,8 @@ then
 
 	if echo "$CERTBOT_REGISTER_TEST_PARAM" | grep -q -- --register-unsafely-without-email;
 	then
-		certbot register --agree-tos $CERTBOT_REGISTER_TEST_PARAM "$eff_email_arg" < /dev/null >&2 || exit 1
+		#certbot register --agree-tos $CERTBOT_REGISTER_TEST_PARAM "$eff_email_arg" < /dev/null >&2 || exit 1
+		true
 	else
 		if [ -z "$email" ];
 		then
