@@ -5,6 +5,7 @@ conf_param = "-C"
 user = { group = true, create = { home = true } }
 depends = ["bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
 recommends = ["lnd-unlocker-system-regtest"]
+extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always
@@ -110,6 +111,13 @@ type = "bind_host"
 ignore_empty = true
 priority = "medium"
 summary = "External IP address"
+store = false
+
+# We abuse the fact that variables are not checked for uniqueness yet. :)
+[config."lnd.conf".hvars.externalip]
+type = "bind_host"
+script = "if [ -z \"${CONFIG[\"lnd-system-regtest/externalip\"]}\" ]; then /usr/share/lnd/get_external_addr.sh regtest \"${CONFIG[\"lnd-system-regtest/listen\"]}\"; else echo \"${CONFIG[\"lnd-system-regtest/externalip\"]}\"; fi"
+ignore_empty = true
 
 [config."lnd.conf".ivars.debuglevel]
 # Should be enum (select)

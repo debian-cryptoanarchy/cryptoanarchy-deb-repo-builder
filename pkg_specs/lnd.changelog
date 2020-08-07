@@ -1,8 +1,14 @@
+lnd (0.10.2-7) buster; urgency=medium
+
+  * Automatic filling of externalip when possible
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 7 Aug 2020 21:29:03 +0100
+
 lnd (0.10.2-6) buster; urgency=medium
 
   * Fixed network in genmacaroon
 
- -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 6 Aug 2020 20:39:19 +0100
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 6 Aug 2020 20:39:19 +0100
 
 lnd (0.10.2-5) buster; urgency=medium
 

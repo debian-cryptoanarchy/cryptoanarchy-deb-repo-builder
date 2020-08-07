@@ -26,6 +26,8 @@ copy_assets:
           to: gen_macaroons.sh
         - from: lnd/bash_lib.sh
           to: lib/bash.sh
+        - from: lnd/get_external_addr.sh
+          to: get_external_addr.sh
 
 dirs:
         - dir: lib
