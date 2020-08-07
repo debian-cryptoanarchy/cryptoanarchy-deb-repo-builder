@@ -3,7 +3,10 @@ bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-recommends = ["btcpayserver-system-selfhost-regtest", "btcpayserver-no-lnp-system-regtest | lnd-system-regtest, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest"]
+# The former two of these recommends handle the situation when lnd is installed on the command line
+# without explicitly selecting the network or when the selected network is mainnet only, the latter
+# two recommends handle the case when both networks are used.
+recommends = ["btcpayserver-system-selfhost-regtest", "btcpayserver-no-lnp-system-regtest | lnd, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest | lnd-system-mainnet, btcpayserver-no-lnp-system-regtest | btcpayserver-lnp-system-regtest | lnd-system-regtest, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
 extra_service_config = """
 Restart=always
