@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.1.0-8) buster; urgency=medium
+
+  * generate and generatetoaddress added to the timechain regtest
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 7 Aug 2020 22:42:38 +0100
+
 btc-rpc-proxy (0.1.0-7) buster; urgency=medium
 
   * Improved recommends
