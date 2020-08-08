@@ -10,9 +10,15 @@ then
 	exit $?
 fi
 
+# Older versions of the package use symlinks which are broken by apparmor
+if [ -L "$selfhost_conf" ];
+then
+	rm "$selfhost_conf"
+fi
+
 if [ '!' -e "$selfhost_conf" ];
 then
-	ln -sf /usr/share/selfhost-onion/hidden_service.conf "$selfhost_conf" || exit 1
+	cp /usr/share/selfhost-onion/hidden_service.conf "$selfhost_conf" || exit 1
 fi
 
 which inotifywait &>/dev/null && use_inotify=1 || use_inotify=0
