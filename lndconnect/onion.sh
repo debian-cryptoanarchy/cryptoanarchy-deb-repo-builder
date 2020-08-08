@@ -24,9 +24,11 @@ do
 	fi
 done
 
+hidden_service_dir="/var/lib/tor/lndconnect_hidden_service"
+
 if [ -n "$ports" ];
 then
-	echo "HiddenServiceDir /var/lib/tor/lndconnect_hidden_service" > "$tmp_conf"
+	echo "HiddenServiceDir $hidden_service_dir" > "$tmp_conf"
 	for port in $ports;
 	do
 		echo "HiddenServicePort $port 127.0.0.1:$port" >> "$tmp_conf"
@@ -56,3 +58,30 @@ then
 		deb-systemd-invoke start tor@default.service || exit 1
 	fi
 fi
+
+for x in `seq 1 60`;
+do
+	# This checks if the file exists and if writing to it finished
+	if grep '\.onion$' "$hidden_service_dir/hostname" &>/dev/null;
+	then
+		domain="`cat "$hidden_service_dir/hostname"`"
+		break
+	fi
+	sleep 1
+done
+
+if [ -z "$domain" ];
+then
+	echo "Failed to setup onion domain for lndconnect"
+	exit 1
+fi
+
+for network in mainnet regtest;
+do
+	ext_conf="/etc/lnd-system-$network/conf.d/lndconnect.conf"
+	ext_conf_tmp="/etc/lnd-system-$network/.lndconnect.conf.tmp"
+	echo "tlsextradomain=$domain" > "$ext_conf_tmp"
+	echo "tlsautorefresh=1" >> "$ext_conf_tmp"
+	sync "$ext_conf_tmp"
+	mv "$ext_conf_tmp" "$ext_conf"
+done

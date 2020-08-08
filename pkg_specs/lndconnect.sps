@@ -19,3 +19,11 @@ internal = true
 [[config."lndconnect.conf".postprocess.generates]]
 dir = "/var/lib/tor/lndconnect_hidden-service"
 internal = true
+
+[[config."lndconnect.conf".postprocess.generates]]
+file = "/etc/lnd-system-mainnet/conf.d/lndconnect.conf"
+internal = true
+
+[[config."lndconnect.conf".postprocess.generates]]
+file = "/etc/lnd-system-regtest/conf.d/lndconnect.conf"
+internal = true

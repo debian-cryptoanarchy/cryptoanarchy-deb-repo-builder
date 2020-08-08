@@ -145,12 +145,7 @@ It can be controlled from other graphical apps or from command line using `lncli
 
 #### Usage
 
-For the time being you will have to perform the following configuration steps before first use:
-1. `sudo rm /var/lib/lnd-system-mainnet/public/tls.cert /var/lib/lnd-system-mainnet/private/tls.key`
-2. `dpkg-reconfigure lnd-system-mainnet` and set extra TLS domain to the content of `/var/lib/tor/lndconnect_hidden_service/hostname`.
-
-It's not automated because we want to get rid of this requirement entirely.
-After configuring the domain, you can just run `sudo lndconnect` to get the connection string.
+Just run `sudo lndconnect` to get the connection string.
 
 You can create the QR code by installing `qrencode` and running `sudo lndconnect | qrencode -o lndconnect.png`
 
