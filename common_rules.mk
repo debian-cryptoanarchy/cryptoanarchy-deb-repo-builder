@@ -6,7 +6,7 @@ $(BUILD_DIR)/debcrafter-%.stamp: pkg_specs/%.sss pkg_specs/%.changelog $(BUILD_D
 	touch $@
 
 $(BUILD_DIR)/packages-%.stamp: $(BUILD_DIR)/debcrafter-%.stamp
-	cd "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`" && dpkg-buildpackage -a $(DEB_ARCH) $(BUILD_PACKAGE_FLAGS)
+	cd "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`" && SOURCE_DATE_EPOCH=`dpkg-parsechangelog -STimestamp` dpkg-buildpackage -a $(DEB_ARCH) $(BUILD_PACKAGE_FLAGS) && find debian -exec touch -d @`dpkg-parsechangelog -STimestamp` '{}' \;
 	touch $@
 
 $(BUILD_DIR)/build-%.mk: $(SOURCE_DIR)build_rules/%.yaml $(SOURCE_DIR)build_template.mustache | $(BUILD_DIR)
