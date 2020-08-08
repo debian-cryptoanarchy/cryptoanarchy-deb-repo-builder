@@ -3,7 +3,7 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
+depends = ["lnd (>= 0.10.2-7)", "bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
 recommends = ["lnd-unlocker-system-regtest"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
