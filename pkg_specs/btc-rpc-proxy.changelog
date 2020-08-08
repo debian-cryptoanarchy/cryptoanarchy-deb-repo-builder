@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.1.0-9) buster; urgency=medium
+
+  * getmempoolentry added to the whitelist
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 8 Aug 2020 15:14:37 +0100
+
 btc-rpc-proxy (0.1.0-8) buster; urgency=medium
 
   * generate and generatetoaddress added to the timechain regtest

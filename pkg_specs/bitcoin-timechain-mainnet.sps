@@ -21,6 +21,7 @@ allowed_calls = [
 	"getdifficulty",
 	"getnetworkinfo",
 	"getmempoolinfo",
+	"getmempoolentry",
 	"getrawmempool",
 	"gettxout",
 	"gettxoutproof",
