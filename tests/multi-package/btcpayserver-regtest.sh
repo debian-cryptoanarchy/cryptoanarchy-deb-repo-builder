@@ -20,12 +20,7 @@ preload_config
 
 echo '127.0.0.1 example.com' | sudo tee -a /etc/hosts >/dev/null
 
-# Uncomment to avoid hitting #87
-#sudo mkdir -p /etc/lnd-system-regtest/conf.d
-#echo 'externalip=example.com' | sudo tee /etc/lnd-system-regtest/conf.d/external-ip.conf
-
-# Uncomment to avoid hitting #88
-sudo apt install -y bitcoin-regtest bitcoin-cli lnd btcpayserver python3-selenium selfhost-clearnet lncli # btcpayserver-lnp-system-regtest
+sudo apt install -y bitcoin-regtest bitcoin-cli lnd btcpayserver python3-selenium selfhost-clearnet lncli
 
 # Initialize testing network
 
