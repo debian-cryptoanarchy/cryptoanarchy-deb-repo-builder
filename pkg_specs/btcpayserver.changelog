@@ -1,3 +1,10 @@
+btcpayserver (1.0.5.4-1) buster; urgency=critical
+
+  * Updated upstream version
+  * Fixes security vulnerabilities
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 9 Aug 2020 13:22:42 +0100
+
 btcpayserver (1.0.5.0-6) buster; urgency=medium
 
   * Fixed recommends when installing with lnd
