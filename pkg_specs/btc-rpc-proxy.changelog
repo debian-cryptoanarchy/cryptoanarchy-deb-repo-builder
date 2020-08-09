@@ -1,3 +1,10 @@
+btc-rpc-proxy (0.1.1-1) buster; urgency=medium
+
+  * updated upstream version - send forbidden instead of unauthorized
+  * generate and generatetoaddress removed from the timechain regtest
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 8 Aug 2020 15:14:37 +0100
+
 btc-rpc-proxy (0.1.0-9) buster; urgency=medium
 
   * getmempoolentry added to the whitelist
