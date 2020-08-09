@@ -1,3 +1,10 @@
+nbxplorer (2.1.41-1) buster; urgency=medium
+
+  * Updated nbxplorer
+  * This should allow stricter permissions without breaking PayJoin in BTCPay
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 9 Aug 2020 08:40:27 +0100
+
 nbxplorer (2.1.30-3) buster; urgency=medium
 
   * Improved recommends
