@@ -20,7 +20,7 @@ install:
 	cfg_me --output target/man/electrs.1 man
 
 check:
-	$(TEST_COMMAND)
+	#$(TEST_COMMAND)
 
 clean:
 	cargo clean
