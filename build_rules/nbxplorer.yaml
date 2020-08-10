@@ -6,7 +6,6 @@ clone_url: https://github.com/dgarage/NBXplorer
 git_tag: v$(NBXPLORER_VERSION)
 fingerprint: AB4CFA9895ACA0DBE27F6B346618763EF09186FE
 verify_commit: true
-
-copy_assets:
-        - from: nbxplorer/assets/dotnet-makefile
-          to: Makefile
+build_system: dotnet
+dotnet_csproj: NBXplorer/NBXplorer.csproj
+dotnet_build_name: NBXplorer

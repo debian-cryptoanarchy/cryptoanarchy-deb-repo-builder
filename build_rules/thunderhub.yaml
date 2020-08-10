@@ -6,10 +6,12 @@ clone_url: https://github.com/apotdevin/thunderhub
 git_tag: v$(THUNDERHUB_VERSION)
 fingerprint: 3C8A01A8344B66E7875CE5534403F1DFBE779457
 verify_tag: true
+build_system: npm
+npm_exclude_files: thunderhub
+npm_include_files: .next
+npm_bin_package_name: thunderhub
 
 copy_assets:
-        - from: thunderhub/assets/npm-makefile
-          to: Makefile
         - from: thunderhub/thunderhub
           to: thunderhub
         - from: thunderhub/open-browser.sh

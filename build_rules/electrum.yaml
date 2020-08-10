@@ -3,6 +3,7 @@ pkg_name_snake: electrum
 source_name: electrum
 
 fingerprint: 6694D8DE7BE8EE5631BED9502BD5824B7F9470E6
+build_system: none
 
 get_assets:
         - url: https://download.electrum.org/$(ELECTRUM_VERSION)/electrum-$(ELECTRUM_VERSION)-$(ARCH).AppImage

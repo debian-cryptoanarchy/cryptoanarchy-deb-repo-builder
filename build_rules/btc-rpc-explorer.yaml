@@ -10,9 +10,10 @@ source_name: btc-rpc-explorer
 # The official version doesn't support BASE_URL yet
 clone_url: https://github.com/ketominer/btc-rpc-explorer
 git_tag: baseurl
+build_system: npm
+npm_exclude_files: btc-rpc-explorer
+npm_bin_package_name: btc-rpc-explorer
 
 copy_assets:
-        - from: btc-rpc-explorer/assets/npm-makefile
-          to: Makefile
         - from: btc-rpc-explorer/btc-rpc-explorer
           to: btc-rpc-explorer

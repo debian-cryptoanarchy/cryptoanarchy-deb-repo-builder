@@ -1,9 +1,0 @@
-all:
-
-install: 
-	mkdir -p $(addprefix $(DESTDIR)/usr/, bin)
-	install -m 755 lnd $(DESTDIR)/usr/bin/lnd
-
-clean:
-
-check:

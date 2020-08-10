@@ -15,9 +15,9 @@ shasums:
         url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt
         detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt.sig
 
+build_system: none
+
 copy_assets:
-        - from: lnd/assets/bin-makefile
-          to: Makefile
         - from: lnd/xlncli
           to: xlncli
         - from: lnd/auto_unlock.sh

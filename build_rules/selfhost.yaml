@@ -1,6 +1,7 @@
 pkg_name_upper: SELFHOST
 pkg_name_snake: selfhost
 source_name: selfhost
+build_system: none
 
 copy_assets:
         - from: selfhost/nginx/generate_config.sh

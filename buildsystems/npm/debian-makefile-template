@@ -1,0 +1,11 @@
+COPY_FILES=$(filter-out debian Dockerfile% %.Dockerfile docker README.md .% LICENSE% CONTRIBUTING% docs {{npm_exclude_files}}, $(wildcard *)) {{npm_include_files}}
+
+all:
+	if [ -x ./node_modules/next/dist/bin/next ]; then ./node_modules/next/dist/bin/next build; fi
+	npm prune --production
+
+check:
+
+install:
+	mkdir -p $(DESTDIR)/usr/lib/{{npm_bin_package_name}}
+	cp -at $(DESTDIR)/usr/lib/{{npm_bin_package_name}} $(COPY_FILES)

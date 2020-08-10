@@ -11,8 +11,7 @@ fingerprint: 01EA5486DE18A882D4C2684590C8019E36C2E964
 shasums:
         url:  https://bitcoin.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
 
+build_system: none
 copy_assets:
-        - from: bitcoin/assets/bin-makefile
-          to: Makefile
         - from: bitcoin/xbitcoin-cli
           to: xbitcoin-cli

@@ -5,10 +5,10 @@ depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest"]
 suggests = ["bitcoin-cli"]
 add_files = [
-	"usr/bin/bitcoind",
-	"usr/lib/libbitcoinconsensus.so",
-	"usr/lib/libbitcoinconsensus.so.0",
-	"usr/lib/libbitcoinconsensus.so.0.0.0",
+	"bin/bitcoind /usr/bin",
+	"lib/libbitcoinconsensus.so /usr/lib",
+	"lib/libbitcoinconsensus.so.0 /usr/lib",
+	"lib/libbitcoinconsensus.so.0.0.0 /usr/lib",
 ]
 add_manpages = ["share/man/man1/bitcoind.1"]
 long_doc = """Bitcoin Core is the original Bitcoin client and it builds the backbone

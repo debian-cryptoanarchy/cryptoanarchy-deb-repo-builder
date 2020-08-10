@@ -6,10 +6,11 @@ clone_url: https://github.com/Ride-The-Lightning/RTL
 git_tag: v$(RIDETHELN_VERSION)
 fingerprint: 3E9BD4436C288039CA827A9200C9E2BC2E45666F
 verify_tag: true
+build_system: npm
+npm_exclude_files: ridetheln
+npm_bin_package_name: ridetheln
 
 copy_assets:
-        - from: ridetheln/assets/npm-makefile
-          to: Makefile
         - from: ridetheln/alloc_index.sh
           to: alloc_index.sh
         - from: ridetheln/update_config.sh
