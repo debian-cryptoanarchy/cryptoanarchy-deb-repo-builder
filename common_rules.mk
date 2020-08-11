@@ -1,3 +1,22 @@
+SQCK=$(shell which sqck || true)
+
+ifeq ($(SQCK),)
+	KEY_INPUT_SUFFIX=-raw.gpg
+else
+	KEY_INPUT_SUFFIX=-sqck.gpg
+endif
+
+$(BUILD_DIR)/%-sqck.gpg: $(BUILD_DIR)/%-sqck.key
+	gpg --no-default-keyring --keyring $@ --import $<
+
+# We split verification because sqck must not be followed by |
+# as shell would ignore the exit code of sqck.
+$(BUILD_DIR)/%-sqck.key: $(BUILD_DIR)/%-raw.gpg
+	gpg --no-default-keyring --keyring $< --export $* | $(SQCK) $* > $@
+
+$(BUILD_DIR)/%-raw.gpg: | $(BUILD_DIR)
+	gpg --no-default-keyring --keyring $@ --keyserver hkp://keyserver.ubuntu.com --recv-keys $*
+
 $(BUILD_DIR):
 	mkdir -p $@
 

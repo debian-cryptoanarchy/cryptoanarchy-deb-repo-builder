@@ -9,7 +9,7 @@ include $(SOURCE_DIR){{{include}}}
 {{pkg_name_upper}}_SHASUMS_SIG=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}.sig{{/detached_sig}}{{^detached_sig}}.asc{{/detached_sig}}
 {{pkg_name_upper}}_FILTERED_SHASUMS=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}-filtered{{/detached_sig}}
 {{/shasums}}
-{{pkg_name_upper}}_FETCH_FILES=$(addprefix $(BUILD_DIR)/,{{#clone_url}}fetch-{{{source_name}}}.stamp{{/clone_url}} {{#unpack}}{{{file_name}}}{{/unpack}} {{#fingerprint}}{{{fingerprint}}}.gpg{{/fingerprint}}) {{#shasums}}$({{{pkg_name_upper}}}_SHASUMS_SIG){{#detached_sig}} $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}}{{/shasums}}
+{{pkg_name_upper}}_FETCH_FILES=$(addprefix $(BUILD_DIR)/,{{#clone_url}}fetch-{{{source_name}}}.stamp{{/clone_url}} {{#unpack}}{{{file_name}}}{{/unpack}} {{#fingerprint}}{{{fingerprint}}}-raw.gpg{{/fingerprint}}) {{#shasums}}$({{{pkg_name_upper}}}_SHASUMS_SIG){{#detached_sig}} $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}}{{/shasums}}
 
 {{#clone_url}}
 $(BUILD_DIR)/fetch-{{{source_name}}}.stamp: | $(BUILD_DIR)
@@ -24,7 +24,7 @@ $(BUILD_DIR)/fetch-{{{source_name}}}.stamp: | $(BUILD_DIR)
 $({{{pkg_name_upper}}}_BUILD_DIR)/: $(BUILD_DIR)/fetch-{{{source_name}}}.stamp
 
 {{#fingerprint}}
-$(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp: $(BUILD_DIR)/{{{fingerprint}}}.gpg
+$(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp: $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX)
 	mkdir -p $(BUILD_DIR)/{{fingerprint}}-gnupg-home
 	gpg --no-default-keyring --keyring $< --export {{fingerprint}} | GNUPGHOME=$(BUILD_DIR)/{{fingerprint}}-gnupg-home gpg --import -
 	touch $@
@@ -65,10 +65,6 @@ $({{{pkg_name_upper}}}_SHASUMS_SIG): | $(BUILD_DIR)
 
 {{/detached_sig}}
 {{/shasums}}
-{{#fingerprint}}
-$(BUILD_DIR)/{{{fingerprint}}}.gpg: | $(BUILD_DIR)
-	gpg --no-default-keyring --keyring $@ --keyserver hkp://keyserver.ubuntu.com --recv-keys {{{fingerprint}}}
-{{/fingerprint}}
 
 {{#copy_assets}}
 $({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}}: $(SOURCE_DIR){{{from}}} $(BUILD_DIR)/verify-{{{source_name}}}.stamp | $(dir $({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}})
@@ -85,18 +81,18 @@ $({{{pkg_name_upper}}}_PACKAGES): $(BUILD_DIR)/packages-{{{source_name}}}.stamp
 
 {{#unpack}}
 {{#shasums}}
-$({{{pkg_name_upper}}}_FILTERED_SHASUMS): $({{{pkg_name_upper}}}_SHASUMS_SIG) {{#detached_sig}}$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}} $(BUILD_DIR)/{{{fingerprint}}}.gpg
+$({{{pkg_name_upper}}}_FILTERED_SHASUMS): $({{{pkg_name_upper}}}_SHASUMS_SIG) {{#detached_sig}}$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}} $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX)
 {{#detached_sig}}
-	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg $< $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX) $< $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums
 	grep "{{{file_name}}}" $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums > $@
 {{/detached_sig}}
 {{^detached_sig}}
-	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg -o - $< | grep "{{{file_name}}}" > $@
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX) -o - $< | grep "{{{file_name}}}" > $@
 {{/detached_sig}}
 {{/shasums}}
 {{/unpack}}
 
-$(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}.gpg{{/signature}}{{/get_assets}}{{#verify_tag}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_tag}}{{#verify_commit}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_commit}}
+$(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX){{/signature}}{{/get_assets}}{{#verify_tag}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_tag}}{{#verify_commit}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_commit}}
 {{#unpack}}
 {{#shasums}}
 	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS)
@@ -113,7 +109,7 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 {{/unpack}}
 	{{#get_assets}}
 	{{#signature}}
-	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}.gpg $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}
+	gpgv --keyring $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX) $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}
 	{{/signature}}
 	{{/get_assets}}
 	{{#verify_tag}}
