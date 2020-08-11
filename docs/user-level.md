@@ -49,8 +49,8 @@ With that out of the way, let's talk about the general structure first. There ar
 
 If all that seems too long to you, here's a short version:
 
-* **Keep in mind the project is still experimental**
-* **LND seed is in /var/lib/lnd-system-mainnet/.seed.txt**
+* **Keep in mind the project is beta**
+* **LND seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
 * Make sure you have at least 350 GB of free space
 * Do **not** run `apt` with any funny switches
 * Do **not** attempt to configure anything - it will just work

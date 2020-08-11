@@ -17,10 +17,12 @@ Motivation
 * `sudo apt install btcpayserver` should install `btcpayserver`, `bitcoind`, `nginx`, `tor` connect them together and generate an `onion` address for you
 * `sudo apt install electrs` should be smart enough to turn off pruning
 * `sudo apt install ridetheln` should install `lnd`, `bitcoind` without pruning, `nginx`, `tor`...
+* All applications should integrate nicely with existing Debian features (e.g. system database).
 
-You should get the point at this point. :) It actually works now, if you setup the repository.
+You should get the point at this point. :) It actually works now, if you setup the repository (read below).
 
-However, there are still some pain points! The biggest ones is inconvenience when accessing your node remotely. Also, warning: beta-quality software!!!
+However, there are still some pain points! The biggest ones is inconvenience when accessing your node remotely.
+Also, warning: beta-quality software!!!
 
 Supported applications
 ----------------------
@@ -31,56 +33,61 @@ Plus several internal tools to improve security and UX. Read below for the compl
 
 If you want to try it out, see `docs/` directory to learn the details.
 
-About
------
+How to setup the beta Debian repository
+---------------------------------------
 
-This repository contains a set of makefiles and other tools to build a debian repository full
-of freedom and privacy-oriented services and applications. It aims to enable hassle-free
-deployment and configuration suitable for servers and the desktops. It achieves this by
-leveraging full power of great Debian packaging system. Currently the repository contains
-only Bitcoin-related stuff, but the intention is to add other freedom-oriented stuff later.
+Please read the [docs](docs/) before you start! Only Debian 10 (Buster) is currently tested, distributions based
+on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
 
-The main components of the resulting packages are:
+To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
+and don't forget to verify fingerprints.
 
-* packages containing binaries - they do nothing after installation
-* service packages - these ensure configuration and launching of the services
-* configuration-extension packages - they make sure some combinations of other packages are
-  configured properly (see below)
-* interface packages - whenever an application depends on certain service being present, the
-  package depends on a virtual interface package
+1. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C`
+2. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF`
+3. `gpg --export 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C | sudo apt-key add -`
+4. `gpg --export BC528686B50D79E339D3721CEB3E94ADBE1229CF | sudo apt-key add -`
+5. `echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' | sudo tee /etc/apt/sources.list.d/microsoft.list > /dev/null`
+6. `echo 'deb https://deb.ln-ask.me buster common local desktop' | sudo tee /etc/apt/sources.list.d/cryptoanarchy.list > /dev/null`
+7. `sudo apt update`
 
-Debconf is used as the preferred way to (re)configure packages, but there are some exceptions.
-Sometimes an application depends on another application being configured in certain way (e.g.
-electrs depends on bitcoind to *not* prune the timechain). This is expressed in the packaging
-too. While the system administrator can still break the system obviously, a normal user just
-installs whatever he needs and lets it run on its own. Even in the case of control freaks,
-the consistency of configuration is maintained (e.g. changing RPC port of one package causes
-change in the other package).
+If you're setting up a dedicated full node, you may want to leave out `desktop` component in step 6.
 
-Produced repository and its security limitations
-------------------------------------------------
-
-There's [an official experimental repository](https://deb.ln-ask.me) for this project. It should
-work, but all the limitations of this project apply. Further, security is limited due to these
-factors:
-
-* The buld is performed in a **single** Qubes VM that **is** connected to the Internet.
-* **Not all** signatures are checked
-* Build is **not** deterministic
-* **Neither** the code nor the output was widely reviewed by independent developers
-* `tor-hs-patch-config` and `selfhost-onion` don't work with apparmor! Boot with `apparmor=0`
-  kernel param or don't use! See #72
-
-Keep in mind however, that this project may already beat others in terms of security thanks to
-cautious use of Qubes OS. There are already plans to improve this further.
-
-Known functional limitations/bugs
+Security features and limitations
 ---------------------------------
 
-As any other software, this one is not perfect. Look at the issues to see all of them, here are
-some highlights that you may want to know about before you try it:
+Obviously, whoever promises unhackable product is probably a scammer, so I'm not promising absolute security.
+That being said this project has some interesting advantages over manual setup and some existing projects:
 
-* No automated backups #53
+* Isolation of all services - the principle of least privilege is followed, each service runs under separate user
+  with access restricted to the features it needs. For instance, the official BTCPayServer setup uses admin
+  macaroon to access LND. This repository uses a special macaroon that prevents spending funds.
+* Zero attack surface of Docker.
+* Automated setup with declarative approach avoids bugs from typos and tiredness. Such can happen very easily when
+  setting up automatically.
+* If you're a newbie, letting someone experienced in information security help you leads to better security.
+* All packages have signatures checked, some even had code reviewed. To my knowledge various Docker setups don't
+  check signatures, so this project should be safer.
+* All official builds are performed in a dedicated Qubes VM, which should make it very hard to compromise.
+* All GPG keys are checked with [`sqck`](https://github.com/Kixunil/sqck).
+* Most packages are built deterministically
+
+Known room for improvement:
+
+* The builds could be made safer by reviewing Debian build tools and making sure they can't be compromised by bad
+  inputs. Then reviewing all build systems to make sure they either don't execute custom build-time logic or
+  isolate such login in a separate VM.
+* The remaining packages (`electrs`, `ridetheln`, `thunderhub`) could be built deterministically
+* **Neither** the code nor the output was widely reviewed by independent developers
+* Automated backups could be added - this is high priority issue that should be solved in upcoming months. (#53)
+
+That being said, I don't know of a comparable project that has significatnly better security. Would love to learn
+if there is such.
+
+About this **GitHub** repository
+--------------------------------
+
+This **GitHub** repository contains a set of makefiles and other tools to build the **Debian** repository.
+It's useless to you unless you are trying to build it on your own or help with development.
 
 Build Dependencies
 ------------------
@@ -88,8 +95,8 @@ Build Dependencies
 The only officially supported OS for building and running is currently **Debian 10 (Buster)**!
 It may work on recent version of Ubuntu and derived systems, but it's not tested. Contributions
 (trying it and reportin) welcome!
-This part is relevant only if you want to develop the repository or verify it on your own.
-Only needed first time:
+This part is relevant only if you want to develop the repository or build it on your own.
+Only needed the first time:
 
 ```
 sudo apt-get install cargo npm ruby-mustache
@@ -104,13 +111,8 @@ Building
 
 `make`
 
-Important note
---------------
-
-This project is work in progress and is missing important features! Beta-quality software
-- use with caution!
-
-(Probably incomplete) TODO list:
+Supported and planned applications
+----------------------------------
 
 - [x] bitcoind
 - [x] bitcoin-mainnet
