@@ -40,7 +40,7 @@ Please read the [docs](docs/) before you start! Only Debian 10 (Buster) is curre
 on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
 
 To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
-and don't forget to verify fingerprints.
+and don't forget to [verify fingerprints](https://gist.github.com/Kixunil/fb7300edcb8a8afc95e6b7b727b31f0d).
 
 1. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C`
 2. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF`
