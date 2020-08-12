@@ -8,8 +8,8 @@ Tooling for building a Debian repository containing interconnected, well-working
 Motivation
 ----------
 
-* If you install `gnome-desktop` `apt` also installs X server and configures everything properly
-* If you install `gimp` `apt` knows which libraries it needs
+* If you install `gnome-desktop`, `apt` also installs X server and configures everything properly
+* If you install `gimp`, `apt` knows which libraries it needs
 * If you install `apache`, `mysql`, `php` it works out-of-the-box
 
 **We want the same to work for Bitcoin apps**, examples:
@@ -42,13 +42,15 @@ on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if 
 To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
 and don't forget to [verify fingerprints](https://gist.github.com/Kixunil/fb7300edcb8a8afc95e6b7b727b31f0d).
 
-1. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C`
-2. `gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF`
-3. `gpg --export 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C | sudo apt-key add -`
-4. `gpg --export BC528686B50D79E339D3721CEB3E94ADBE1229CF | sudo apt-key add -`
-5. `echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' | sudo tee /etc/apt/sources.list.d/microsoft.list > /dev/null`
-6. `echo 'deb https://deb.ln-ask.me buster common local desktop' | sudo tee /etc/apt/sources.list.d/cryptoanarchy.list > /dev/null`
-7. `sudo apt update`
+```
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
+gpg --export 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C | sudo apt-key add -
+gpg --export BC528686B50D79E339D3721CEB3E94ADBE1229CF | sudo apt-key add -
+echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' | sudo tee /etc/apt/sources.list.d/microsoft.list > /dev/null
+echo 'deb https://deb.ln-ask.me buster common local desktop' | sudo tee /etc/apt/sources.list.d/cryptoanarchy.list > /dev/null
+sudo apt update
+```
 
 If you're setting up a dedicated full node, you may want to leave out `desktop` component in step 6.
 
