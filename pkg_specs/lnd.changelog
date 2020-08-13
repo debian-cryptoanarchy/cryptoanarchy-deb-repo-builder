@@ -1,3 +1,9 @@
+lnd (0.10.2-8) buster; urgency=medium
+
+  * Improved reliability of auto unlock
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 13 Aug 2020 16:37:31 +0100
+
 lnd (0.10.2-7) buster; urgency=medium
 
   * Automatic filling of externalip when possible

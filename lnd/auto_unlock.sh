@@ -53,14 +53,32 @@ then
 	# The password is fixed and small, so using shm makes the most sense
 	tmp_post_data="`mktemp /dev/shm/lnd-unlock.XXXXXXX`"
 	echo '{"wallet_password": "'"$wallet_password"'"}' > "$tmp_post_data"
-	lnd_call unlockwallet "$tmp_post_data"
+	ret=1
+	for x in `seq 1 10`;
+	do
+		if lnd_call unlockwallet "$tmp_post_data";
+		then
+			ret=0
+			break
+		fi
+		sleep 10
+	done
 	ret=$?
 	rm -f "$tmp_post_data"
 	exit $ret
 else
 	# We re-use tmp_seed_file because it's stored in a safe location
 	jq '{ wallet_password: "'"$wallet_password"'", cipher_seed_mnemonic: . }' "$seed_file" > "$tmp_seed_file" || exit 1
-	lnd_call initwallet "$tmp_seed_file"
+	ret=1
+	for x in `seq 1 10`;
+	do
+		if lnd_call initwallet "$tmp_seed_file";
+		then
+			ret=0
+			break
+		fi
+		sleep 10
+	done
 	ret=$?
 	rm -f "$tmp_seed_file"
 	if [ $ret -eq 0 ];
