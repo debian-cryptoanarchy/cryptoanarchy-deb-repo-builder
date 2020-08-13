@@ -5,7 +5,7 @@ source_name: thunderhub
 clone_url: https://github.com/apotdevin/thunderhub
 git_tag: v$(THUNDERHUB_VERSION)
 fingerprint: 3C8A01A8344B66E7875CE5534403F1DFBE779457
-verify_tag: true
+verify_commit: true
 build_system: npm
 npm_exclude_files: thunderhub
 npm_include_files: .next

@@ -3,7 +3,7 @@ bin_package = "thunderhub"
 binary = "/usr/bin/thunderhub"
 user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
-depends = ["thunderhub"]
+depends = ["thunderhub (>= 0.9.2)"]
 recommends = ["thunderhub-system-selfhost-mainnet"]
 extra_service_config = """
 Restart=always
@@ -71,12 +71,6 @@ type = "bool"
 default = "false"
 priority = "medium"
 summary = "Should ThunderHub fetch fees from earn.com?"
-
-[config."thunderhub.conf".ivars.HODL_HODL]
-type = "bool"
-default = "false"
-priority = "medium"
-summary = "Activate HODL HODL integration into ThunderHub?"
 
 [config."thunderhub.conf".ivars.DISABLE_LINKS]
 type = "bool"

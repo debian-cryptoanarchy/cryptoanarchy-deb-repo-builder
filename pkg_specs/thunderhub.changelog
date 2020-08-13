@@ -1,3 +1,10 @@
+thunderhub (0.9.3-0) buster; urgency=medium
+
+  * Updated upstream version
+  * Build with --production
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 10 Aug 2020 07:07:42 +0100
+
 thunderhub (0.8.14-3) buster; urgency=medium
 
   * Fixed invalid characters in cookie
