@@ -36,7 +36,7 @@ If you want to try it out, see `docs/` directory to learn the details.
 How to setup the beta Debian repository
 ---------------------------------------
 
-Please read the [docs](docs/) before you start! Only Debian 10 (Buster) is currently tested, distributions based
+**Please read the [docs](docs/user-level.md#what-you-need-to-know-before-installing-anything-from-this-repository) before you start!** Only Debian 10 (Buster) is currently tested, distributions based
 on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
 
 To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
