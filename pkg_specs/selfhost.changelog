@@ -1,3 +1,9 @@
+selfhost (0.1.5-4) buster; urgency=medium
+
+  * Fixed certbot webroot
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 24 Aug 2020 14:18:46 +0100
+
 selfhost (0.1.5-3) buster; urgency=medium
 
   * Fixed bad interaction of selfhost-onion with tor and apparmor

@@ -11,7 +11,7 @@ add_files = [
 	"certbot/selfhost-clearnet-certbot-webroot.conf /usr/share/selfhost-clearnet-certbot",
 	"certbot/reload_nginx.sh /etc/letsencrypt/renewal-hooks/deploy",
 ]
-add_links = ["/usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-available/selfhost-clearnet-certbot-webroot.conf"]
+add_links = ["/usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-enabled/selfhost-clearnet-certbot-webroot.conf"]
 extra_triggers = ["/usr/sbin/nginx", "/usr/bin/certbot", "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "/usr/lib/python3/dist-packages/certbot_nginx"]
 
 [config."clearnet-wip/tls.conf"]
