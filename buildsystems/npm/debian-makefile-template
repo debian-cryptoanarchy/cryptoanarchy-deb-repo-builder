@@ -9,3 +9,5 @@ check:
 install:
 	mkdir -p $(DESTDIR)/usr/lib/{{npm_bin_package_name}}
 	cp -at $(DESTDIR)/usr/lib/{{npm_bin_package_name}} $(COPY_FILES)
+	rm -f $(DESTDIR)/usr/lib/{{npm_bin_package_name}}/node_modules/*/prebuilds/*/node.napi.musl.node
+	rm -rf $(DESTDIR)/usr/lib/{{npm_bin_package_name}}/node_modules/*/prebuilds/{darwin-,win32-}*
