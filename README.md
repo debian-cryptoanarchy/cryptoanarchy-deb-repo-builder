@@ -192,6 +192,7 @@ Supported and planned applications
 - [ ] samourai-dojo-mainnet
 - [ ] joinmarket
 - [ ] joinmarket-mainnet
+- [x] lnpbp-testkit (framework for testing LNP/BP applications)
 - [ ] translations
 - [x] all services for regtest
 - [ ] all services for signet

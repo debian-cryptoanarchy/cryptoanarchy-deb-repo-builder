@@ -1,0 +1,9 @@
+pkg_name_upper: LNPBP_TESTKIT
+pkg_name_snake: lnpbp_testkit
+source_name: lnpbp-testkit
+
+clone_url: https://github.com/Kixunil/lnpbp-testkit
+git_tag: v$(LNPBP_TESTKIT_VERSION)
+fingerprint: 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+verify_tag: true
+build_system: python3

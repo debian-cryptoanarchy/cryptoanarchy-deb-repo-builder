@@ -1,0 +1,5 @@
+lnpbp-testkit (0.1.0-1) buster; urgency=medium
+
+  * Added Debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 27 Aug 2020 20:38:36 +0100
