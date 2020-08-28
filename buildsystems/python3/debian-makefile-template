@@ -1,0 +1,10 @@
+all:
+	pybuild --build
+
+check:
+
+install:
+	pybuild --install
+
+clean:
+	pybuild --clean
