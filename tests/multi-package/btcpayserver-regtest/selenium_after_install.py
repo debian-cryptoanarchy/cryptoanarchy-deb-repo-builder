@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import subprocess
 from time import sleep
 import sys
+from lnpbp_testkit.cadr import network
 
 def eprint(msg):
     print(msg, file=sys.stderr)
@@ -69,24 +70,13 @@ eprint("Retrieving payment details")
 
 driver.find_element_by_class_name("invoice-checkout-link").click()
 payment_link = driver.find_element_by_class_name("payment__details__instruction__open-wallet__btn").get_attribute("href")
-payment_link = payment_link[len("bitcoin:"):]
-address = payment_link.split('?')[0]
-amount_pos = payment_link.find("amount=")
-amount_pos += len("amount=")
-amount_end = payment_link.find("&", amount_pos)
 
 if payment_link.find("pj=") < 0:
     eprint("PayJoin disabled")
     ret = 1
 
-if amount_end < 0:
-    amount_end = len(payment_link)
-
-amount = payment_link[amount_pos:amount_end]
-amount_sats = int(float(amount) * 100000000)
-
-eprint("Attempting to pay " + str(amount_sats) + " sats to " + address)
-subprocess.run(["sudo", "lncli", "--network", "regtest", "sendcoins", address, str(amount_sats)])
+eprint("Attempting to pay " + payment_link)
+network().auto_pay(payment_link)
 
 sleep(10)
 
@@ -112,10 +102,7 @@ for element in driver.find_elements_by_class_name("vexmenuitem"):
         break
 
 payment_link = driver.find_element_by_class_name("payment__details__instruction__open-wallet__btn").get_attribute("href")
-
-invoice = payment_link[len("lightning:"):]
-
-subprocess.run(["sudo", "-u", "lnd-test-1", "/usr/lib/lncli/lncli", "--network", "regtest", "--rpcserver", "127.0.0.1:9802", "payinvoice", "-f", invoice])
+network().auto_pay(payment_link)
 
 sleep(5)
 
