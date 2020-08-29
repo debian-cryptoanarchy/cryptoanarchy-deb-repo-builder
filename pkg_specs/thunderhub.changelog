@@ -1,3 +1,10 @@
+thunderhub (0.9.8-0) buster; urgency=medium
+
+  * Updated upstream version
+  * UI improvements and bug fixes
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 29 Aug 2020 11:52:02 +0100
+
 thunderhub (0.9.3-0) buster; urgency=medium
 
   * Updated upstream version

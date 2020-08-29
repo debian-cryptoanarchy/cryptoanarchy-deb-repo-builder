@@ -17,6 +17,7 @@ default_domain = subprocess.run(["sudo", "/usr/share/selfhost/lib/get_default_do
 cookie = subprocess.run(["sudo", "cat", "/var/run/thunderhub-system-regtest/sso/cookie"], stdout=subprocess.PIPE).stdout.decode("utf-8")
 
 eprint("The default domain is " + default_domain)
+eprint("The cookie is " + cookie + "\n")
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("ignore-certificate-errors")
@@ -61,13 +62,14 @@ for elem in lightning_tab.find_elements_by_class_name("ColorButton__GeneralButto
 for elem in driver.find_elements_by_css_selector("div"):
     if any(x.text == "Amount to receive:" for x in elem.find_elements_by_css_selector("h5")):
         elem.find_element_by_css_selector("input").send_keys("200000")
+        sleep(5)
         for button in elem.find_elements_by_css_selector("button"):
-            if button.text != "Cancel":
+            if button.text == "Create Invoice":
                 button.click()
                 break
         break
 
-sleep(2)
+sleep(5)
 eprint("Retrieving Lightning invoice")
 invoice = None
 for elem in driver.find_elements_by_class_name("CreateInvoice__WrapRequest-yp9wpk-1"):
@@ -133,14 +135,15 @@ invoice_str = subprocess.check_output(["sudo", "-u", "lnd-test-1", "/usr/lib/lnc
 invoice = json.loads(invoice_str)["payment_request"]
 r_hash = json.loads(invoice_str)["r_hash"]
 
-for elem in driver.find_elements_by_css_selector("div"):
-    if any(x.text == "Invoice or Public Key:" for x in elem.find_elements_by_css_selector("h5")):
-        elem.find_element_by_css_selector("input").send_keys(invoice)
-        for button in elem.find_elements_by_css_selector("button"):
-            if button.text != "Cancel":
-                button.click()
-                break
+for elem in driver.find_elements_by_css_selector("input"):
+    if elem.get_attribute("placeholder") == "Invoice":
+        elem.send_keys(invoice)
         break
+
+for elem in driver.find_elements_by_css_selector("button"):
+        if elem.text == "Pay":
+            elem.click()
+            break
 
 sleep(1)
 
