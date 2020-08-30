@@ -3,13 +3,28 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["lnd (>= 0.10.2-7)", "bitcoin-fullchain-mainnet", "bitcoin-timechain-mainnet"]
+depends = ["lnd (>= 0.11.0-1)", "bitcoin-fullchain-mainnet", "bitcoin-timechain-mainnet"]
 recommends = ["lnd-unlocker-system-mainnet"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always
 """
+
+[migrations."<< 0.11.0-1"]
+config = """
+db_get lnd-system-mainnet/externalip || RET=""
+if [ -z "$RET" ] || echo "$RET" | grep -E '^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]$|[0-9a-f:]*:[0-9a-f:]*:[0-9a-f:]*|\\.onion$';
+then
+\ttrue
+else
+\techo 'externalip does NOT look like an IP address or onion domain. Migrating to externalhosts' >&2
+\tif db_set lnd-system-mainnet/externalhosts "$RET";
+\tthen
+\t\tdb_fset lnd-system-mainnet/externalhosts seen false || true
+\t\tdb_set lnd-system-mainnet/externalip \"\" || true
+\tfi
+fi"""
 
 [extra_groups.lnd-system-mainnet-invoice]
 create = true
@@ -111,14 +126,19 @@ type = "bind_host"
 ignore_empty = true
 priority = "medium"
 summary = "External IP address"
+
+[config."lnd.conf".ivars.externalhosts]
+type = "bind_host"
+ignore_empty = true
+priority = "medium"
+summary = "External host name"
 store = false
 
 # We abuse the fact that variables are not checked for uniqueness yet. :)
-[config."lnd.conf".hvars.externalip]
+[config."lnd.conf".hvars.externalhosts]
 type = "bind_host"
-script = "if [ -z \"${CONFIG[\"lnd-system-mainnet/externalip\"]}\" ]; then /usr/share/lnd/get_external_addr.sh mainnet \"${CONFIG[\"lnd-system-mainnet/listen\"]}\"; else echo \"${CONFIG[\"lnd-system-mainnet/externalip\"]}\"; fi"
+script = "if [ -z \"${CONFIG[\"lnd-system-mainnet/externalip\"]}\" -a -z \"${CONFIG[\"lnd-system-mainnet/externalhosts\"]}\" ]; then /usr/share/lnd/get_external_addr.sh mainnet \"${CONFIG[\"lnd-system-mainnet/listen\"]}\"; else echo -n \"${CONFIG[\"lnd-system-mainnet/externalhosts\"]}\"; fi"
 ignore_empty = true
-
 
 [config."lnd.conf".ivars.debuglevel]
 # Should be enum (select)

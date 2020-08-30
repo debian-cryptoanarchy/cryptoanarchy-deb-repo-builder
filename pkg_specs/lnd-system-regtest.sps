@@ -11,6 +11,21 @@ extra_service_config = """
 Restart=always
 """
 
+[migrations."<< 0.11.0-1"]
+config = """
+db_get lnd-system-regtest/externalip || RET=""
+if [ -z "$RET" ] || echo "$RET" | grep -E '^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]$|[0-9a-f:]*:[0-9a-f:]*:[0-9a-f:]*|\\.onion$';
+then
+\ttrue
+else
+\techo 'externalip does NOT look like an IP address or onion domain. Migrating to externalhosts' >&2
+\tif db_set lnd-system-regtest/externalhosts "$RET";
+\tthen
+\t\tdb_fset lnd-system-regtest/externalhosts seen false || true
+\t\tdb_set lnd-system-regtest/externalip \"\" || true
+\tfi
+fi"""
+
 [extra_groups.lnd-system-regtest-invoice]
 create = true
 
@@ -111,12 +126,18 @@ type = "bind_host"
 ignore_empty = true
 priority = "medium"
 summary = "External IP address"
+
+[config."lnd.conf".ivars.externalhosts]
+type = "bind_host"
+ignore_empty = true
+priority = "medium"
+summary = "External host name"
 store = false
 
 # We abuse the fact that variables are not checked for uniqueness yet. :)
-[config."lnd.conf".hvars.externalip]
+[config."lnd.conf".hvars.externalhosts]
 type = "bind_host"
-script = "if [ -z \"${CONFIG[\"lnd-system-regtest/externalip\"]}\" ]; then /usr/share/lnd/get_external_addr.sh regtest \"${CONFIG[\"lnd-system-regtest/listen\"]}\"; else echo \"${CONFIG[\"lnd-system-regtest/externalip\"]}\"; fi"
+script = "if [ -z \"${CONFIG[\"lnd-system-regtest/externalip\"]}\" -a -z \"${CONFIG[\"lnd-system-regtest/externalhosts\"]}\" ]; then /usr/share/lnd/get_external_addr.sh regtest \"${CONFIG[\"lnd-system-regtest/listen\"]}\"; else echo -n \"${CONFIG[\"lnd-system-regtest/externalhosts\"]}\"; fi"
 ignore_empty = true
 
 [config."lnd.conf".ivars.debuglevel]
