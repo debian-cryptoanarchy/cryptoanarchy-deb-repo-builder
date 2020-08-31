@@ -7,9 +7,12 @@ from time import sleep
 import sys
 from selenium.common.exceptions import StaleElementReferenceException
 import json
+from lnpbp_testkit.cadr import network
 
 def eprint(msg):
     print(msg, file=sys.stderr)
+
+network().warm_up()
 
 ret = 0
 
@@ -81,7 +84,7 @@ for elem in driver.find_elements_by_class_name("CreateInvoice__WrapRequest-yp9wp
     except StaleElementReferenceException:
         pass
 
-subprocess.run(["sudo", "-u", "lnd-test-1", "/usr/lib/lncli/lncli", "--network", "regtest", "--rpcserver", "127.0.0.1:9802", "payinvoice", "-f", invoice])
+network().auto_pay(invoice)
 
 sleep(5)
 
@@ -130,14 +133,11 @@ for elem in lightning_tab.find_elements_by_class_name("ColorButton__GeneralButto
         elem.click()
         break
 
-invoice_str = subprocess.check_output(["sudo", "-u", "lnd-test-1", "/usr/lib/lncli/lncli", "--network", "regtest", "--rpcserver", "127.0.0.1:9802", "addinvoice", "5000"])
-
-invoice = json.loads(invoice_str)["payment_request"]
-r_hash = json.loads(invoice_str)["r_hash"]
+invoice_handle = network().create_ln_invoice(5000000, "Test")
 
 for elem in driver.find_elements_by_css_selector("input"):
     if elem.get_attribute("placeholder") == "Invoice":
-        elem.send_keys(invoice)
+        elem.send_keys(invoice_handle.bolt11())
         break
 
 for elem in driver.find_elements_by_css_selector("button"):
@@ -154,9 +154,7 @@ for elem in driver.find_elements_by_class_name("ColorButton__GeneralButton-sc-1n
 
 sleep(5)
 
-invoice_state = subprocess.check_output(["sudo", "-u", "lnd-test-1", "/usr/lib/lncli/lncli", "--network", "regtest", "--rpcserver", "127.0.0.1:9802", "lookupinvoice", r_hash])
-
-if not json.loads(invoice_state)["settled"]:
+if not invoice_handle.is_paid():
     eprint("Invoice was not paid")
     ret = 1
 
