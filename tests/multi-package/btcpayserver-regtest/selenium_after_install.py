@@ -10,6 +10,8 @@ from lnpbp_testkit.cadr import network
 def eprint(msg):
     print(msg, file=sys.stderr)
 
+network().warm_up()
+
 ret = 0
 
 default_domain = subprocess.run(["sudo", "/usr/share/selfhost/lib/get_default_domain.sh"], stdout=subprocess.PIPE).stdout.decode("utf-8")
