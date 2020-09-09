@@ -6,3 +6,5 @@ build_system: none
 copy_assets:
         - from: tor-extras/assets/defaults.patch
           to: defaults.patch
+        - from: tor-extras/assets/apparmor.patch
+          to: apparmor.patch

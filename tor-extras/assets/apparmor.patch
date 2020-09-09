@@ -1,0 +1,4 @@
+0a1,3
+> # The following line was automatically added by tor-hs-patch-config
+> owner /etc/tor/** r,
+> 

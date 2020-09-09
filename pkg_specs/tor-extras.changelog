@@ -1,3 +1,10 @@
+tor-extras (1.1-6) buster; urgency=medium
+
+  * Fixed interaction with apparmor
+  * Added missing dependency on patch
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 9 Sep 2020 08:53:57 +0100
+
 tor-extras (1.1-5) buster; urgency=medium
 
   * Removed meaningless restarting of tor right after patching
