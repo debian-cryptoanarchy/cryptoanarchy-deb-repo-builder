@@ -1,3 +1,9 @@
+btcpayserver (1.0.5.4-2) buster; urgency=critical
+
+  * Added dependency on procps
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 10 Sep 2020 11:03:32 +0100
+
 btcpayserver (1.0.5.4-1) buster; urgency=critical
 
   * Updated upstream version

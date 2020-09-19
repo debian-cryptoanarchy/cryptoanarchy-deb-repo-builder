@@ -1,3 +1,9 @@
+bitcoin (0.20.0-7) buster; urgency=medium
+
+  * Added dependency on procps
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 10 Sep 2020 11:03:32 +0100
+
 bitcoin (0.20.0-6) buster; urgency=medium
 
   * P2P port made configurable
