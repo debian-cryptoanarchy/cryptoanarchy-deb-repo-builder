@@ -26,7 +26,8 @@ which inotifywait &>/dev/null && use_inotify=1 || use_inotify=0
 # reload-or-restart doesn't actually start the service when not active
 if systemctl is-active -q tor@default.service;
 then
-	systemctl reload-or-restart tor@default.service || exit 1
+	# We must NOT use reload because apparmor might have been reconfigured previously which would lead to failure
+	systemctl restart tor@default.service || exit 1
 else
 	systemctl start tor@default.service || exit 1
 fi

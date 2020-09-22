@@ -1,3 +1,9 @@
+selfhost (0.1.5-5) buster; urgency=medium
+
+  * Force tor restart instead of reload to ensure apparmor profile gets reloaded
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 22 Sep 2020 17:53:52 +0100
+
 selfhost (0.1.5-4) buster; urgency=medium
 
   * Fixed certbot webroot
