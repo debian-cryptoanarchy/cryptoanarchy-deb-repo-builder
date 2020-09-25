@@ -50,7 +50,7 @@ With that out of the way, let's talk about the general structure first. There ar
 If all that seems too long to you, here's a short version:
 
 * **Keep in mind the project is beta**
-* **LND seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
+* **By default, the LND wallet is created automatically after installation and the seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
 * Make sure you have at least 350 GB of free space
 * Do **not** run `apt` with any funny switches
 * Do **not** attempt to configure anything - it will just work
@@ -128,7 +128,7 @@ It can be controlled from other graphical apps or from command line using `lncli
 
 #### Usage
 
-* **Installing `lnd` automatically installs `lnd-unlocker`, which stores the seed in `/var/lib/lnd-system-mainnet/.seed.txt`**
+* **Installing `lnd` automatically installs `lnd-unlocker`, which creates a wallet right after installation and stores the seed in `/var/lib/lnd-system-mainnet/.seed.txt`**
 * The above behavior can be overriden by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
 * Check `thunderhub` and `ridetheln` packages for a nice graphical interface.
 * Check `lndconnect` package to connect to LND with Zap.
