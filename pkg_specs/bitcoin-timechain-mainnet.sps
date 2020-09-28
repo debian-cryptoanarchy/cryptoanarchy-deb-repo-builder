@@ -49,5 +49,7 @@ allowed_calls = [
 	"uptime",
 	"getnettotals",
 	"help",
+	# Required for nbxplorer-mainnet
+	"getpeerinfo",
 ]
 '''
