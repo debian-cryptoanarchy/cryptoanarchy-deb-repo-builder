@@ -74,11 +74,15 @@ This section explains specifics of various applications packaged in the reposito
 
 #### Usage
 
+* **Important: unless you (directly or indirectly) install bitcoin-fullchain-$network or bitcoin-txindex-$network the node will be pruned by default.
+  Some packages (electrs, lnd, ...) depend on fullchain, so they won't break.
+  To avoid problems, do NOT install the packages one-by-one - install all desired packages using a single `apt install` command.**
 * If you want to change the location of datadir install `bitcoin-mainnet` with `DEBIAN_PRIORITY=medium` and answer the question.
 * Check `btc-rpc-explorer` package for a nice graphical interface.
 * You need `sudo` to run `bitcoin-cli`, group support not implemented yet, PRs welcome.
 * `bitcoin-cli` is not actual binary, it forwards your commands to the real binary in order to work out of the box
-* `bitcoin-tx` is not packaged yet because I'm not sure where into which package it should go
+* If `bitcoin-cli` detects that you don't have the permission for *full* access to `bitcoind` it will use public:public if you have `bitcoin-timechain-$network` instlled.
+* `bitcoin-tx` is not packaged yet because I'm not sure into which package it should go
 * Use `bitcoin-cli -chain=regtest` for regtest (assuming `bitcoin-regtest` is installed).
 
 ### bitcoin-rpc-proxy
