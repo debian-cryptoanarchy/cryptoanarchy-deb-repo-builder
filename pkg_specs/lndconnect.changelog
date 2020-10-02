@@ -1,3 +1,9 @@
+lndconnect (0.2-2) buster; urgency=medium
+
+  * Always restart Tor to make sure apparmor profile gets reloaded
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 1 Oct 2020 09:24:00 +0100
+
 lndconnect (0.2-1) buster; urgency=medium
 
   * Add exteratlsdomain to lnd conf

@@ -50,13 +50,7 @@ fi
 
 if [ $needs_reload ];
 then
-	# Unfortunately, Tor package doesn't have trigger, so we need to reload directly
-	if systemctl is-active -q tor@default.service;
-	then
-		deb-systemd-invoke reload-or-restart tor@default.service || exit 1
-	else
-		deb-systemd-invoke start tor@default.service || exit 1
-	fi
+	deb-systemd-invoke restart tor@default.service || exit 1
 fi
 
 for x in `seq 1 60`;
