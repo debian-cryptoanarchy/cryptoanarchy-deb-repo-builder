@@ -3,7 +3,7 @@ bin_package = "ridetheln"
 binary = "/usr/bin/ridetheln"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
-depends = ["jq"]
+depends = ["ridetheln (>= 0.9)", "jq"]
 recommends = ["ridetheln-system-selfhost", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
 extra_service_config = """
 Restart=always

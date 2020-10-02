@@ -1,6 +1,7 @@
 name = "ridetheln-lnd-system-regtest"
 extends = "ridetheln-system"
 depends_on_extended = true
+depends = ["lnd-system-regtest (>= 0.11)", "ridetheln-system (>= 0.9)"]
 summary = "A bridge for integrating lnd into Ride The Lightning"
 
 [config."nodes.d/lnd-system-regtest"]
@@ -37,5 +38,5 @@ constant = "LND"
 
 [config."nodes.d/lnd-system-regtest".hvars.server_url]
 type = "string"
-script = "echo \"https://127.0.0.1:${CONFIG[\"lnd-system-regtest/rest_port\"]}/v1\""
+script = "echo \"https://127.0.0.1:${CONFIG[\"lnd-system-regtest/rest_port\"]}\""
 structure = ["Settings", "lnServerUrl"]
