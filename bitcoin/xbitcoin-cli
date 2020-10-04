@@ -28,7 +28,7 @@ get_option() {
 	grep "^$1 *=" "/etc/bitcoin-$BITCOIN_NETWORK/bitcoin.conf" | sed 's/^'"$1"' *=//'
 }
 
-if find_arg rpcconnect "" "$@" || find_arg rpccookiefile "" "$@" || find_arg rpcpassword "" "$@" || find_arg rpcport "" "$@" || find_arg rpcuser "" "$@" || find_arg stdinrpcpass "" "$@";
+if find_arg rpcconnect "" "$@" || find_arg rpccookiefile "" "$@" || find_arg rpcpassword "" "$@" || find_arg rpcport "" "$@" || find_arg rpcuser "" "$@" || find_arg stdinrpcpass "" "$@" || find_arg datadir "" "$@" || find_arg help "" "$@" || find_arg h "" "$@";
 then
 	exec "$bitcoin_cli" "$@"
 	exit $?
@@ -57,19 +57,21 @@ then
 	rpc_port="`get_option rpcport`"
 	cookie_file="`get_option rpccookiefile`"
 else
-	if [ -r "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" -a -e "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" ];
+	if [ -r "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" -a -e "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/public.conf" ];
 	then
 		rpc_port="`grep '^ *bind_port' "/etc/bitcoin-rpc-proxy-$BITCOIN_NETWORK/conf.d/interface.conf" | sed 's/^ *bind_port *= *//' | tr -d ' \n'`"
 		cookie_file_is_tmp=1
 		cookie_file="`mktemp`" || exit 1
 		echo -n 'public:public' > "$cookie_file" || exit 1
 	else
-		exec "$bitcoin_cli" "$@"
-		exit $?
+		echo "You don't have permissions to access bitcoind" >&2
+		echo "You can run bitcoin-cli under root or add yourself to group bitcoin-$BITCOIN_NETWORK. (sudo usermod -a -G bitcoin-$BITCOIN_NETWORK $USER)" >&2
+		echo "If you want to access harmless RPC methods (e.g. getblockchaininfo) you can install bitcoin-timechain-$BITCOIN_NETWORK" >&2
+		exit 1
 	fi
 fi
 
-"$bitcoin_cli" "-rpcport=$rpc_port" "-rpccookiefile=$cookie_file" "$@"
+"$bitcoin_cli" "-rpcport=$rpc_port" "-rpccookiefile=$cookie_file" -datadir=/tmp/ "$@"
 exit_code=$?
 test "$cookie_file_is_tmp" = "1" && rm -f "$cookie_file"
 exit $exit_code
