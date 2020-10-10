@@ -25,12 +25,7 @@ then
 	mv "$tmp_conf" "/etc/tor/hidden-services.d/lnd.conf"
 
 	# Even if Tor package had a trigger it'd be useless
-	if systemctl is-active -q tor@default.service;
-	then
-		deb-systemd-invoke reload-or-restart tor@default.service || exit 0
-	else
-		deb-systemd-invoke start tor@default.service || exit 0
-	fi
+	deb-systemd-invoke restart tor@default.service || exit 0
 
 	for x in `seq 1 60`;
 	do
