@@ -6,11 +6,40 @@ import subprocess
 from time import sleep
 import sys
 from lnpbp_testkit.cadr import network
+# This is not public, but we control the API, so let's break privacy for now
+from lnpbp_testkit.parsing import parse_simple_config
+import requests
+from requests.auth import HTTPBasicAuth
+import json
 
 def eprint(msg):
     print(msg, file=sys.stderr)
 
+class NBXplorer:
+    def __init__(self):
+        config = parse_simple_config("/etc/nbxplorer-regtest/nbxplorer.conf")
+
+        self._port = config["port"]
+        cookie = subprocess.run(["sudo", "cat", "/var/lib/nbxplorer-regtest/RegTest/.cookie"], stdout=subprocess.PIPE)
+        username, password = cookie.stdout.decode("utf-8").split(':')
+        self._username = username
+        self._password = password
+
+        eprint("port: %s, username: %s, password: %s" % (self._port, self._username, self._password))
+
+    def is_synced(self):
+        url = "http://localhost:%s/v1/cryptos/btc/status" % self._port
+        eprint(url)
+        response = requests.get(url, auth=HTTPBasicAuth(self._username, self._password))
+        eprint(response.text)
+        return response.json()["isFullySynched"]
+
 network().warm_up()
+
+nbxplorer = NBXplorer()
+
+while not nbxplorer.is_synced():
+    sleep(1)
 
 ret = 0
 
