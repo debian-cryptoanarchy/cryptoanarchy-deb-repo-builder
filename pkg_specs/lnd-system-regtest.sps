@@ -3,7 +3,7 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["lnd (>= 0.11.0-1)", "bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
+depends = ["lnd (>= 0.11.1-1)", "bitcoin-fullchain-regtest", "bitcoin-timechain-regtest"]
 recommends = ["lnd-unlocker-system-regtest"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
@@ -158,6 +158,12 @@ type = "string"
 ignore_empty = true
 priority = "medium"
 summary = "The funny color of your Lightning node. NOT AUTHENTICATED!"
+
+[config."lnd.conf".ivars.tlsdisableautofill]
+type = "bool"
+priority = "medium"
+default = "true"
+summary = "Disable putting private information into RPC TLS certificate of LND"
 
 # Disabled because it needs #10 resolved in Debcrafter.
 #[config."lnd.conf".ivars.nobootstrap]
