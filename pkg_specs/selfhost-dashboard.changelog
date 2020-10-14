@@ -1,0 +1,5 @@
+selfhost-dashboard (0.1.0-1) buster; urgency=medium
+
+  * Attempt to create an experimental debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 12 Apr 2020 21:34:04 +0100
