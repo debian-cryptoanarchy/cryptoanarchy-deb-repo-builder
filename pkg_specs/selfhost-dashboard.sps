@@ -5,6 +5,7 @@ binary = "/usr/bin/selfhost-dashboard"
 conf_param = "--conf"
 user = { name = "root" }
 recommends = ["selfhost"]
+extra_triggers = ["/etc/selfhost-dashboard/apps"]
 extra_service_config = """
 Restart=always
 """

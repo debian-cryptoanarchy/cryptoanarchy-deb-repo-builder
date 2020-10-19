@@ -1,3 +1,9 @@
+selfhost-dashboard (0.1.0-2) buster; urgency=medium
+
+  * Updated to upstream version mvp-1
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 18 Oct 2020 19:22:06 +0100
+
 selfhost-dashboard (0.1.0-1) buster; urgency=medium
 
   * Attempt to create an experimental debian package
