@@ -5,13 +5,13 @@ else ifeq ($(DEB_HOST_ARCH),arm64)
 endif
 
 all:
-	RUSTFLAGS=-g cargo build --release
+	RUSTFLAGS=-g cargo build --frozen --offline --release
 
 check:
 
 # Installing multiple Rust binaries is currently unsupported due to the limitation of cfg_me
 install:
-	RUSTFLAGS=-g cargo install --path . --root $(DESTDIR)/usr
+	RUSTFLAGS=-g cargo install --frozen --offline --path . --root $(DESTDIR)/usr
 	test "`ls $(DESTDIR)/usr/bin | wc -l`" -eq 1
 	mkdir -p target/man
 	cfg_me -n --output "target/man/`ls $(DESTDIR)/usr/bin`.1" man
