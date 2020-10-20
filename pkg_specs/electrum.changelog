@@ -1,3 +1,9 @@
+electrum (4.0.4-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 20 Oct 2020 13:21:12 +0100
+
 electrum (3.3.8-1) buster; urgency=medium
 
   * Improved dependency relationships
