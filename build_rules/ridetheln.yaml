@@ -17,6 +17,12 @@ copy_assets:
           to: update_config.sh
         - from: ridetheln/assets/ridetheln
           to: ridetheln
+        - from: ridetheln/selfhost-dashboard/entry_points/open
+          to: selfhost-dashboard/entry_points/open
 
 remove:
         path: "product management"
+
+dirs:
+        - dir: selfhost-dashboard
+        - dir: selfhost-dashboard/entry_points

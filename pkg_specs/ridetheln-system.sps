@@ -5,6 +5,10 @@ user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
 depends = ["ridetheln (>= 0.9)", "jq"]
 recommends = ["ridetheln-system-selfhost", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
+add_links = [
+	"/usr/share/ridetheln/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/ridetheln-system/open",
+	"/usr/lib/ridetheln/angular/assets/images/favicon-dark/android-chrome-192x192.png /usr/share/selfhost-dashboard/apps/icons/ridetheln-system/entry_main.png",
+]
 extra_service_config = """
 Restart=always
 Environment=RTL_CONFIG_PATH=/var/lib/ridetheln-system
@@ -42,3 +46,19 @@ structure = ["SSO", "rtlCookiePath"]
 type = "dir"
 repr = "array"
 path = "nodes.d"
+
+[config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml"]
+format = "toml"
+external = true
+
+[config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml".hvars.user_friendly_name]
+type = "string"
+constant = "Ride The Lightning"
+
+[config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml".hvars.admin_only]
+type = "bool"
+constant = "true"
+
+[config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml".hvars.entry_point]
+type = "string"
+constant = "Dynamic"

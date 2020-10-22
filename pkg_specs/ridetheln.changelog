@@ -1,3 +1,9 @@
+ridetheln (0.9.0-2) buster; urgency=medium
+
+  * Integrated into selfhost-dashboard
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 22 Oct 2020 15:59:41 +0100
+
 ridetheln (0.9.0-1) buster; urgency=medium
 
   * Updated upstream version to 0.9

@@ -7,7 +7,8 @@ add_files = [
 	"/usr/lib/ridetheln",
 	"ridetheln /usr/bin/",
 	"update_config.sh /usr/share/ridetheln",
-	"alloc_index.sh /usr/share/ridetheln"
+	"alloc_index.sh /usr/share/ridetheln",
+	"selfhost-dashboard /usr/share/ridetheln"
 ]
 long_doc = """RTL is a full function, device agnostic, web user interface to help manage
 lightning node operations. RTL is available on LND and C-Lightning
