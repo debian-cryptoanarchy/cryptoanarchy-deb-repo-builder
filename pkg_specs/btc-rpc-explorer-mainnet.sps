@@ -6,6 +6,7 @@ summary = "Simple, database-free Bitcoin blockchain explorer (mainnet)"
 depends = ["bitcoin-timechain-mainnet (>= 0.1.0-5)", "bitcoin-txindex-mainnet"]
 recommends = ["btc-rpc-explorer-selfhost-mainnet"]
 extended_by = ["electrs-mainnet"]
+add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/btc.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-mainnet/entry_main.png" ]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/btc-rpc-explorer-mainnet/btc-rpc-explorer.conf
@@ -80,3 +81,19 @@ else
     head -c 18 /dev/urandom | base64 | tr -d '\\n'
 fi
 """
+
+[config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-mainnet/meta.toml"]
+format = "toml"
+external = true
+
+[config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-mainnet/meta.toml".hvars.user_friendly_name]
+type = "string"
+constant = "BTC Explorer"
+
+[config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-mainnet/meta.toml".hvars.admin_only]
+type = "bool"
+constant = "true"
+
+[config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-mainnet/meta.toml".hvars.entry_point]
+type = "uint"
+constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/\\\" } }"

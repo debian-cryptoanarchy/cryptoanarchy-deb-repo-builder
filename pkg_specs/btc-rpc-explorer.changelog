@@ -1,3 +1,9 @@
+btc-rpc-explorer (2.0.2-6) buster; urgency=medium
+
+  * Integrated into selfhost-dashboard
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 22 Sep 2020 18:02:05 +0100
+
 btc-rpc-explorer (2.0.2-5) buster; urgency=medium
 
   * Added dependency on procps
