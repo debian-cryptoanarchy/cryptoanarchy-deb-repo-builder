@@ -1,0 +1,12 @@
+#!/bin/bash
+
+pkg_name="$(basename "$(dirname "$0")")"
+
+if [ "$1" '!=' "admin" ];
+then
+	echo 'Only admins are allowed to access Thunderhub' >&2
+	exit 1
+fi
+
+token="`cat "/var/run/$pkg_name/sso/cookie"`" || exit 2
+echo -n "?token=$token"

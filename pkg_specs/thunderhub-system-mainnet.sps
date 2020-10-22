@@ -5,6 +5,10 @@ user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
 depends = ["thunderhub (>= 0.9.2)"]
 recommends = ["thunderhub-system-selfhost-mainnet"]
+add_links = [
+	"/usr/share/thunderhub/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/thunderhub-system-mainnet/open",
+	"/usr/share/thunderhub/selfhost-dashboard/icons/entry_main.png /usr/share/selfhost-dashboard/apps/icons/thunderhub-system-mainnet/entry_main.png",
+]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/thunderhub-system-mainnet/thunderhub.conf
@@ -83,3 +87,19 @@ type = "bool"
 default = "true"
 priority = "medium"
 summary = "Disable version check? (shouldn't be needed - managed by Debian)"
+
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml"]
+format = "toml"
+external = true
+
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.user_friendly_name]
+type = "string"
+constant = "ThunderHub"
+
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.admin_only]
+type = "bool"
+constant = "true"
+
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.entry_point]
+type = "string"
+constant = "Dynamic"
