@@ -8,6 +8,7 @@ user = { group = true, create = { home = true } }
 # two recommends handle the case when both networks are used.
 recommends = ["btcpayserver-system-selfhost-mainnet", "btcpayserver-no-lnp-system-mainnet | lnd, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-regtest, btcpayserver-no-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-mainnet, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
+add_links = [ "/usr/lib/BTCPayServer/wwwroot/img/icons/icon-192x192.png /usr/share/selfhost-dashboard/apps/icons/btcpayserver-system-mainnet/entry_main.png" ]
 extra_service_config = """
 Restart=always
 WorkingDirectory=/usr/lib/BTCPayServer
@@ -50,3 +51,19 @@ script = "echo \"${CONFIG[\"nbxplorer-mainnet/datadir\"]}/Main/.cookie\""
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
 constant = "/var/log/btcpayserver-system-mainnet/debug.log"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml"]
+format = "toml"
+external = true
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml".hvars.user_friendly_name]
+type = "string"
+constant = "BTCPayServer"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml".hvars.admin_only]
+type = "bool"
+constant = "false"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml".hvars.entry_point]
+type = "uint"
+constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"

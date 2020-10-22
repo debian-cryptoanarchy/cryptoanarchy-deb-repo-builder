@@ -1,3 +1,9 @@
+btcpayserver (1.0.5.4-3) buster; urgency=critical
+
+  * Integrated into selfhost-dashboard
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 19 Sep 2020 13:46:00 +0100
+
 btcpayserver (1.0.5.4-2) buster; urgency=critical
 
   * Added dependency on procps

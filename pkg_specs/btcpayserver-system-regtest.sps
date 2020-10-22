@@ -8,6 +8,7 @@ user = { group = true, create = { home = true } }
 # two recommends handle the case when both networks are used.
 recommends = ["btcpayserver-system-selfhost-regtest", "btcpayserver-no-lnp-system-regtest | lnd, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest | lnd-system-mainnet, btcpayserver-no-lnp-system-regtest | btcpayserver-lnp-system-regtest | lnd-system-regtest, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
+add_links = [ "/usr/lib/BTCPayServer/wwwroot/img/icons/icon-192x192.png /usr/share/selfhost-dashboard/apps/icons/btcpayserver-system-regtest/entry_main.png" ]
 extra_service_config = """
 Restart=always
 WorkingDirectory=/usr/lib/BTCPayServer
@@ -54,3 +55,19 @@ script = "echo \"${CONFIG[\"nbxplorer-regtest/datadir\"]}/RegTest/.cookie\""
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
 constant = "/var/log/btcpayserver-system-regtest/debug.log"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml"]
+format = "toml"
+external = true
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.user_friendly_name]
+type = "string"
+constant = "BTCPayServer - regtest"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.admin_only]
+type = "bool"
+constant = "false"
+
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.entry_point]
+type = "uint"
+constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
