@@ -1,3 +1,9 @@
+selfhost (0.1.5-6) buster; urgency=medium
+
+  * Improved security by sanitizing Set-Cookie Path=
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 24 Sep 2020 16:57:47 +0100
+
 selfhost (0.1.5-5) buster; urgency=medium
 
   * Force tor restart instead of reload to ensure apparmor profile gets reloaded
