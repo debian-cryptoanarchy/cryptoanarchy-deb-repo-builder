@@ -4,5 +4,5 @@ source_name: selfhost-dashboard
 
 clone_url: https://github.com/Kixunil/selfhost-dashboard
 #git_tag: v$(SELFHOST_DASHBOARD_VERSION)
-git_tag: mvp-2
+git_tag: mvp-3
 build_system: cargo
