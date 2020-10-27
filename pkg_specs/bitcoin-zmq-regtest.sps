@@ -1,5 +1,4 @@
 name = "bitcoin-zmq-regtest"
-version = "0.18.1"
 extends = "bitcoin-regtest"
 replaces = false
 summary = "ZMQ configuration for Bitcoin"

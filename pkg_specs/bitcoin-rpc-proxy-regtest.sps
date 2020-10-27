@@ -1,5 +1,4 @@
 name = "bitcoin-rpc-proxy-regtest"
-version = "0.1"
 bin_package = "bitcoin-rpc-proxy"
 binary = "/usr/bin/btc_rpc_proxy"
 conf_param = "--conf"

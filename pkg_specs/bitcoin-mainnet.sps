@@ -1,5 +1,4 @@
 name = "bitcoin-mainnet"
-version = "0.18.1"
 bin_package = "bitcoind"
 binary = "/usr/bin/bitcoind"
 conf_param = "-conf="

@@ -1,5 +1,4 @@
 name = "btcpayserver-system-selfhost-mainnet"
-version = "0.1.0"
 summary = "Brige for selfhosting BTCPayserver"
 extends = "btcpayserver-system-mainnet"
 depends = ["selfhost"]

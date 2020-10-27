@@ -1,6 +1,5 @@
 name = "selfhost-clearnet-certbot"
 architecture = "all"
-version = "0.1.0"
 extends = "selfhost"
 replaces = false
 depends = ["certbot", "python3-certbot-nginx", "bash"]

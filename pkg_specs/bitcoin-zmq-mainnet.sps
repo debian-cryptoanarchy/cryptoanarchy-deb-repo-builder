@@ -1,5 +1,4 @@
 name = "bitcoin-zmq-mainnet"
-version = "0.18.1"
 extends = "bitcoin-mainnet"
 replaces = false
 summary = "ZMQ configuration for Bitcoin"

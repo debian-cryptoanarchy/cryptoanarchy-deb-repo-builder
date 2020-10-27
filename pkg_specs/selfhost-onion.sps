@@ -1,6 +1,5 @@
 name = "selfhost-onion"
 architecture = "all"
-version = "0.1.0"
 summary = "Tooling for hosting web applications over onion domain"
 extends = "selfhost"
 depends = ["tor-hs-patch-config", "bash"]

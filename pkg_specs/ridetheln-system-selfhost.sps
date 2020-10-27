@@ -1,5 +1,4 @@
 name = "ridetheln-system-selfhost"
-version = "0.1.0"
 extends = "selfhost"
 replaces = false
 summary = "Integration of rtl into nginx"

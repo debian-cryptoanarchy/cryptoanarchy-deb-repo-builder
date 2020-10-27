@@ -1,5 +1,4 @@
 name = "bitcoin-timechain-mainnet"
-version = "0.1"
 extends = "bitcoin-rpc-proxy-mainnet"
 summary = "RPC proxy configuration for accessing timechain-related calls"
 

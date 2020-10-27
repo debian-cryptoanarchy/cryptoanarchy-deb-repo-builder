@@ -1,5 +1,4 @@
 name = "bitcoin-timechain-regtest"
-version = "0.1"
 extends = "bitcoin-rpc-proxy-regtest"
 conflicts = ["nbxplorer-system-regtest (<< 2.1.41)"]
 summary = "RPC proxy configuration for accessing timechain-related calls"
