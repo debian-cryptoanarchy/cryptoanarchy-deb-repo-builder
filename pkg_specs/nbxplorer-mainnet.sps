@@ -3,7 +3,7 @@ bin_package = "nbxplorer"
 binary = "/usr/bin/nbxplorer"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-depends = ["nbxplorer (>= 2.1.41)", "bitcoin-mainnet (>= 0.20.0-6)", "bitcoin-timechain-mainnet", "bitcoin-rpc-proxy (>= 0.1.1-1) | bitcoin-timechain-mainnet (= 0.1.0-9)"]
+depends = ["bitcoin-mainnet (>= 0.20.0-6)", "bitcoin-timechain-mainnet", "bitcoin-rpc-proxy (>= 0.1.1-1) | bitcoin-timechain-mainnet (= 0.1.0-9)"]
 summary = "A minimalist UTXO tracker for HD Wallets."
 extra_service_config = """
 Restart=always

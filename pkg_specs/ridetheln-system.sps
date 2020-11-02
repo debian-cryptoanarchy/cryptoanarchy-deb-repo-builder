@@ -1,9 +1,10 @@
 name = "ridetheln-system"
 bin_package = "ridetheln"
 binary = "/usr/bin/ridetheln"
+min_patch = "2"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
-depends = ["ridetheln (>= 0.9)", "jq"]
+depends = ["jq"]
 recommends = ["ridetheln-system-selfhost", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
 add_links = [
 	"/usr/share/ridetheln/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/ridetheln-system/open",

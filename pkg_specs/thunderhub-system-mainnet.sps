@@ -3,7 +3,6 @@ bin_package = "thunderhub"
 binary = "/usr/bin/thunderhub"
 user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
-depends = ["thunderhub (>= 0.9.2)"]
 recommends = ["thunderhub-system-selfhost-mainnet"]
 add_links = [
 	"/usr/share/thunderhub/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/thunderhub-system-mainnet/open",
