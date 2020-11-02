@@ -11,7 +11,7 @@ mining_addr="$(wget -O - --header "Authorization: Basic `sudo base64 -w 0 "/var/
 
 wget -O - --header "Authorization: Basic `sudo base64 -w 0 "/var/run/bitcoin-$bitcoin_network/cookie"`" --post-data='{"jsonrpc": "1.0", "id":"curltest", "method": "generatetoaddress", "params": [100, "'"$mining_addr"'"] }' "http://127.0.0.1:$bitcoind_port/" | grep '"result"' | sed 's/^.*"result" *: *"\([^"]*\)".*$/\1/'
 
-sleep 3
+sleep 10
 
 electrs_port="`grep '^ *electrum_rpc_addr *= *' "/etc/electrs-$bitcoin_network/conf.d/interface.toml"`"
 electrs_port="`echo "$electrs_port" | sed 's/^ *electrum_rpc_addr *= *"[^:"]*:\([^"]*\)" *$/\1/'`"
