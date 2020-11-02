@@ -1,3 +1,9 @@
+electrs (0.8.5-5) buster; urgency=medium
+
+  * Use system-wide libraries instead of static linking
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 2 Nov 2020 20:09:03 +0100
+
 electrs (0.8.5-4) buster; urgency=medium
 
   * Added dependency on procps
