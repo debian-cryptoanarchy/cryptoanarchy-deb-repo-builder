@@ -3,7 +3,7 @@ architecture = "any"
 summary = "An efficient re-implementation of Electrum Server in Rust"
 depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, electrs-mainnet | bitcoin-regtest, electrs-regtest | bitcoin-mainnet, electrs-both | electrs-mainnet | electrs-regtest"]
-add_files = ["target/release/electrs usr/bin"]
+add_files = ["/usr/bin/electrs"]
 add_manpages = ["target/man/electrs.1"]
 long_doc = """The motivation behind this project is to enable a user to run his own Electrum
 server, with required hardware resources not much beyond those of a full node.

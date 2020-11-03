@@ -1,4 +1,4 @@
 name = "btc-rpc-proxy"
 section = "net"
-build_depends = ["cargo:native (>= 0.34.0)", "gcc-aarch64-linux-gnu:native [arm64]"]
+build_depends = ["cargo:native (>= 0.34.0)", "gcc-arm-linux-gnueabihf [armhf]", "gcc-aarch64-linux-gnu [arm64]", "libstd-rust-dev"]
 packages = ["bitcoin-rpc-proxy", "bitcoin-rpc-proxy-mainnet", "bitcoin-rpc-proxy-regtest", "bitcoin-rpc-proxy-both", "bitcoin-timechain-mainnet", "bitcoin-timechain-regtest"]

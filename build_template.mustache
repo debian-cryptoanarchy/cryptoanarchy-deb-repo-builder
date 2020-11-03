@@ -17,7 +17,7 @@ $(BUILD_DIR)/fetch-{{{source_name}}}.stamp: | $(BUILD_DIR)
 	{{#remove}}
 	rm -rf "$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
 	{{/remove}}
-	cd $({{{pkg_name_upper}}}_BUILD_DIR) && $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
+	cd $({{{pkg_name_upper}}}_BUILD_DIR) && DEB_ARCH=$(DEB_ARCH) $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
 	mustache "$(SOURCE_DIR)build_rules/`echo {{pkg_name_snake}}.yaml | tr '_' '-'`" $(SOURCE_DIR)buildsystems/{{build_system}}/debian-makefile-template > $({{{pkg_name_upper}}}_BUILD_DIR)/Makefile
 	touch $@
 
@@ -40,7 +40,7 @@ $(BUILD_DIR)/{{{file_name}}}: | $(BUILD_DIR)
 {{^unpack}}
 $({{{pkg_name_upper}}}_BUILD_DIR)/: | $(BUILD_DIR)
 	mkdir -p $@
-	cd $({{{pkg_name_upper}}}_BUILD_DIR) && $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
+	cd $({{{pkg_name_upper}}}_BUILD_DIR) && DEB_ARCH=$(DEB_ARCH) $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
 	mustache "$(SOURCE_DIR)build_rules/`echo {{pkg_name_snake}}.yaml | tr '_' '-'`" $(SOURCE_DIR)buildsystems/{{build_system}}/debian-makefile-template > $({{{pkg_name_upper}}}_BUILD_DIR)/Makefile
 
 {{/unpack}}
@@ -104,7 +104,7 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 	{{#remove}}
 	"$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
 	{{/remove}}
-	cd $({{{pkg_name_upper}}}_BUILD_DIR) && $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
+	cd $({{{pkg_name_upper}}}_BUILD_DIR) && DEB_ARCH=$(DEB_ARCH) $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
 	mustache "$(SOURCE_DIR)build_rules/`echo {{pkg_name_snake}}.yaml | tr '_' '-'`" $(SOURCE_DIR)buildsystems/{{build_system}}/debian-makefile-template > $({{{pkg_name_upper}}}_BUILD_DIR)/Makefile
 {{/unpack}}
 	{{#get_assets}}

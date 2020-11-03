@@ -2,18 +2,20 @@ CARGO_ENVIRON={{cargo_env}}
 
 ifeq ($(DEB_HOST_ARCH),amd64)
 	CARGO_ARCH=x86_64-unknown-linux-gnu
+else ifeq ($(DEB_HOST_ARCH),armhf)
+	CARGO_ARCH=armv7-unknown-linux-gnueabihf
 else ifeq ($(DEB_HOST_ARCH),arm64)
 	CARGO_ARCH=aarch64-unknown-linux-gnu
 endif
 
 all:
-	$(CARGO_ENVIRON) RUSTFLAGS=-g cargo build --frozen --offline --release
+	$(CARGO_ENVIRON) BINDGEN_EXTRA_CLANG_ARGS="-target aarch64-linux-gnu -I/usr/aarch64-linux-gnu/include/c++/7 -I/usr/aarch64-linux-gnu/include/c++/7/aarch64-linux-gnu" HOST_CC=gcc RUSTFLAGS=-g cargo build --frozen --offline --release --target $(CARGO_ARCH)
 
 check:
 
 # Installing multiple Rust binaries is currently unsupported due to the limitation of cfg_me
 install:
-	$(CARGO_ENVIRON) RUSTFLAGS=-g cargo install --frozen --offline --path . --root $(DESTDIR)/usr
+	$(CARGO_ENVIRON) BINDGEN_EXTRA_CLANG_ARGS="-target aarch64-linux-gnu -I/usr/aarch64-linux-gnu/include/c++/7 -I/usr/aarch64-linux-gnu/include/c++/7/aarch64-linux-gnu" HOST_CC=gcc RUSTFLAGS=-g cargo install --frozen --offline --path . --root $(DESTDIR)/usr --target $(CARGO_ARCH)
 	test "`ls $(DESTDIR)/usr/bin | wc -l`" -eq 1
 	mkdir -p target/man
 	cfg_me -n --output "target/man/`ls $(DESTDIR)/usr/bin`.1" man

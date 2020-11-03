@@ -3,6 +3,8 @@ ARCH=$(shell uname -m)
 
 ifeq ($(ARCH),x86_64)
 	DEB_ARCH=amd64
+else ifeq ($(ARCH),armv7l)
+	DEB_ARCH=armhf
 else ifeq ($(ARCH),aarch64)
 	DEB_ARCH=arm64
 else

@@ -3,7 +3,7 @@ architecture = "any"
 summary = "Bitcoin RPC proxy"
 depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, bitcoin-rpc-proxy-mainnet | bitcoin-regtest, bitcoin-rpc-proxy-regtest | bitcoin-mainnet, bitcoin-rpc-proxy-both | bitcoin-rpc-proxy-mainnet | bitcoin-rpc-proxy-regtest"]
-add_files = ["target/release/btc_rpc_proxy usr/bin"]
+add_files = ["/usr/bin/btc_rpc_proxy"]
 add_manpages = ["target/man/btc_rpc_proxy.1"]
 long_doc = """This is a proxy made specifically for bitcoind to allow finer-grained control
 of permissions. It enables you to specify several users and for each user the

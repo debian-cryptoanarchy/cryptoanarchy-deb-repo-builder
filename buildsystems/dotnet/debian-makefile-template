@@ -1,8 +1,16 @@
 RELEASE_DIR=__release
 
+ifeq ($(DEB_HOST_ARCH),amd64)
+	DOTNET_ARCH=linux-x64
+else ifeq ($(DEB_HOST_ARCH),armhf)
+	DOTNET_ARCH=linux-arm
+else ifeq ($(DEB_HOST_ARCH),arm64)
+	DOTNET_ARCH=linux-arm64
+endif
+
 all:
-	dotnet publish --no-self-contained --nologo -c Release -o $(RELEASE_DIR) {{dotnet_csproj}}
-	if [ -d $(RELEASE_DIR)/runtimes ]; then cd $(RELEASE_DIR)/runtimes && rm -rf -- `ls | grep -v linux-x64`; fi
+	 MSBUILDDISABLENODEREUSE=1 dotnet publish --no-self-contained --nologo -c Release -o $(RELEASE_DIR) -r $(DOTNET_ARCH) {{dotnet_csproj}}
+	if [ -d $(RELEASE_DIR)/runtimes ]; then cd $(RELEASE_DIR)/runtimes && rm -rf -- `ls | grep -v $(DOTNET_ARCH)`; fi
 
 install:
 	mkdir -p $(DESTDIR)/usr/lib/

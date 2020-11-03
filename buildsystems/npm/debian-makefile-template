@@ -1,7 +1,16 @@
 COPY_FILES=$(filter-out debian Dockerfile% %.Dockerfile docker README.md .% LICENSE% CONTRIBUTING% docs {{npm_exclude_files}}, $(wildcard *)) {{npm_include_files}}
 
+
+ifeq ($(DEB_HOST_ARCH),amd64)
+	TOOLCHAIN_ARCH=x86_64-linux-gnu
+else ifeq ($(DEB_HOST_ARCH),armhf)
+	TOOLCHAIN_ARCH=arm-linux-gnueabihf
+else ifeq ($(DEB_HOST_ARCH),arm64)
+	TOOLCHAIN_ARCH=aarch64-linux-gnu
+endif
+
 all:
-	if [ -x ./node_modules/next/dist/bin/next ]; then ./node_modules/next/dist/bin/next build; fi
+	if [ -x ./node_modules/next/dist/bin/next ]; then CC=$(TOOLCHAIN_ARCH)-gcc CXX=$(TOOLCHAIN_ARCH)-g++ CC_host=gcc CXX_host=g++ ./node_modules/next/dist/bin/next build; fi
 	npm prune --production
 
 check:

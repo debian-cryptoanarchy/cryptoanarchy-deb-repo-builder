@@ -1,11 +1,9 @@
 ifeq ($(ARCH),x86_64)
-	LND_ARCH=amd64
+	BITCOIN_ARCH=x86_64-linux-gnu
 else ifeq ($(ARCH),armv7l)
-	LND_ARCH=armv7
+	BITCOIN_ARCH=arm-linux-gnueabihf
 else ifeq ($(ARCH),aarch64)
-	LND_ARCH=arm64
+	BITCOIN_ARCH=aarch64-linux-gnu
 else
 	$(error Unsupported architecture)
 endif
-
-LND_ARCH_LONG=linux-$(LND_ARCH)
