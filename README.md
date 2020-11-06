@@ -193,6 +193,7 @@ Supported and planned applications
 - [ ] joinmarket
 - [ ] joinmarket-mainnet
 - [x] lnpbp-testkit (framework for testing LNP/BP applications)
+- [x] remir (a simple server for controlling IR devices; not freedom related, but why not?)
 - [ ] translations
 - [x] all services for regtest
 - [ ] all services for signet

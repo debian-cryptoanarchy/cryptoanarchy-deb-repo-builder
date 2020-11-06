@@ -245,3 +245,18 @@ BTC RPC Explorer is a very powerful Bitcoin explorer that uses your own full nod
 * **You must have a working domain pointing to your node for `selfhost-clearnet` to work!**
 * `selfhost-clearnet-certbot` is installed by default and **needs a working e-mail address** for receiving **important security notifications**!
 * `selfhost-clearnet-certbot` will create a TLS certificate for you so that HTTPS works.
+
+### remir
+
+#### About
+
+A simple server for controlling IR-enabled devices.
+
+#### Usage
+
+Your device MUST have a LIRC-capable IR transmitter!
+I recommend using Raspberry Pi with `lirc_rpi` configured.
+Just install the package and either pick a password or let it generate a random one.
+The password will also be stored in /var/run/remir/password.
+After you've configured LIRC, open your browser using selfhost domain, followed by
+`remir` root path (default is `/remir`) followed by slash and the password.

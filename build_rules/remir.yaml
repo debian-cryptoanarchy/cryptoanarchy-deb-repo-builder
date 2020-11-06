@@ -1,0 +1,9 @@
+pkg_name_upper: REMIR
+pkg_name_snake: remir
+source_name: remir
+
+clone_url: https://github.com/Kixunil/remir
+git_tag: v$(REMIR_VERSION)
+fingerprint: 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+verify_tag: true
+build_system: python3

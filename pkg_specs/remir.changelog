@@ -1,0 +1,5 @@
+remir (0.1.0-1) buster; urgency=medium
+
+  * Added Debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 6 Nov 2020 14:40:50 +0100

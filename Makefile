@@ -28,7 +28,7 @@ endif
 
 .DELETE_ON_ERROR:
 
-SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard
+SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard remir
 
 include common_vars.mk
 
@@ -39,7 +39,7 @@ clean:
 include common_rules.mk
 
 build-dep:
-	sudo apt-get build-dep -a $(DEB_ARCH) $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR) $(SELFHOST_BUILD_DIR) $(RIDETHELN_BUILD_DIR) $(LNPBP_TESTKIT_BUILD_DIR))
+	sudo apt-get build-dep -a $(DEB_ARCH) $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR) $(SELFHOST_BUILD_DIR) $(RIDETHELN_BUILD_DIR) $(LNPBP_TESTKIT_BUILD_DIR) $(REMIR_BUILD_DIR))
 
 test: $(TEST_DEPS)
 
