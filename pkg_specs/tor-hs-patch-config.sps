@@ -1,6 +1,7 @@
 name = "tor-hs-patch-config"
 extends = "tor"
 depends_on_extended = true
+depends = ["tor (>= 0.3.1.1)"]
 external = true
 summary = "A patch to make adding hidden services easier"
 add_files = [
