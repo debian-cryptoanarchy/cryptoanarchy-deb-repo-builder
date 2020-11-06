@@ -18,25 +18,30 @@ fi
 
 if [ -z "$domain" -a -d /etc/tor/hidden-services.d ] && grep 'include /etc/tor/hidden-services\.d' /usr/share/tor/tor-service-defaults-torrc &>/dev/null;
 then
-	tmp_conf=/etc/tor/hidden-services.d/.lnd.conf.tmp
-	echo "HiddenServiceDir $hidden_service_dir" > "$tmp_conf"
-	echo "HiddenServicePort $p2p_port 127.0.0.1:$p2p_port" >> "$tmp_conf"
-	sync "$tmp_conf"
-	mv "$tmp_conf" "/etc/tor/hidden-services.d/lnd.conf"
+	if [ -r "$hidden_service_dir/hostname" ];
+	then
+		domain="`cat "$hidden_service_dir/hostname"`"
+	else
+		tmp_conf=/etc/tor/hidden-services.d/.lnd.conf.tmp
+		echo "HiddenServiceDir $hidden_service_dir" > "$tmp_conf"
+		echo "HiddenServicePort $p2p_port 127.0.0.1:$p2p_port" >> "$tmp_conf"
+		sync "$tmp_conf"
+		mv "$tmp_conf" "/etc/tor/hidden-services.d/lnd.conf"
 
-	# Even if Tor package had a trigger it'd be useless
-	deb-systemd-invoke restart tor@default.service || exit 0
+		# Even if Tor package had a trigger it'd be useless
+		deb-systemd-invoke restart tor@default.service || exit 0
 
-	for x in `seq 1 60`;
-	do
-		# This checks if the file exists and if writing to it finished
-		if grep '\.onion$' "$hidden_service_dir/hostname" &>/dev/null;
-		then
-			domain="`cat "$hidden_service_dir/hostname"`"
-			break
-		fi
-		sleep 1
-	done
+		for x in `seq 1 60`;
+		do
+			# This checks if the file exists and if writing to it finished
+			if grep '\.onion$' "$hidden_service_dir/hostname" &>/dev/null;
+			then
+				domain="`cat "$hidden_service_dir/hostname"`"
+				break
+			fi
+			sleep 1
+		done
+	fi
 fi
 
 echo -n "$domain"
