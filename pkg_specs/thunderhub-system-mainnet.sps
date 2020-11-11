@@ -45,7 +45,7 @@ constant = "mainnet"
 
 [config."thunderhub.conf".hvars.SSO_SERVER_URL]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-mainnet/grpc_port\"]}\""
+template = "127.0.0.1:{lnd-system-mainnet/grpc_port}"
 
 [config."thunderhub.conf".evars.lnd-system-mainnet.tlscertpath]
 name = "SSO_CERT_PATH"

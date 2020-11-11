@@ -45,7 +45,7 @@ constant = "regtest"
 
 [config."thunderhub.conf".hvars.SSO_SERVER_URL]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"lnd-system-regtest/grpc_port\"]}\""
+template = "127.0.0.1:{lnd-system-regtest/grpc_port}"
 
 [config."thunderhub.conf".evars.lnd-system-regtest.tlscertpath]
 name = "SSO_CERT_PATH"

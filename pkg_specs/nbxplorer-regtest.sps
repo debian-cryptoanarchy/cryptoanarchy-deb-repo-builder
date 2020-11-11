@@ -48,7 +48,7 @@ store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.node.endpoint"]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-regtest/p2p_bind_port\"]}\""
+template = "127.0.0.1:{bitcoin-regtest/p2p_bind_port}"
 
 [config."conf.d/bitcoin_iface.conf".hvars."chains"]
 type = "string"
@@ -63,7 +63,7 @@ store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.rpc.url"]
 type = "string"
-script = "echo \"http://127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-regtest/bind_port\"]}/\""
+template = "http://127.0.0.1:{bitcoin-rpc-proxy-regtest/bind_port}/"
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.hastxindex"]
 type = "bool"

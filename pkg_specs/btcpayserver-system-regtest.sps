@@ -46,11 +46,11 @@ store = false
 
 [config."btcpayserver.conf".hvars."btc.explorer.url"]
 type = "string"
-script = "echo \"http://127.0.0.1:${CONFIG[\"nbxplorer-regtest/port\"]}/\""
+template = "http://127.0.0.1:{nbxplorer-regtest/port}"
 
 [config."btcpayserver.conf".hvars."btc.explorer.cookiefile"]
 type = "string"
-script = "echo \"${CONFIG[\"nbxplorer-regtest/datadir\"]}/RegTest/.cookie\""
+template = "{nbxplorer-regtest/datadir}/RegTest/.cookie"
 
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"

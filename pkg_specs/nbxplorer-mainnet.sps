@@ -44,7 +44,7 @@ store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.node.endpoint"]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-mainnet/p2p_bind_port\"]}\""
+template = "127.0.0.1:{bitcoin-mainnet/p2p_bind_port}"
 
 [config."conf.d/bitcoin_iface.conf".hvars."chains"]
 type = "string"
@@ -59,7 +59,7 @@ store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."btc.rpc.url"]
 type = "string"
-script = "echo \"http://127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-mainnet/bind_port\"]}/\""
+template = "http://127.0.0.1:{bitcoin-rpc-proxy-mainnet/bind_port}/"
 
 # This is useful for nbxplorer and I'm not sure if it should be configurable.
 # If you read this because you'd like to configure it, please file an issue and describe

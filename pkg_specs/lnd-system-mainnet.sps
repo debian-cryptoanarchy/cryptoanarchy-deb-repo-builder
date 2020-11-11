@@ -193,7 +193,7 @@ store = false
 
 [config."lnd.conf".hvars.rpclisten]
 type = "string"
-script = "echo \"${CONFIG[\"lnd-system-mainnet/grpc_bind_addr\"]}:${CONFIG[\"lnd-system-mainnet/grpc_port\"]}\""
+template = "{/grpc_bind_addr}:{/grpc_port}"
 
 [config."lnd.conf".ivars.rest_port]
 type = "bind_port"
@@ -211,7 +211,7 @@ store = false
 
 [config."lnd.conf".hvars.restlisten]
 type = "string"
-script = "echo \"${CONFIG[\"lnd-system-mainnet/rest_bind_addr\"]}:${CONFIG[\"lnd-system-mainnet/rest_port\"]}\""
+template = "{/rest_bind_addr}:{/rest_port}"
 
 # Separate file to deflect possible future danger.
 [config."conf.d/bitcoin_iface.conf"]
@@ -242,7 +242,7 @@ store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."bitcoind.rpchost"]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-mainnet/bind_port\"]}\""
+template = "127.0.0.1:{bitcoin-rpc-proxy-mainnet/bind_port}"
 
 [config."conf.d/bitcoin_iface.conf".evars.bitcoin-zmq-mainnet.zmqpubrawtx]
 name = "bitcoind.zmqpubrawtx"

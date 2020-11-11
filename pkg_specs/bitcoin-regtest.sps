@@ -56,7 +56,7 @@ store = false
 
 [config."bitcoin.conf".hvars.bind]
 type = "string"
-script = "echo \"${CONFIG[\"bitcoin-regtest/p2p_bind_host\"]}:${CONFIG[\"bitcoin-regtest/p2p_bind_port\"]}\""
+template = "{/p2p_bind_host}:{/p2p_bind_port}"
 
 [config."bitcoin.conf".ivars.rpcport]
 type = "bind_port"

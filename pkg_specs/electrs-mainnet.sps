@@ -57,4 +57,4 @@ constant = "public:public"
 
 [config."conf.d/credentials.conf".hvars.daemon_rpc_addr]
 type = "string"
-script = "echo \"127.0.0.1:${CONFIG[\"bitcoin-rpc-proxy-mainnet/bind_port\"]}\""
+template = "127.0.0.1:{bitcoin-rpc-proxy-mainnet/bind_port}"

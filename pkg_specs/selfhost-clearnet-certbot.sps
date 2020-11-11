@@ -34,13 +34,13 @@ store = false
 [config."clearnet-wip/tls.conf".hvars.tls_key]
 type = "path"
 file_type = "regular"
-script = "echo \"/etc/selfhost/tls/${CONFIG[\"selfhost-clearnet/domain\"]}.key\""
+template = "/etc/selfhost/tls/{selfhost-clearnet/domain}.key"
 create = { mode = 750, owner = "root", group = "root", only_parent = true }
 
 [config."clearnet-wip/tls.conf".hvars.tls_cert]
 type = "path"
 file_type = "regular"
-script = "echo \"/etc/selfhost/tls/${CONFIG[\"selfhost-clearnet/domain\"]}.fullchain\""
+template = "/etc/selfhost/tls/{selfhost-clearnet/domain}.fullchain"
 create = { mode = 750, owner = "root", group = "root", only_parent = true }
 
 [config."clearnet-wip/tls.conf".hvars.tls_include]

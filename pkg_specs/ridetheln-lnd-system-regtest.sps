@@ -38,5 +38,5 @@ constant = "LND"
 
 [config."nodes.d/lnd-system-regtest".hvars.server_url]
 type = "string"
-script = "echo \"https://127.0.0.1:${CONFIG[\"lnd-system-regtest/rest_port\"]}\""
+template = "https://127.0.0.1:{lnd-system-regtest/rest_port}"
 structure = ["Settings", "lnServerUrl"]
