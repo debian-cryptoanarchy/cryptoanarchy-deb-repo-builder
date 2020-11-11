@@ -4,7 +4,7 @@ bin_package = "selfhost-dashboard-bin"
 binary = "/usr/bin/selfhost-dashboard"
 conf_param = "--conf"
 user = { name = "root" }
-recommends = ["selfhost"]
+recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)"]
 extra_triggers = ["/etc/selfhost-dashboard/apps"]
 extra_service_config = """
 Restart=always
