@@ -3,10 +3,11 @@ bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
+conflicts = ["btcpayserver-system-selfhost-mainnet"]
 # The former two of these recommends handle the situation when lnd is installed on the command line
 # without explicitly selecting the network or when the selected network is regtest only, the latter
 # two recommends handle the case when both networks are used.
-recommends = ["btcpayserver-system-selfhost-mainnet", "btcpayserver-no-lnp-system-mainnet | lnd, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-regtest, btcpayserver-no-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-mainnet, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet"]
+recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)", "btcpayserver-no-lnp-system-mainnet | lnd, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-regtest, btcpayserver-no-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet | lnd-system-mainnet, btcpayserver-lnp-system-mainnet | btcpayserver-no-lnp-system-mainnet"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
 add_links = [ "/usr/lib/BTCPayServer/wwwroot/img/icons/icon-192x192.png /usr/share/selfhost-dashboard/apps/icons/btcpayserver-system-mainnet/entry_main.png" ]
 extra_service_config = """
@@ -52,6 +53,25 @@ template = "{nbxplorer-mainnet/datadir}/Main/.cookie"
 type = "path"
 constant = "/var/log/btcpayserver-system-mainnet/debug.log"
 
+[config."conf.d/root_path.conf"]
+format = "plain"
+
+[config."conf.d/root_path.conf".ivars.rootPath]
+type = "string"
+default = "/btcpay"
+priority = "medium"
+summary = "Web prefix of web path to BTCPayServer"
+
+[config."../selfhost/apps/btcpayserver-system-mainnet.conf"]
+format = "yaml"
+with_header = true
+external = true
+
+[config."../selfhost/apps/btcpayserver-system-mainnet.conf".evars.btcpayserver-system-mainnet.rootPath]
+name = "root_path"
+
+[config."../selfhost/apps/btcpayserver-system-mainnet.conf".evars.btcpayserver-system-mainnet.port]
+name = "port"
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml"]
 format = "toml"
 external = true
@@ -67,3 +87,5 @@ constant = "false"
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-mainnet/meta.toml".hvars.entry_point]
 type = "uint"
 constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
+
+

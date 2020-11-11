@@ -4,7 +4,8 @@ binary = "/usr/bin/btc-rpc-explorer"
 user = { group = true, create = { home = true } }
 summary = "Simple, database-free Bitcoin blockchain explorer (mainnet)"
 depends = ["bitcoin-timechain-mainnet (>= 0.1.0-5)", "bitcoin-txindex-mainnet"]
-recommends = ["btc-rpc-explorer-selfhost-mainnet"]
+conflicts = ["btc-rpc-explorer-selfhost-mainnet"]
+recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 extended_by = ["electrs-mainnet"]
 add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/btc.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-mainnet/entry_main.png" ]
 extra_service_config = """
@@ -81,6 +82,30 @@ else
     head -c 18 /dev/urandom | base64 | tr -d '\\n'
 fi
 """
+
+[config."conf.d/root_path.conf"]
+format = "plain"
+
+[config."conf.d/root_path.conf".ivars.BTCEXP_BASE_PATH]
+type = "string"
+default = "/btc-rpc-explorer"
+priority = "medium"
+summary = "Web prefix of web path to BTC RPC Explorer"
+
+[config."../selfhost/apps/btc-rpc-explorer-mainnet.conf"]
+format = "yaml"
+with_header = true
+external = true
+
+[config."../selfhost/apps/btc-rpc-explorer-mainnet.conf".evars.btc-rpc-explorer-mainnet.BTCEXP_BASE_PATH]
+name = "root_path"
+
+[config."../selfhost/apps/btc-rpc-explorer-mainnet.conf".evars.btc-rpc-explorer-mainnet.BTCEXP_PORT]
+name = "port"
+
+[config."../selfhost/apps/btc-rpc-explorer-mainnet.conf".hvars.rewrite]
+type = "bool"
+constant = "true"
 
 [config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-mainnet/meta.toml"]
 format = "toml"

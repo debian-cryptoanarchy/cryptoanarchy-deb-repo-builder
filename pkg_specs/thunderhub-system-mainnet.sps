@@ -4,7 +4,8 @@ binary = "/usr/bin/thunderhub"
 user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
 depends = ["lnd-system-mainnet (>= 0.11)"]
-recommends = ["thunderhub-system-selfhost-mainnet"]
+conflicts = ["thunderhub-system-selfhost-mainnet"]
+recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 add_links = [
 	"/usr/share/thunderhub/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/thunderhub-system-mainnet/open",
 	"/usr/share/thunderhub/selfhost-dashboard/icons/entry_main.png /usr/share/selfhost-dashboard/apps/icons/thunderhub-system-mainnet/entry_main.png",
@@ -87,6 +88,30 @@ type = "bool"
 default = "true"
 priority = "medium"
 summary = "Disable version check? (shouldn't be needed - managed by Debian)"
+
+[config."conf.d/root_path.conf"]
+format = "plain"
+
+[config."conf.d/root_path.conf".ivars.BASE_PATH]
+type = "string"
+default = "/thunderhub"
+priority = "medium"
+summary = "Web prefix of web path to ThunderHub"
+
+[config."../selfhost/apps/thunderhub-system-mainnet.conf"]
+format = "yaml"
+with_header = true
+external = true
+
+[config."../selfhost/apps/thunderhub-system-mainnet.conf".evars.thunderhub-system-mainnet.BASE_PATH]
+name = "root_path"
+
+[config."../selfhost/apps/thunderhub-system-mainnet.conf".evars.thunderhub-system-mainnet.BIND_PORT]
+name = "port"
+
+[config."../selfhost/apps/thunderhub-system-mainnet.conf".hvars.rewrite]
+type = "bool"
+constant = "true"
 
 [config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml"]
 format = "toml"

@@ -2,6 +2,7 @@ thunderhub (0.10.1-1) buster; urgency=medium
 
   * Updated upstream version
   * Dropped support for LND << 0.11
+  * moved logic from -selfhost packages to the service packages
 
  -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 8 Nov 2020 22:43:52 +0100
 

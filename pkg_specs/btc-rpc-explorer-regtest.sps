@@ -4,7 +4,8 @@ binary = "/usr/bin/btc-rpc-explorer"
 user = { group = true, create = { home = true } }
 summary = "Simple, database-free Bitcoin blockchain explorer (regtest)"
 depends = ["bitcoin-timechain-regtest (>= 0.1.0-5)", "bitcoin-txindex-regtest"]
-recommends = ["btc-rpc-explorer-selfhost-regtest"]
+conflicts = ["btc-rpc-explorer-selfhost-regtest"]
+recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 extended_by = ["electrs-regtest"]
 extra_service_config = """
 Restart=always
@@ -80,3 +81,27 @@ else
     head -c 18 /dev/urandom | base64 | tr -d '\\n'
 fi
 """
+
+[config."conf.d/root_path.conf"]
+format = "plain"
+
+[config."conf.d/root_path.conf".ivars.BTCEXP_BASE_PATH]
+type = "string"
+default = "/btc-explorer-rt"
+priority = "medium"
+summary = "Web prefix of web path to BTC RPC Explorer"
+
+[config."../selfhost/apps/btc-rpc-explorer-regtest.conf"]
+format = "yaml"
+with_header = true
+external = true
+
+[config."../selfhost/apps/btc-rpc-explorer-regtest.conf".evars.btc-rpc-explorer-regtest.BTCEXP_BASE_PATH]
+name = "root_path"
+
+[config."../selfhost/apps/btc-rpc-explorer-regtest.conf".evars.btc-rpc-explorer-regtest.BTCEXP_PORT]
+name = "port"
+
+[config."../selfhost/apps/btc-rpc-explorer-regtest.conf".hvars.rewrite]
+type = "bool"
+constant = "true"

@@ -5,7 +5,8 @@ min_patch = "2"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
 depends = ["jq"]
-recommends = ["ridetheln-system-selfhost", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
+conflicts = ["ridetheln-system-selfhost"]
+recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
 add_links = [
 	"/usr/share/ridetheln/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/ridetheln-system/open",
 	"/usr/lib/ridetheln/angular/assets/images/favicon-dark/android-chrome-192x192.png /usr/share/selfhost-dashboard/apps/icons/ridetheln-system/entry_main.png",
@@ -47,6 +48,19 @@ structure = ["SSO", "rtlCookiePath"]
 type = "dir"
 repr = "array"
 path = "nodes.d"
+
+[config."apps/ridetheln-system.conf"]
+format = "yaml"
+with_header = true
+external = true
+
+[config."apps/ridetheln-system.conf".ivars.root_path]
+type = "string"
+default = "/rtl"
+priority = "medium"
+summary = "Web prefix of web path to Ride The Lightning"
+
+[config."apps/ridetheln-system.conf".evars.ridetheln-system.port]
 
 [config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml"]
 format = "toml"
