@@ -1,5 +1,6 @@
 name = "lnd"
 section = "net"
+variants = ["mainnet", "regtest"]
 build_depends = []
-packages = ["lnd", "lncli", "lnd-system-mainnet", "lnd-system-regtest", "lnd-system-both", "lnd-auto-unlock", "lnd-unlocker-system-mainnet", "lnd-unlocker-system-regtest", "lnd-genmacaroon", "lnd-genmacaroon-system-mainnet", "lnd-genmacaroon-system-regtest"]
+packages = ["lnd", "lncli", "lnd-system-@variant", "lnd-system-both", "lnd-auto-unlock", "lnd-unlocker-system-@variant", "lnd-genmacaroon", "lnd-genmacaroon-system-@variant"]
 skip_debug_symbols = true

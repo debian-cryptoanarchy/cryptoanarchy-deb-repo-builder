@@ -1,4 +1,5 @@
 name = "ridetheln"
 section = "net"
+variants = ["mainnet", "regtest"]
 build_depends = ["npm:native"]
-packages = ["ridetheln", "ridetheln-system", "ridetheln-lnd-system-mainnet", "ridetheln-lnd-system-regtest", "ridetheln-lnd-system-both"]
+packages = ["ridetheln", "ridetheln-system", "ridetheln-lnd-system-@variant", "ridetheln-lnd-system-both"]

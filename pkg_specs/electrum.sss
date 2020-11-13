@@ -1,8 +1,9 @@
 name = "electrum"
 section = "net"
+variants = ["mainnet"]
 build_depends = [
 	"python3:native | python3-all:native | python3-all-dev:native"
 ]
-packages = ["electrum", "electrum-trustless-mainnet"]
+packages = ["electrum", "electrum-trustless-@variant"]
 skip_debug_symbols = true
 skip_strip = true

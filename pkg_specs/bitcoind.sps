@@ -1,7 +1,6 @@
 name = "bitcoind"
 architecture = "any"
 summary = "Bitcoin full node daemon binaries"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest"]
 suggests = ["bitcoin-cli"]
 add_files = [

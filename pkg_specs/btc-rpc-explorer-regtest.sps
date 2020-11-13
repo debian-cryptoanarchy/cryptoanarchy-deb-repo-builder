@@ -7,12 +7,17 @@ depends = ["bitcoin-timechain-regtest (>= 0.1.0-5)", "bitcoin-txindex-regtest"]
 conflicts = ["btc-rpc-explorer-selfhost-regtest"]
 recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 extended_by = ["electrs-regtest"]
+runtime_dir = { mode = "755" }
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/btc-rpc-explorer-regtest/btc-rpc-explorer.conf
-RuntimeDirectory=btc-rpc-explorer-regtest
-RuntimeDirectoryMode=755
 """
+
+[map_variants.http_port]
+mainnet = "5000"
+
+[map_variants.root_path]
+mainnet = "btc-rpc-explorer"
 
 [config."btc-rpc-explorer.conf"]
 format = "plain"
@@ -20,7 +25,7 @@ cat_dir = "conf.d"
 
 [config."btc-rpc-explorer.conf".ivars.BTCEXP_PORT]
 type = "bind_port"
-default = "5002"
+default = "{http_port}"
 priority = "low"
 summary = "Bind port for BTC RPC Explorer"
 
@@ -87,7 +92,7 @@ format = "plain"
 
 [config."conf.d/root_path.conf".ivars.BTCEXP_BASE_PATH]
 type = "string"
-default = "/btc-explorer-rt"
+default = "{root_path}"
 priority = "medium"
 summary = "Web prefix of web path to BTC RPC Explorer"
 

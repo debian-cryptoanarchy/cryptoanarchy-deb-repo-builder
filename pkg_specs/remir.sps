@@ -6,9 +6,9 @@ conf_param = "--conf"
 user = { group = true, create = { home = false } }
 recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)"]
 extra_triggers = ["/etc/lirc/lircd.conf.d"]
+runtime_dir = { mode = "750" }
 extra_service_config = """
 Restart=always
-RuntimeDirectory=remir
 """
 
 [config."remir.toml"]

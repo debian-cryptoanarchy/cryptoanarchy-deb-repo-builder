@@ -1,8 +1,8 @@
-name = "bitcoin-fullchain-regtest"
-extends = "bitcoin-regtest"
-provides = ["bitcoin-chain-mode-regtest (= 1.0)"]
-replaces = ["bitcoin-chain-mode-regtest"]
-conflicts = ["bitcoin-chain-mode-regtest"]
+name = "bitcoin-fullchain-@variant"
+extends = "bitcoin-@variant"
+provides = ["bitcoin-chain-mode-{variant} (= 1.0)"]
+replaces = ["bitcoin-chain-mode-{variant}"]
+conflicts = ["bitcoin-chain-mode-{variant}"]
 summary = "Bitcoin fully validating node"
 
 [config."chain_mode"]

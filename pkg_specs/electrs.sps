@@ -1,7 +1,6 @@
 name = "electrs"
 architecture = "any"
 summary = "An efficient re-implementation of Electrum Server in Rust"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, electrs-mainnet | bitcoin-regtest, electrs-regtest | bitcoin-mainnet, electrs-both | electrs-mainnet | electrs-regtest"]
 add_files = ["/usr/bin/electrs"]
 add_manpages = ["target/man/electrs.1"]

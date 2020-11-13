@@ -1,5 +1,6 @@
 name = "thunderhub"
 section = "net"
+variants = ["mainnet", "regtest"]
 build_depends = ["npm", "g++:native", "libnode-dev", "libvips-dev"]
-packages = ["thunderhub", "thunderhub-system-mainnet", "thunderhub-system-regtest", "thunderhub-system-both"]
+packages = ["thunderhub", "thunderhub-system-@variant", "thunderhub-system-both"]
 skip_debug_symbols = true

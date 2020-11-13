@@ -1,7 +1,6 @@
 name = "lncli"
 architecture = "any"
 summary = "Lightnning Network Daemon CLI"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 suggests = ["lnd-system-mainnet | lnd-system-regtest"]
 add_files = ["lncli /usr/lib/lncli", "xlncli /usr/share/lncli"]
 long_doc = """lncli is a tool used for managing lnd from the command line. This package

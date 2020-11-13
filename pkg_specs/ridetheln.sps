@@ -1,7 +1,7 @@
 name = "ridetheln"
 architecture = "all"
 summary = "A full function web browser app for LND and C-Lightning."
-depends = ["nodejs (>= 8.0.0)", "${shlibs:Depends} ${misc:Depends}"]
+depends = ["nodejs (>= 8.0.0)"]
 recommends = ["ridetheln-system"]
 add_files = [
 	"/usr/lib/ridetheln",

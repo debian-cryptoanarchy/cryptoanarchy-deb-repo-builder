@@ -1,4 +1,6 @@
 name = "btc-rpc-explorer"
 section = "net"
+# regtest not supported yet
+variants = ["mainnet"]
 build_depends = ["npm"]
-packages = ["btc-rpc-explorer", "btc-rpc-explorer-mainnet", "btc-rpc-explorer-regtest", "btc-rpc-explorer-both"]
+packages = ["btc-rpc-explorer", "btc-rpc-explorer-@variant", "btc-rpc-explorer-both"]

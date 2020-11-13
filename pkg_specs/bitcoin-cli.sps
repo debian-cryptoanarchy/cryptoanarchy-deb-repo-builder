@@ -1,7 +1,6 @@
 name = "bitcoin-cli"
 architecture = "any"
 summary = "Bitcoin CLI"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 suggests = ["bitcoin-mainnet | bitcoin-regtest"]
 add_files = ["bin/bitcoin-cli /usr/lib/bitcoin-cli", "xbitcoin-cli /usr/share/bitcoin-cli"]
 add_manpages = ["share/man/man1/bitcoin-cli.1"]

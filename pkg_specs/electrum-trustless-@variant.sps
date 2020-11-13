@@ -1,9 +1,8 @@
-name = "electrum-trustless-mainnet"
+name = "electrum-trustless-@variant"
 architecture = "all"
 summary = "Electrum - Lightweight Bitcoin client (secure launcher)"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
-recommends = ["electrum-trustless-mainnet | electrum-trustless-regtest", "python3-pyqt5"]
-add_files = ["electrum-trustless-mainnet /usr/bin/", "electrum-trustless-mainnet.desktop /usr/share/applications/"]
+recommends = ["electrum-trustless-{variant} | electrum-trustless-regtest", "python3-pyqt5"]
+add_files = ["electrum-trustless-{variant} /usr/bin/", "electrum-trustless-{variant}.desktop /usr/share/applications/"]
 long_doc = """Electrum is a powerful Bitcoin wallet capable of using hardware wallets.
 
 This package contains a launcher configured to make sure you don't leak

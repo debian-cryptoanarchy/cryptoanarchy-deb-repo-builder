@@ -1,7 +1,7 @@
 name = "btc-rpc-explorer"
 architecture = "all"
 summary = "Simple, database-free Bitcoin blockchain explorer"
-depends = ["nodejs (>= 8.0.0)", "${shlibs:Depends} ${misc:Depends}"]
+depends = ["nodejs (>= 8.0.0)"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, btc-rpc-explorer-mainnet | bitcoin-regtest, btc-rpc-explorer-regtest | bitcoin-mainnet, btc-rpc-explorer-both | btc-rpc-explorer-mainnet | btc-rpc-explorer-regtest"]
 add_files = ["/usr/lib/btc-rpc-explorer", "btc-rpc-explorer /usr/bin/"]
 long_doc = """This is a simple, self-hosted explorer for the Bitcoin blockchain, driven by RPC calls to your own Bitcoin node. It is easy to run and can be connected to other tools (like ElectrumX) to achieve a full-featured explorer.

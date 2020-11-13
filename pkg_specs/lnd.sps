@@ -1,7 +1,6 @@
 name = "lnd"
 architecture = "any"
 summary = "Lightnning Network Daemon"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, lnd-system-mainnet | bitcoin-regtest, lnd-system-regtest | bitcoin-mainnet, lnd-system-both | lnd-system-mainnet | lnd-system-regtest"]
 suggests = ["lncli"]
 add_files = ["lnd /usr/bin", "lib/bash.sh /usr/share/lnd/lib", "get_external_addr.sh /usr/share/lnd"]

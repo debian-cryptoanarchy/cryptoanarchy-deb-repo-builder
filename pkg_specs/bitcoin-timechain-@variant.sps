@@ -1,6 +1,6 @@
-name = "bitcoin-timechain-regtest"
-extends = "bitcoin-rpc-proxy-regtest"
-conflicts = ["nbxplorer-system-regtest (<< 2.1.41)"]
+name = "bitcoin-timechain-@variant"
+extends = "bitcoin-rpc-proxy-@variant"
+conflicts = ["nbxplorer-system-{variant} (<< 2.1.41)"]
 summary = "RPC proxy configuration for accessing timechain-related calls"
 
 [config."conf.d/public.conf"]
@@ -51,7 +51,7 @@ allowed_calls = [
 	"uptime",
 	"getnettotals",
 	"help",
-	# Required for nbxplorer-regtest
+	# Required for nbxplorer-*
 	"getpeerinfo",
 ]
 '''

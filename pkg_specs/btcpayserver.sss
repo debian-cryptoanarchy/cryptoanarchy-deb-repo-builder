@@ -1,5 +1,6 @@
 name = "btcpayserver"
 section = "net"
+variants = ["mainnet", "regtest"]
 build_depends = ["dotnet-sdk-3.1:native (<< 3.1.300-1) | dotnet-sdk-3.1:native (>= 3.1.301-1)"]
-packages = ["btcpayserver", "btcpayserver-system-mainnet", "btcpayserver-system-regtest", "btcpayserver-system-both", "btcpayserver-lnp-system-mainnet", "btcpayserver-no-lnp-system-mainnet", "btcpayserver-lnp-system-regtest", "btcpayserver-no-lnp-system-regtest"]
+packages = ["btcpayserver", "btcpayserver-system-@variant", "btcpayserver-system-both", "btcpayserver-lnp-system-@variant", "btcpayserver-no-lnp-system-@variant"]
 skip_debug_symbols = true

@@ -6,12 +6,11 @@ user = { group = true, create = { home = true } }
 # dpkg | bitcoin-zmq-regtest is a hack avoiding restarts of bitcoind
 depends = ["bitcoin-pruned-regtest (>= 0.20.0-1) | bitcoin-chain-mode-regtest (>= 1.0)", "bitcoin-pruned-regtest (>= 0.20.0-1) | bitcoin-chain-mode-regtest (<< 2.0)", "dpkg | bitcoin-zmq-regtest"]
 summary = "Bitcoin fully validating node"
+runtime_dir = { mode = "0750" }
 extra_service_config = """
 # Stopping bitcoind can take a very long time
 TimeoutStopSec=300
 Restart=always
-RuntimeDirectory=bitcoin-regtest
-RuntimeDirectoryMode=0750
 """
 
 [config."bitcoin.conf"]

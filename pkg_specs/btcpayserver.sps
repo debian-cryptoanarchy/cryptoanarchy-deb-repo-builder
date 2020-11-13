@@ -1,7 +1,7 @@
 name = "btcpayserver"
 architecture = "any"
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
-depends = ["dotnet-runtime-3.1", "aspnetcore-runtime-3.1", "${shlibs:Depends} ${misc:Depends}"]
+depends = ["dotnet-runtime-3.1", "aspnetcore-runtime-3.1"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, btcpayserver-system-mainnet | bitcoin-regtest, btcpayserver-system-regtest | bitcoin-mainnet, btcpayserver-system-both | btcpayserver-system-mainnet | btcpayserver-system-regtest"]
 add_files = ["/usr/lib/BTCPayServer"]
 add_links = ["../lib/BTCPayServer/BTCPayServer /usr/bin/btcpayserver"]

@@ -1,4 +1,5 @@
 name = "electrs"
 section = "net"
+variants = ["mainnet", "regtest"]
 build_depends = ["cargo:native (>= 0.34.0)", "cmake (>= 3.13.4)", "clang:native (>= 1:7.0)", "llvm-dev:native", "gcc-arm-linux-gnueabihf [armhf]", "gcc-aarch64-linux-gnu [arm64]", "librocksdb-dev", "libsnappy-dev", "liblz4-dev", "libzstd-dev", "libz-dev", "libbz2-dev", "libc6-dev", "libstdc++-8-dev"]
-packages = ["electrs", "electrs-mainnet", "electrs-regtest", "electrs-both"]
+packages = ["electrs", "electrs-@variant", "electrs-both"]

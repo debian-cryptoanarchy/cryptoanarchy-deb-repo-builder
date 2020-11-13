@@ -1,63 +1,66 @@
-name = "thunderhub-system-mainnet"
+name = "thunderhub-system-@variant"
 bin_package = "thunderhub"
 binary = "/usr/bin/thunderhub"
 user = { group = true, create = { home = true } }
 summary = "Lightning Node Manager"
-depends = ["lnd-system-mainnet (>= 0.11)"]
-conflicts = ["thunderhub-system-selfhost-mainnet"]
+depends = ["lnd-system-{variant} (>= 0.11)"]
+conflicts = ["thunderhub-system-selfhost-{variant}"]
 recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
+runtime_dir = { mode = "755" }
 add_links = [
-	"/usr/share/thunderhub/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/thunderhub-system-mainnet/open",
-	"/usr/share/thunderhub/selfhost-dashboard/icons/entry_main.png /usr/share/selfhost-dashboard/apps/icons/thunderhub-system-mainnet/entry_main.png",
+	"/usr/share/thunderhub/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/thunderhub-system-{variant}/open",
+	"/usr/share/thunderhub/selfhost-dashboard/icons/entry_main.png /usr/share/selfhost-dashboard/apps/icons/thunderhub-system-{variant}/entry_main.png",
 ]
 extra_service_config = """
 Restart=always
-EnvironmentFile=/etc/thunderhub-system-mainnet/thunderhub.conf
-RuntimeDirectory=thunderhub-system-mainnet
-RuntimeDirectoryMode=755
+EnvironmentFile=/etc/thunderhub-system-{variant}/thunderhub.conf
 """
 
-[extra_groups."thunderhub-system-mainnet-sso"]
+[extra_groups."thunderhub-system-{variant}-sso"]
 create = true
+
+[extra_groups."lnd-system-{variant}"]
+create = false
+
+[map_variants.http_port]
+mainnet = "4000"
+regtest = "4002"
 
 [config."thunderhub.conf"]
 format = "plain"
 cat_dir = "conf.d"
 
-[config."thunderhub.conf".postprocess]
-command = ["usermod", "-a", "-G", "lnd-system-mainnet", "thunderhub-system-mainnet"]
-
 [config."thunderhub.conf".ivars.BIND_PORT]
 type = "bind_port"
-default = "4000"
+default = "{http_port}"
 priority = "low"
 summary = "Bind port for ThunderHub"
 
 [config."thunderhub.conf".hvars.COOKIE_PATH]
 type = "path"
 file_type = "regular"
-constant = "/var/run/thunderhub-system-mainnet/sso/cookie"
+constant = "/var/run/thunderhub-system-{variant}/sso/cookie"
 
-[config."thunderhub.conf".evars.lnd-system-mainnet.grpc_port]
+[config."thunderhub.conf".evars."lnd-system-@variant".grpc_port]
 store = false
 
 [config."thunderhub.conf".hvars.BITCOIN_NETWORK]
 type = "string"
-constant = "mainnet"
+template = "{variant}"
 
 [config."thunderhub.conf".hvars.SSO_SERVER_URL]
 type = "string"
-template = "127.0.0.1:{lnd-system-mainnet/grpc_port}"
+template = "127.0.0.1:{lnd-system-@variant/grpc_port}"
 
-[config."thunderhub.conf".evars.lnd-system-mainnet.tlscertpath]
+[config."thunderhub.conf".evars."lnd-system-@variant".tlscertpath]
 name = "SSO_CERT_PATH"
 
-[config."thunderhub.conf".evars.lnd-system-mainnet.adminmacaroonpath]
+[config."thunderhub.conf".evars."lnd-system-@variant".adminmacaroonpath]
 store = false
 
 [config."thunderhub.conf".hvars.SSO_MACAROON_PATH]
 type = "path"
-script = "dirname ${CONFIG[\"lnd-system-mainnet/adminmacaroonpath\"]}"
+script = "dirname ${{CONFIG[\"lnd-system-{variant}/adminmacaroonpath\"]}}"
 
 [config."thunderhub.conf".ivars.NO_CLIENT_ACCOUNTS]
 type = "bool"
@@ -98,33 +101,33 @@ default = "/thunderhub"
 priority = "medium"
 summary = "Web prefix of web path to ThunderHub"
 
-[config."../selfhost/apps/thunderhub-system-mainnet.conf"]
+[config."../selfhost/apps/thunderhub-system-{variant}.conf"]
 format = "yaml"
 with_header = true
 external = true
 
-[config."../selfhost/apps/thunderhub-system-mainnet.conf".evars.thunderhub-system-mainnet.BASE_PATH]
+[config."../selfhost/apps/thunderhub-system-{variant}.conf".evars."thunderhub-system-@variant".BASE_PATH]
 name = "root_path"
 
-[config."../selfhost/apps/thunderhub-system-mainnet.conf".evars.thunderhub-system-mainnet.BIND_PORT]
+[config."../selfhost/apps/thunderhub-system-{variant}.conf".evars."thunderhub-system-@variant".BIND_PORT]
 name = "port"
 
-[config."../selfhost/apps/thunderhub-system-mainnet.conf".hvars.rewrite]
+[config."../selfhost/apps/thunderhub-system-{variant}.conf".hvars.rewrite]
 type = "bool"
 constant = "true"
 
-[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml"]
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-{variant}/meta.toml"]
 format = "toml"
 external = true
 
-[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.user_friendly_name]
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-{variant}/meta.toml".hvars.user_friendly_name]
 type = "string"
 constant = "ThunderHub"
 
-[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.admin_only]
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-{variant}/meta.toml".hvars.admin_only]
 type = "bool"
 constant = "true"
 
-[config."../../etc/selfhost-dashboard/apps/thunderhub-system-mainnet/meta.toml".hvars.entry_point]
+[config."../../etc/selfhost-dashboard/apps/thunderhub-system-{variant}/meta.toml".hvars.entry_point]
 type = "string"
 constant = "Dynamic"

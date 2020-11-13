@@ -1,28 +1,36 @@
-name = "btcpayserver-system-regtest"
+name = "btcpayserver-system-@variant"
 bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-conflicts = ["btcpayserver-system-selfhost-regtest"]
+conflicts = ["btcpayserver-system-selfhost-{variant}"]
 # The former two of these recommends handle the situation when lnd is installed on the command line
 # without explicitly selecting the network or when the selected network is mainnet only, the latter
 # two recommends handle the case when both networks are used.
-recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)", "btcpayserver-no-lnp-system-regtest | lnd, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest | lnd-system-mainnet, btcpayserver-no-lnp-system-regtest | btcpayserver-lnp-system-regtest | lnd-system-regtest, btcpayserver-lnp-system-regtest | btcpayserver-no-lnp-system-regtest"]
+recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)", "btcpayserver-no-lnp-system-{variant} | lnd, btcpayserver-lnp-system-{variant} | btcpayserver-no-lnp-system-{variant} | lnd-system-mainnet, btcpayserver-no-lnp-system-{variant} | btcpayserver-lnp-system-{variant} | lnd-system-{variant}, btcpayserver-lnp-system-{variant} | btcpayserver-no-lnp-system-{variant}"]
 summary = "A cross platform, self-hosted server compatible with Bitpay API"
-add_links = [ "/usr/lib/BTCPayServer/wwwroot/img/icons/icon-192x192.png /usr/share/selfhost-dashboard/apps/icons/btcpayserver-system-regtest/entry_main.png" ]
+add_links = [ "/usr/lib/BTCPayServer/wwwroot/img/icons/icon-192x192.png /usr/share/selfhost-dashboard/apps/icons/btcpayserver-system-{variant}/entry_main.png" ]
 extra_service_config = """
 Restart=always
 WorkingDirectory=/usr/lib/BTCPayServer
-LogsDirectory=btcpayserver-system-regtest
+LogsDirectory=btcpayserver-system-{variant}
 """
 
-[extra_groups.nbxplorer-regtest-access-rpc]
+[extra_groups."nbxplorer-{variant}-access-rpc"]
 create = false
 
 [databases.pgsql]
 template = """
 postgres=User ID=_DBC_DBUSER_;Password=_DBC_DBPASS_;Host=_DBC_DBSERVER_;Port=_DBC_DBPORT_;Database=_DBC_DBNAME_;
 """
+
+[map_variants.http_port]
+mainnet = "23000"
+regtest = "23002"
+
+[map_variants.root_path]
+mainnet = "/btcpay"
+regtest = "/btcpay-rt"
 
 [config."btcpayserver.conf"]
 format = "plain"
@@ -35,23 +43,23 @@ constant = "regtest"
 
 [config."btcpayserver.conf".ivars."port"]
 type = "bind_port"
-default = "23002"
+default = "{http_port}"
 priority = "low"
 summary = "The port BTCPayServer should listen on"
 
-[config."btcpayserver.conf".evars.nbxplorer-regtest.port]
+[config."btcpayserver.conf".evars."nbxplorer-@variant".port]
 store = false
 
-[config."btcpayserver.conf".evars.nbxplorer-regtest.datadir]
+[config."btcpayserver.conf".evars."nbxplorer-@variant".datadir]
 store = false
 
 [config."btcpayserver.conf".hvars."btc.explorer.url"]
 type = "string"
-template = "http://127.0.0.1:{nbxplorer-regtest/port}"
+template = "http://127.0.0.1:{nbxplorer-@variant/port}"
 
 [config."btcpayserver.conf".hvars."btc.explorer.cookiefile"]
 type = "string"
-template = "{nbxplorer-regtest/datadir}/RegTest/.cookie"
+template = "{nbxplorer-@variant/datadir}/RegTest/.cookie"
 
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
@@ -62,7 +70,7 @@ format = "plain"
 
 [config."conf.d/root_path.conf".ivars.rootPath]
 type = "string"
-default = "/btcpay-rt"
+default = "{root_path}"
 priority = "medium"
 summary = "Web prefix of web path to BTCPayServer"
 
@@ -71,10 +79,10 @@ format = "yaml"
 with_header = true
 external = true
 
-[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars.btcpayserver-system-regtest.rootPath]
+[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars."btcpayserver-system-@variant".rootPath]
 name = "root_path"
 
-[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars.btcpayserver-system-regtest.port]
+[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars."btcpayserver-system-@variant".port]
 name = "port"
 
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml"]
@@ -92,3 +100,4 @@ constant = "false"
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.entry_point]
 type = "uint"
 constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
+

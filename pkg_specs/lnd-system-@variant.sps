@@ -1,35 +1,55 @@
-name = "lnd-system-mainnet"
+name = "lnd-system-@variant"
 bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-fullchain-mainnet", "bitcoin-timechain-mainnet"]
-recommends = ["lnd-unlocker-system-mainnet"]
+depends = ["bitcoin-fullchain-{variant}", "bitcoin-timechain-{variant}"]
+recommends = ["lnd-unlocker-system-{variant}"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always
 """
 
+[map_variants.mainnet_enabled]
+mainnet = "1"
+regtest = "0"
+
+[map_variants.regtest_enabled]
+mainnet = "0"
+regtest = "1"
+
+[map_variants.p2p_port]
+mainnet = "9735"
+regtest = "9737"
+
+[map_variants.grpc_port]
+mainnet = "10009"
+regtest = "10011"
+
+[map_variants.rest_port]
+mainnet = "9090"
+regtest = "9092"
+
 [migrations."<< 0.11.0-1"]
 config = """
-db_get lnd-system-mainnet/externalip || RET=""
+db_get lnd-system-{variant}/externalip || RET=""
 if [ -z "$RET" ] || echo "$RET" | grep -E '^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]$|[0-9a-f:]*:[0-9a-f:]*:[0-9a-f:]*|\\.onion$';
 then
 \ttrue
 else
 \techo 'externalip does NOT look like an IP address or onion domain. Migrating to externalhosts' >&2
-\tif db_set lnd-system-mainnet/externalhosts "$RET";
+\tif db_set lnd-system-{variant}/externalhosts "$RET";
 \tthen
-\t\tdb_fset lnd-system-mainnet/externalhosts seen false || true
-\t\tdb_set lnd-system-mainnet/externalip \"\" || true
+\t\tdb_fset lnd-system-{variant}/externalhosts seen false || true
+\t\tdb_set lnd-system-{variant}/externalip \"\" || true
 \tfi
 fi"""
 
-[extra_groups.lnd-system-mainnet-invoice]
+[extra_groups."lnd-system-{variant}-invoice"]
 create = true
 
-[extra_groups.lnd-system-mainnet-readonly]
+[extra_groups."lnd-system-{variant}-readonly"]
 create = true
 
 [config."lnd.conf"]
@@ -40,30 +60,30 @@ cat_dir = "conf.d"
 [config."lnd.conf".ivars.datadir]
 type = "path"
 file_type = "dir"
-default = "/var/lib/lnd-system-mainnet/private/data"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet"}
+default = "/var/lib/lnd-system-{variant}/private/data"
+create = { mode = 750, owner = "$service", group = "$service"}
 priority = "low"
 summary = "LND data directory"
 
 [config."lnd.conf".ivars."listen"]
 type = "bind_host"
-default = "0.0.0.0:9735"
+default = "0.0.0.0:{p2p_port}"
 priority = "low"
 summary = "The address to listen on with LN protocol"
 
 [config."lnd.conf".ivars.adminmacaroonpath]
 type = "path"
 file_type = "regular"
-default = "/var/lib/lnd-system-mainnet/private/admin.macaroon"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet", only_parent = true }
+default = "/var/lib/lnd-system-{variant}/private/admin.macaroon"
+create = { mode = 750, owner = "$service", group = "$service", only_parent = true }
 priority = "low"
 summary = "Admin macaroon path"
 
 [config."lnd.conf".ivars.logdir]
 type = "path"
 file_type = "dir"
-default = "/var/log/lnd-system-mainnet"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet"}
+default = "/var/log/lnd-system-{variant}"
+create = { mode = 750, owner = "$service", group = "$service"}
 priority = "low"
 summary = "LND log directory"
 
@@ -82,30 +102,30 @@ summary = "Maximum size of a log file in MB"
 [config."lnd.conf".ivars.invoicemacaroonpath]
 type = "path"
 file_type = "regular"
-default = "/var/lib/lnd-system-mainnet/invoice/invoice.macaroon"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet-invoice", only_parent = true }
+default = "/var/lib/lnd-system-{variant}/invoice/invoice.macaroon"
+create = { mode = 750, owner = "$service", group = "lnd-system-{variant}-invoice", only_parent = true }
 priority = "low"
 summary = "Invoice macaroon path"
 
 [config."lnd.conf".ivars.readonlymacaroonpath]
 type = "path"
 file_type = "regular"
-default = "/var/lib/lnd-system-mainnet/readonly/readonly.macaroon"
-create = { mode = 750, owner = "lnd-system-mainnet", group = "lnd-system-mainnet-readonly", only_parent = true }
+default = "/var/lib/lnd-system-{variant}/readonly/readonly.macaroon"
+create = { mode = 750, owner = "$service", group = "lnd-system-{variant}-readonly", only_parent = true }
 priority = "low"
 summary = "Readonly macaroon path"
 
 [config."lnd.conf".ivars.tlskeypath]
 type = "path"
-default = "/var/lib/lnd-system-mainnet/private/tls.key"
+default = "/var/lib/lnd-system-{variant}/private/tls.key"
 priority = "low"
 summary = "Path to key file"
 
 [config."lnd.conf".ivars.tlscertpath]
 type = "path"
 file_type = "regular"
-default = "/var/lib/lnd-system-mainnet/public/tls.cert"
-create = { mode = 755, owner = "lnd-system-mainnet", group = "lnd-system-mainnet", only_parent = true }
+default = "/var/lib/lnd-system-{variant}/public/tls.cert"
+create = { mode = 755, owner = "$service", group = "$service", only_parent = true }
 priority = "low"
 summary = "Path to cert file"
 
@@ -137,7 +157,7 @@ store = false
 # We abuse the fact that variables are not checked for uniqueness yet. :)
 [config."lnd.conf".hvars.externalhosts]
 type = "bind_host"
-script = "if [ -z \"${CONFIG[\"lnd-system-mainnet/externalip\"]}\" -a -z \"${CONFIG[\"lnd-system-mainnet/externalhosts\"]}\" ]; then /usr/share/lnd/get_external_addr.sh mainnet \"${CONFIG[\"lnd-system-mainnet/listen\"]}\"; else echo -n \"${CONFIG[\"lnd-system-mainnet/externalhosts\"]}\"; fi"
+script = "if [ -z \"${{CONFIG[\"lnd-system-{variant}/externalip\"]}}\" -a -z \"${{CONFIG[\"lnd-system-{variant}/externalhosts\"]}}\" ]; then /usr/share/lnd/get_external_addr.sh {variant} \"${{CONFIG[\"lnd-system-{variant}/listen\"]}}\"; else echo -n \"${{CONFIG[\"lnd-system-{variant}/externalhosts\"]}}\"; fi"
 ignore_empty = true
 
 [config."lnd.conf".ivars.debuglevel]
@@ -179,7 +199,7 @@ summary = "The default number of confirmations to wait for channel to open"
 
 [config."lnd.conf".ivars.grpc_port]
 type = "bind_port"
-default = "10009"
+default = "{grpc_port}"
 priority = "low"
 summary = "LND GRPC port"
 store = false
@@ -197,7 +217,7 @@ template = "{/grpc_bind_addr}:{/grpc_port}"
 
 [config."lnd.conf".ivars.rest_port]
 type = "bind_port"
-default = "9090"
+default = "{rest_port}"
 priority = "low"
 summary = "LND REST RPC port"
 store = false
@@ -231,21 +251,25 @@ constant = "1"
 
 [config."conf.d/bitcoin_iface.conf".hvars."bitcoin.mainnet"]
 type = "bool"
-constant = "1"
+template = "{mainnet_enabled}"
+
+[config."conf.d/bitcoin_iface.conf".hvars."bitcoin.regtest"]
+type = "bool"
+template = "{regtest_enabled}"
 
 [config."conf.d/bitcoin_iface.conf".hvars."bitcoin.node"]
 type = "string"
 constant = "bitcoind"
 
-[config."conf.d/bitcoin_iface.conf".evars.bitcoin-rpc-proxy-mainnet.bind_port]
+[config."conf.d/bitcoin_iface.conf".evars."bitcoin-rpc-proxy-@variant".bind_port]
 store = false
 
 [config."conf.d/bitcoin_iface.conf".hvars."bitcoind.rpchost"]
 type = "string"
-template = "127.0.0.1:{bitcoin-rpc-proxy-mainnet/bind_port}"
+template = "127.0.0.1:{bitcoin-rpc-proxy-@variant/bind_port}"
 
-[config."conf.d/bitcoin_iface.conf".evars.bitcoin-zmq-mainnet.zmqpubrawtx]
+[config."conf.d/bitcoin_iface.conf".evars."bitcoin-zmq-@variant".zmqpubrawtx]
 name = "bitcoind.zmqpubrawtx"
 
-[config."conf.d/bitcoin_iface.conf".evars.bitcoin-zmq-mainnet.zmqpubrawblock]
+[config."conf.d/bitcoin_iface.conf".evars."bitcoin-zmq-@variant".zmqpubrawblock]
 name = "bitcoind.zmqpubrawblock"

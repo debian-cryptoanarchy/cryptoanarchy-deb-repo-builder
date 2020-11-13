@@ -1,7 +1,6 @@
 name = "bitcoin-rpc-proxy"
 architecture = "any"
 summary = "Bitcoin RPC proxy"
-depends = ["${shlibs:Depends} ${misc:Depends}"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, bitcoin-rpc-proxy-mainnet | bitcoin-regtest, bitcoin-rpc-proxy-regtest | bitcoin-mainnet, bitcoin-rpc-proxy-both | bitcoin-rpc-proxy-mainnet | bitcoin-rpc-proxy-regtest"]
 add_files = ["/usr/bin/btc_rpc_proxy"]
 add_manpages = ["target/man/btc_rpc_proxy.1"]
