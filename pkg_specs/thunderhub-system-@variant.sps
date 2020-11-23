@@ -16,6 +16,10 @@ Restart=always
 EnvironmentFile=/etc/thunderhub-system-{variant}/thunderhub.conf
 """
 
+[map_variants.root_path]
+mainnet = "/thunderhub"
+regtest = "/thunderhub-rt"
+
 [extra_groups."thunderhub-system-{variant}-sso"]
 create = true
 
@@ -39,7 +43,7 @@ summary = "Bind port for ThunderHub"
 [config."thunderhub.conf".hvars.COOKIE_PATH]
 type = "path"
 file_type = "regular"
-constant = "/var/run/thunderhub-system-{variant}/sso/cookie"
+template = "/var/run/thunderhub-system-{variant}/sso/cookie"
 
 [config."thunderhub.conf".evars."lnd-system-@variant".grpc_port]
 store = false
@@ -97,7 +101,7 @@ format = "plain"
 
 [config."conf.d/root_path.conf".ivars.BASE_PATH]
 type = "string"
-default = "/thunderhub"
+default = "{root_path}"
 priority = "medium"
 summary = "Web prefix of web path to ThunderHub"
 
