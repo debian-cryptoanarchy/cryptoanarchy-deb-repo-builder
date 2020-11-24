@@ -32,6 +32,14 @@ regtest = "23002"
 mainnet = "/btcpay"
 regtest = "/btcpay-rt"
 
+[map_variants.nbxplorer_network]
+mainnet = "Main"
+regtest = "RegTest"
+
+[map_variants.dashboard_suffix]
+mainnet = ""
+regtest = " - regtest"
+
 [config."btcpayserver.conf"]
 format = "plain"
 cat_dir = "conf.d"
@@ -39,7 +47,7 @@ cat_files = ["database"]
 
 [config."btcpayserver.conf".hvars."network"]
 type = "string"
-constant = "regtest"
+template = "{variant}"
 
 [config."btcpayserver.conf".ivars."port"]
 type = "bind_port"
@@ -59,11 +67,11 @@ template = "http://127.0.0.1:{nbxplorer-@variant/port}"
 
 [config."btcpayserver.conf".hvars."btc.explorer.cookiefile"]
 type = "string"
-template = "{nbxplorer-@variant/datadir}/RegTest/.cookie"
+template = "{nbxplorer-@variant/datadir}/{nbxplorer_network}/.cookie"
 
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
-constant = "/var/log/btcpayserver-system-regtest/debug.log"
+template = "/var/log/btcpayserver-system-{variant}/debug.log"
 
 [config."conf.d/root_path.conf"]
 format = "plain"
@@ -74,30 +82,30 @@ default = "{root_path}"
 priority = "medium"
 summary = "Web prefix of web path to BTCPayServer"
 
-[config."../selfhost/apps/btcpayserver-system-regtest.conf"]
+[config."../selfhost/apps/btcpayserver-system-{variant}.conf"]
 format = "yaml"
 with_header = true
 external = true
 
-[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars."btcpayserver-system-@variant".rootPath]
+[config."../selfhost/apps/btcpayserver-system-{variant}.conf".evars."btcpayserver-system-@variant".rootPath]
 name = "root_path"
 
-[config."../selfhost/apps/btcpayserver-system-regtest.conf".evars."btcpayserver-system-@variant".port]
+[config."../selfhost/apps/btcpayserver-system-{variant}.conf".evars."btcpayserver-system-@variant".port]
 name = "port"
 
-[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml"]
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml"]
 format = "toml"
 external = true
 
-[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.user_friendly_name]
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml".hvars.user_friendly_name]
 type = "string"
-constant = "BTCPayServer - regtest"
+template = "BTCPayServer{dashboard_suffix}"
 
-[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.admin_only]
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml".hvars.admin_only]
 type = "bool"
 constant = "false"
 
-[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-regtest/meta.toml".hvars.entry_point]
+[config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml".hvars.entry_point]
 type = "uint"
 constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
 
