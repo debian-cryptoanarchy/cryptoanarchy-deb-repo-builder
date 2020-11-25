@@ -1,4 +1,5 @@
 CARGO_ENVIRON={{cargo_env}}
+CARGO_ARGS={{cargo_args}}
 
 ifeq ($(DEB_HOST_ARCH),amd64)
 	CARGO_ARCH=x86_64-unknown-linux-gnu
@@ -12,20 +13,20 @@ ifeq ($(DEB_HOST_ARCH),$(DEB_BUILD_ARCH))
 	BINDGEN_EXTRA_CLANG_ARGS=
 	LINKER=$(CC)
 else
-	BINDGEN_EXTRA_CLANG_ARGS=-target $DEB_HOST_GNU_TYPE -I/usr/$DEB_HOST_GNU_TYPE/include/c++/7 -I/usr/$DEB_HOST_GNU_TYPE/include/c++/7/aarch64-linux-gnu
+	BINDGEN_EXTRA_CLANG_ARGS=-target $(DEB_HOST_GNU_TYPE) -I/usr/$(DEB_HOST_GNU_TYPE)/include/c++/7 -I/usr/$(DEB_HOST_GNU_TYPE)/include/c++/7/aarch64-linux-gnu
 	LINKER=$(DEB_HOST_GNU_TYPE)-gcc
 endif
 
 CARGO_COMMON_ENV=BINDGEN_EXTRA_CLANG_ARGS="$(BINDGEN_EXTRA_CLANG_ARGS)" HOST_CC=gcc RUSTFLAGS="-g -C linker=$(LINKER)"
 
 all:
-	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo build --frozen --offline --release --target $(CARGO_ARCH)
+	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo build --frozen --offline --release --target $(CARGO_ARCH) $(CARGO_ARGS)
 
 check:
 
 # Installing multiple Rust binaries is currently unsupported due to the limitation of cfg_me
 install:
-	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo install --frozen --offline --path . --root $(DESTDIR)/usr --target $(CARGO_ARCH)
+	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo install --frozen --offline --path . --root $(DESTDIR)/usr --target $(CARGO_ARCH) $(CARGO_ARGS)
 	test "`ls $(DESTDIR)/usr/bin | wc -l`" -eq 1
 	mkdir -p target/man
 	cfg_me -n --output "target/man/`ls $(DESTDIR)/usr/bin`.1" man

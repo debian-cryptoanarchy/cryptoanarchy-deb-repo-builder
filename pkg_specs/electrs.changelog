@@ -1,3 +1,9 @@
+electrs (0.8.6-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 25 Nov 2020 09:03:47 +0100
+
 electrs (0.8.5-5) buster; urgency=medium
 
   * Use system-wide libraries instead of static linking
