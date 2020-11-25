@@ -1,3 +1,11 @@
+btcpayserver (1.0.6.0-0) buster; urgency=critical
+
+  * Updated upstram version
+  * Due to a privacy leak vulnerability, users of the payment button are
+    strongly encouragedto update as soon as possible.
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 25 Nov 2020 16:44:28 +0100
+
 btcpayserver (1.0.5.9-2) buster; urgency=critical
 
   * moved logic from -selfhost packages to the service packages
