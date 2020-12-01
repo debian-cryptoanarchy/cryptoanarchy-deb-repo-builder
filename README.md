@@ -12,17 +12,17 @@ Motivation
 * If you install `gimp`, `apt` knows which libraries it needs
 * If you install `apache`, `mysql`, `php` it works out-of-the-box
 
-**We want the same to work for Bitcoin apps**, examples:
+**Make Bitcoin apps work similarly**, examples:
 
-* `sudo apt install btcpayserver` should install `btcpayserver`, `bitcoind`, `nginx`, `tor` connect them together and generate an `onion` address for you
-* `sudo apt install electrs` should be smart enough to turn off pruning
-* `sudo apt install ridetheln` should install `lnd`, `bitcoind` without pruning, `nginx`, `tor`...
-* All applications should integrate nicely with existing Debian features (e.g. system database).
+* `sudo apt install btcpayserver` installs `btcpayserver`, `bitcoind`, `nginx`, `tor` connects them together and generates an `onion` address for you
+* `sudo apt install electrs` is smart enough to turn off pruning
+* `sudo apt install ridetheln` installs `lnd`, `bitcoind` without pruning, `nginx`, `tor`...
+* All applications integrate nicely with existing Debian features (e.g. system database).
 
 You should get the point at this point. :) It actually works now, if you setup the repository (read below).
 
 However, there are still some pain points! The biggest ones is inconvenience when accessing your node remotely.
-Also, warning: beta-quality software!!!
+While the software was tested quite a lot and it seems to be working really well, it's not yet considered stable!
 
 Supported applications
 ----------------------
@@ -64,22 +64,22 @@ That being said this project has some interesting advantages over manual setup a
   with access restricted to the features it needs. For instance, the official BTCPayServer setup uses admin
   macaroon to access LND. This repository uses a special macaroon that prevents spending funds.
 * Zero attack surface of Docker.
-* Automated setup with declarative approach avoids bugs from typos and tiredness. Such can happen very easily when
-  setting up automatically.
+* Automated setup with declarative approach avoids bugs from typos and tiredness. Such issues can happen very easily
+  when setting up manually.
 * If you're a newbie, letting someone experienced in information security help you leads to better security.
 * All packages have signatures checked, some even had code reviewed. To my knowledge various Docker setups don't
   check signatures, so this project should be safer.
 * All official builds are performed in a dedicated Qubes VM, which should make it very hard to compromise.
 * All GPG keys are checked with [`sqck`](https://github.com/Kixunil/sqck).
-* Most packages are built deterministically
+* Almost all packages are built deterministically
 
 Known room for improvement:
 
 * The builds could be made safer by reviewing Debian build tools and making sure they can't be compromised by bad
   inputs. Then reviewing all build systems to make sure they either don't execute custom build-time logic or
   isolate such login in a separate VM.
-* The remaining packages (`electrs`, `ridetheln`, `thunderhub`) could be built deterministically
-* **Neither** the code nor the output was widely reviewed by independent developers
+* `thunderhub` could be built deterministically
+* **Neither** the code nor the output was widely reviewed by **independent** developers
 * Automated backups could be added - this is high priority issue that should be solved in upcoming months. (#53)
 
 That being said, I don't know of a comparable project that has significatnly better security. Would love to learn

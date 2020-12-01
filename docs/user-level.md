@@ -4,15 +4,6 @@
 
 If you use any operating system, there are many programs called "services" running in the background handling various tasks for you. Whether it's drivers, file indexers, music players... It's almost certain you don't even know what many of them do and how they got into the system. In general all OSes have their ways to get those important services to run on your computer. Debian uses its own "package manager" that can automatically figure out which services you need and install them for you based on what applications you use.
 
-There are several services that tend to run on Debian or derived OSes. Some examples:
-
-* systemd
-* Network Manager
-* pulseaudio
-* avahi
-
-You most likely didn't even think about them, they are there because the system knows they are needed.
-
 I believe that this is how Bitcoin software should behave too. You should not have to manually install and configure everything. While possible, educating and empowering, it comes with great costs:
 
 * Not everyone has confidence or time to do that
@@ -20,7 +11,7 @@ I believe that this is how Bitcoin software should behave too. You should not ha
 * Security risks stemming from failure to verify the software properly (tedious task that package managers can handle too)
 * It gets boring once you do it for a ~third time
 
-It was not previously possible to install Bitcoin software as automatically as e.g. pulseaudio because nobody created the package files needed for it to work. This project changes that issue and provides set of great, interconnected packages that configure themselves automatically!
+It was not previously possible to install Bitcoin software as automatically as e.g. pulseaudio because nobody created the package files needed for it to work. This project solves it.
 
 Yes, installing any Bitcoin/freedom-related application is now going to be as easy as installing VLC. It'll be possible to use GUI or simple `apt` command.
 
@@ -28,11 +19,11 @@ Yes, installing any Bitcoin/freedom-related application is now going to be as ea
 
 (TL;DR below)
 
-The most important information is that **the project is still work in progress**! While the user-level documentation is written for those who don't want to care about the details, it does **not** imply you don't need admin skills! Quite the opposite. You should have the admin skills, at least the ability to use terminal and a GitHub account for communicating issues!
+The most important information is that **the project is still work in progress**! While the user-level documentation is written for those who don't want to care about the details, it does **not** imply you don't need basic admin skills! Quite the opposite. You should have the ability to use terminal and a GitHub account for communicating issues!
 
 With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
 
-* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure.
+* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure. Please report issues you find.
 * Beware: as explained above, bitcoin and all related services will run automatically right after boot until you shutdown the computer!
 * Some packages require bitcoin **without pruning** to be configured. And they will do it automatically. That means, if you have less than 350 GB of free space, you should be very careful about what you install! Basically, the only (somewhat) useful packages that you can install now are `bitcoin-rpc-proxy`, `nbxplorer`, `btcpayserver`, `selfhost*`, `tor-hs-patch-config`
 * The data does **not** go to your home directory, but under `/var/lib` if you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
@@ -81,7 +72,7 @@ This section explains specifics of various applications packaged in the reposito
 * Check `btc-rpc-explorer` package for a nice graphical interface.
 * You need `sudo` to run `bitcoin-cli`, group support not implemented yet, PRs welcome.
 * `bitcoin-cli` is not actual binary, it forwards your commands to the real binary in order to work out of the box
-* If `bitcoin-cli` detects that you don't have the permission for *full* access to `bitcoind` it will use public:public if you have `bitcoin-timechain-$network` instlled.
+* If `bitcoin-cli` detects that you don't have the permission for *full* access to `bitcoind` it will use public:public if you have `bitcoin-timechain-$network` installed.
 * `bitcoin-tx` is not packaged yet because I'm not sure into which package it should go
 * Use `bitcoin-cli -chain=regtest` for regtest (assuming `bitcoin-regtest` is installed).
 
@@ -104,7 +95,7 @@ An efficient re-implementation of Electrum server in Rust. A perfect choice for 
 
 #### Usage
 
-* `electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work
+* ~~`electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work~~ Dependency is urrently broken and intentionally left broken until remote access is implemented.
 * `/etc/electrs-mainnet/conf.d/interface.toml` contains all information required for accesing `electrs`, but you probably only need port.
 * If you want to use `electrs` remotely you need some kind of tunnel - so far manual only, look at the port above
 
@@ -120,7 +111,7 @@ The server (`electrs`) is provided in this repository.
 
 * **Important: you need to have `desktop` component active in order to install `electrum`**
 * You shouldn't notice a huge difference from running ordinary Electrum
-* The only noteworthy change to the official app is that launching it from menu will make sure it's conneted to your own local full node.
+* The only noteworthy change to the official app is that launching it from menu will make sure it's only conneted to your own local full node.
 * Please keep in mind you'll need to wait for `electrs` to sync before you can use Electrum
 
 ### lnd and lncli
