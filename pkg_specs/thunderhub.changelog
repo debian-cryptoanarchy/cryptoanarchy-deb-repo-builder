@@ -1,3 +1,9 @@
+thunderhub (0.10.5-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 25 Nov 2020 18:00:52 +0100
+
 thunderhub (0.10.1-1) buster; urgency=medium
 
   * Updated upstream version
