@@ -66,7 +66,7 @@ then
 	dpkg --get-selections 2>/dev/null | grep -q '^selfhost-onion[ \t]' &>/dev/null || echo "Maybe install selfhost-onion?" >&2
 fi
 
-link="$domain$root_path?token=$cookie"
+link="$domain$root_path/sso?token=$cookie"
 
 if [ -n "$DISPLAY" ] && which xdg-open &>/dev/null;
 then

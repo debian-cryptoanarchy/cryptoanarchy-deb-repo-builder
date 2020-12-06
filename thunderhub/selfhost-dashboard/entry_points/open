@@ -9,4 +9,4 @@ then
 fi
 
 token="`cat "/var/run/$pkg_name/sso/cookie"`" || exit 2
-echo -n "?token=$token"
+echo -n "/sso?token=$token"

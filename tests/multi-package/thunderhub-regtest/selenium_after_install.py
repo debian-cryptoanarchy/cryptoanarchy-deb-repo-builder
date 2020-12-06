@@ -28,7 +28,8 @@ driver = webdriver.Chrome(options=chrome_options)
 
 eprint("Opening SSO account")
 
-driver.get(default_domain + "/thunderhub-rt?token=" + cookie)
+# TODO: change to use thunderhub-open
+driver.get(default_domain + "/thunderhub-rt/sso?token=" + cookie)
 
 # Not sure if the names of classes stay the same, so better rely on texts
 button = None
