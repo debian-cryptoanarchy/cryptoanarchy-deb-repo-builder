@@ -6,6 +6,7 @@ conf_param = "--conf"
 user = { name = "root" }
 recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)"]
 extra_triggers = ["/etc/selfhost-dashboard/apps"]
+condition_path_exists="!/etc/selfhost/deactivate-selfhost-dashboard"
 extra_service_config = """
 Restart=always
 """
