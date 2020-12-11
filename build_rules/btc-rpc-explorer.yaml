@@ -7,9 +7,9 @@ source_name: btc-rpc-explorer
 #fingerprint: F8C4D8BFB1F02CAE3A8F9057C6F8CE9FFDB2CED2
 #verify_commit: true
 
-# The official version doesn't support BASE_URL yet
-clone_url: https://github.com/ketominer/btc-rpc-explorer
-git_tag: baseurl
+# The official version doesn't support SSO yet
+clone_url: https://github.com/Kixunil/btc-rpc-explorer
+git_tag: token_auth
 build_system: npm
 npm_exclude_files: btc-rpc-explorer
 npm_bin_package_name: btc-rpc-explorer
@@ -17,3 +17,9 @@ npm_bin_package_name: btc-rpc-explorer
 copy_assets:
         - from: btc-rpc-explorer/btc-rpc-explorer
           to: btc-rpc-explorer
+        - from: btc-rpc-explorer/selfhost-dashboard/entry_points/open
+          to: selfhost-dashboard/entry_points/open
+
+dirs:
+        - dir: selfhost-dashboard
+        - dir: selfhost-dashboard/entry_points

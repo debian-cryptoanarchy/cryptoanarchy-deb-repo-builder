@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ -n "$BTCEXP_SSO_TOKEN_FILE" ];
+then
+	mkdir -p "`dirname "$BTCEXP_SSO_TOKEN_FILE"`" || exit 1
+	chmod 750 "`dirname "$BTCEXP_SSO_TOKEN_FILE"`" || exit 1
+fi
+
 cd /usr/lib/btc-rpc-explorer || exit 1
 exec node ./bin/www
 exit $?

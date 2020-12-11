@@ -1,3 +1,11 @@
+btc-rpc-explorer (2.0.2-8) buster; urgency=medium
+
+  * Base URL PR merged upstream, updated
+  * Added SSO
+  * Experimental release
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 10 Dec 2020 11:24:14 +0100
+
 btc-rpc-explorer (2.0.2-7) buster; urgency=medium
 
   * moved logic from -selfhost packages to the service packages

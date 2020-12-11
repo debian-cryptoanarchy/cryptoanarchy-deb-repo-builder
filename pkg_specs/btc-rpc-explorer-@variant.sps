@@ -7,8 +7,9 @@ depends = ["bitcoin-timechain-{variant} (>= 0.1.0-5)", "bitcoin-txindex-{variant
 conflicts = ["btc-rpc-explorer-selfhost-{variant}"]
 recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 extended_by = ["electrs-{variant}"]
-add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/btc.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-{variant}/entry_main.png" ]
+add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/btc.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-{variant}/entry_main.png", "/usr/lib/btc-rpc-explorer/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/btc-rpc-explorer-{variant}/open" ]
 runtime_dir = { mode = "755" }
+extra_triggers = ["selfhost-dashboard"]
 extra_service_config = """
 Restart=always
 EnvironmentFile=/etc/btc-rpc-explorer-{variant}/btc-rpc-explorer.conf
@@ -16,9 +17,11 @@ EnvironmentFile=/etc/btc-rpc-explorer-{variant}/btc-rpc-explorer.conf
 
 [map_variants.http_port]
 mainnet = "5000"
+regtest = "5002"
 
 [map_variants.root_path]
-mainnet = "/btc-rpc-explorer"
+mainnet = "/btc-explorer"
+regtest = "/btc-explorer-rt"
 
 [config."btc-rpc-explorer.conf"]
 format = "plain"
@@ -77,21 +80,26 @@ priority = "medium"
 summary = "HTTP password for BTC RPC Explorer (empty = generate random)"
 store = false
 
+# We need to do it like this instead of directly because of backcompat
 [config."btc-rpc-explorer.conf".hvars.BTCEXP_BASIC_AUTH_PASSWORD]
 type = "string"
-script = """
-if [ -n "${{CONFIG[\"btc-rpc-explorer-{variant}/http_password\"]}}" ];
-then
-    echo "${{CONFIG[\"btc-rpc-explorer-{variant}/http_password\"]}}"
-else
-    head -c 18 /dev/urandom | base64 | tr -d '\\n'
-fi
-"""
+ignore_empty = true
+template = "{/http_password}"
+
+[config."btc-rpc-explorer.conf".hvars.BTCEXP_SSO_TOKEN_FILE]
+type = "path"
+file_type = "regular"
+template = "/var/run/btc-rpc-explorer-{variant}/sso/cookie"
+
+[config."btc-rpc-explorer.conf".hvars.BTCEXP_SSO_LOGIN_REDIRECT_URL]
+type = "string"
+ignore_empty = true
+script = "grep -q '^root_path: ' /etc/selfhost/apps/selfhost-dashboard.conf | sed 's/^root_path: \"\\(.*\\)\"$/\\1/'"
 
 [config."conf.d/root_path.conf"]
 format = "plain"
 
-[config."conf.d/root_path.conf".ivars.BTCEXP_BASE_PATH]
+[config."conf.d/root_path.conf".ivars.BTCEXP_BASEURL]
 type = "string"
 default = "{root_path}"
 priority = "medium"
@@ -102,7 +110,7 @@ format = "yaml"
 with_header = true
 external = true
 
-[config."../selfhost/apps/btc-rpc-explorer-{variant}.conf".evars."btc-rpc-explorer-@variant".BTCEXP_BASE_PATH]
+[config."../selfhost/apps/btc-rpc-explorer-{variant}.conf".evars."btc-rpc-explorer-@variant".BTCEXP_BASEURL]
 name = "root_path"
 
 [config."../selfhost/apps/btc-rpc-explorer-{variant}.conf".evars."btc-rpc-explorer-@variant".BTCEXP_PORT]
@@ -110,7 +118,7 @@ name = "port"
 
 [config."../selfhost/apps/btc-rpc-explorer-{variant}.conf".hvars.rewrite]
 type = "bool"
-constant = "true"
+constant = "false"
 
 [config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-{variant}/meta.toml"]
 format = "toml"
@@ -125,5 +133,5 @@ type = "bool"
 constant = "true"
 
 [config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-{variant}/meta.toml".hvars.entry_point]
-type = "uint"
-constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/\\\" } }"
+type = "string"
+constant = "Dynamic"
