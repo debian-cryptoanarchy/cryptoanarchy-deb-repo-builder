@@ -1,3 +1,9 @@
+btcpayserver (1.0.6.0-1) buster; urgency=critical
+
+  * Fixed link that could break on some systems
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 11 Dec 2020 13:50:30 +0100
+
 btcpayserver (1.0.6.0-0) buster; urgency=critical
 
   * Updated upstram version
