@@ -17,3 +17,9 @@ build_system: none
 copy_assets:
         - from: bitcoin/xbitcoin-cli
           to: xbitcoin-cli
+        - from: bitcoin/check_needs_reindex.sh
+          to: check_needs_reindex.sh
+        - from: bitcoin/bitcoind
+          to: bitcoind
+        - from: bitcoin/definitions.sh
+          to: definitions.sh

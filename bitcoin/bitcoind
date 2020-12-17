@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# This script checks if bitcoind needs reindex and launches bitcoind with -reindex if needed.
+
+# needs to be a function to not lose "$@"
+function get_conf_param() {
+	while [ $# -gt 0 ];
+	do
+		if echo $1 | grep -q '^-conf=';
+		then
+			conf_param="$1"
+			return 0
+		fi
+		shift
+	done
+	echo "Error: -conf= param not found" >&2
+	return 1
+}
+
+get_conf_param "$@" || exit 1
+
+conf_file="`echo "$conf_param" | sed 's/^-conf=//'`"
+if [ '!' -f "$conf_file" ];
+then
+	echo "Error: config file $conf_file as specified by $conf_param does not exist" >&2
+	exit 1
+fi
+
+if grep -q '^regtest=1' "$conf_file";
+then
+	network=regtest
+else
+	if grep -q '^testnet=1' "$conf_file";
+	then
+		network=testnet
+	else
+		network=mainnet
+	fi
+fi
+
+. /usr/share/bitcoind/definitions.sh || exit 1
+
+reindex_param=""
+if [ -f "$needs_reindex_marker_file" ];
+then
+	reindex_param="-reindex"
+	# Sadly this is not robust, if bitcoind fails to execute or crashes before invalidating the DB then we're screwed.
+	# Making it robust is much harder than it sounds.
+	rm "$needs_reindex_marker_file"
+fi
+
+exec /usr/bin/bitcoind "$@" $reindex_param

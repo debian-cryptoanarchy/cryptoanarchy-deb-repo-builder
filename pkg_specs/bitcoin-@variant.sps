@@ -1,6 +1,7 @@
 name = "bitcoin-@variant"
 bin_package = "bitcoind"
-binary = "/usr/bin/bitcoind"
+min_patch = "9"
+binary = "/usr/share/bitcoind/bitcoind"
 conf_param = "-conf="
 user = { group = true, create = { home = true } }
 # dpkg | bitcoin-zmq-{variant} is a hack avoiding restarts of bitcoind
@@ -84,3 +85,14 @@ summary = "Size of database cache in MB"
 [config."bitcoin.conf".hvars.rpccookiefile]
 type = "string"
 template = "/var/run/bitcoin-{variant}/cookie"
+
+[config."bitcoin.conf".postprocess]
+command = ["bash", "/usr/share/bitcoind/check_needs_reindex.sh", "{variant}"]
+
+[[config."bitcoin.conf".postprocess.generates]]
+file = "/etc/bitcoin-{variant}/prev_chain_mode"
+internal = true
+
+[[config."bitcoin.conf".postprocess.generates]]
+file = "/etc/bitcoin-{variant}/needs_reindex"
+internal = true
