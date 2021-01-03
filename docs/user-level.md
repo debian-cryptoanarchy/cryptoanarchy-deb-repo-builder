@@ -2,16 +2,13 @@
 
 ## What's the point
 
-If you use any operating system, there are many programs called "services" running in the background handling various tasks for you. Whether it's drivers, file indexers, music players... It's almost certain you don't even know what many of them do and how they got into the system. In general all OSes have their ways to get those important services to run on your computer. Debian uses its own "package manager" that can automatically figure out which services you need and install them for you based on what applications you use.
+The work of any operating system depends on so called "services", programmes that are run in the background and control many of the functions of the operating systems and other programs. Those are the programs that provide interface between the hardware and software (called drivers), index files for quick search of your documents, manage the way your audio is mixed before it gets to your speakers and many others. 
 
-I believe that this is how Bitcoin software should behave too. You should not have to manually install and configure everything. While possible, educating and empowering, it comes with great costs:
+You don't need to know many of the system services work and which programs depend on them, but it's important that their presence is vital for the system. In a popular GNU/Linux distributions such as Debian rely on a package manager that automatically figures out which services need to be installed and configured whenever you choose a new application to be installed on your computer.
 
-* Not everyone has confidence or time to do that
-* Security risks stemming from misconfiguration
-* Security risks stemming from failure to verify the software properly (tedious task that package managers can handle too)
-* It gets boring once you do it for a ~third time
+We believe that this is the way bitcoin and cryptocurrency related software should behave as well, but the current situation is different. The user is often referred to a github repository, where in the described installation is tedious manual procedure prone to errors and security holes arising from misconfiguration or failure to verify the software properly. 
 
-It was not previously possible to install Bitcoin software as automatically as e.g. pulseaudio because nobody created the package files needed for it to work. This project solves it.
+This repository was made to address this issue and allow to install cryptocurrency software stack automatically. It aims to create the required package files installable with Debian package manager. 
 
 Yes, installing any Bitcoin/freedom-related application is now going to be as easy as installing VLC. It'll be possible to use GUI or simple `apt` command.
 
@@ -19,14 +16,17 @@ Yes, installing any Bitcoin/freedom-related application is now going to be as ea
 
 (TL;DR below)
 
-The most important information is that **the project is still work in progress**! While the user-level documentation is written for those who don't want to care about the details, it does **not** imply you don't need basic admin skills! Quite the opposite. You should have the ability to use terminal and a GitHub account for communicating issues!
+**The project is still work in progress!** For the time-being a basic admin skills going to be of a great help. It is often faster and more illustrative to provide the code via commands that you paste to your terminal window, than writing the instruction for GUI. 
+
+Also, any feedback you might provide is appreciated. You can do so by opening an issue on our github repository page.
 
 With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
 
-* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure. Please report issues you find.
+* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure. Please report any issues you find.
 * Beware: as explained above, bitcoin and all related services will run automatically right after boot until you shutdown the computer!
 * Some packages require bitcoin **without pruning** to be configured. And they will do it automatically. That means, if you have less than 350 GB of free space, you should be very careful about what you install! Basically, the only (somewhat) useful packages that you can install now are `bitcoin-rpc-proxy`, `nbxplorer`, `btcpayserver`, `selfhost*`, `tor-hs-patch-config`
-* The data does **not** go to your home directory, but under `/var/lib` if you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
+* The data does **not** go to your home directory, but under `/var/lib`. Make sure you use a large enough partition or additional disk mounted to the `/var/lib` partition (configurable in `/ets/fstab`). In case you are not able to do it for some reason, e.g.
+ you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
 * Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
 * Any change to configuration requires running `dpkg-reconfigure PACKAGENAME` `electrs` and `bitcoin-rpc-proxy` are smarter and they only need `systemctl restart`.
 * Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
@@ -35,7 +35,7 @@ With that out of the way, let's talk about the general structure first. There ar
 * Lot of stuff here is intended for servers. While it can be used on desktop and the goal is to make it useful there eventually, it will take many months to get there.
 * The server stuff is still considered advanced topic - read (the end of) the admin docs!
 * `btcpayserver` and `ridetheln` (a better name for RTL, AKA Ride The Lightning) use a custom system of integration into `nginx` in order to get an onion domain, or even a clearnet domain with HTTPS certificate automatically. This is really great for user experience, but may be surprising to people who don't read the docs!
-* If you want a clearnet domain, install `selfhost-clearnet` package. This will skip `clearnet-onion` unless you install both, of course. This operation can **not** be performed non-interactively, without preseting debconf!
+* If you want a clearnet domain, install `selfhost-clearnet` package. This will skip `clearnet-onion` unless you install both, of course. This operation can **not** be performed non-interactively, without presetting debconf!
 * If you install `bitcoin-regtest`, all following packages will install regtest version (e.g. installing `lnd` will install `lnd-system-regtest`). If you have `bitcoin-mainnet` and `bitcoin-regtest` and would like install only one package, just install the single version you want e.g. `lnd-system-mainnet`
 
 If all that seems too long to you, here's a short version:
@@ -54,7 +54,9 @@ Happy bitcoining!
 
 ## Using applications
 
-This section explains specifics of various applications packaged in the repository.
+This section explains specifics of various applications packaged in the repository. 
+
+Many of the application are hosted on a specific port of your server. By default they are only exposed to the localhost interface, i.e. IP address 127.0.0.1, that is accessible only from the server machine. In case you'd like to access the service on other machine (e.g. your laptop) the simplest way is to use the port forwarding. This can be done using `ssh` option `-L [bind_address:]port:host:hostport`, e.g. to bind port 50001 of `electrs` log in to your server using the command `ssh -L 127.0.0.1:50001:127:0.0.1:50001 <server>`, where `<server>` is replaced by the hostname or ip address of your server.
 
 ### bitcoind and bitcoin-cli
 
@@ -95,9 +97,10 @@ An efficient re-implementation of Electrum server in Rust. A perfect choice for 
 
 #### Usage
 
-* ~~`electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work~~ Dependency is urrently broken and intentionally left broken until remote access is implemented.
-* `/etc/electrs-mainnet/conf.d/interface.toml` contains all information required for accesing `electrs`, but you probably only need port.
+* ~~`electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work~~ Dependency is currently broken and intentionally left broken until remote access is implemented.
+* `/etc/electrs-mainnet/conf.d/interface.toml` contains all information required for accessing `electrs`, but you probably only need port.
 * If you want to use `electrs` remotely you need some kind of tunnel - so far manual only, look at the port above
+* the `electrs` needs to be fully synchronised before it even opens the rpc port (you can check it using `nmap localhost -p <rpc-port>` on the server)
 
 ### electrum
 
@@ -111,7 +114,7 @@ The server (`electrs`) is provided in this repository.
 
 * **Important: you need to have `desktop` component active in order to install `electrum`**
 * You shouldn't notice a huge difference from running ordinary Electrum
-* The only noteworthy change to the official app is that launching it from menu will make sure it's only conneted to your own local full node.
+* The only noteworthy change to the official app is that launching it from menu will make sure it's only connected to your own local full node.
 * Please keep in mind you'll need to wait for `electrs` to sync before you can use Electrum
 
 ### lnd and lncli
@@ -124,7 +127,7 @@ It can be controlled from other graphical apps or from command line using `lncli
 #### Usage
 
 * **Installing `lnd` automatically installs `lnd-unlocker`, which creates a wallet right after installation and stores the seed in `/var/lib/lnd-system-mainnet/.seed.txt`**
-* The above behavior can be overriden by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
+* The above behaviour can be overwritten by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
 * Check `thunderhub` and `ridetheln` packages for a nice graphical interface.
 * Check `lndconnect` package to connect to LND with Zap.
 * You can use `sudo` to run `lncli` or add yourself to group `lnd-system-mainnet`.
@@ -150,7 +153,7 @@ The package is currently Tor-only due to security and other technical reasons.
 
 #### About
 
-A minimalist UTXO tracker for HD Wallets. Used priarily with BTCPayServer.
+A minimalist UTXO tracker for HD Wallets. Used primarily with BTCPayServer.
 
 #### Usage
 
