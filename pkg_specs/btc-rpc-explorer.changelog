@@ -1,3 +1,9 @@
+btc-rpc-explorer (2.1.0-1) buster; urgency=medium
+
+  * Updated to the latest official version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 31 Dec 2020 16:02:08 +0100
+
 btc-rpc-explorer (2.0.2-8) buster; urgency=medium
 
   * Base URL PR merged upstream, updated
