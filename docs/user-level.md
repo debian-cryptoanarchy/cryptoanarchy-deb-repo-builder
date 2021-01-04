@@ -18,7 +18,7 @@ Yes, installing any Bitcoin/freedom-related application is now going to be as ea
 
 **The project is still work in progress!** For the time-being a basic admin skills going to be of a great help. It is often faster and more illustrative to provide the code via commands that you paste to your terminal window, than writing the instruction for GUI. 
 
-Also, any feedback you might provide is appreciated. You can do so by opening an issue on our github repository page.
+Also, any feedback you might provide is appreciated. You can do so by opening an issue on our GitHub repository page.
 
 With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
 
