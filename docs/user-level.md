@@ -2,7 +2,7 @@
 
 ## What's the point
 
-The work of any operating system depends on so called "services", programmes that are run in the background and control many of the functions of the operating systems and other programs. Those are the programs that provide interface between the hardware and software (called drivers), index files for quick search of your documents, manage the way your audio is mixed before it gets to your speakers and many others. 
+The work of any operating system depends on so called "services", programs that are run in the background and control many of the functions of the operating systems and other programs. Those are the programs that provide interface between the hardware and software (called drivers), index files for quick search of your documents, manage the way your audio is mixed before it gets to your speakers and many others. 
 
 You don't need to know many of the system services work and which programs depend on them, but it's important that their presence is vital for the system. In a popular GNU/Linux distributions such as Debian rely on a package manager that automatically figures out which services need to be installed and configured whenever you choose a new application to be installed on your computer.
 
@@ -29,7 +29,7 @@ With that out of the way, let's talk about the general structure first. There ar
  you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
 * Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
 * Any change to configuration requires running `dpkg-reconfigure PACKAGENAME` `electrs` and `bitcoin-rpc-proxy` are smarter and they only need `systemctl restart`.
-* Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
+* Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hopefully) never break.
 * When you change the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
 * Many dependencies are specified using `Recommends`, which means installing stuff with `--no-install-recommends` will work, but won't be very useful.
 * Lot of stuff here is intended for servers. While it can be used on desktop and the goal is to make it useful there eventually, it will take many months to get there.
@@ -127,7 +127,7 @@ It can be controlled from other graphical apps or from command line using `lncli
 #### Usage
 
 * **Installing `lnd` automatically installs `lnd-unlocker`, which creates a wallet right after installation and stores the seed in `/var/lib/lnd-system-mainnet/.seed.txt`**
-* The above behaviour can be overwritten by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
+* The above behavior can be overwritten by `--no-install-recommends`, but **do not do it unless you prefer false sense of security. Without unlocker `lnd` will stay down after crash. If long enough others may steal your sats!**
 * Check `thunderhub` and `ridetheln` packages for a nice graphical interface.
 * Check `lndconnect` package to connect to LND with Zap.
 * You can use `sudo` to run `lncli` or add yourself to group `lnd-system-mainnet`.
@@ -232,7 +232,7 @@ BTC RPC Explorer is a very powerful Bitcoin explorer that uses your own full nod
 
 #### Usage
 
-* Each installed app that suports `selfhost` integrates with it out of the box.
+* Each installed app that supports `selfhost` integrates with it out of the box.
 * Tor onion domain is generated by default.
 * Install `selfhost-clearnet` to activate clearnet domain **continue reading the docs!**
 * Installation of `selfhost-clearnet` **requires interaction** because it asks for domain.
