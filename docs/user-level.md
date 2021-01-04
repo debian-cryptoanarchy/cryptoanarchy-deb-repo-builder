@@ -6,7 +6,7 @@ The work of any operating system depends on so called "services", programs that 
 
 You don't need to know many of the system services work and which programs depend on them, but it's important that their presence is vital for the system. In a popular GNU/Linux distributions such as Debian rely on a package manager that automatically figures out which services need to be installed and configured whenever you choose a new application to be installed on your computer.
 
-We believe that this is the way bitcoin and cryptocurrency related software should behave as well, but the current situation is different. The user is often referred to a github repository, where in the described installation is tedious manual procedure prone to errors and security holes arising from misconfiguration or failure to verify the software properly. 
+We believe that this is the way bitcoin and cryptocurrency related software should behave as well, but the current situation is different. The user is often referred to a GitHub repository, where in the described installation is tedious manual procedure prone to errors and security holes arising from misconfiguration or failure to verify the software properly. 
 
 This repository was made to address this issue and allow to install cryptocurrency software stack automatically. It aims to create the required package files installable with Debian package manager. 
 
