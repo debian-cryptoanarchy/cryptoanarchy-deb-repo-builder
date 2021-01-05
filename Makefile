@@ -1,5 +1,6 @@
 MAINTAINER="Martin Habostiak <martin.habovstiak@gmail.com>"
 
+UPGRADE_REPO=experimental
 SOURCE_DIR:=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
 # Forgetting to type this resulted in lot of time wasted.
@@ -48,7 +49,7 @@ test-here: test-here-all-basic test-here-all-nonconfict-upgrade
 test-in-qubes-dvm: test-split-$(SPLIT_STRATEGY) $(addprefix test-in-qubes-dvm-multi-package-,$(TEST_MULTI_PACKAGE))
 
 test-split-none:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" test-here
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "UPGRADE_REPO=$(UPGRADE_REPO)" test-here
 
 test-split-upgrade: test-in-qubes-dvm-all-basic $(addprefix test-in-qubes-dvm-upgrade-,$(TEST_ALL_PACKAGES))
 
@@ -57,7 +58,7 @@ test-split-all: $(addprefix test-in-qubes-dvm-basic-,$(TEST_ALL_PACKAGES)) $(add
 test-package-%: test-$(TEST_STRATEGY)-basic-%
 
 test-in-qubes-dvm-multi-package-%: tests/multi-package/%.sh
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_MULTI_PACKAGE=$(TEST_MULTI_PACKAGE)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-multi-package-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_MULTI_PACKAGE=$(TEST_MULTI_PACKAGE)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "UPGRADE_REPO=$(UPGRADE_REPO)" "test-here-multi-package-$*"
 
 test-here-multi-package-%: tests/multi-package/%.sh
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
@@ -71,12 +72,12 @@ test-here-basic-%: test-here-prepare-machine
 	$(SOURCE_DIR)/tests/package_clean_install.sh "$(BUILD_DIR)" "$*"
 
 test-here-upgrade-%: | $(UPGRADE_DEPS)
-	$(SOURCE_DIR)/tests/before_upgrade.sh "$(BUILD_DIR)" "$*"
+	$(SOURCE_DIR)/tests/before_upgrade.sh "$(BUILD_DIR)" "$(UPGRADE_REPO)" "$*"
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
 	$(SOURCE_DIR)/tests/upgrade_package.sh "$(BUILD_DIR)" "$*"
 
 test-here-prepare-all-nonconfict-upgrade: | $(UPGRADE_DEPS)
-	$(SOURCE_DIR)/tests/before_upgrade.sh "$(BUILD_DIR)" "$(TEST_ALL_PACKAGES_NON_CONFLICT)"
+	$(SOURCE_DIR)/tests/before_upgrade.sh "$(BUILD_DIR)" "$(UPGRADE_REPO)" "$(TEST_ALL_PACKAGES_NON_CONFLICT)"
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
 
 test-here-single-nonconfict-upgrade-%: test-here-prepare-all-nonconfict-upgrade | $(UPGRADE_DEPS)
@@ -88,10 +89,10 @@ test-here-prepare-machine:
 	$(SOURCE_DIR)/tests/prepare_machine.sh "$(BUILD_DIR)"
 
 test-in-qubes-dvm-all-basic:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" test-here-all-basic
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "UPGRADE_REPO=$(UPGRADE_REPO)" test-here-all-basic
 
 test-in-qubes-dvm-basic-%:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-basic-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "UPGRADE_REPO=$(UPGRADE_REPO)" "test-here-basic-$*"
 
 test-in-qubes-dvm-upgrade-%:
-	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "test-here-upgrade-$*"
+	$(SOURCE_DIR)/tests/qubes-tools/test-in-dispvm.sh "$(BUILD_DIR)" "$(SOURCE_DIR)" SPLIT_STRATEGY=upgrade "TEST_ALL_PACKAGES=$(TEST_ALL_PACKAGES)" "DPKG_DEBUG_LEVEL=$(DPKG_DEBUG_LEVEL)" "UPGRADE_REPO=$(UPGRADE_REPO)" "test-here-upgrade-$*"

@@ -1,6 +1,6 @@
 name = "bitcoin-@variant"
 bin_package = "bitcoind"
-min_patch = "9"
+min_patch = "10"
 binary = "/usr/share/bitcoind/bitcoind"
 conf_param = "-conf="
 user = { group = true, create = { home = true } }

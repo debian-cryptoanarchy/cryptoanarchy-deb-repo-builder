@@ -1,3 +1,9 @@
+bitcoin (0.20.0-10) buster; urgency=medium
+
+  * Fixed bug causing bitcoind to always reindex after upgrade/install
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 5 Jan 2021 15:12:21 +0100
+
 bitcoin (0.20.0-9) buster; urgency=medium
 
   * Reindex when changing from pruned to non-pruned
