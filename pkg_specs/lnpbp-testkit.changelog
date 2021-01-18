@@ -1,3 +1,10 @@
+lnpbp-testkit (0.1.4-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Bitcoin Core 0.21 support
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 18 Jan 2021 09:20:47 +0100
+
 lnpbp-testkit (0.1.3-2) buster; urgency=medium
 
   * ARchitecture changed to all
