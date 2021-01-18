@@ -1,3 +1,9 @@
+nbxplorer (2.1.47-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 17 Jan 2020 22:07:29 +0100
+
 nbxplorer (2.1.41-3) buster; urgency=medium
 
   * Added dependency on procps
