@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pkg_name="$(basename "$(dirname "$0")")"
+
+if [ "$1" '!=' "admin" ];
+then
+	echo 'Only admins are allowed to access BTC RPC Explorer' >&2
+	exit 1
+fi
+
+. /etc/$pkg_name/btc-rpc-explorer.conf || exit 2
+
+echo -n "?token="
+cat "$BTCEXP_SSO_TOKEN_FILE" || exit 2
