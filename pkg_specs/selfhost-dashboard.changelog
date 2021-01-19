@@ -1,3 +1,10 @@
+selfhost-dashboard (0.2.0-1) buster; urgency=medium
+
+  * Updated to upstream version
+  * Proper GUI
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 18 Jan 2021 15:24:47 +0100
+
 selfhost-dashboard (0.1.0-4) buster; urgency=medium
 
   * Updated to upstream version mvp-5
