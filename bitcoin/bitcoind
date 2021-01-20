@@ -44,9 +44,6 @@ reindex_param=""
 if [ -f "$needs_reindex_marker_file" ];
 then
 	reindex_param="-reindex"
-	# Sadly this is not robust, if bitcoind fails to execute or crashes before invalidating the DB then we're screwed.
-	# Making it robust is much harder than it sounds.
-	rm "$needs_reindex_marker_file"
 fi
 
 exec /usr/bin/bitcoind "$@" $reindex_param

@@ -23,3 +23,5 @@ copy_assets:
           to: bitcoind
         - from: bitcoin/definitions.sh
           to: definitions.sh
+        - from: bitcoin/notify_startup.sh
+          to: notify_startup.sh

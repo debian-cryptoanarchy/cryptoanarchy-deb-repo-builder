@@ -1,14 +1,18 @@
 name = "bitcoin-@variant"
 bin_package = "bitcoind"
-min_patch = "10"
+min_patch = "1"
 binary = "/usr/share/bitcoind/bitcoind"
 conf_param = "-conf="
+service_type = "notify"
 user = { group = true, create = { home = true } }
 # dpkg | bitcoin-zmq-{variant} is a hack avoiding restarts of bitcoind
 depends = ["bitcoin-pruned-{variant} (>= 0.20.0-1) | bitcoin-chain-mode-{variant} (>= 1.0)", "bitcoin-pruned-{variant} (>= 0.20.0-1) | bitcoin-chain-mode-{variant} (<< 2.0)", "dpkg | bitcoin-zmq-{variant}"]
 summary = "Bitcoin fully validating node"
 runtime_dir = { mode = "0755" }
 extra_service_config = """
+NotifyAccess=all
+# Bitcoind is marked as started only after it runs startupnotify
+TimeoutStartSec=300
 # Stopping bitcoind can take a very long time
 TimeoutStopSec=300
 Restart=always
@@ -96,3 +100,8 @@ internal = true
 [[config."bitcoin.conf".postprocess.generates]]
 file = "/etc/bitcoin-{variant}/needs_reindex"
 internal = true
+
+[config."bitcoin.conf".hvars.startupnotify]
+type = "string"
+# systemd-notify must not be inside script as that'd confuse systemd. Not sure why.
+template = "systemd-notify --ready; /usr/share/bitcoind/notify_startup.sh {variant}"

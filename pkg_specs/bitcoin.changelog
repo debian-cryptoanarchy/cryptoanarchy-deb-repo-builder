@@ -1,3 +1,12 @@
+bitcoin (0.21.0-1) buster; urgency=medium
+
+  * Upgraded upstream version
+  * Regtest contains Taproot and Shchnorr
+  * Notifies systemd of being ready
+  * Improves robustness of pruned -> non-pruned switching
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 5 Jan 2021 15:12:21 +0100
+
 bitcoin (0.20.0-10) buster; urgency=medium
 
   * Fixed bug causing bitcoind to always reindex after upgrade/install
