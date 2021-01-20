@@ -1,3 +1,9 @@
+thunderhub (0.11.1-1) buster; urgency=critical
+
+  * Backported security fixes
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 20 Jan 2021 11:15:28 +0100
+
 thunderhub (0.11.0-1) buster; urgency=medium
 
   * Updated upstream version

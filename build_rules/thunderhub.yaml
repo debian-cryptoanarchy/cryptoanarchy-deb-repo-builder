@@ -2,10 +2,18 @@ pkg_name_upper: THUNDERHUB
 pkg_name_snake: thunderhub
 source_name: thunderhub
 
-clone_url: https://github.com/apotdevin/thunderhub
 git_tag: v$(THUNDERHUB_VERSION)
-fingerprint: 3C8A01A8344B66E7875CE5534403F1DFBE779457
-verify_commit: true
+
+# ThunderHub 0.12.0 is not compatible with this repository
+# But we need to maintain security fixes
+# So it's done in a fork
+#clone_url: https://github.com/apotdevin/thunderhub
+#fingerprint: 3C8A01A8344B66E7875CE5534403F1DFBE779457
+#verify_commit: true
+clone_url: https://github.com/Kixunil/thunderhub
+fingerprint: 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+verify_tag: true
+
 build_system: npm
 npm_exclude_files: thunderhub
 npm_include_files: .next
