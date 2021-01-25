@@ -22,6 +22,8 @@ copy_assets:
           to: onion/hidden_service.conf
         - from: selfhost/lib/get_default_domain.sh
           to: lib/get_default_domain.sh
+        - from: selfhost/onion/advertise_onion.sh
+          to: onion/advertise_onion.sh
 
 dirs:
         - dir: nginx

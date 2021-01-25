@@ -3,6 +3,16 @@ location {{{root_path}}} {
 	rewrite ^{{{root_path}}}$ / break;
         rewrite ^{{{root_path}}}(.*)$ $1 break;
 	{{/rewrite}}
+	{{#max_body_size}}
+	client_max_body_size {{{max_body_size}}};
+	{{/max_body_size}}
+	{{#document_root}}
+	root {{{document_root}}};
+	try_files $uri $uri/ @fallback-{{root_path}}};
+}
+location @fallback-{{{root_path}}} {
+	{{/document_root}}
+	{{#port}}
 	proxy_pass http://127.0.0.1:{{port}};
 	proxy_http_version 1.1;
 	proxy_set_header Host $http_host;
@@ -13,4 +23,9 @@ location {{{root_path}}} {
 	proxy_cookie_path ~^{{{root_path}}}$ /;
 	proxy_cookie_path {{{root_path}}}/ /;
 	proxy_cookie_path / {{{root_path}}};
+	{{/port}}
+
+	{{#include_custom}}
+	include {{{include_custom}}};
+	{{/include_custom}}
 }

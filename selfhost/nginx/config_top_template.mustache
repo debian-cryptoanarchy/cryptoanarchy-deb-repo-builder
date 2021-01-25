@@ -21,6 +21,12 @@ server {
 {{/tls_key}}
 	server_name {{{domain}}};
 
+	{{#is_onion}}
+	include /etc/nginx/selfhost-onion-conf.d/*.conf;
+	{{/is_onion}}
+	{{^is_onion}}
+	include /etc/nginx/selfhost-clearnet-conf.d/*.conf;
+	{{/is_onion}}
 	include /etc/nginx/selfhost-subsites-enabled/*.conf;
 }
 {{#tls_key}}

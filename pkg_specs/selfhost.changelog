@@ -1,3 +1,9 @@
+selfhost (0.1.6-1) buster; urgency=medium
+
+  * Configuration is now more flexible, allowing each app to be tweaked.
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 25 Jan 2021 10:34:38 +0100
+
 selfhost (0.1.5-6) buster; urgency=medium
 
   * Improved security by sanitizing Set-Cookie Path=
