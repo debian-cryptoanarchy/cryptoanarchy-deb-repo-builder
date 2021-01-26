@@ -1,3 +1,9 @@
+btc-rpc-explorer (2.1.0-2) buster; urgency=medium
+
+  * BTC RPC Explorer now informs selfhost about document_root to improve loading speed
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 26 Jan 2021 16:09:47 +0100
+
 btc-rpc-explorer (2.1.0-1) buster; urgency=medium
 
   * Updated to the latest official version

@@ -120,6 +120,10 @@ name = "port"
 type = "bool"
 constant = "false"
 
+[config."../selfhost/apps/btc-rpc-explorer-{variant}.conf".hvars.document_root]
+type = "string"
+constant = "/usr/lib/btc-rpc-explorer/public/"
+
 [config."../../etc/selfhost-dashboard/apps/btc-rpc-explorer-{variant}/meta.toml"]
 format = "toml"
 external = true
