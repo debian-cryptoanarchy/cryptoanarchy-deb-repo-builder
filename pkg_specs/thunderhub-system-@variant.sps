@@ -120,6 +120,14 @@ name = "port"
 type = "bool"
 constant = "true"
 
+[config."../selfhost/apps/thunderhub-system-{variant}.conf".hvars.document_root]
+type = "string"
+constant = "/usr/lib/thunderhub/.next/static/"
+
+[config."../selfhost/apps/thunderhub-system-{variant}.conf".hvars.dedicated_static_subdir]
+type = "string"
+constant = "_next/static"
+
 [config."../../etc/selfhost-dashboard/apps/thunderhub-system-{variant}/meta.toml"]
 format = "toml"
 external = true
