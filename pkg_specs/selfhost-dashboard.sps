@@ -4,7 +4,7 @@ bin_package = "selfhost-dashboard-bin"
 binary = "/usr/bin/selfhost-dashboard"
 conf_param = "--conf"
 user = { name = "root" }
-recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)"]
+recommends = ["selfhost (>= 0.1.6-2)", "selfhost (<< 0.2.0)"]
 extra_triggers = ["/etc/selfhost-dashboard/apps"]
 condition_path_exists="!/etc/selfhost/deactivate-selfhost-dashboard"
 after = "postgresql.service"
@@ -43,3 +43,11 @@ name = "root_path"
 
 [config."../selfhost/apps/selfhost-dashboard.conf".evars.selfhost-dashboard.bind_port]
 name = "port"
+
+[config."../selfhost/apps/selfhost-dashboard.conf".hvars.document_root]
+type = "string"
+constant = "/usr/share/selfhost-dashboard/static/"
+
+[config."../selfhost/apps/selfhost-dashboard.conf".hvars.dedicated_static_subdir]
+type = "string"
+constant = "static"

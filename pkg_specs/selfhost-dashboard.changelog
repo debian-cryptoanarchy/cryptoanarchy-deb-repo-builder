@@ -1,5 +1,11 @@
 selfhost-dashboard (0.2.0-1) buster; urgency=medium
 
+  * selfhost-dashboard now informs selfhost about document_root to improve loading speed
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 26 Jan 2021 16:09:47 +0100
+
+selfhost-dashboard (0.2.0-1) buster; urgency=medium
+
   * Updated to upstream version
   * Proper GUI
 
