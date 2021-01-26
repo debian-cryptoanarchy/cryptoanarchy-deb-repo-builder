@@ -1,17 +1,30 @@
-location {{{root_path}}} {
+location ^~ {{{root_path}}} {
+	{{#document_root}}
+	{{^dedicated_static_subdir}}
+	alias {{{document_root}}};
+	error_page 403 = @fallback-{{{root_path}}};
+	try_files $uri $uri/ @fallback-{{{root_path}}};
+	{{/dedicated_static_subdir}}
+	{{#dedicated_static_subdir}}
+	location ^~ {{{root_path}}}/{{{dedicated_static_subdir}}}/ {
+		alias {{{document_root}}};
+		try_files $uri @fallback-{{{root_path}}};
+	}
+	location ^~ {{{root_path}}} {
+		error_page 418 = @fallback-{{{root_path}}};
+		return 418;
+	}
+	{{/dedicated_static_subdir}}
+}
+location @fallback-{{{root_path}}} {
+	{{/document_root}}
+	{{#max_body_size}}
+	client_max_body_size {{{max_body_size}}};
+	{{/max_body_size}}
 	{{#rewrite}}
 	rewrite ^{{{root_path}}}$ / break;
         rewrite ^{{{root_path}}}(.*)$ $1 break;
 	{{/rewrite}}
-	{{#max_body_size}}
-	client_max_body_size {{{max_body_size}}};
-	{{/max_body_size}}
-	{{#document_root}}
-	root {{{document_root}}};
-	try_files $uri $uri/ @fallback-{{root_path}}};
-}
-location @fallback-{{{root_path}}} {
-	{{/document_root}}
 	{{#port}}
 	proxy_pass http://127.0.0.1:{{port}};
 	proxy_http_version 1.1;

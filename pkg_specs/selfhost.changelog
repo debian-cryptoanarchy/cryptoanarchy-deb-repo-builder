@@ -1,3 +1,9 @@
+selfhost (0.1.6-2) buster; urgency=medium
+
+  * Fixed document_root option in new selfhost-nginx
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 25 Jan 2021 20:35:04 +0100
+
 selfhost (0.1.6-1) buster; urgency=medium
 
   * Configuration is now more flexible, allowing each app to be tweaked.
