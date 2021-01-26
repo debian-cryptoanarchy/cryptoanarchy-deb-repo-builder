@@ -93,6 +93,10 @@ name = "root_path"
 [config."../selfhost/apps/btcpayserver-system-{variant}.conf".evars."btcpayserver-system-@variant".port]
 name = "port"
 
+[config."../selfhost/apps/btcpayserver-system-{variant}.conf".hvars.document_root]
+type = "string"
+constant = "/usr/lib/BTCPayServer/wwwroot/"
+
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml"]
 format = "toml"
 external = true
@@ -108,4 +112,3 @@ constant = "false"
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml".hvars.entry_point]
 type = "uint"
 constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
-
