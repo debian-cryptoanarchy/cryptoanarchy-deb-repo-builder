@@ -7,7 +7,7 @@ BITCOIN_SOURCE_DIR=$(SOURCE_DIR)bitcoin/
 BUILD_PACKAGE_FLAGS=-nc --no-sign
 HAS_QVM_RUN_VM=$(shell which qvm-run-vm 2>&1 >/dev/null; echo $$?)
 TEST_SPLIT_STRATEGY=none
-TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-regtest bitcoin-pruned-mainnet bitcoin-fullchain-mainnet bitcoin-fullchain-regtest bitcoin-txindex-mainnet bitcoin-zmq-mainnet bitcoin-zmq-regtest bitcoin-rpc-proxy bitcoin-rpc-proxy-mainnet bitcoin-rpc-proxy-regtest bitcoin-timechain-mainnet electrs electrs-mainnet electrs-regtest btcpayserver btcpayserver-system-mainnet btcpayserver-system-regtest lnd lnd-system-mainnet lnd-system-regtest lnd-unlocker-system-mainnet lnd-unlocker-system-mainnet ridetheln ridetheln-system ridetheln-lnd-system-mainnet ridetheln-lnd-system-regtest selfhost selfhost-nginx selfhost-onion selfhost-clearnet selfhost-clearnet-certbot tor-hs-patch-config thunderhub thunderhub-system-mainnet thunderhub-system-regtest btc-rpc-explorer-mainnet lndconnect selfhost-dashboard-bin selfhost-dashboard
+TEST_ALL_PACKAGES=bitcoind bitcoin-mainnet bitcoin-regtest bitcoin-pruned-mainnet bitcoin-fullchain-mainnet bitcoin-fullchain-regtest bitcoin-txindex-mainnet bitcoin-zmq-mainnet bitcoin-zmq-regtest bitcoin-rpc-proxy bitcoin-rpc-proxy-mainnet bitcoin-rpc-proxy-regtest bitcoin-timechain-mainnet electrs electrs-mainnet electrs-regtest btcpayserver btcpayserver-system-mainnet btcpayserver-system-regtest lnd lnd-system-mainnet lnd-system-regtest lnd-unlocker-system-mainnet lnd-unlocker-system-mainnet ridetheln ridetheln-system ridetheln-lnd-system-mainnet ridetheln-lnd-system-regtest selfhost selfhost-nginx selfhost-onion selfhost-clearnet selfhost-clearnet-certbot tor-hs-patch-config thunderhub thunderhub-system-mainnet thunderhub-system-regtest btc-rpc-explorer-mainnet lndconnect selfhost-dashboard-bin selfhost-dashboard btc-transmuter btc-transmuter-system-mainnet btc-transmuter-system-
 TEST_MULTI_PACKAGE=lnd-regtest
 TEST_ALL_PACKAGES_NON_CONFLICT=$(filter-out bitcoin-pruned bitcoin-fullchain,$(TEST_ALL_PACKAGES))
 SPLIT_STRATEGY=none
@@ -29,7 +29,7 @@ endif
 
 .DELETE_ON_ERROR:
 
-SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard remir bitcoin-whitepaper
+SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard remir bitcoin-whitepaper btc-transmuter
 
 include common_vars.mk
 

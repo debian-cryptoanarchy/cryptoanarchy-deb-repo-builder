@@ -1,0 +1,12 @@
+pkg_name_upper: BTC_TRANSMUTER
+pkg_name_snake: btc_transmuter
+source_name: btc-transmuter
+
+clone_url: https://github.com/btcpayserver/btcTransmuter
+git_tag: v$(BTC_TRANSMUTER_VERSION)
+fingerprint: AB4CFA9895ACA0DBE27F6B346618763EF09186FE
+# not signed :(
+#verify_commit: true
+build_system: dotnet
+dotnet_csproj: BtcTransmuter/BtcTransmuter.csproj
+dotnet_build_name: BtcTransmuter

@@ -1,0 +1,6 @@
+btc-transmuter (0.0.55-1) buster; urgency=medium
+
+  * Attempt to create debian package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 4 Feb 2021 10:12:42 +0100
+
