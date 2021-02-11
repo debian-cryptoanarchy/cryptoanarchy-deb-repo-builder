@@ -91,28 +91,31 @@ About this **GitHub** repository
 This **GitHub** repository contains a set of makefiles and other tools to build the **Debian** repository.
 It's useless to you unless you are trying to build it on your own or help with development.
 
-Build Dependencies
+Build Instructions
 ------------------
 
 The only officially supported OS for building and running is currently **Debian 10 (Buster)**!
 It may work on recent version of Ubuntu and derived systems, but it's not tested. Contributions
 (trying it and reportin) welcome!
 This part is relevant only if you want to develop the repository or build it on your own.
-Only needed the first time:
+
+Only needed for the first time:
 
 ```
+git clone https://github.com/Kixunil/cryptoanarchy-deb-repo-builder
+cd cryptoanarchy-deb-repo-builder
 sudo apt-get install cargo npm ruby-mustache
-# Required version >= 0.1.1
+# Requires the latest debcrafter version
 cargo install --git https://github.com/Kixunil/debcrafter
 PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
-make build-dep
+make BUILD_DIR=$PWD/build build-dep
 ```
 
-Building
---------
-
-`make`
+For all subsequent builds:
+```
+make BUILD_DIR=$PWD/build
+```
 
 Supported and planned applications
 ----------------------------------
