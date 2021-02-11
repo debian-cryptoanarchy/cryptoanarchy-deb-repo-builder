@@ -98,7 +98,8 @@ The only officially supported OS for building and running is currently **Debian 
 It may work on recent version of Ubuntu and derived systems, but it's not tested. Contributions
 (trying it and reportin) welcome!
 This part is relevant only if you want to develop the repository or build it on your own.
-Only needed the first time:
+
+Only needed for the first time:
 
 ```
 git clone https://github.com/Kixunil/cryptoanarchy-deb-repo-builder
@@ -109,6 +110,10 @@ cargo install --git https://github.com/Kixunil/debcrafter
 PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
 make BUILD_DIR=$PWD/build build-dep
+```
+
+For all subsequent builds:
+```
 make BUILD_DIR=$PWD/build
 ```
 
