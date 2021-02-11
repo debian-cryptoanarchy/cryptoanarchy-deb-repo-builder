@@ -108,7 +108,7 @@ sudo apt-get install cargo npm ruby-mustache
 cargo install --git https://github.com/Kixunil/debcrafter
 PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
-make build-dep
+make BUILD_DIR=$PWD/build build-dep
 make
 ```
 
