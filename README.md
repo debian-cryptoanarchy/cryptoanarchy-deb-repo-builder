@@ -104,6 +104,7 @@ Only needed the first time:
 sudo apt-get install cargo npm ruby-mustache
 # Required version >= 0.1.1
 cargo install --git https://github.com/Kixunil/debcrafter
+PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
 make build-dep
 ```
