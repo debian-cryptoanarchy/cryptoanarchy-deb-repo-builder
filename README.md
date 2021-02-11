@@ -104,7 +104,7 @@ Only needed the first time:
 git clone https://github.com/Kixunil/cryptoanarchy-deb-repo-builder
 cd cryptoanarchy-deb-repo-builder
 sudo apt-get install cargo npm ruby-mustache
-# Required version >= 0.1.1
+# Required debcrafter version >= 0.1.1
 cargo install --git https://github.com/Kixunil/debcrafter
 PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
