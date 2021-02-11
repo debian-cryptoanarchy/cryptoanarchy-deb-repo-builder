@@ -1,5 +1,11 @@
 #!/bin/bash
 
+function replace_libnssckbi() {
+	# TODO: support other archs
+	dpkg-divert --rename --package selfhost-clearnet-certbot --add "$1" || exit 1
+	ln -s /usr/lib/x86_64-linux-gnu/pkcs11/p11-kit-trust.so "$1"
+}
+
 . "/etc/selfhost/clearnet-certbot.conf" || exit 1
 
 # Overrides used for testing
@@ -46,10 +52,29 @@ then
 
 	if echo "$CERTBOT_CERTONLY_TEST_PARAM" | grep -q -- --fake-cert;
 	then
-		openssl req -x509 -newkey rsa:4096 \
-			-keyout "/etc/selfhost/tls/$domain.key" \
-			-out "/etc/selfhost/tls/$domain.fullchain" \
-			-days 365 -subj='/CN='"$domain" -nodes < /dev/null >&2
+		mkdir -p -m 700 /etc/selfhost-clearnet-certbot/test-ca
+		if [ '!' -e "/etc/selfhost-clearnet-certbot/test-ca/ca.pem" ];
+		then
+			openssl req -x509 -newkey rsa:4096 \
+				-keyout "/etc/selfhost-clearnet-certbot/test-ca/ca.key" \
+				-out "/etc/selfhost-clearnet-certbot/test-ca/ca.pem" \
+				-days 365 -subj='/CN='"TestCA" -nodes < /dev/null >&2 || exit 1
+		fi
+		if [ '!' -e "/etc/selfhost/tls/$domain.csr" ];
+		then
+			openssl req -newkey rsa:4096  -keyout "/etc/selfhost/tls/$domain.key"  -out "/etc/selfhost/tls/$domain.csr"  -subj='/CN='"$domain" -nodes < /dev/null >&2 || exit 1
+		fi
+		cp "/etc/selfhost-clearnet-certbot/test-ca/ca.pem" "/usr/local/share/ca-certificates/test_ca.crt" || exit 1
+		# TODO: support other archs
+		replace_libnssckbi /usr/lib/x86_64-linux-gnu/nss/libnssckbi.so
+		replace_libnssckbi /usr/lib/firefox-esr/libnssckbi.so
+		replace_libnssckbi /usr/lib/thunderbird/libnssckbi.so
+		dpkg-trigger update-ca-certificates || exit 1
+		openssl x509 -req -days 365 \
+			-in "/etc/selfhost/tls/$domain.csr" \
+			-CA "/etc/selfhost-clearnet-certbot/test-ca/ca.pem" \
+			-CAkey "/etc/selfhost-clearnet-certbot/test-ca/ca.key" -CAcreateserial \
+			-out "/etc/selfhost/tls/$domain.fullchain"
 	else
 		# The appropriate conf file configuring webroot was unpacked during installation
 		# of this package, so we need to explicitly reload nginx first.

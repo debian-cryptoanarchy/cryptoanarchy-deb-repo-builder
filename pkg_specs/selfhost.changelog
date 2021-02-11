@@ -1,3 +1,9 @@
+selfhost (0.1.6-3) buster; urgency=low
+
+  * Development-only: add testing certificate to trusted certificates
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 11 Feb 2021 22:24:13 +0100
+
 selfhost (0.1.6-2) buster; urgency=medium
 
   * Fixed document_root option in new selfhost-nginx
