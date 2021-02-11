@@ -7,7 +7,8 @@ include $(SOURCE_DIR){{{include}}}
 {{pkg_name_upper}}_ASSETS={{#copy_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}} {{/copy_assets}}{{#get_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} {{/get_assets}}
 {{#shasums}}
 {{pkg_name_upper}}_SHASUMS_SIG=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}.sig{{/detached_sig}}{{^detached_sig}}.asc{{/detached_sig}}
-{{pkg_name_upper}}_FILTERED_SHASUMS=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}-filtered{{/detached_sig}}
+{{pkg_name_upper}}_FILTERED_SHASUMS_FILENAME={{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{#detached_sig}}-filtered{{/detached_sig}}
+{{pkg_name_upper}}_FILTERED_SHASUMS=$(BUILD_DIR)/$({{pkg_name_upper}}_FILTERED_SHASUMS_FILENAME)
 {{/shasums}}
 {{pkg_name_upper}}_FETCH_FILES=$(addprefix $(BUILD_DIR)/,{{#clone_url}}fetch-{{{source_name}}}.stamp{{/clone_url}} {{#unpack}}{{{file_name}}}{{/unpack}} {{#fingerprint}}{{{fingerprint}}}-raw.gpg{{/fingerprint}}) {{#shasums}}$({{{pkg_name_upper}}}_SHASUMS_SIG){{#detached_sig}} $(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)-shasums{{/detached_sig}}{{/shasums}}
 
@@ -95,7 +96,7 @@ $({{{pkg_name_upper}}}_FILTERED_SHASUMS): $({{{pkg_name_upper}}}_SHASUMS_SIG) {{
 $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX){{/signature}}{{/get_assets}}{{#verify_tag}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_tag}}{{#verify_commit}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_commit}}
 {{#unpack}}
 {{#shasums}}
-	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS)
+	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS_FILENAME)
 {{/shasums}}
 	tar -C $(BUILD_DIR) -xzmf $<
 	{{#rename}}
