@@ -109,7 +109,7 @@ cargo install --git https://github.com/Kixunil/debcrafter
 PATH=$PATH:~/.cargo/bin
 cargo install cfg_me
 make BUILD_DIR=$PWD/build build-dep
-make
+make BUILD_DIR=$PWD/build
 ```
 
 Supported and planned applications
