@@ -24,6 +24,5 @@ else
 	sudo apt update
 	sudo apt install -y local-apt-repository
 	sudo apt update
-	sudo mkdir -p /etc/selfhost
-	sudo cp "$test_data_dir/clearnet-certbot.test.conf"  /etc/selfhost
+	"$test_dir/set_local_cert_config.sh"
 fi
