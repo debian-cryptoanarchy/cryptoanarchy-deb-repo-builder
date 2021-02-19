@@ -12,8 +12,7 @@ unpack:
         rename: $(BUILD_DIR)/lnd-$(LND_ARCH_LONG)-v$(LND_VERSION)-beta
 
 shasums:
-        url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt
-        detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/roasbeef-manifest-v$(LND_VERSION)-beta.txt.sig
+        url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-roasbeef-v$(LND_VERSION)-beta.txt.asc
 
 build_system: none
 

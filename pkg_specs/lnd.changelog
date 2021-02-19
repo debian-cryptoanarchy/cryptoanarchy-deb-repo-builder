@@ -1,3 +1,9 @@
+lnd (0.12.0-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 17 Feb 2021 14:17:50 +0100
+
 lnd (0.11.1-2) buster; urgency=medium
 
   * Avoid needless restarts of Tor
