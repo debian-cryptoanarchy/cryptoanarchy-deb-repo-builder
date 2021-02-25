@@ -1,6 +1,6 @@
 # Administrator documentation of Cryptoanarchy Debian Repository
 
-This document describes details relevant for advanced configuration and administration of this repository. It is expected that you read user-level documentation first, you'll be lost otherwise.
+This document gives details relevant for advanced configuration and administration of this repository. It is expected that you read user-level documentation first, you'll be lost otherwise.
 
 ## Pillars of the project
 
@@ -87,7 +87,7 @@ As you can see there are various types of packages:
 
 * Binary packages - provide the code needed to execute specific service without doing anything themselves. These are accompanied by service packages. The main idea is that once testnet versions are created, they can share the same binaries.
 * Service packages - handle the management of the service (via systemd) as well as its configuration. They are recommended by their binary packages in order to work out-of-the-box.
-* Configuration packages - make sure that if another package needs a service with certain feture configured, this feature gets turned on.
+* Configuration packages - make sure that if another package needs a service with certain feature configured, this feature gets turned on.
 * Virtual packages - implement abstraction between various implementations of the same feature.
 * OS native packages shown in the graph obviously aren't included in this repository, but they are displayed in the graph to explain the relationships better.
 
@@ -102,7 +102,7 @@ Aside from configuration, there are various other differences when compared to m
 * There's a special system called `selfhost` for managing web applications and domains. It makes sure your server is securely accessible over network connection.
 * `ridetheln` (AKA RTL; Ride The Lightning) has ID allocator which manages assigning identifiers to the connected nodes.
 * `btcpayserver` connects to the database using standard Debian tool called `dbconfig`. It creates the user and database automatically.
-* `btcpayserver` purposefuly does **not** use `docker`. This gives us all the advantages packaging has over `docker` and as a side effect avoids shitcoins.
+* `btcpayserver` purposefully does **not** use `docker`. This gives us all the advantages packaging has over `docker` and as a side effect avoids shitcoins.
 * `ridetheln` forces SSO. The `access_key` is stored in `/var/lib/ridetheln-system/sso/cookie`. There are plans to make it easier to open in the future.
 * `lnd` (transitively) recommends `lnd-unlocker-system-mainnet`, which initializes the wallet and unlocks it after each (re)start of lnd. The seed is stored in `/var/lib/lnd-system-mainnet/.seed.txt`
 
@@ -110,13 +110,13 @@ Aside from configuration, there are various other differences when compared to m
 
 In order to conveniently access `lnd`, `lncli` is wrapped in a script called `xlncli`. This is set as the default using great Alternatives system. If you dislike `xlncli` for any reason, you can easily configure `lncli` command to use real `lncli`. However, this should not be needed since `xlncli` passes all arguments to `lncli` as needed. It only inserts additional arguments telling `lncli` to connect to the local `lnd` if it doesn't detect that you're attempting to connect to some other daemon. In other words, running something like `lncli getinfo` will connect to your own server (if you have permissions - read below), while `lncli --rpcserver somethingelse --macaroonpath somethingelse/admin.macaroon --tlscertpath somethingelse/tls.cert getinfo` will connect to a server `somethingelse` using given credentials.
 
-In order for this to work, the user running `lncli` must have the permission to read macaroons. The easiest way to do that is run it with `sudo`, which causes `xlncli` to automatically identify admin permissions and use `admin.macaroon`. Giving anothe user (including yourself) the access to admin macaroon is as simple as running `sudo usermod -a -G lnd-system-mainnet username`. For invoice macaroon, use  `sudo usermod -a -G lnd-system-mainnet-invoice username`, finally `sudo usermod -a -G lnd-system-mainnet-readonly username` will give `username` read-only access to LND.
+In order for this to work, the user running `lncli` must have the permission to read macaroons. The easiest way to do that is run it with `sudo`, which causes `xlncli` to automatically identify admin permissions and use `admin.macaroon`. Giving another user (including yourself) the access to admin macaroon is as simple as running `sudo usermod -a -G lnd-system-mainnet username`. For invoice macaroon, use  `sudo usermod -a -G lnd-system-mainnet-invoice username`, finally `sudo usermod -a -G lnd-system-mainnet-readonly username` will give `username` read-only access to LND.
 
 ### Accessing BTCPayServer
 
 There are two ways to access BTCPayServer: over Tor hidden service (`.onion` domain) and over "clearnet" - using regular domain. The former is much easier and more secure for general users, but more difficult to access for their customers. `onion` is picked by default since it doesn't require any additional input. If you wish to use clearnet domain, you must install `selfhost-clearnet` package, which will ask you about the domain name during config phase using `debconf`. Unless you use `--no-install-recommends`, it will also install `selfhost-clearnet-certbot`, which asks for an e-mail address and creates a TLS certificate for you using Letsencrypt. If you use clearnet domain during initial installation, onion is skipped by default. You must specify it explicitly if you want both.
 
-Once you have the appropriate packages installed, go to `http(s)://domain/btcpay` (unless you adjusted the path during debconf phase). You can get the onion domain by running `sudo cat /var/lib/tor/selfhost_hidden_service/hostname`. BTCPayServer will ask you to register an admin account. Thus, it's recommended to visit the domain and register the account ASAP. You can then continue using BTCPayServer as you normally would. You might find some features missing, that are pressent in the docker version. These features are being worked on (except for shitcoins; not that I'd hate them too much, I just don't have time for them, when there are more important things to address). You can affect the priority by letting me know which features do you need the most.
+Once you have the appropriate packages installed, go to `http(s)://domain/btcpay` (unless you adjusted the path during debconf phase). You can get the onion domain by running `sudo cat /var/lib/tor/selfhost_hidden_service/hostname`. BTCPayServer will ask you to register an admin account. Thus, it's recommended to visit the domain and register the account ASAP. You can then continue using BTCPayServer as you normally would. You might find some features missing, that are present in the docker version. These features are being worked on (except for shitcoins; not that I'd hate them too much, I just don't have time for them, when there are more important things to address). You can affect the priority by letting me know which features do you need the most.
 
 ### Accessing RTL (Ride The Lightning)
 
