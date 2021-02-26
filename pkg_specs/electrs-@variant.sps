@@ -67,7 +67,7 @@ store = false
 type = "string"
 template = "{network}"
 
-[config."conf.d/credentials.conf".hvars.cookie]
+[config."conf.d/credentials.conf".hvars.auth]
 type = "string"
 constant = "public:public"
 
