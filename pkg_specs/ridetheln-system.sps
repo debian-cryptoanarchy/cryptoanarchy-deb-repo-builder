@@ -1,7 +1,7 @@
 name = "ridetheln-system"
 bin_package = "ridetheln"
 binary = "/usr/bin/ridetheln"
-min_patch = "2"
+min_patch = "1"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
 depends = ["jq"]
@@ -49,18 +49,18 @@ type = "dir"
 repr = "array"
 path = "nodes.d"
 
-[config."apps/ridetheln-system.conf"]
+[config."../../etc/selfhost/apps/ridetheln-system.conf"]
 format = "yaml"
 with_header = true
 external = true
 
-[config."apps/ridetheln-system.conf".ivars.root_path]
+[config."../../etc/selfhost/apps/ridetheln-system.conf".ivars.root_path]
 type = "string"
 default = "/rtl"
 priority = "medium"
 summary = "Web prefix of web path to Ride The Lightning"
 
-[config."apps/ridetheln-system.conf".evars.ridetheln-system.port]
+[config."../../etc/selfhost/apps/ridetheln-system.conf".evars.ridetheln-system.port]
 
 [config."../../etc/selfhost-dashboard/apps/ridetheln-system/meta.toml"]
 format = "toml"

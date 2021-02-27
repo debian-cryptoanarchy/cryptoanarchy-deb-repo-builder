@@ -1,3 +1,10 @@
+ridetheln (0.10.1-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Fixed selfhost integration
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 27 Feb 2021 11:33:04 +0100
+
 ridetheln (0.9.0-3) buster; urgency=medium
 
   * moved logic from -selfhost packages to the service packages
