@@ -1,12 +1,13 @@
 name = "ridetheln-system"
 bin_package = "ridetheln"
 binary = "/usr/bin/ridetheln"
-min_patch = "1"
+min_patch = "2"
 user = { group = true, create = { home = true } }
 summary = "A full function web browser app for LND and C-Lightning - service package"
 depends = ["jq"]
 conflicts = ["ridetheln-system-selfhost"]
 recommends = ["selfhost (>= 0.1.5)", "selfhost (<< 0.2.0)", "bitcoin-mainnet | bitcoin-regtest, ridetheln-lnd-system-mainnet | bitcoin-regtest, ridetheln-lnd-system-regtest | bitcoin-mainnet, ridetheln-lnd-system-both | ridetheln-lnd-system-mainnet | ridetheln-lnd-system-regtest"]
+runtime_dir = { mode = "755" }
 add_links = [
 	"/usr/share/ridetheln/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/ridetheln-system/open",
 	"/usr/lib/ridetheln/angular/assets/images/favicon-dark/android-chrome-192x192.png /usr/share/selfhost-dashboard/apps/icons/ridetheln-system/entry_main.png",
@@ -14,6 +15,11 @@ add_links = [
 extra_service_config = """
 Restart=always
 Environment=RTL_CONFIG_PATH=/var/lib/ridetheln-system
+"""
+
+[migrations."<< 0.10.1-2"]
+postinst_finish = """
+rm -rf /var/lib/ridetheln-system/sso
 """
 
 [extra_groups."ridetheln-system-sso"]
@@ -40,8 +46,7 @@ structure = ["SSO", "rtlSSO"]
 [config."rtl.conf".hvars.SSO_cookie_path]
 type = "path"
 file_type = "regular"
-create = { mode = 750, owner = "$service", group = "$service", only_parent = true }
-constant = "/var/lib/ridetheln-system/sso/cookie"
+constant = "/var/run/ridetheln-system/sso/cookie"
 structure = ["SSO", "rtlCookiePath"]
 
 [config."rtl.conf".fvars.nodes]

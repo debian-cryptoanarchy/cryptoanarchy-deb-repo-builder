@@ -6,5 +6,5 @@ then
 	exit 1
 fi
 
-token="`cat "/var/lib/ridetheln-system/sso/cookie"`" || exit 2
+token="`cat "/var/run/ridetheln-system/sso/cookie"`" || exit 2
 echo -n "?access-key=$token"
