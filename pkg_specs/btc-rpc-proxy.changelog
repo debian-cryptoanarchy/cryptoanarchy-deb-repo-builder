@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.3.0-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 28 Feb 2021 21:16:40 +0100
+
 btc-rpc-proxy (0.1.1-4) buster; urgency=medium
 
   * Add getmempoolancestors and getmempooldescendants to timechain-mainnet
