@@ -7,3 +7,4 @@ git_tag: v$(BITCOIN_RPC_PROXY_VERSION)
 fingerprint: 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
 verify_tag: true
 build_system: cargo
+cargo_args: --features=old_rust
