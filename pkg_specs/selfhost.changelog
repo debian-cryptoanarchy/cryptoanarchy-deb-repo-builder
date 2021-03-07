@@ -1,3 +1,9 @@
+selfhost (0.1.7-1) buster; urgency=low
+
+  * Added ability to redirect /app to /app/
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 7 Mar 2021 15:16:29 +0100
+
 selfhost (0.1.6-3) buster; urgency=low
 
   * Development-only: add testing certificate to trusted certificates

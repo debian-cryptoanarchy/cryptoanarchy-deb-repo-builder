@@ -1,4 +1,13 @@
+{{#root_path_redirect_slash}}
+location = {{{root_path}}} {
+	return 301 $uri/;
+}
+
+location ^~ {{{root_path}}}/ {
+{{/root_path_redirect_slash}}
+{{^root_path_redirect_slash}}
 location ^~ {{{root_path}}} {
+{{/root_path_redirect_slash}}
 	{{#document_root}}
 	{{^dedicated_static_subdir}}
 	alias {{{document_root}}};
@@ -10,12 +19,18 @@ location ^~ {{{root_path}}} {
 		alias {{{document_root}}};
 		try_files $uri @fallback-{{{root_path}}};
 	}
+	{{#root_path_redirect_slash}}
+	location ^~ {{{root_path}}}/ {
+	{{/root_path_redirect_slash}}
+	{{^root_path_redirect_slash}}
 	location ^~ {{{root_path}}} {
+	{{/root_path_redirect_slash}}
 		error_page 418 = @fallback-{{{root_path}}};
 		return 418;
 	}
 	{{/dedicated_static_subdir}}
 }
+
 location @fallback-{{{root_path}}} {
 	{{/document_root}}
 	{{#max_body_size}}
