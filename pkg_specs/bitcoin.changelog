@@ -1,3 +1,9 @@
+bitcoin (0.20.0-11) buster; urgency=medium
+
+  * Improved sandboxing of service
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 2 Mar 2021 18:18:42 +0100
+
 bitcoin (0.20.0-10) buster; urgency=medium
 
   * Fixed bug causing bitcoind to always reindex after upgrade/install

@@ -1,3 +1,9 @@
+btc-transmuter (0.0.55-2) buster; urgency=medium
+
+  * Improved sandboxing of service
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 2 Mar 2021 18:18:42 +0100
+
 btc-transmuter (0.0.55-1) buster; urgency=medium
 
   * Attempt to create debian package

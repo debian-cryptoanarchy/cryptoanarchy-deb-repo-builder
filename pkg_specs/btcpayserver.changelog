@@ -1,3 +1,9 @@
+btcpayserver (1.0.6.7-3) buster; urgency=medium
+
+  * Improved sandboxing of service
+ 
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 2 Mar 2021 18:18:42 +0100
+
 btcpayserver (1.0.6.7-2) buster; urgency=medium
 
   * BTCPayServer now informs selfhost about wwwroot to improve loading speed

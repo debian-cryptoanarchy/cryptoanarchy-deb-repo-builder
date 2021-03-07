@@ -1,3 +1,9 @@
+thunderhub (0.11.2-2) buster; urgency=critical
+
+  * Improved sandboxing of service
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 2 Mar 2021 18:18:42 +0100
+
 thunderhub (0.11.2-1) buster; urgency=critical
 
   * Fixed security-related edge case
