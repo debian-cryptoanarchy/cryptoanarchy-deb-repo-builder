@@ -1,0 +1,8 @@
+[Unit]
+Description=Nextcloud cron.php job
+
+[Service]
+Type=oneshot
+User=nextcloud-server-system
+ExecStart=/usr/share/nextcloud-server-system/cli_helper.sh /usr/share/nextcloud-server/cron.php
+KillMode=process

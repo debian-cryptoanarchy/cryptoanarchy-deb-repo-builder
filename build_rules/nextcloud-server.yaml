@@ -1,0 +1,50 @@
+pkg_name_upper: NEXTCLOUD_SERVER
+pkg_name_snake: nextcloud_server
+source_name: nextcloud-server
+
+#unpack:
+#        url: https://github.com/nextcloud/server/releases/download/v$(NEXTCLOUD_SERVER_VERSION)/nextcloud-$(NEXTCLOUD_SERVER_VERSION).tar.bz2
+#        file_name: /nextcloud-server_$(NEXTCLOUD_SERVER_VERSION).orig.tar.bz2
+#        rename: $(BUILD_DIR)/nextcloud
+#        compression: j
+#
+#chmod:
+#        - file: occ
+#          perms: +x
+
+clone_url: https://github.com/nextcloud/server
+git_tag: v$(NEXTCLOUD_SERVER_VERSION)
+#fingerprint: 
+#verify_tag: true
+build_system: none
+copy_all: /usr/share/nextcloud-server
+copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer
+
+copy_assets:
+        - from: nextcloud/nginx_template.mustache
+          to: selfhost_tools/nginx_template.mustache
+        - from: nextcloud/default_config.php
+          to: selfhost_tools/default_config.php
+        - from: nextcloud/finalize_installation.sh
+          to: selfhost_tools/finalize_installation.sh
+        - from: nextcloud/cli_helper.sh
+          to: selfhost_tools/cli_helper.sh
+        - from: nextcloud/fpm-pool.conf
+          to: selfhost_tools/fpm-pool.conf
+        - from: nextcloud/main_icon.png
+          to: selfhost_tools/main_icon.png
+        - from: nextcloud/patches/debian-specific.patch
+          to: debian/patches/debian-specific.patch
+        - from: nextcloud/patches/fix-infinite-loop.patch
+          to: debian/patches/fix-infinite-loop.patch
+        - from: nextcloud/patches/series
+          to: debian/patches/series
+        - from: nextcloud/nextcloud-server-periodic.service
+          to: nextcloud-server-periodic.service
+        - from: nextcloud/nextcloud-server-periodic.timer
+          to: nextcloud-server-periodic.timer
+
+dirs:
+        - dir: selfhost_tools
+        - dir: debian
+        - dir: debian/patches

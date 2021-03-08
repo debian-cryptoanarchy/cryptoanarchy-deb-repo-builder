@@ -1,0 +1,6 @@
+nextcloud-server (21.0.0-1) buster; urgency=medium
+
+  * Attempt to package
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 23 Feb 2021 11:54:25 +0100
+
