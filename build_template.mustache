@@ -119,6 +119,9 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 	{{#verify_commit}}
 	cd $({{{pkg_name_upper}}}_BUILD_DIR) && GNUPGHOME=$(BUILD_DIR)/{{fingerprint}}-gnupg-home git verify-commit "`git rev-list -n 1 "{{git_tag}}"`"
 	{{/verify_commit}}
+	{{#chmod}}
+	chmod {{perms}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{file}}
+	{{/chmod}}
 	touch $@
 
 {{#unpack}}
