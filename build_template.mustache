@@ -98,7 +98,7 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 {{#shasums}}
 	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS_FILENAME)
 {{/shasums}}
-	tar -C $(BUILD_DIR) -xzmf $<
+	tar -C $(BUILD_DIR) -x{{#compression}}{{{compression}}}{{/compression}}{{^compression}}z{{/compression}}mf $<
 	{{#rename}}
 	mv -T {{{rename}}} $({{{pkg_name_upper}}}_BUILD_DIR)
 	{{/rename}}
