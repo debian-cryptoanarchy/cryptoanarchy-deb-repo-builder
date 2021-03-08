@@ -14,7 +14,7 @@ include $(SOURCE_DIR){{{include}}}
 
 {{#clone_url}}
 $(BUILD_DIR)/fetch-{{{source_name}}}.stamp: | $(BUILD_DIR)
-	git clone {{#git_tag}}-b {{{git_tag}}}{{/git_tag}} '{{{clone_url}}}' $({{{pkg_name_upper}}}_BUILD_DIR)
+	git clone --recursive {{#git_tag}}-b {{{git_tag}}}{{/git_tag}} '{{{clone_url}}}' $({{{pkg_name_upper}}}_BUILD_DIR)
 	{{#remove}}
 	rm -rf "$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
 	{{/remove}}
