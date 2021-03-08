@@ -25,6 +25,7 @@ $(BUILD_DIR)/debcrafter-%.stamp: pkg_specs/%.sss pkg_specs/%.changelog $(BUILD_D
 	touch $@
 
 $(BUILD_DIR)/packages-%.stamp: $(BUILD_DIR)/debcrafter-%.stamp
+	if [ -d "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`/debian/patches" -a '!' -e "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`/.pc/applied-patches" ]; then cd "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`" && QUILT_PATCHES=debian/patches quilt push -a; fi
 	cd "$(BUILD_DIR)/$*-`head -n 1 pkg_specs/$*.changelog | sed -e 's/^.*(\([^)]*\)).*$$/\1/' -e 's/-[0-9]*$$//'`" && SOURCE_DATE_EPOCH=`dpkg-parsechangelog -STimestamp` dpkg-buildpackage -a $(DEB_ARCH) $(BUILD_PACKAGE_FLAGS) && find debian -exec touch -d @`dpkg-parsechangelog -STimestamp` '{}' \;
 	touch $@
 
