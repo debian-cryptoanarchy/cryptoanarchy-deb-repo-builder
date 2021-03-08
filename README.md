@@ -138,6 +138,15 @@ As of today, the policy is this:
 
 While the above should give good overview, this clarifies what will be done in case of Taproot:
 
+Update: Speedy Trial
+
+* This repository will contain a widely-accpeted version of Speedy Trial.
+* If Speedy Trial succeeds, all future versions will have to be compatible with it (enforcing soft fork)
+* If Speedy Trial fails, the original plan will be reconsidered
+* Bumping min confirmations may be implemented but probably with a lower number (12 instead of 100).
+
+Original plan (BIP8)
+
 * Unless there will be wide, strong opposition to `LOT=true`, **this repository will contain a client with `LOT=true`
   by default.** Rationale: `LOT=false` risks wiping the funds if there's a sufficient number of users running `LOT=true`.
   Besides, all known users of this repository prefer `LOT=true`. (Please report if you use this repository and prefer
@@ -153,6 +162,7 @@ While the above should give good overview, this clarifies what will be done in c
 
 **Important: this policy is young and may be refined!** Please come here again later to check if it's still the same.
 Feel free to submit your feedback.
+Note: as predicted it was already updated to account for Speedy Trial. 
 
 About this **GitHub** repository
 --------------------------------
