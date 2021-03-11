@@ -7,4 +7,6 @@ extra_args="`grep '^php_value\[' "/etc/php/7.3/fpm/pool.d/nextcloud-server-syste
 export NEXTCLOUD_CONFIG_DIR=/var/lib/nextcloud-server-system/config
 export PHP_MEMORY_LIMIT=512M
 
+cd /usr/share/nextcloud-server || exit 1
+
 exec /usr/bin/php $extra_args -f "$@"

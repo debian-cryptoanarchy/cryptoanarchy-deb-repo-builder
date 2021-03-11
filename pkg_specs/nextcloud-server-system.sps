@@ -5,7 +5,23 @@ recommends = ["selfhost (>= 0.1.6-2)", "selfhost (<< 0.2.0)"]
 depends = ["default-selfhost-domain | selfhost-domain", "nextcloud-server (>= 20.0.4)", "php-fpm", "ruby-mustache", "php-pgsql"]
 add_files = ["selfhost_tools/* /usr/share/nextcloud-server-system", "nextcloud-server-periodic.service /usr/lib/systemd/system", "nextcloud-server-periodic.timer /usr/lib/systemd/system"]
 add_links = [ "/usr/share/nextcloud-server-system/main_icon.png /usr/share/selfhost-dashboard/apps/icons/nextcloud-system/entry_main.png" ]
+add_dirs = ["/etc/nginx/selfhost-subsites-enabled"]
 extra_triggers = ["/etc/selfhost/domains"]
+
+[alternatives."/etc/nextcloud-server-system/caldav.conf"]
+name = "selfhost-well-known-caldav"
+dest = "/etc/nginx/selfhost-subsites-enabled/well-known-caldav.conf"
+priority = 100
+
+[alternatives."/etc/nextcloud-server-system/carddav.conf"]
+name = "selfhost-well-known-carddav"
+dest = "/etc/nginx/selfhost-subsites-enabled/well-known-carddav.conf"
+priority = 100
+
+[plug]
+run_as_user = "nextcloud-server-system"
+register_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--off"]
+unregister_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--on"]
 
 [databases.pgsql]
 template = """
@@ -21,6 +37,16 @@ format = "plain"
 
 [config."nextcloud.conf".postprocess]
 command = ["/usr/share/nextcloud-server-system/finalize_installation.sh"]
+
+[[config."nextcloud.conf".postprocess.generates]]
+file = "/etc/nextcloud-server-system/caldav.conf"
+# Not really, but triggers on links don't work and reconfiguration already activates correct trigger.
+internal = true
+
+[[config."nextcloud.conf".postprocess.generates]]
+file = "/etc/nextcloud-server-system/carddav.conf"
+# Not really, but triggers on links don't work and reconfiguration already activates correct trigger.
+internal = true
 
 [config."nextcloud.conf".ivars.root_path]
 type = "string"

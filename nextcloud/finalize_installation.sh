@@ -3,6 +3,7 @@
 set -e
 
 user_name="nextcloud-server-system"
+group_name="$user_name"
 nextcloud_selfhost_resource_dir="/usr/share/nextcloud-server-system"
 etc_conf_dir="/etc/nextcloud-server-system"
 data_dir="/var/lib/nextcloud-server-system/data"
@@ -10,6 +11,10 @@ internal_conf_dir="/var/lib/nextcloud-server-system/config"
 main_config_file_src="$etc_conf_dir/nextcloud.conf"
 main_config_file="$internal_conf_dir/config.php"
 main_config_file_tmp="$main_config_file.tmp"
+caldav_config_file="$etc_conf_dir/caldav.conf"
+caldav_config_file_tmp="$caldav_config_file.tmp"
+carddav_config_file="$etc_conf_dir/carddav.conf"
+carddav_config_file_tmp="$carddav_config_file.tmp"
 db_conf_file_src="/$etc_conf_dir/database"
 db_conf_file_dst="$internal_conf_dir/database.config.php"
 db_conf_file_dst_tmp="$db_conf_file_dst.tmp"
@@ -123,6 +128,22 @@ EOF
 sync "$selfhost_config_tmp"
 mv "$selfhost_config_tmp" "$selfhost_config"
 
+cat <<EOF >> "$caldav_config_file_tmp"
+location = /.well-known/caldav {
+	return 301 $root_path/remote.php/dav/;
+}
+EOF
+sync "$caldav_config_file_tmp"
+mv "$caldav_config_file_tmp" "$caldav_config_file"
+
+cat <<EOF >> "$carddav_config_file_tmp"
+location = /.well-known/carddav {
+	return 301 $root_path/remote.php/dav/;
+}
+EOF
+sync "$carddav_config_file_tmp"
+mv "$carddav_config_file_tmp" "$carddav_config_file"
+
 if [ -e "/etc/php/7.3/mods-available/apcu.ini" ];
 then
 cat <<EOF > "$apcu_config_tmp"
@@ -142,13 +163,13 @@ mkdir -p "$fpm_log_dir"
 
 dpkg-trigger "/etc/php/7.3/fpm/conf.d"
 
-cd /usr/share/nextcloud-server
 if grep -q "'installed' => true," "$main_config_file";
 then
 	echo "Nextcloud server already installed"
 else
-	runuser -u "$user_name" -- ../nextcloud-server-system/cli_helper.sh occ maintenance:install
+	setpriv --reuid="$user_name" --regid="$group_name" --init-groups --no-new-privs -- /usr/share/nextcloud-server-system/cli_helper.sh occ maintenance:install
+	# Having weather app on a server is ridiculous and possibly privacy leaking
+	setpriv --reuid="$user_name" --regid="$group_name" --init-groups --no-new-privs -- /usr/share/nextcloud-server-system/cli_helper.sh occ app:disable weather_status
 fi
-runuser -u "$user_name" -- ../nextcloud-server-system/cli_helper.sh occ maintenance:mode --off
 
 systemctl enable --now nextcloud-server-periodic.timer
