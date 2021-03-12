@@ -51,7 +51,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("ignore-certificate-errors")
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
-eprint("Registering an admmin account")
+eprint("Registering an admin account")
 
 driver.get(default_domain + "/btcpay-rt")
 driver.find_element_by_id("Email").send_keys("admin@example.com")
@@ -68,12 +68,8 @@ store_id = driver.find_element_by_id("Id").get_attribute("value")
 
 eprint("Setting up a chain hot wallet")
 
-driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/derivations/BTC")
-driver.find_element_by_id("import-from-btn").click()
-driver.find_element_by_id("nbxplorergeneratewalletbtn").click()
-sleep(3)
-driver.find_element_by_id("SavePrivateKeys").click()
-driver.find_element_by_id("btn-generate").click()
+driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/onchain/BTC/generate/hotwallet")
+driver.find_element_by_id("Continue").click()
 
 eprint("Waiting for genmacaroon")
 
@@ -131,6 +127,8 @@ for element in driver.find_elements_by_class_name("vexmenuitem"):
     if a.text.find("Lightning") > 0:
         a.click()
         break
+
+sleep(1)
 
 payment_link = driver.find_element_by_class_name("payment__details__instruction__open-wallet__btn").get_attribute("href")
 network().auto_pay(payment_link)
