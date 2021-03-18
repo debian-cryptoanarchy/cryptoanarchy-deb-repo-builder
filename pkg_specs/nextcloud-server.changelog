@@ -1,3 +1,9 @@
+nextcloud-server (21.0.0-2) buster; urgency=medium
+
+  * Fixed webdav
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 13 Mar 2021 17:56:01 +0100
+
 nextcloud-server (21.0.0-1) buster; urgency=medium
 
   * Attempt to package

@@ -95,7 +95,6 @@ location ~ \.php(?:$|/) {
   fastcgi_param front_controller_active true;     # Enable pretty urls
   fastcgi_pass unix:/run/php/selfhost-nextcloud-server-system.sock;
   fastcgi_intercept_errors on;
-  fastcgi_request_buffering off;
 }
 
 location ~ \.(?:css|js|svg|gif)$ {
