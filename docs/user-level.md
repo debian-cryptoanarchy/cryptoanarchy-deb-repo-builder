@@ -15,43 +15,6 @@ It was not previously possible to install Bitcoin software as automatically as e
 
 Yes, installing any Bitcoin/freedom-related application is now going to be as easy as installing VLC. It'll be possible to use GUI or simple `apt` command.
 
-## What you need to know before installing anything from this repository
-
-(TL;DR below)
-
-The most important information is that **the project is still work in progress**! While the user-level documentation is written for those who don't want to care about the details, it does **not** imply you don't need basic admin skills! Quite the opposite. You should have the ability to use terminal and a GitHub account for communicating issues!
-
-With that out of the way, let's talk about the general structure first. There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
-
-* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure. Please report issues you find.
-* Beware: as explained above, bitcoin and all related services will run automatically right after boot until you shutdown the computer!
-* Some packages require bitcoin **without pruning** to be configured. And they will do it automatically. That means, if you have less than 350 GB of free space, you should be very careful about what you install! Basically, the only (somewhat) useful packages that you can install now are `bitcoin-rpc-proxy`, `nbxplorer`, `btcpayserver`, `selfhost*`, `tor-hs-patch-config`
-* The data does **not** go to your home directory, but under `/var/lib` if you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
-* Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
-* Any change to configuration requires running `dpkg-reconfigure PACKAGENAME` `electrs` and `bitcoin-rpc-proxy` are smarter and they only need `systemctl restart`.
-* Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
-* When you change the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
-* Many dependencies are specified using `Recommends`, which means installing stuff with `--no-install-recommends` will work, but won't be very useful.
-* Lot of stuff here is intended for servers. While it can be used on desktop and the goal is to make it useful there eventually, it will take many months to get there.
-* The server stuff is still considered advanced topic - read (the end of) the admin docs!
-* `btcpayserver` and `ridetheln` (a better name for RTL, AKA Ride The Lightning) use a custom system of integration into `nginx` in order to get an onion domain, or even a clearnet domain with HTTPS certificate automatically. This is really great for user experience, but may be surprising to people who don't read the docs!
-* If you want a clearnet domain, install `selfhost-clearnet` package. This will skip `clearnet-onion` unless you install both, of course. This operation can **not** be performed non-interactively, without preseting debconf!
-* If you install `bitcoin-regtest`, all following packages will install regtest version (e.g. installing `lnd` will install `lnd-system-regtest`). If you have `bitcoin-mainnet` and `bitcoin-regtest` and would like install only one package, just install the single version you want e.g. `lnd-system-mainnet`
-
-If all that seems too long to you, here's a short version:
-
-* **Keep in mind the project is beta**
-* **By default, the LND wallet is created automatically after installation and the seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
-* Make sure you have at least 350 GB of free space
-* Do **not** run `apt` with any funny switches
-* Do **not** attempt to configure anything - it will just work
-* Do **not** touch any configuration
-* Do understand that bitcoind and other services will run automatically
-* Read (the end of) the admin docs to understand server software (btcpayserver, ridetheln)
-* When in doubt, ask on GitHub
-
-Happy bitcoining!
-
 ## Using applications
 
 This section explains specifics of various applications packaged in the repository.
@@ -67,7 +30,7 @@ This section explains specifics of various applications packaged in the reposito
 
 * **Important: unless you (directly or indirectly) install bitcoin-fullchain-$network or bitcoin-txindex-$network the node will be pruned by default.
   Some packages (electrs, lnd, ...) depend on fullchain, so they won't break.
-  To avoid problems, do NOT install the packages one-by-one - install all desired packages using a single `apt install` command.**
+  To avoid waiting for reindex, do NOT install the packages one-by-one - install all desired packages using a single `apt install` command.**
 * If you want to change the location of datadir install `bitcoin-mainnet` with `DEBIAN_PRIORITY=medium` and answer the question.
 * Check `btc-rpc-explorer` package for a nice graphical interface.
 * You need `sudo` to run `bitcoin-cli`, group support not implemented yet, PRs welcome.
@@ -85,7 +48,7 @@ Protects `bitcoind` from other applications if they become compromised.
 #### Usage
 
 * There's not much to do with it, but you can add new users by adding a file to `/etc/bitcoin-rpc-proxy-mainnet/conf.d` and then restarting (`systemctl restart`)
-* Take a look at `bitcoin-timechain-mainnet` to get a read-only user installed with `public:public` credentials.
+* Install `bitcoin-timechain-mainnet` to get a read-only user accessible with `public:public` credentials.
 
 ### electrs
 
@@ -95,7 +58,7 @@ An efficient re-implementation of Electrum server in Rust. A perfect choice for 
 
 #### Usage
 
-* ~~`electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work~~ Dependency is urrently broken and intentionally left broken until remote access is implemented.
+* ~~`electrum-trustless-mainnet` depends on it, so if you install it on desktop, it should work~~ Dependency is currently broken and intentionally left broken until remote access is implemented.
 * `/etc/electrs-mainnet/conf.d/interface.toml` contains all information required for accesing `electrs`, but you probably only need port.
 * If you want to use `electrs` remotely you need some kind of tunnel - so far manual only, look at the port above
 
@@ -277,3 +240,23 @@ Just install the package and either pick a password or let it generate a random 
 The password will also be stored in /var/run/remir/password.
 After you've configured LIRC, open your browser using selfhost domain, followed by
 `remir` root path (default is `/remir`) followed by slash and the password.
+
+## Various details about using this repository
+
+There are many packages that are connected in various ways. They have proper dependency relationships declared that make sure you don't install a package without an important part. So for the most part, you can just blindly install packages. There are a few important things you need to have in mind, though!
+
+* Only Debian 10 is currently officially supported. Ubuntu and derivatives should work, but we can't be sure. Please report issues you find.
+* Beware: as explained above, bitcoin and all related services will run automatically right after boot until you shutdown the computer!
+* Some packages require bitcoin **without pruning** to be configured. And they will do it automatically. That means, if you have less than 350 GB of free space, you should be very careful about what you install! Basically, the only (somewhat) useful packages that you can install now are `bitcoin-rpc-proxy`, `nbxplorer`, `btcpayserver`, `selfhost*`, `tor-hs-patch-config`
+* The data does **not** go to your home directory, but under `/var/lib` if you have partitioned your disks to have big home partition and small system partition, you will have to set a different path **using debconf** - read below.
+* Contrary to the convention, all the configuration files are auto-generated and **must not** be edited! If you need to tune something, the best place to do that is using debconf. The second best place is filing a request for the setting on GitHub, if it isn't in debconf yet. If you can't wait for the implementation, place it into an appropriate `conf.d` directory and re-run debconf. However continue reading!
+* Any change to configuration requires running `dpkg-reconfigure PACKAGENAME` `electrs` and `bitcoin-rpc-proxy` are smarter and they only need `systemctl restart`.
+* Some configuration is special in being controlled by certain packages being or not being installed. The most important case is configuration of pruning/non-pruning/txindex of bitcoind. If you want to change the setting, you must install the appropriate package: `bitcoin-pruned-mainnet`, `bitcoin-fullchain-mainnet`, `bitcoin-txindex-mainnet`. Naturally, **only one of them can be installed at the same time**. Further **some other packages, like `electrs` require specific package to be installed!** Note however, that `txindex` implies `fullchain`, so having it installed is fine for `electrs` and such. Obviously, `pruned` can't be installed with `electrs`. While there are ways to hack this, just don't. You will run into a lot of trouble. The point of this repository is to (hoepfuly) never break.
+* When you change the configuration of paths, they don't get moved automatically! This will be fixed eventually, just be careful around that for now.
+* Many dependencies are specified using `Recommends`, which means installing stuff with `--no-install-recommends` will work, but won't be very useful.
+* Lot of stuff here is intended for servers. While it can be used on desktop and the goal is to make it useful there eventually, it will take many months to get there.
+* The server stuff is still considered advanced topic - read (the end of) the admin docs!
+* `btcpayserver` and `ridetheln` (a better name for RTL, AKA Ride The Lightning) use a custom system of integration into `nginx` in order to get an onion domain, or even a clearnet domain with HTTPS certificate automatically. This is really great for user experience, but may be surprising to people who don't read the docs!
+* If you want a clearnet domain, install `selfhost-clearnet` package. This will skip `clearnet-onion` unless you install both, of course. This operation can **not** be performed non-interactively, without preseting debconf!
+* If you install `bitcoin-regtest`, all following packages will install regtest version (e.g. installing `lnd` will install `lnd-system-regtest`). If you have `bitcoin-mainnet` and `bitcoin-regtest` and would like install only one package, just install the single version you want e.g. `lnd-system-mainnet`
+

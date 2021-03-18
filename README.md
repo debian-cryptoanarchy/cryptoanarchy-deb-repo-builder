@@ -36,7 +36,12 @@ If you want to try it out, see `docs/` directory to learn the details.
 How to setup the beta Debian repository
 ---------------------------------------
 
-**Please read the [docs](docs/user-level.md#what-you-need-to-know-before-installing-anything-from-this-repository) before you start!** Only Debian 10 (Buster) is currently tested, distributions based
+**WARNING: This project is too user friendly!
+This is not a joke, several people were already confued by not having to manually run and configure things.
+
+Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this).**
+
+ Only Debian 10 (Buster) is currently tested, distributions based
 on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
 
 To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
@@ -53,6 +58,17 @@ sudo apt update
 ```
 
 If you're setting up a dedicated full node, you may want to leave out `desktop` component in step 6.
+
+I recommend reading short [docs on each application](docs/user-level.md#using-applications) you plan to use.
+
+Five things to know before you start using this
+-----------------------------------------------
+
+* Do **not** attempt to configure anything - it will just work
+* Do understand that bitcoind and other services will run automatically
+* **By default, the LND wallet is created automatically after installation and the seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
+* Do **not** attempt to configure anything - it will just work
+* Make sure you have at least 400 GB of free space
 
 Setting up on a dedicated hardware
 ----------------------------------
