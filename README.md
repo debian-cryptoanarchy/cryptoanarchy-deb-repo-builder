@@ -37,7 +37,7 @@ How to setup the beta Debian repository
 ---------------------------------------
 
 **WARNING: This project is too user friendly!
-This is not a joke, several people were already confued by not having to manually run and configure things.**
+This is not a joke, several people were already confused by not having to manually run and configure things.**
 
 **Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this).**
 
