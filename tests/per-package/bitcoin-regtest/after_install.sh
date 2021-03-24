@@ -1,5 +1,12 @@
 #!/bin/bash
 
+
+if sudo grep '^dbcache=450$' /etc/bitcoin-regtest/bitcoin.conf;
+then
+	echo "Failed to override dbcache" >&2
+	exit 1
+fi
+
 sleep 10
 
 if ps aux | grep -v grep | grep -q 'bitcoind.*-reindex' || sudo journalctl --no-pager -u bitcoin-regtest | grep -q 'Reindexing';
