@@ -189,6 +189,9 @@ It's useless to you unless you are trying to build it on your own or help with d
 Build Instructions
 ------------------
 
+**Important:** This is intended for developers and researchers only!
+Regular users should use [the built repository as presented above](#how-to-setup-the-beta-debian-repository).
+
 The only officially supported OS for building and running is currently **Debian 10 (Buster)**!
 It may work on recent version of Ubuntu and derived systems, but it's not tested. Contributions
 (trying it and reportin) welcome!
