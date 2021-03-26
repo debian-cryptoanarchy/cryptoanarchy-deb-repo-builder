@@ -70,6 +70,24 @@ Five things to know before you start using this
 * Do **not** attempt to configure anything - it will just work
 * Make sure you have at least 400 GB of free space
 
+Bug reporting
+-------------
+
+Please report any issues with the software available here to **this project**.
+E.g. if there's a problem with `btcpayserver` do **not** report it to the BTCPayServer developers but [here](https://github.com/Kixunil/cryptoanarchy-deb-repo-builder/issues).
+If the problem is found to be in the software itself it will be forwarded, do not worry about this.
+
+Using third party repositories / packages
+-----------------------------------------
+
+Using additional repositories/packages beyond the official Debian repositories and this one may be dangerous!
+Especially upgrading packages that are otherwise present in Debian or this repository may lead to breakages.
+An example of a known problem is adding nodejs repository - don't do it!
+
+Reach out for help with using additional software that requires higher dependency versions.
+
+It should be safe to add repositories that are explicitly tesed to work with Debian Buster and this repository.
+
 Setting up on a dedicated hardware
 ----------------------------------
 
