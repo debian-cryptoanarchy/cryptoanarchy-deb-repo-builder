@@ -1,0 +1,3 @@
+*.sps linguist-language=toml
+*.sss linguist-language=toml
+*.changelog linguist-language=text
