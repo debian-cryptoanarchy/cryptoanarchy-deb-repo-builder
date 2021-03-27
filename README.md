@@ -50,7 +50,7 @@ Read short [docs on each application](docs/user-level.md#using-applications) you
 ## Five things to know before you start using this
 
 * Do **not** attempt to configure anything - it will just work
-* Do understand that bitcoind and other services will run automatically
+* Do understand that `bitcoind` and other services will run automatically **innediately after installation and after each boot**.
 * **By default, the LND wallet is created automatically after installation and the seed is stored in /var/lib/lnd-system-mainnet/.seed.txt**
 * Do **not** attempt to configure anything - it will just work
 * Make sure you have at least 400 GB of free space
