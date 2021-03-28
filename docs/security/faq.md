@@ -42,7 +42,7 @@ mentioned here that's not attributed, please report.**
 * This project sandboxes cookies of different apps to avoid them being passed between each-other.
   There's no other known project that does this.
 * The keys of foreign developers are verified using memory-safe GPG implementation [`sqck`](https://github.com/Kixunil/sqck).
-  No other known project does this.
+  No other known project uses `sqck`.
 * All official builds are performed in a dedicated Qubes VM.
   No other known project does this.
 * Perhaps except `nix-bitcoin`, no other project attempts deterministic builds.
