@@ -12,7 +12,8 @@ The recommended approach:
 * Connect your phone over USB and set it to tethering
 * Install Debian 10 from netinst
 * `apt install gnupg`
-* Add this repository with `vendor` component included
+* Add this repository with `vendor` component included, like this:
+ `deb [signed-by=3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C] https://deb.ln-ask.me/beta buster common local vendor`
 * `apt install r8125-dkms`
 * Enable the newtwork interface in `/etc/network/interfaces`
 * Disconnect the phone
