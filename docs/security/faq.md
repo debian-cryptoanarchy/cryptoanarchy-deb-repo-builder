@@ -76,6 +76,13 @@ It's definitely considered a wishlist item.
 Using different (system) users.
 One for each service, except where it makes zero sense.
 
+In Unix, different users can't access files of each-other unless permitted whenever reasonable.
+This is taken advantage of here.
+No service can access data of other services except when it had to be allowed - such as BTCPayServer accessing invoice macaroon.
+
+Groups are also used for controlling access.
+This is very flexible as you can give any user/service access to more things by adding them to appropriate group.
+
 ## Aren't users unsecure? What are the limitation of this design?
 
 There doesn't seem to be any significant issue with using users as an isolation mechanism.
@@ -95,7 +102,7 @@ This project mitigates these issues by:
 There's one known issue: possible race conditions when TCP servers are restarted.
 This isn't trivial to exploit.
 Remember, it **still** requires discovering a zero day vulnerability in one of the existing packages!
-Fixing this is planned to be done soon and by using Unix sockets.
+Fixing this is planned to be done soon by using Unix sockets.
 
 ## How do I know the software I download is not malware?
 
@@ -103,7 +110,7 @@ The only 100% sure way is to review the project and all its dependencies and bui
 
 If you decide to trust me, then you only need to know my public key fingerprint.
 You can obtain it by cross-referencing several sources ([I'm on Keybase](https://keybase.io/kixunil)) or in person in some cases.
-`apt` already performs signature validation on all installed packages so that part is secure.
+`apt` already performs signature validation on all installed packages using keys added to its keyring, so that part is secure.
 I myself verify signatures of all packages using a script to avoid mistakes and build the packages in a dedicated Qubes VM.
 
 ## Why is LND unlocker recommended? Isn't it dangerous?
@@ -139,11 +146,11 @@ The specific objections to it:
   The worst example is restriction by IP address.
   IP addresses can be spoofed by trained monkeys, so implementing restrictions based on them is just a waste of time and introduces unneeded complexity.
 * Some options, especially `PrivateNetwork` are assigned high risk but they destroy fundamental features of a service.
-  `bitcoind` without network access is completely useless.
+  `bitcoin-mainnet` without network access is completely useless.
 
 Yes, having some kind of ordering to help decide on priority of security review would be useful, especially regarding the last point.
-Sadly, this tool doesn't even order its output
-and tries to emotionally manipulate people into setting ridiculous options,
+Sadly, this tool doesn't even order its output.
+It tries to emotionally manipulate people into setting ridiculous options,
 wasting time on non-issues, writing explanations like this one, or worst, distrusting something that's actually pretty secure.
 
 This doesn't intend to imply that all relevenat options are tuned perfectly.
