@@ -57,7 +57,7 @@ Read short [docs on each application](docs/user-level.md#using-applications) you
 
 ## Bug reporting
 
-Please report any issues with the software available here to **this project**.
+Please report any issues with the software available here to [this project](https://github.com/debian-cryptoanarchy/cryptoanarchy-deb-repo-builder/issues/new/choose).
 E.g. if there's a problem with `btcpayserver` do **not** report it to the BTCPayServer developers but [here](https://github.com/Kixunil/cryptoanarchy-deb-repo-builder/issues).
 If the problem is found to be in the software itself it will be forwarded, do not worry about this.
 
