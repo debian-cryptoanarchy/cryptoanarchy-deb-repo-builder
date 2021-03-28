@@ -60,7 +60,7 @@ There were actually numerous cases of escaping from Docker containers.
 The Docker daemon adds its own attack surface.
 
 That being said, Docker is just a collection of several mechanisms, some of which may be beneficial for security.
-This project already uses some of them and maybe it will use more in the future (needs to be weighted against disadvantages).
+This project already uses e.g. private mounts and maybe it will use more features in the future (needs to be weighted against disadvantages).
 
 ## Does this project use virtual machines?
 
