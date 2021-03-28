@@ -49,7 +49,7 @@ mentioned here that's not attributed, please report.**
   (Only ThunderHub is undeterministic here.)
 * The only other known project that uses declarative approach is `nix-bitcoin`.
 
-## Is it good idea to put my lifesavings into this node?
+## Is it a good idea to put my lifesavings into this node?
 
 No.
 
