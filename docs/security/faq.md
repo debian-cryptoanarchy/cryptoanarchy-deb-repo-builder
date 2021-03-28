@@ -39,7 +39,7 @@ mentioned here that's not attributed, please report.**
 * This project implements SSO for several applications.
   The only other known project that does this is BTCPayServer-docker.
   The application handling authentication is intentionally much, much simpler than BTCPayServer, thus the attack surface is lower.
-* This project sandboxes cookeis of different apps to avoid them being passed between each-other.
+* This project sandboxes cookies of different apps to avoid them being passed between each-other.
   There's no other known project that does this.
 * The keys of foreign developers are verified using memory-safe GPG implementation [`sqck`](https://github.com/Kixunil/sqck).
   No other known project does this.
