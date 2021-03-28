@@ -83,7 +83,7 @@ Android uses this same mechanism and there was no (valid) criticism of such appr
 (There were other issues unrelated to this particular mechanism.)
 
 Where users probably get bad reputation is from poorly configured systems that have ridiculous errors like leaving bad permissions on a file.
-Another good criticism is bulky privileged APIs expoed to unprivileged processes.
+Another good criticism is bulky privileged APIs exposed to unprivileged processes.
 Such is the case of recent `sudo` vulnerability.
 
 This project mitigates these issues by:
