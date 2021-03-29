@@ -93,7 +93,7 @@ It's useless to you unless you are trying to build it on your own or help with d
 **Important:** This is intended for developers and researchers only!
 Regular users should use [the built repository as presented above](#how-to-setup-the-beta-debian-repository).
 
-The [development documentation](docs/development) is not great now.
+The [development documentation](docs/developer) is not great now.
 Please open an issue if you are interested in development and I will try to fill in the relevant details.
 
 ## Supported and planned applications
