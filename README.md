@@ -25,8 +25,11 @@ This is not a joke, several people were already confused by not having to manual
 
 **Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this) to avoid confusion.**
 
- Only Debian 10 (Buster) is currently tested, distributions based
+Only Debian 10 (Buster) is currently tested, distributions based
 on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
+
+It's highly recommended to use decent hardware: at least 8GB of RAM and 1TB SSD (ideally NVMe).
+Your experience and the experience of your peers routing LN transactions through your node may suck otherwise!
 
 To use the produced repository you need to also setup Microsoft dotnet repository. Follow these steps
 and don't forget to [verify fingerprints](https://gist.github.com/Kixunil/fb7300edcb8a8afc95e6b7b727b31f0d).
