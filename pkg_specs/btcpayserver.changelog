@@ -1,3 +1,10 @@
+btcpayserver (1.0.7.1-1) buster; urgency=critical
+
+  * Updated upstream version
+  * Fixes vulnerability which has unknown effect on this repository
+ 
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 30 Mar 2021 22:26:47 +0100
+
 btcpayserver (1.0.7.0-1) buster; urgency=medium
 
   * Updated upstream version
