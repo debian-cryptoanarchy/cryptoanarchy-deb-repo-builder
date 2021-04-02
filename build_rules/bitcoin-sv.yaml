@@ -1,7 +1,0 @@
-pkg_name_upper: BITCOIN_SV
-pkg_name_snake: bitcoin_sv
-source_name: bitcoin-sv
-
-unpack:
-        file_name: bitcoin-sv-$(BITCOIN_SV_VERSION).tar.gz
-        url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
