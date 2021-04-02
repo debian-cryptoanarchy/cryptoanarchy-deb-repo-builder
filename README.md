@@ -4,6 +4,21 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 
 ![Logo of cryptoanarchistic Debian repository](docs/logo.svg)
 
+
+* [About](#about)
+* [Supported applications](#supported-applications)
+* [How to setup the beta Debian repository](#how-to-setup-the-beta-debian-repository)
+* [Five things to know before you start using this](#five-things-to-know-before-you-start-using-this)
+* [Bug reporting](#bug-reporting)
+* [Using third party repositories / packages](#using-third-party-repositories-and-packages)
+* [Security](#security)
+* [Policy on Bitcoin consensus forks](#policy-on-bitcoin-consensus-forks)
+* [About this GitHub repository](#about-this-github-repository)
+* [Development and contributions](#development-and-contributions)
+* [Supported and planned applications overview](#supported-and-planned-applications)
+* [License](#license)
+
+
 ## About
 
 This is an (extra)ordinary Debian repository that you can add to your Debian 10 system (see below).
@@ -64,7 +79,7 @@ Please report any issues with the software available here to [this project](http
 E.g. if there's a problem with `btcpayserver` do **not** report it to the BTCPayServer developers but [here](https://github.com/Kixunil/cryptoanarchy-deb-repo-builder/issues).
 If the problem is found to be in the software itself it will be forwarded, do not worry about this.
 
-## Using third party repositories / packages
+## Using third party repositories and packages
 
 Using additional repositories/packages beyond the official Debian repositories and this one may be dangerous!
 Especially upgrading packages that are otherwise present in Debian or this repository may lead to breakages.
