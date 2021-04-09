@@ -1,3 +1,10 @@
+selfhost-dashboard (0.2.1-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Auto-reconnects to postgres after restart
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 2 Apr 2021 15:53:28 +0100
+
 selfhost-dashboard (0.2.0-2) buster; urgency=medium
 
   * Improved sandboxing of service

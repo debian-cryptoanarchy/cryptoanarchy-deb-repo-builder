@@ -26,7 +26,12 @@ check:
 
 # Installing multiple Rust binaries is currently unsupported due to the limitation of cfg_me
 install:
+	{{^cargo_workspaces}}
 	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo install --frozen --offline --path . --root $(DESTDIR)/usr --target $(CARGO_ARCH) $(CARGO_ARGS)
+	{{/cargo_workspaces}}
+	{{#cargo_workspaces}}
+	$(CARGO_ENVIRON) $(CARGO_COMMON_ENV) cargo install --frozen --offline --path {{workspace_path}} --root $(DESTDIR)/usr --target $(CARGO_ARCH) $(CARGO_ARGS)
+	{{/cargo_workspaces}}
 	test "`ls $(DESTDIR)/usr/bin | wc -l`" -eq 1
 	mkdir -p target/man
 	cfg_me -n --output "target/man/`ls $(DESTDIR)/usr/bin`.1" man
