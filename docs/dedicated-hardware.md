@@ -1,6 +1,6 @@
 # Setting up the system on dedicated hardware
 
-The recommended hardware for setting up this repository on a dedicated machin is Odroid H2 with at least 1TB NVMe SSD and 8GB of RAM.
+The recommended hardware for setting up this repository on a dedicated machine is Odroid H2 with at least 1TB NVMe SSD and 8GB of RAM.
 We recommend more RAM to leave a room for future expansion.
 It is also recommended to use a fan - it can get very hot otherwise!
 The fan is very quiet even when the chain syncs - you can't hear it until your head is very close.
