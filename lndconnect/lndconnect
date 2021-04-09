@@ -4,11 +4,14 @@ prog_name="$0"
 
 macaroon=admin
 lnd_network=mainnet
+protocol=""
 while [ $# -gt 0 ];
 do
 	case "$1" in
 		--help)
-			echo "Usage: $prog_name [--network mainnet|regtest] [--macaroon admin|invoice|readonly]"
+			echo "Usage: $prog_name --grpc|--rest [--network mainnet|regtest] [--macaroon admin|invoice|readonly]"
+			echo '--rest needs to be used for Zeus and iOS version of Zap'
+			echo '--grpc for everything else'
 			exit 0
 			;;
 		--network)
@@ -19,11 +22,42 @@ do
 			macaroon="$2"
 			shift
 			;;
+		--grpc)
+			if [ "$protocol" = "rest" ];
+			then
+				echo 'You must specify either --grpc or --rest, not both!' >&2
+				exit 1
+			fi
+			protocol="grpc"
+			;;
+		--rest)
+			if [ "$protocol" = "grpc" ];
+			then
+				echo 'You must specify either --grpc or --rest, not both!' >&2
+				exit 1
+			fi
+			protocol="rest"
+			;;
 	esac
 	shift
 done
 
 . /usr/share/lnd/lib/bash.sh || exit 1
+
+case "$protocol" in
+	grpc)
+		port="$lnd_grpc_port"
+		;;
+	rest)
+		port="$lnd_rest_port"
+		;;
+	*)
+		echo 'Specifying either --grpc or --rest is mandatory' >&2
+		echo '--rest needs to be used for Zeus and iOS version of Zap' >&2
+		echo '--grpc for everything else' >&2
+		exit 1
+		;;
+esac
 
 case "$macaroon" in
 	admin)
@@ -42,4 +76,4 @@ esac
 
 domain="`cat /var/lib/tor/lndconnect_hidden_service/hostname`"
 
-echo "lndconnect://$domain:$lnd_grpc_port?cert=`grep -v 'CERTIFICATE' "$lnd_cert_file" | tr -d '=' | tr '/+' '_-'`"'&macaroon='"`base64 "$macaroon_file" | tr -d '=' | tr '/+' '_-'`" | tr -d '\n'
+echo "lndconnect://$domain:$port?cert=`grep -v 'CERTIFICATE' "$lnd_cert_file" | tr -d '=' | tr '/+' '_-'`"'&macaroon='"`base64 "$macaroon_file" | tr -d '=' | tr '/+' '_-'`" | tr -d '\n'

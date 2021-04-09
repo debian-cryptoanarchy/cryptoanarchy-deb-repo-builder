@@ -5,7 +5,7 @@ set -e
 # Replace . with \. for use in grep
 lndconnect_onion=`sudo sed 's/\./\\./' /var/lib/tor/lndconnect_hidden_service/hostname | tr -d '\n'`
 
-if sudo lndconnect | grep -q '^lndconnect://'"$lndconnect_onion"':[1-9][0-9]*?cert=[a-zA-Z0-9_-]\+&macaroon=[a-zA-Z0-9_-]\+';
+if sudo lndconnect --grpc | grep -q '^lndconnect://'"$lndconnect_onion"':[1-9][0-9]*?cert=[a-zA-Z0-9_-]\+&macaroon=[a-zA-Z0-9_-]\+';
 then
 	echo "lndconnect link looks OK" >&2
 else

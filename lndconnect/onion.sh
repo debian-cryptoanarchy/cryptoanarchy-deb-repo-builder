@@ -15,6 +15,7 @@ do
 	# We have to clear these variables each time.
 	# The values from previous include will stay there otherwise.
 	lnd_grpc_port=""
+	lnd_rest_port=""
 	lnd_config_file=""
 	. /usr/share/lnd/lib/bash.sh &>/dev/null
 
@@ -22,13 +23,18 @@ do
 	then
 		ports="$ports $lnd_grpc_port"
 	fi
+	if [ -n "$lnd_rest_port" ];
+	then
+		ports="$ports $lnd_rest_port"
+	fi
 done
 
 hidden_service_dir="/var/lib/tor/lndconnect_hidden_service"
 
 if [ -n "$ports" ];
 then
-	echo "HiddenServiceDir $hidden_service_dir" > "$tmp_conf"
+	echo '# Automatically generated, do NOT modify!' > "$tmp_conf"
+	echo "HiddenServiceDir $hidden_service_dir" >> "$tmp_conf"
 	for port in $ports;
 	do
 		echo "HiddenServicePort $port 127.0.0.1:$port" >> "$tmp_conf"

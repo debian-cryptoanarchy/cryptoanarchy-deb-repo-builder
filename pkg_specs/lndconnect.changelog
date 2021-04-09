@@ -1,3 +1,10 @@
+lndconnect (0.3-1) buster; urgency=medium
+
+  * Support for REST (required on iOS)
+  * Clearly mark hidden service file as auto-generated
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 8 Apr 2021 12:01:24 +0100
+
 lndconnect (0.2-2) buster; urgency=medium
 
   * Always restart Tor to make sure apparmor profile gets reloaded
