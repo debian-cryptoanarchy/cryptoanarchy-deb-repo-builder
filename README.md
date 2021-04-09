@@ -26,7 +26,7 @@ This is not a joke, several people were already confused by not having to manual
 **Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this) to avoid confusion.**
 
 Only Debian 10 (Buster) is currently tested, distributions based
-on it (Ubuntu, Mint...) should work too and I'll be happy to recieve reports if you try them.
+on it (Ubuntu, Mint...) should work too and I'll be happy to receive reports if you try them.
 
 It's highly recommended to use decent hardware: at least 8GB of RAM and 1TB SSD (ideally NVMe).
 Your experience and the experience of your peers routing LN transactions through your node may suck otherwise!
@@ -72,7 +72,7 @@ An example of a known problem is adding nodejs repository - don't do it!
 
 Reach out for help with using additional software that requires higher dependency versions.
 
-It should be safe to add repositories that are explicitly tesed to work with Debian Buster and this repository.
+It should be safe to add repositories that are explicitly tested to work with Debian Buster and this repository.
 
 ## Security
 
@@ -184,7 +184,7 @@ Please open an issue if you are interested in development and I will try to fill
 
 ## License
 
-The exact license of this project is not decided/creatd yet.
+The exact license of this project is not decided/created yet.
 I plan to make it as compatible with Voluntaryism as possible.
 It'll probably be very similar to GPL but without mandatory disclosure of source code.
 (That means you can refrain from disclosing the source but you may not prevent other people from copying, inspecting and modifying the binary unless they agreed to not do it in written private contract.)
@@ -198,4 +198,4 @@ I specifically want any my attempts at suing to be void if unprovoked.
 Moreover, feel free to publicly criticize me for doing anything incompatible with the philosophy of Voluntaryism.
 
 By contributing to this repository you agree with the general direction of licensing.
-If you have questions about this, don't hessitate to contact me.
+If you have questions about this, don't hesitate to contact me.
