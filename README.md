@@ -5,18 +5,12 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 ![Logo of cryptoanarchistic Debian repository](docs/logo.svg)
 
 
-* [About](#about)
-* [Supported applications](#supported-applications)
-* [How to setup the beta Debian repository](#how-to-setup-the-beta-debian-repository)
-* [Five things to know before you start using this](#five-things-to-know-before-you-start-using-this)
+* [How to setup](#how-to-setup-the-beta-debian-repository)
 * [Bug reporting](#bug-reporting)
 * [Using third party repositories / packages](#using-third-party-repositories-and-packages)
 * [Security](#security)
-* [Policy on Bitcoin consensus forks](#policy-on-bitcoin-consensus-forks)
-* [About this GitHub repository](#about-this-github-repository)
-* [Development and contributions](#development-and-contributions)
-* [Supported and planned applications overview](#supported-and-planned-applications)
-* [License](#license)
+* [Documentation](docs/README.md)
+* [Development](#development-and-contributions)
 
 
 ## About
@@ -50,7 +44,7 @@ To use the produced repository you need to also setup Microsoft dotnet repositor
 and don't forget to [verify fingerprints](https://gist.github.com/Kixunil/fb7300edcb8a8afc95e6b7b727b31f0d).
 
 ```
-gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C
+gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C 
 gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
 gpg --export 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C | sudo apt-key add -
 gpg --export BC528686B50D79E339D3721CEB3E94ADBE1229CF | sudo apt-key add -
