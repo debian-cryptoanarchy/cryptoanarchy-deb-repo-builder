@@ -4,6 +4,13 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 
 ![Logo of cryptoanarchistic Debian repository](docs/logo.svg)
 
+
+* [How to setup](#how-to-setup-the-beta-debian-repository)
+* [Bug reporting](#bug-reporting)
+* [Documentation](docs/README.md)
+* [Development](#development-and-contributions)
+
+
 ## About
 
 This is an (extra)ordinary Debian repository that you can add to your Debian 10 system (see below).
@@ -64,7 +71,7 @@ Please report any issues with the software available here to [this project](http
 E.g. if there's a problem with `btcpayserver` do **not** report it to the BTCPayServer developers but [here](https://github.com/Kixunil/cryptoanarchy-deb-repo-builder/issues).
 If the problem is found to be in the software itself it will be forwarded, do not worry about this.
 
-## Using third party repositories / packages
+## Using third party repositories and packages
 
 Using additional repositories/packages beyond the official Debian repositories and this one may be dangerous!
 Especially upgrading packages that are otherwise present in Debian or this repository may lead to breakages.
