@@ -87,7 +87,7 @@ As you can see there are various types of packages:
 
 * Binary packages - provide the code needed to execute specific service without doing anything themselves. These are accompanied by service packages. The main idea is that once testnet versions are created, they can share the same binaries.
 * Service packages - handle the management of the service (via systemd) as well as its configuration. They are recommended by their binary packages in order to work out-of-the-box.
-* Configuration packages - make sure that if another package needs a service with certain feture configured, this feature gets turned on.
+* Configuration packages - make sure that if another package needs a service with certain feature configured, this feature gets turned on.
 * Virtual packages - implement abstraction between various implementations of the same feature.
 * OS native packages shown in the graph obviously aren't included in this repository, but they are displayed in the graph to explain the relationships better.
 

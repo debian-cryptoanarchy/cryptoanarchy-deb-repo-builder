@@ -69,7 +69,7 @@ It could have negative effect of discouraging users from using it and leaving th
 Finding a sweet spot can be more valuable.
 
 This doesn't mean that VMs will **not** be researched in the future as an optional mechanism.
-It's definitely considered a wishlist item.
+It's definitely considered a wish-list item.
 
 ## So how does this project isolate services?
 
