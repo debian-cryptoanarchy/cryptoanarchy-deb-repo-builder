@@ -15,7 +15,7 @@ The goal of the policy of this repository is to minimize the risk by default whi
 
 As of today, the policy is this:
 
-* No hard forks will update existing `bitcoind` binary unless they fix critial vulnerability (extremely improbable,
+* No hard forks will update existing `bitcoind` binary unless they fix critical vulnerability (extremely improbable,
   a vulnerability fix would probably be a soft fork) or fix a known limitation of Bitcoin protocol such as data
   type limiting block time or height (highly improbable because it'll be non-issue next several decades).
 * No soft fork that attempts to implement government-enforced censorship or similar kind of tampering with Bitcoin
@@ -29,7 +29,7 @@ As of today, the policy is this:
 * Any sensible built-in split protection in an application will be turned on by default. A theoretical example would be
   BTCPayServer switching min confirmations to higher value around expected fork. If the protection didn't exist when the
   user installed the application, the protection will be turned on after update.
-* No update will ever remove `bitcoind` or make it unoperable as such would endanger Lightning node(s). Additional
+* No update will ever remove `bitcoind` or make it inoperable as such would endanger Lightning node(s). Additional
   effort to supply Lightning node(s) with transactions from competing chains will be seriously considered.
 * Custom split protections may be implemented. These may include temporarily changing the configuration to require more
   confirmations unless the user explicitly turned off this protection.
@@ -41,7 +41,7 @@ While the above should give good overview, this clarifies what will be done in c
 
 ### Speedy Trial
 
-* This repository will contain a widely-accpeted version of Speedy Trial.
+* This repository will contain a widely-accepted version of Speedy Trial.
 * If Speedy Trial succeeds, all future versions will have to be compatible with it (enforcing soft fork)
 * If Speedy Trial fails, the original plan will be reconsidered
 * Bumping min confirmations may be implemented but probably with a lower number (12 instead of 100).
@@ -58,5 +58,5 @@ While the above should give good overview, this clarifies what will be done in c
 * The planned alert system will be prioritized in the upcoming few months.
   It will display one precautionary alert message on upgrade unless the upgrade is performed long after miner activation.
   Then a next one around timeout unless Taproot is active for a while already.
-* Upgrading to `bitcoind` with Taproot support will have the highest priority (except critial security vulnerabilities),
+* Upgrading to `bitcoind` with Taproot support will have the highest priority (except critical security vulnerabilities),
   followed by updating all applications implementing split protections.
