@@ -21,8 +21,8 @@ Thus RTL indexes can not be duplicated even in case of power failure at any mome
 * Automation that prevents security-related mistakes
 * Declarative programming with secure defaults (security is always opt-out, never opt-in)
 * Code signing and verification
-* Build in isolated ennvironment
-* Determministic builds
+* Build in isolated environment
+* Deterministic builds
 
 ## Which security features are rare or unique to this project?
 
@@ -49,7 +49,7 @@ mentioned here that's not attributed, please report.**
   (Only ThunderHub is undeterministic here.)
 * The only other known project that uses declarative approach is `nix-bitcoin`.
 
-## Is it a good idea to put my lifesavings into this node?
+## Is it a good idea to put my life savings into this node?
 
 No.
 
@@ -140,7 +140,7 @@ The specific objections to it:
 
 * Some security options imply others are not needed.
   As an example, if the process is not `root` and can not become `root`, it's impossible for it to load kernel modules.
-  Yet, `systemd-analyze security` reports that it is possible and assings it security score.
+  Yet, `systemd-analyze security` reports that it is possible and assigns it security score.
   Similar thing applies to other flags.
 * Some security options have zero real effect on security.
   The worst example is restriction by IP address.
@@ -153,7 +153,7 @@ Sadly, this tool doesn't even order its output.
 It tries to emotionally manipulate people into setting ridiculous options,
 wasting time on non-issues, writing explanations like this one, or worst, distrusting something that's actually pretty secure.
 
-This doesn't intend to imply that all relevenat options are tuned perfectly.
+This doesn't intend to imply that all relevant options are tuned perfectly.
 If you know of a reasonable improvement, please report!
 Using `systemd-analyze security` is just useless because of lot of noise.
 
