@@ -2,8 +2,8 @@
 
 There are four parts of the documentation:
 
-1. User-level documentation - this is all information a user of these packages needs assuming the user doesn't care about details too much
-2. Admin-level documentation - the information needed for system administrators who may have specific advanced wishes about configuring the system
+1. [User-level documentation](user-level.md) - this is all information a user of these packages needs assuming the user doesn't care about details too much
+2. [Admin-level documentation](admin-level.md) - the information needed for system administrators who may have specific advanced wishes about configuring the system
 3. NOT WRITTEN YET Repository-developer documentation - the information needed for contributors to this project
 4. NOT WRITTEN YET Application-developer documentation - information for developers of specific applications that they'd like to integrate into this project
 
