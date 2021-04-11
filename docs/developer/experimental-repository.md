@@ -13,9 +13,9 @@ I will not hand-over the instructions to random newbies though!
 
 ## Consequences of using packages in experimental
 
-* Risk of downtimes, including long (bitcoin chain resync)
+* Risk of downtime, including long (bitcoin chain resync)
 * Risk of security issues
 * Risk of breaking the system in a way that's very difficult to fix
-* Risk of various footguns, conflicts in packages, weird/confusing bugs
+* Risk of various foot-guns, conflicts in packages, weird/confusing bugs
 
 In general the experimental repository is **not and never will be suitable for production use!**
