@@ -69,7 +69,7 @@ It could have negative effect of discouraging users from using it and leaving th
 Finding a sweet spot can be more valuable.
 
 This doesn't mean that VMs will **not** be researched in the future as an optional mechanism.
-It's definitely considered a wishlist item.
+It's definitely considered a wish-list item.
 
 ## So how does this project isolate services?
 
@@ -83,7 +83,7 @@ No service can access data of other services except when it had to be allowed - 
 Groups are also used for controlling access.
 This is very flexible as you can give any user/service access to more things by adding them to appropriate group.
 
-## Aren't users unsecure? What are the limitation of this design?
+## Aren't users insecure? What are the limitation of this design?
 
 There doesn't seem to be any significant issue with using users as an isolation mechanism.
 Android uses this same mechanism and there was no (valid) criticism of such approach.
@@ -95,7 +95,7 @@ Such is the case of recent `sudo` vulnerability.
 
 This project mitigates these issues by:
 
-* Automating creation of filesystem items and setting proper permissions by default. This removes the possibility of mistakes.
+* Automating creation of file-system items and setting proper permissions by default. This removes the possibility of mistakes.
 * Not depending on bulky APIs and not installing them by default.
 * Using "no new privileges" options which would prevent services from exploiting `sudo` vulnerability.
 
@@ -153,7 +153,7 @@ Sadly, this tool doesn't even order its output.
 It tries to emotionally manipulate people into setting ridiculous options,
 wasting time on non-issues, writing explanations like this one, or worst, distrusting something that's actually pretty secure.
 
-This doesn't intend to imply that all relevenat options are tuned perfectly.
+This doesn't intend to imply that all relevant options are tuned perfectly.
 If you know of a reasonable improvement, please report!
 Using `systemd-analyze security` is just useless because of lot of noise.
 
