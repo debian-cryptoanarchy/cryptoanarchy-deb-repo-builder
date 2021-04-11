@@ -83,7 +83,7 @@ No service can access data of other services except when it had to be allowed - 
 Groups are also used for controlling access.
 This is very flexible as you can give any user/service access to more things by adding them to appropriate group.
 
-## Aren't users insecure? What are the limitation of this design?
+## Aren't users unsecure? What are the limitation of this design?
 
 There doesn't seem to be any significant issue with using users as an isolation mechanism.
 Android uses this same mechanism and there was no (valid) criticism of such approach.
