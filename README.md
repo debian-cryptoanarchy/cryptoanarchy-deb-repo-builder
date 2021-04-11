@@ -7,8 +7,6 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 
 * [How to setup](#how-to-setup-the-beta-debian-repository)
 * [Bug reporting](#bug-reporting)
-* [Using third party repositories / packages](#using-third-party-repositories-and-packages)
-* [Security](#security)
 * [Documentation](docs/README.md)
 * [Development](#development-and-contributions)
 
