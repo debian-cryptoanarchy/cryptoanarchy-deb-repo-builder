@@ -95,7 +95,7 @@ Such is the case of recent `sudo` vulnerability.
 
 This project mitigates these issues by:
 
-* Automating creation of file-system items and setting proper permissions by default. This removes the possibility of mistakes.
+* Automating creation of filesystem items and setting proper permissions by default. This removes the possibility of mistakes.
 * Not depending on bulky APIs and not installing them by default.
 * Using "no new privileges" options which would prevent services from exploiting `sudo` vulnerability.
 
