@@ -1,3 +1,10 @@
+btcpayserver (1.0.7.2-1) buster; urgency=high
+
+  * Updated upstream version
+  * Fixed root app bug
+ 
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 13 Apr 2021 18:01:28 +0100
+
 btcpayserver (1.0.7.1-1) buster; urgency=critical
 
   * Updated upstream version
