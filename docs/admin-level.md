@@ -35,7 +35,7 @@ If you didn't find the setting in debconf, you must look if it can be set by ins
 * `bitcoin-fullchain-mainnet` - sets `prune=0`, `txindex=0`
 * `bitcoin-txindex-mainnet` - sets `prune=0`, `txindex=1`
 * `bitcoin-zmq-mainnet` - activates ZMQ
-* `bitcoin-timechain-mainnet` - adds user `public:public` to `bitcoin-rpc-procy` which allows querying public timechain information.
+* `bitcoin-timechain-mainnet` - adds user `public:public` to `bitcoin-rpc-proxy` which allows querying public timechain information.
 * `selfhost-clearnet` - configures `selfhost` to use specific clearnet domain, turns off Tor hidden service by default, but you can still turn it on by installing `selfhost-onion` too
 
 Another special case are "bridging packages" that connect two loosely coupled packages together. This makes it possible to install one without the other and gain special features when installing both.
