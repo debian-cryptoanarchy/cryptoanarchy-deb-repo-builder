@@ -1,11 +1,13 @@
 ---
-name: Build bug
+name: Build bug (developers only)
 about: Did you attempt to build the repository and failed?
 title: ''
 labels: bug, building
 assignees: ''
 
 ---
+
+<!-- IMPORTANT: Solving your problem will take longer if you do not fill this template properly! -->
 
 **Did you read the documentation and installed all the requirements?**
 Yes. (If not, please do so.)
@@ -19,7 +21,7 @@ Steps to reproduce the behavior:
 2. See error or garbage output
 
 **Expected output**
-If the some of the resulting files appears to be corrupted, explain what you expected
+If some of the resulting files appears to be corrupted, explain what you expected
 
 **System**
 OS, if not Debian 10 (Buster):
