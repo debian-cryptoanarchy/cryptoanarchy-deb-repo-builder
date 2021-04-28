@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<!-- IMPORTANT: Solving your problem will take longer if you do not fill this template properly! -->
+
 **Have you read the documentation?**
 Yes. (If no, please go check if this is a documented property.)
 
