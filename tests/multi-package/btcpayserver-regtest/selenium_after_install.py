@@ -79,7 +79,6 @@ while subprocess.call(["sudo", "test", "-e", "/var/lib/lnd-system-regtest/invoic
 eprint("Setting up lightning")
 
 driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/lightning/BTC")
-driver.find_element_by_id("internal-ln-node-setter").click()
 driver.find_element_by_id("save").click()
 
 eprint("Setting up PayJoin")
