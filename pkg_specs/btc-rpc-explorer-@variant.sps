@@ -3,11 +3,12 @@ bin_package = "btc-rpc-explorer"
 binary = "/usr/bin/btc-rpc-explorer"
 user = { group = true, create = { home = true } }
 summary = "Simple, database-free Bitcoin blockchain explorer ({variant})"
-depends = ["bitcoin-timechain-{variant} (>= 0.1.0-5)", "bitcoin-txindex-{variant}"]
+depends = ["bitcoin-timechain-{variant} (>= 0.1.0-5)"]
+suggests = ["electrs-{variant} | bitcoin-txindex-{variant}"]
 conflicts = ["btc-rpc-explorer-selfhost-{variant}"]
 recommends = ["selfhost (>=0.1.5)", "selfhost (<<0.2.0)"]
 extended_by = ["electrs-{variant}"]
-add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/btc.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-{variant}/entry_main.png", "/usr/lib/btc-rpc-explorer/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/btc-rpc-explorer-{variant}/open" ]
+add_links = [ "/usr/lib/btc-rpc-explorer/public/img/logo/logo-{variant}.png /usr/share/selfhost-dashboard/apps/icons/btc-rpc-explorer-{variant}/entry_main.png", "/usr/lib/btc-rpc-explorer/selfhost-dashboard/entry_points/open /usr/lib/selfhost-dashboard/apps/entry_points/btc-rpc-explorer-{variant}/open" ]
 runtime_dir = { mode = "755" }
 extra_triggers = ["selfhost-dashboard"]
 extra_service_config = """

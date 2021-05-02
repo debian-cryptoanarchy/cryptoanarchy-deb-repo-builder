@@ -1,3 +1,10 @@
+btc-rpc-explorer (3.1.1-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Dropped dependency on txindex which is no longer needed
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 16 Apr 2021 13:51:03 +0100
+
 btc-rpc-explorer (2.1.0-3) buster; urgency=medium
 
   * Improved sandboxing of service

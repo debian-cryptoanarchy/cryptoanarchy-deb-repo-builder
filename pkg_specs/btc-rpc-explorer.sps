@@ -1,5 +1,5 @@
 name = "btc-rpc-explorer"
-architecture = "all"
+architecture = "any"
 summary = "Simple, database-free Bitcoin blockchain explorer"
 depends = ["nodejs (>= 8.0.0)"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest, btc-rpc-explorer-mainnet | bitcoin-regtest, btc-rpc-explorer-regtest | bitcoin-mainnet, btc-rpc-explorer-both | btc-rpc-explorer-mainnet | btc-rpc-explorer-regtest"]
