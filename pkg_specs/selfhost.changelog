@@ -1,3 +1,9 @@
+selfhost (0.1.8-1) buster; urgency=low
+
+  * Added X-Forwarded-Host
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 30 Apr 2021 10:13:11 +0100
+
 selfhost (0.1.7-1) buster; urgency=low
 
   * Added ability to redirect /app to /app/
