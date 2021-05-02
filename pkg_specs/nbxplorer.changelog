@@ -1,3 +1,9 @@
+nbxplorer (2.1.51-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 30 Apr 2021 14:12:32 +0100
+
 nbxplorer (2.1.47-2) buster; urgency=medium
 
   * Improved sandboxing of service
