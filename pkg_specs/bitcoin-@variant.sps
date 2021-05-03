@@ -16,6 +16,7 @@ TimeoutStartSec=300
 # Stopping bitcoind can take a very long time
 TimeoutStopSec=300
 Restart=always
+RestartSec=30
 """
 
 [map_variants.insert_header]
@@ -106,4 +107,4 @@ internal = true
 [config."bitcoin.conf".hvars.startupnotify]
 type = "string"
 # systemd-notify must not be inside script as that'd confuse systemd. Not sure why.
-template = "systemd-notify --ready; /usr/share/bitcoind/notify_startup.sh {variant}"
+template = "systemd-notify --ready; echo Notified systemd >&2; /usr/share/bitcoind/notify_startup.sh {variant}"
