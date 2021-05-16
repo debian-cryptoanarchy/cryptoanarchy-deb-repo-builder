@@ -166,7 +166,7 @@ RTL (Ride The Lightning) is a multi-node Lightning web UI.
 
 #### Usage
 
-* Run `sudo /usr/share/selfhost/lib/get_default_domain.sh && echo -n '/rtl/?access-key=' && sudo cat /var/lib/ridetheln-system/sso/cookie` to get the link to RTL.
+* Run `sudo /usr/share/selfhost/lib/get_default_domain.sh && echo -n '/rtl/?access-key=' && sudo cat /var/run/ridetheln-system/sso/cookie` to get the link to RTL.
 * Sorry, not a nice command, will be added in the future.
 * Both mainnet and regtest LND use the same RTL!
 * Integrated with `selfhost` - please read the docs of `selfhost`.
