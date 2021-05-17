@@ -1,3 +1,9 @@
+btcpayserver (1.1.1-2) buster; urgency=medium
+
+  * Remove docker-deployment-related features
+ 
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 16 May 2021 21:42:24 +0100
+
 btcpayserver (1.1.1-1) buster; urgency=medium
 
   * Updated upstream version

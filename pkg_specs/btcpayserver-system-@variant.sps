@@ -49,6 +49,10 @@ cat_files = ["database"]
 type = "string"
 template = "{variant}"
 
+[config."btcpayserver.conf".hvars."dockerdeployment"]
+type = "bool"
+constant = "false"
+
 [config."btcpayserver.conf".ivars."port"]
 type = "bind_port"
 default = "{http_port}"
