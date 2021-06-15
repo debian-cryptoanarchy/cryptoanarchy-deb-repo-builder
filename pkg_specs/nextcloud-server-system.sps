@@ -18,7 +18,7 @@ name = "selfhost-well-known-carddav"
 dest = "/etc/nginx/selfhost-subsites-enabled/well-known-carddav.conf"
 priority = 100
 
-[plug]
+[[plug]]
 run_as_user = "nextcloud-server-system"
 register_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--off"]
 unregister_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--on"]
