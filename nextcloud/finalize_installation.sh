@@ -159,7 +159,8 @@ else
 	rm -f "$apcu_config" "$apcu_config_tmp"
 fi
 
-mkdir -p "$fpm_log_dir"
+mkdir -p -m 750 "$fpm_log_dir"
+chown "$user_name":"$user_name" "$fpm_log_dir"
 
 dpkg-trigger "/etc/php/7.3/fpm/conf.d"
 
