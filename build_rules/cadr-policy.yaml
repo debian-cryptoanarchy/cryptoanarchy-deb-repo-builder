@@ -1,0 +1,10 @@
+pkg_name_upper: CADR_POLICY
+pkg_name_snake: cadr-policy
+source_name: cadr-policy
+build_system: none
+
+copy_assets:
+        - from: cadr-policy/disable_service.sh
+          to: disable_service
+        - from: cadr-policy/enable_service.sh
+          to: enable_service
