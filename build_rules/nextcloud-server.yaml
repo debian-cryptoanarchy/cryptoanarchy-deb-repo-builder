@@ -18,7 +18,7 @@ git_tag: v$(NEXTCLOUD_SERVER_VERSION)
 #verify_tag: true
 build_system: none
 copy_all: /usr/share/nextcloud-server
-copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer
+copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer setup_redis.sh
 
 copy_assets:
         - from: nextcloud/nginx_template.mustache
@@ -43,6 +43,8 @@ copy_assets:
           to: nextcloud-server-periodic.service
         - from: nextcloud/nextcloud-server-periodic.timer
           to: nextcloud-server-periodic.timer
+        - from: nextcloud/setup_redis.sh
+          to: setup_redis.sh
 
 dirs:
         - dir: selfhost_tools

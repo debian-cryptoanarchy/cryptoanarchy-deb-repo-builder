@@ -1,7 +1,7 @@
 name = "nextcloud-server-system"
 summary = "Automates deployment of Nextcloud server using selfhost"
 architecture = "all"
-recommends = ["selfhost (>= 0.1.6-2)", "selfhost (<< 0.2.0)"]
+recommends = ["selfhost (>= 0.1.6-2)", "selfhost (<< 0.2.0)", "nextcloud-server-redis"]
 depends = ["default-selfhost-domain | selfhost-domain", "nextcloud-server (>= 20.0.4)", "php-fpm", "ruby-mustache", "php-pgsql"]
 add_files = ["selfhost_tools/* /usr/share/nextcloud-server-system", "nextcloud-server-periodic.service /usr/lib/systemd/system", "nextcloud-server-periodic.timer /usr/lib/systemd/system"]
 add_links = [ "/usr/share/nextcloud-server-system/main_icon.png /usr/share/selfhost-dashboard/apps/icons/nextcloud-system/entry_main.png" ]
