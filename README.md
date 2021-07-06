@@ -19,6 +19,22 @@ It integrates deeply into the OS giving you great UX and security.
 Keep in mind it's still considered beta even though very stable and usable.
 There's intensive work going on to make it stable soon.
 
+### Upgrading to Debian 11 - Bullseye
+
+**Do NOT upgrade to Debian 11 TODAY! It would break your setup.**
+
+Debian 11 will be supported shortly after it's released and it's expected to be the only version considered stable.
+Some initial research was done but it's nowhere ready.
+It provides **significant** advantages over Buster so that's the reason why stable will target it.
+If you know you won't be able to upgrade to Buster until more than three months after it's released please open an issue and explain your situation.
+
+The most important reasons for upgrade:
+
+* Newer version of Rust which should support compiling some very important Rust libraries
+* Newer version of nodejs which might make ThunderHub deterministically buildable (not tested if it's the case)
+
+Please stay patient an don't worry about upgrades - they are well-tested by the Debian team and our software will be tested properly as well.
+
 ## Supported applications
 
 <img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" width="64"> <img src="https://electrum.org/logo/electrum_logo.png" width="64"> <img src="https://raw.githubusercontent.com/lightningnetwork/lnd/master/logo.png" width="64"> <img src="https://avatars0.githubusercontent.com/u/31132886?s=200&v=4" width="64"> <img src="external-logos/thunderhub.svg" width="64">
