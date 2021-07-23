@@ -9,6 +9,7 @@ extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
 extra_service_config = """
 Restart=always
+EnvironmentFile=-/var/lib/lnd-system-{variant}/.auto_unlock
 """
 
 [map_variants.mainnet_enabled]

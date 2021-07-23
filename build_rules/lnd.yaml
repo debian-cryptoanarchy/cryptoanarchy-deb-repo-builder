@@ -21,7 +21,13 @@ copy_assets:
         - from: lnd/xlncli
           to: xlncli
         - from: lnd/auto_unlock.sh
-          to: auto_unlock.sh
+          to: auto_unlock/auto_unlock.sh
+        - from: lnd/auto_unlock_set.sh
+          to: auto_unlock/set.sh
+        - from: lnd/auto_unlock_common.sh
+          to: auto_unlock/common.sh
+        - from: lnd/static_password
+          to: auto_unlock/static_password
         - from: lnd/gen_macaroons.sh
           to: gen_macaroons.sh
         - from: lnd/bash_lib.sh
@@ -31,3 +37,4 @@ copy_assets:
 
 dirs:
         - dir: lib
+        - dir: auto_unlock
