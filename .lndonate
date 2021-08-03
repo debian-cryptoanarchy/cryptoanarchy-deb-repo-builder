@@ -1,0 +1,6 @@
+# This is an idea/PoC of a standardized donation information for an Open Source project.
+# This URL currently doesn't work - that is intentional, we're just testing it.
+# If you're interested in the idea join lnurl mafia Telegram group
+
+lnurlp=lightning:ln-ask.me/donate-lnurl
+# Test comment to verify only the required part is used in URL
