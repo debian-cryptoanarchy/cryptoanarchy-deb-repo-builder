@@ -53,5 +53,6 @@ allowed_calls = [
 	"help",
 	# Required for nbxplorer-*
 	"getpeerinfo",
+	"getindexinfo",
 ]
 '''
