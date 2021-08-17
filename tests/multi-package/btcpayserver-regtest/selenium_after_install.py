@@ -81,11 +81,6 @@ eprint("Setting up lightning")
 driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/lightning/BTC")
 driver.find_element_by_id("save").click()
 
-eprint("Setting up PayJoin")
-
-driver.find_element_by_id("PayJoinEnabled").click()
-driver.find_element_by_id("Save").click()
-
 eprint("Creating an invoice")
 
 driver.get(default_domain + "/btcpay-rt/invoices/create/")
