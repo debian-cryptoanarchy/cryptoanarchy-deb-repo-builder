@@ -1,3 +1,9 @@
+btcpayserver (1.2.1-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 13 Aug 2021 09:31:25 +0100
+
 btcpayserver (1.1.2-1) buster; urgency=medium
 
   * Updated upstream version
