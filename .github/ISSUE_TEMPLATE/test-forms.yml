@@ -1,0 +1,26 @@
+name: Test GitHub issue forms
+description: This is just me testing issue forms, please don't use yet. :)
+title: "[Test]: "
+labels: ["enhancement", "some really cool shit"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for trying out this project!
+  - type: textarea
+    id: general_feedback
+    attributes:
+      label: General feedback
+      description: What do you think of this project? Anything we can help with?
+      placeholder: Your project is...
+    validations:
+      required: false
+  - type: checkboxes
+    attributes:
+    id: read_the_doc
+    label: Did you read the documentation?
+    descriptions: Some issues are easily solved by reading documentation, please do so before you report an issue.
+    options:
+      - label: I confirm that I've read the documentation.
+        required: true
+      - lable: I confirm I searched for similar GitHub issues and didn't find any that matches my issue.
+        required: true
