@@ -22,5 +22,5 @@ body:
       options:
         - label: I confirm that I've read the documentation.
           required: true
-        - lable: I confirm I searched for similar GitHub issues and didn't find any that matches my issue.
+        - label: I confirm I searched for similar GitHub issues and didn't find any that matches my issue.
           required: true
