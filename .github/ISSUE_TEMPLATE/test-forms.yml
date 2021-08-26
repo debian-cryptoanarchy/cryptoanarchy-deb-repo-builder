@@ -15,12 +15,12 @@ body:
     validations:
       required: false
   - type: checkboxes
-    attributes:
     id: read_the_doc
-    label: Did you read the documentation?
-    descriptions: Some issues are easily solved by reading documentation, please do so before you report an issue.
-    options:
-      - label: I confirm that I've read the documentation.
-        required: true
-      - lable: I confirm I searched for similar GitHub issues and didn't find any that matches my issue.
-        required: true
+    attributes:
+      label: Did you read the documentation?
+      description: Some issues are easily solved by reading documentation, please do so before you report an issue.
+      options:
+        - label: I confirm that I've read the documentation.
+          required: true
+        - lable: I confirm I searched for similar GitHub issues and didn't find any that matches my issue.
+          required: true
