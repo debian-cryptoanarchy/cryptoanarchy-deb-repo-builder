@@ -54,6 +54,12 @@ default = "/var/lib/electrs-{variant}"
 priority = "low"
 summary = "Database directory of electrs ({variant})"
 
+[config."conf.d/behavior.toml".ivars.verbose]
+type = "uint"
+default = "2"
+priority = "medium"
+summary = "Logging verbosity of electrs ({variant})"
+
 [config."conf.d/credentials.conf"]
 format = "toml"
 
@@ -74,3 +80,10 @@ constant = "public:public"
 [config."conf.d/credentials.conf".hvars.daemon_rpc_addr]
 type = "string"
 template = "127.0.0.1:{bitcoin-rpc-proxy-@variant/bind_port}"
+
+[config."conf.d/credentials.conf".evars."bitcoin-@variant".p2p_bind_port]
+store = false
+
+[config."conf.d/credentials.conf".hvars."daemon_p2p_addr"]
+type = "string"
+template = "127.0.0.1:{bitcoin-@variant/p2p_bind_port}"
