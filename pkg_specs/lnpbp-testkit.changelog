@@ -1,3 +1,9 @@
+lnpbp-testkit (0.1.6-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 16 Oct 2021 18:30:00 +0100
+
 lnpbp-testkit (0.1.5-1) buster; urgency=medium
 
   * Updated upstream version
