@@ -64,11 +64,11 @@ eprint("Setting up a test store")
 driver.get(default_domain + "/btcpay-rt/stores/create")
 driver.find_element_by_id("Name").send_keys("Test")
 driver.find_element_by_id("Name").send_keys(Keys.RETURN)
-store_id = driver.find_element_by_id("Id").get_attribute("value")
+store_url = driver.current_url
 
 eprint("Setting up a chain hot wallet")
 
-driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/onchain/BTC/generate/hotwallet")
+driver.get(store_url + "/onchain/BTC/generate/hotwallet")
 driver.find_element_by_id("Continue").click()
 
 eprint("Waiting for genmacaroon")
@@ -78,7 +78,7 @@ while subprocess.call(["sudo", "test", "-e", "/var/lib/lnd-system-regtest/invoic
 
 eprint("Setting up lightning")
 
-driver.get(default_domain + "/btcpay-rt/stores/" + store_id + "/lightning/BTC")
+driver.get(store_url + "/lightning/BTC")
 driver.find_element_by_id("save").click()
 
 eprint("Creating an invoice")
