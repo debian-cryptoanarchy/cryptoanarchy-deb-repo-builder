@@ -49,7 +49,9 @@ This is not a joke, several people were already confused by not having to manual
 **Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this) to avoid confusion.**
 
 Only Debian 10 (Buster) is currently tested, distributions based
-on it (Ubuntu, Mint...) should work too and I'll be happy to receive reports if you try them.
+on it (Ubuntu, Mint...) could work too but there is at least one known, hard to solve problem.
+(It leads to error message "libpcap-ng is too old".)
+I hope to solve it in the future but it's best to use Debian anyway.
 
 It's highly recommended to use decent hardware: at least 8GB of RAM and 1TB SSD (ideally NVMe).
 Your experience and the experience of your peers routing LN transactions through your node may suck otherwise!
