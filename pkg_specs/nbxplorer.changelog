@@ -1,3 +1,9 @@
+nbxplorer (2.2.4-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 11 Nov 2021 12:32:36 +0100
+
 nbxplorer (2.1.58-1) buster; urgency=medium
 
   * Updated upstream version
