@@ -4,7 +4,7 @@ source_name: lnd
 
 include: lnd/vars.mk
 
-fingerprint: E4D85299674B2D31FAA1892E372CBD7633C61696
+fingerprint: F4FC70F07310028424EFC20A8E4256593F177720
 
 unpack:
         url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/lnd-$(LND_ARCH_LONG)-v$(LND_VERSION)-beta.tar.gz
@@ -13,7 +13,7 @@ unpack:
 
 shasums:
         url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt
-        detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-roasbeef-v$(LND_VERSION)-beta.sig
+        detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-guggero-v$(LND_VERSION)-beta.sig
 
 build_system: none
 

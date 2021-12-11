@@ -5,11 +5,16 @@ conf_param = "-C"
 user = { group = true, create = { home = true } }
 depends = ["bitcoin-fullchain-{variant}", "bitcoin-timechain-{variant}"]
 recommends = ["lnd-unlocker-system-{variant}"]
+suggests = ["tor"]
+conflicts = ["btcpayserver-lnp-system-{variant} (<< 1.3.6)"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
+service_type = "notify"
 extra_service_config = """
 Restart=always
 EnvironmentFile=-/var/lib/lnd-system-{variant}/.auto_unlock
+TimeoutStartSec=600
+TimeoutStopSec=600
 """
 
 [map_variants.mainnet_enabled]
@@ -46,6 +51,40 @@ else
 \t\tdb_set lnd-system-{variant}/externalip \"\" || true
 \tfi
 fi"""
+
+[migrations."<< 0.14.1-1"]
+config = """
+manual_tor_config=0
+if grep -q 'tor\\.active *= *1' /etc/lnd-system-{variant}/conf.d/* || grep -q 'tor\\.active *= *true' /etc/lnd-system-{variant}/conf.d/*;
+then
+\techo "Tor is active, setting tor.skip-proxy-for-clearnet-targets default to false"
+\tdb_set lnd-system-{variant}/tor.active true
+\tdb_fset lnd-system-{variant}/tor.active seen false
+\tdb_set lnd-system-{variant}/tor.skip-proxy-for-clearnet-targets false
+\tdb_fset lnd-system-{variant}/tor.skip-proxy-for-clearnet-targets seen false
+\tmanual_tor_config=1
+\tmanual_tor_active=true
+fi
+if grep -q 'tor\\.active *= *0' /etc/lnd-system-{variant}/conf.d/* || grep -q 'tor\\.active *= *false' /etc/lnd-system-{variant}/conf.d/*;
+then
+\tdb_set lnd-system-{variant}/tor.active false
+\tdb_fset lnd-system-{variant}/tor.active seen false
+\tmanual_tor_config=1
+\tmanual_tor_active=false
+fi
+if [ "$manual_tor_config" = 1 ];
+then
+\techo
+\techo
+\techo "WARNING: Manual Tor configuration detected!"
+\techo "Please consider migrating to debconf by removing it from your custom file:"
+\tgrep --color=auto -rn 'tor\\.active *=' /etc/lnd-system-{variant}/conf.d/
+\techo "Your current value ($manual_tor_active) was cached in debconf but will not be used until you remove custom config."
+\techo
+\techo "Giving you a few seconds to read this..."
+\tsleep 10
+fi
+"""
 
 [extra_groups."lnd-system-{variant}-invoice"]
 create = true
@@ -229,6 +268,27 @@ default = "127.0.0.1"
 priority = "medium"
 summary = "LND REST bind address (use 0.0.0.0 to publish REST)"
 store = false
+
+[config."lnd.conf".ivars."tor.active"]
+type = "bool"
+default = "true"
+priority = "medium"
+summary = "Use Tor?"
+
+[[config."lnd.conf".ivars."tor.active".conditions]]
+command = { run = ["systemctl", "is-active", "-q", "tor@default.service"], user = "root", group = "root" }
+
+[[config."lnd.conf".ivars."tor.active".conditions]]
+command = { invert = true, run = ["grep", "-rq", "tor\\.active *=", "/etc/lnd-system-{variant}/conf.d/"], user = "lnd-system-{variant}", group = "lnd-system-{variant}" }
+
+[config."lnd.conf".ivars."tor.skip-proxy-for-clearnet-targets"]
+type = "bool"
+default = "true"
+priority = "medium"
+summary = "Skip Tor proxy when connecting to clearnet nodes? (non-private, better performance)"
+
+[[config."lnd.conf".ivars."tor.skip-proxy-for-clearnet-targets".conditions]]
+var = { name = "/tor.active", value = "true" }
 
 [config."lnd.conf".hvars.restlisten]
 type = "string"
