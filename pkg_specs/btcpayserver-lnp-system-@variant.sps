@@ -2,7 +2,7 @@ name = "btcpayserver-lnp-system-@variant"
 extends = "btcpayserver-system-@variant"
 depends_on_extended = true
 summary = "Package integrating LND into BTCPayServer ({variant})"
-depends = ["btcpayserver-system-{variant}", "lnd-genmacaroon-system-{variant}", "openssl"]
+depends = ["btcpayserver-system-{variant} (>= 1.3.6)", "lnd-genmacaroon-system-{variant}", "openssl"]
 
 [extra_groups."lnd-system-{variant}-readonly"]
 create = false
