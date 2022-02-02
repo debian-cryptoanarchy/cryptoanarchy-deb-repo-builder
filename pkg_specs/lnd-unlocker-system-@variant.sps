@@ -2,7 +2,7 @@ name = "lnd-unlocker-system-@variant"
 bin_package = "lnd-auto-unlock"
 binary = "/usr/share/lnd-auto-unlock/auto_unlock.sh"
 user = { name = "lnd-system-{variant}", group = true }
-depends = ["lnd-system-{variant} (>= 0.13.1)"]
+depends = ["lnd-system-{variant} (>= 0.14.1)"]
 summary = "Automatic unlocker for Lightning Network Daemon ({variant})"
 service_type = "oneshot"
 # We just need to simulate stateful behavior
