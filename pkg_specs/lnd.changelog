@@ -1,3 +1,9 @@
+lnd (0.14.2-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 4 Feb 2021 10:37:00 +0100
+
 lnd (0.14.1-2) buster; urgency=medium
 
   * Fixed dependency
