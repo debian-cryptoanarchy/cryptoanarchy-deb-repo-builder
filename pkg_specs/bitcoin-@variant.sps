@@ -89,6 +89,18 @@ try_overwrite_default = "mem_avail=\"`grep MemTotal /proc/meminfo | awk '{{print
 priority = "medium"
 summary = "Size of database cache in MB"
 
+[config."bitcoin.conf".ivars.no_settings]
+type = "bool"
+default = "true"
+priority = "low"
+summary = "Disable dynamic settings"
+store = false
+
+[config."bitcoin.conf".hvars.nosettings]
+type = "string"
+script = "if [ \"${{CONFIG[\"bitcoin-{variant}/no_settings\"]}}\" = true ]; then echo -n 1; fi"
+ignore_empty = true
+
 [config."bitcoin.conf".hvars.rpccookiefile]
 type = "string"
 template = "/var/run/bitcoin-{variant}/cookie"
