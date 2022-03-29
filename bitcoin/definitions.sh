@@ -16,4 +16,4 @@ else
 	subdir=""
 fi
 
-log_file="/var/lib/bitcoin-$network$subdir/debug.log"
+log_file="/var/log/bitcoin-$network$subdir/debug.log"

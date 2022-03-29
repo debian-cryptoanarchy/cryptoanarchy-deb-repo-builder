@@ -17,6 +17,7 @@ TimeoutStartSec=300
 TimeoutStopSec=300
 Restart=always
 RestartSec=30
+LogsDirectory=bitcoin-{variant}
 """
 
 [map_variants.insert_header]
@@ -48,6 +49,13 @@ long_doc = """
 The full path to the directory which will contain timechain data (blocks and chainstate).
 Important: you need around 10GB of free space!
 """
+
+[config."bitcoin.conf".ivars.debuglogfile]
+type = "path"
+file_type = "regular"
+default = "/var/log/bitcoin-{variant}/debug.log"
+priority = "medium"
+summary = "File containing the bitcoind debug logs for {variant}"
 
 [map_variants.default_p2p_port]
 mainnet = "8333"
