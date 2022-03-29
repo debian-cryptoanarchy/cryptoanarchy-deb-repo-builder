@@ -85,7 +85,18 @@ summary = "Bitcoin RPC port"
 type = "uint"
 default = "450"
 # sets dbcache to the closest power of two to half of the memory but not greater than 4096
-try_overwrite_default = "mem_avail=\"`grep MemTotal /proc/meminfo | awk '{{print $2}}'`\" && echo \"if($mem_avail < 8192000) {{ x=l($mem_avail/2000)/l(2); scale=0; 2^((x+0.5)/1) }} else {{ 4096 }}\" | bc -l"
+try_overwrite_default = """
+mem_avail=`grep MemTotal /proc/meminfo | awk '{{print $2}}'` &&
+if [ $mem_avail -lt 1024000 ]; then
+    echo -n 450;
+elif [ $mem_avail -lt 2048000 ]; then
+    echo -n 512;
+elif [ $mem_avail -lt 4096000 ]; then
+    echo -n 1024;
+elif [ $mem_avail -lt 8192000 ]; then
+    echo -n 2048;
+else echo -n 4096; fi
+"""
 priority = "medium"
 summary = "Size of database cache in MB"
 
