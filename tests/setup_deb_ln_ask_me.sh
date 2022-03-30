@@ -14,4 +14,4 @@ sudo cp "$test_data_dir/${repo}_apt.list" /etc/apt/sources.list.d/cryptoanarchy-
 sudo apt-key add < "$test_data_dir/${repo}_key.gpg"
 sudo cp "$test_data_dir"/microsoft_apt.list /etc/apt/sources.list.d/microsoft.list
 sudo apt-key add < "$test_data_dir"/microsoft_key.gpg
-sudo apt update
+sudo apt-get update

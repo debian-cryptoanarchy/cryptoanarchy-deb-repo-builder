@@ -15,14 +15,14 @@ then
 	sudo mv "$apt_repo_dir.tmp" "$apt_repo_dir"
 	# Give some time for apt-local-repository to see the changes
 	sleep 5
-	sudo apt update
+	sudo apt-get update
 else
 	sudo mkdir -p "$apt_repo_dir"
 	sudo cp "$pkg_dir"/*.deb "$apt_repo_dir"
 	sudo cp "$test_data_dir"/microsoft_apt.list /etc/apt/sources.list.d/microsoft.list
 	sudo apt-key add < "$test_data_dir"/microsoft_key.gpg
-	sudo apt update
-	sudo apt install -y local-apt-repository
-	sudo apt update
+	sudo apt-get update
+	sudo apt-get install -y local-apt-repository
+	sudo apt-get update
 	"$test_dir/set_local_cert_config.sh"
 fi

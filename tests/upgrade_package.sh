@@ -11,6 +11,6 @@ package="$2"
 package_type="${package_type["$package"]}"
 
 echo "Upgrading package $package" >&2
-sudo apt install -y "$package"
+sudo apt-get install -y "$package"
 echo "Checking package $package" >&2
 check "$package" "$package_type" "after_upgrade"
