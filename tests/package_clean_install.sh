@@ -29,6 +29,9 @@ echo "Purging package $package" >&2
 sudo apt purge -y "$package" ${remove_depends["$package"]}
 # We need to remove content of home dir, but not the dir itself
 sudo rm -rf "/var/lib/$package"/*
+# Clean up the chain mode marker, since we want it to be clean
+# See bitcoin/check_needs_reindex.sh
+sudo rm -rf "/etc/bitcoin-mainnet/prev_chain_mode" "/etc/bitcoin-regtest/prev_chain_mode"
 # Disable connections after bitcoin-mainnet was tested
 # in order to avoid fetching blocks during testing.
 if [ "$package" = "bitcoin-mainnet" ];
