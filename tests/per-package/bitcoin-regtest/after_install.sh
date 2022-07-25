@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if sudo grep '^dbcache=450$' /etc/bitcoin-regtest/bitcoin.conf;
+if sudo grep '^dbcache=450$' /etc/bitcoin-regtest/bitcoin.conf && 
+   [ `grep MemTotal /proc/meminfo | awk '{{print $2}}'` -ge 1024000 ];
 then
 	echo "Failed to override dbcache" >&2
 	exit 1
