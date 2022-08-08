@@ -14,19 +14,19 @@ package_type="${package_type["$package"]}"
 # to init them at the beginning of each run due to purge being at the end.
 preload_config
 echo "Installing package $package" >&2
-sudo apt install -y "$package"
+sudo apt-get install -y "$package"
 echo "Checking package $package" >&2
 check "$package" "$package_type" "after_install"
 echo "Reinstalling package $package" >&2
-sudo apt reinstall -y "$package"
+sudo apt-get reinstall -y "$package"
 echo "Checking package $package" >&2
 check "$package" "$package_type" "after_install"
 echo "Removing package $package" >&2
-sudo apt remove -y "$package" ${remove_depends["$package"]}
+sudo apt-get remove -y "$package" ${remove_depends["$package"]}
 echo "Checking package $package" >&2
 check "$package" "$package_type" "after_remove"
 echo "Purging package $package" >&2
-sudo apt purge -y "$package" ${remove_depends["$package"]}
+sudo apt-get purge -y "$package" ${remove_depends["$package"]}
 # We need to remove content of home dir, but not the dir itself
 sudo rm -rf "/var/lib/$package"/*
 # Disable connections after bitcoin-mainnet was tested

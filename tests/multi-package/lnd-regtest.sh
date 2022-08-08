@@ -14,7 +14,7 @@ tlncli() {
 
 test_dir="$(realpath "$(dirname "$0")/..")"
 
-sudo apt install -y lnd-system-regtest bitcoin-cli lncli
+sudo apt-get install -y lnd-system-regtest bitcoin-cli lncli
 
 "$test_dir/lib/spawn_secondary_lnd.sh" 1 9800
 

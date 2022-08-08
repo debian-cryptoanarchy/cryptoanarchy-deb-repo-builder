@@ -16,4 +16,4 @@ test -n "$DPKG_DEBUG_LEVEL" && echo "debug $DPKG_DEBUG_LEVEL" | sudo tee /etc/dp
 preload_config
 sudo mkdir -p /etc/selfhost
 sudo cp "$test_data_dir/clearnet-certbot.test.conf"  /etc/selfhost/
-sudo apt install -y $packages
+sudo apt-get install -y $packages
