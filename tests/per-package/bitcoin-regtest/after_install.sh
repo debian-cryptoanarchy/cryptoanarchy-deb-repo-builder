@@ -18,7 +18,7 @@ then
 	exit 1
 fi
 
-if sudo test -e "/var/lib/bitcoin-regtest/regtest/wallets/test_wallet";
+if sudo test -e "/var/lib/bitcoin-regtest/regtest/test_wallet";
 then
 	wget -O - --post-data='{"jsonrpc": "1.0", "id":"curltest0", "method": "loadwallet", "params": ["test_wallet"] }' --header 'content-type: text/plain;' --header 'Authorization: Basic '"`sudo cat /var/run/bitcoin-regtest/cookie | base64 | tr -d '\n'`" "http://127.0.0.1:`sudo grep '^rpcport=' /etc/bitcoin-regtest/bitcoin.conf | sed 's/^rpcport=//' | tr -d '\n'`"
 else
