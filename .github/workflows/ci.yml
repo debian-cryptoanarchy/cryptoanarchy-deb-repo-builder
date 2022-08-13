@@ -1,0 +1,139 @@
+name: CADR CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  USER_NAME: user
+  BUILD_DIR: /home/user/cadr-build
+  IMAGE_NAME: cadr/cadr
+  CONTAINER_NAME: cadr
+  CI_SCRIPT: ci_build.sh
+  PODMAN_CMD: "sudo -E XDG_RUNTIME_DIR= podman"
+  SPAWN_CONTAINER: "$PODMAN_CMD run --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro --privileged --systemd=true -d -v $PWD:$BUILD_DIR --name=$CONTAINER_NAME $IMAGE_NAME"
+  EXECUTE_CMD: "$PODMAN_CMD exec -u $USER_NAME -i $CONTAINER_NAME"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup CI Build Script
+        run: |
+          tee -a $CI_SCRIPT <<EOF
+          #!/bin/bash
+          set -ex
+          sudo apt-get update
+          sudo chown -R $USER_NAME $BUILD_DIR
+          cd $BUILD_DIR
+          MKCMD="make BUILD_DIR=${BUILD_DIR}/build"
+          \$MKCMD build-dep
+          \$MKCMD all
+          EOF
+          chmod +x $CI_SCRIPT
+      - name: Build CADR Running Environment Image
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade podman
+          $PODMAN_CMD build -t $IMAGE_NAME .
+          $PODMAN_CMD save $IMAGE_NAME > CADR_image.tar
+      - name: Upload the Running Environment Image to Artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: CADR_image
+          path: CADR_image.tar
+      - name: Spawn Podman Container to Prepare Running Environment
+        run: |
+          eval $SPAWN_CONTAINER
+      - name: Build CADR
+        run: |
+          eval $EXECUTE_CMD ${BUILD_DIR}/$CI_SCRIPT
+      - name: Upload Debian Packages Just Built to Artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: CADR_debs
+          path: build/*.deb
+      - name: Check SHA256
+        if: ${{ always() }}
+        run: |
+          sudo chown -R $USER build
+          cd build
+          for file in *.deb
+          do
+            sha256sum $file > ${file}.sha256sum
+            cat $file.sha256sum
+          done
+      - name: Upload SHA256 of Debian Packages Just Built to Artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: CADR_debs_sha256sum
+          path: build/*.deb.sha256sum
+      - name: Fix the Dir Permission for Post checkout
+        if: ${{ always() }}
+        run: |
+          sudo chown -R $USER $PWD
+
+  test:
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ["bitcoind", "bitcoin-mainnet", "bitcoin-regtest",
+          "bitcoin-pruned-mainnet", "bitcoin-fullchain-mainnet", "bitcoin-fullchain-regtest",
+          "bitcoin-txindex-mainnet", "bitcoin-zmq-mainnet", "bitcoin-zmq-regtest",
+          "bitcoin-rpc-proxy", "bitcoin-rpc-proxy-mainnet", "bitcoin-rpc-proxy-regtest",
+          "bitcoin-timechain-mainnet", "electrs", "electrs-mainnet", "electrs-regtest",
+          "btcpayserver", "btcpayserver-system-mainnet", "btcpayserver-system-regtest",
+          "lnd", "lnd-system-mainnet", "lnd-system-regtest","lnd-unlocker-system-mainnet",
+          "lnd-unlocker-system-mainnet", "ridetheln", "ridetheln-system",
+          "ridetheln-lnd-system-mainnet", "ridetheln-lnd-system-regtest", "selfhost",
+          "selfhost-nginx", "selfhost-onion", "selfhost-clearnet",
+          "selfhost-clearnet-certbot", "tor-hs-patch-config", "thunderhub",
+          "thunderhub-system-mainnet", "thunderhub-system-regtest", "btc-rpc-explorer-mainnet",
+          "lndconnect", "selfhost-dashboard-bin", "selfhost-dashboard", "btc-transmuter",
+          "btc-transmuter-system-mainnet", "btc-transmuter-system-regtest"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Test Prefix
+        run: |
+          echo "TEST_PREFIX=sudo chown -R $USER_NAME $BUILD_DIR && cd $BUILD_DIR && make BUILD_DIR=$BUILD_DIR/build" >> $GITHUB_ENV
+      - name: Prepare Podman Container Running Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade podman
+      - name: Download Pre-built Container Image
+        uses: actions/download-artifact@v3
+        with:
+          name: CADR_image
+          path: .
+      - name: Load Running Environment Image
+        run: |
+          $PODMAN_CMD load < CADR_image.tar
+          mkdir build
+      - name: Download Pre-built Debian Packages
+        uses: actions/download-artifact@v3
+        with:
+          name: CADR_debs
+          path: build
+      - name: Test CADR Basic
+        run: |
+          eval $SPAWN_CONTAINER
+          eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-basic-${{ matrix.package }}\""
+          $PODMAN_CMD rm -f $CONTAINER_NAME
+      - name: Test CADR Upgrade
+        run: |
+          eval $SPAWN_CONTAINER
+          eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX SPLIT_STRATEGY=upgrade test-here-upgrade-${{ matrix.package }}\""
+      - name: Fix the Dir Permission for Post checkout
+        if: ${{ always() }}
+        run: |
+          sudo chown -R $USER $PWD
