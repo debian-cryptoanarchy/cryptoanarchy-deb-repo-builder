@@ -65,6 +65,7 @@ driver.get(default_domain + "/btcpay-rt/stores/create")
 driver.find_element_by_id("Name").send_keys("Test")
 driver.find_element_by_id("Name").send_keys(Keys.RETURN)
 store_url = driver.current_url
+store_id = store_url[(store_url.rfind('/') + 1):]
 
 eprint("Setting up a chain hot wallet")
 
@@ -78,12 +79,12 @@ while subprocess.call(["sudo", "test", "-e", "/var/lib/lnd-system-regtest/invoic
 
 eprint("Setting up lightning")
 
-driver.get(store_url + "/lightning/BTC")
+driver.get(store_url + "/lightning/BTC/settings")
 driver.find_element_by_id("save").click()
 
 eprint("Creating an invoice")
 
-driver.get(default_domain + "/btcpay-rt/invoices/create/")
+driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
 driver.find_element_by_id("Amount").send_keys("10")
 driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
 
@@ -107,7 +108,7 @@ if driver.find_element_by_class_name("success-message").text != "This invoice ha
 
 eprint("Creating an invoice")
 
-driver.get(default_domain + "/btcpay-rt/invoices/create/")
+driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
 driver.find_element_by_id("Amount").send_keys("10")
 driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
 
