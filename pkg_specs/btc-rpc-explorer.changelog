@@ -1,3 +1,9 @@
+btc-rpc-explorer (3.1.1-2) bullseye; urgency=medium
+
+  * Bullseye build
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 1 Oct 2022 13:51:05 +0100
+
 btc-rpc-explorer (3.1.1-1) buster; urgency=medium
 
   * Updated upstream version

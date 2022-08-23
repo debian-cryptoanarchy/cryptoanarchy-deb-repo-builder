@@ -29,7 +29,7 @@ endif
 
 .DELETE_ON_ERROR:
 
-SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard remir bitcoin-whitepaper btc-transmuter
+SOURCES=bitcoin bitcoin-rpc-proxy electrs electrum lnd nbxplorer btcpayserver ridetheln selfhost tor-extras thunderhub btc-rpc-explorer lndconnect lnpbp-testkit selfhost-dashboard bitcoin-whitepaper btc-transmuter
 
 include common_vars.mk
 

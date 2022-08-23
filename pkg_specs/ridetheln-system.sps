@@ -14,6 +14,7 @@ add_links = [
 ]
 extra_service_config = """
 Restart=always
+TimeoutStartSec=300
 Environment=RTL_CONFIG_PATH=/var/lib/ridetheln-system
 """
 

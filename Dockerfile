@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL repository="https://github.com/debian-cryptoanarchy/cryptoanarchy-deb-repo-builder"
 
@@ -10,7 +10,7 @@ COPY tests/data/microsoft_key.gpg /tmp/
 COPY tests/data/microsoft_apt.list /tmp/
 
 RUN apt-get update && apt-get dist-upgrade && \
-    apt-get install apt-utils && \
+    apt-get install apt-utils ca-certificates && \
     apt-get install wget cargo npm git apt-transport-https \
     ruby-mustache dirmngr sudo libvips-dev ca-certificates gpg \
     systemd systemd-sysv net-tools netcat xxd && \

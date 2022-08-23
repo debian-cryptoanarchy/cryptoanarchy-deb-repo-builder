@@ -3,9 +3,9 @@ name: CADR CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ master, bullseye ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, bullseye ]
 
 env:
   USER_NAME: user
