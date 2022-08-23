@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.3.0-6) bullseye; urgency=medium
+
+  * Bullseye build
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 15 Oct 2022 18:43:07 +0100
+
 btc-rpc-proxy (0.3.0-5) buster; urgency=medium
 
   * Added getzmqnotifications to allowed public calls
