@@ -19,11 +19,6 @@ store = false
 [config."conf.d/lnd.conf".evars."lnd-system-@variant".tlscertpath]
 store = false
 
-[config."conf.d/lnd.conf".hvars."certthumbprint"]
-type = "string"
-store = false
-script = "openssl x509 -noout -fingerprint -sha256 -inform pem -in ${{CONFIG[\"lnd-system-{variant}/tlscertpath\"]}} | sed 's/^.*=//' | tr -d ':'"
-
 [config."conf.d/lnd.conf".hvars."btc.lightning"]
 type = "string"
-template = "type=lnd-rest;server=https://127.0.0.1:{lnd-system-@variant/rest_port}/;macaroonfilepath=/var/lib/lnd-system-{variant}/invoice/invoice+readonly.macaroon;certthumbprint={/certthumbprint}"
+template = "type=lnd-rest;server=https://127.0.0.1:{lnd-system-@variant/rest_port}/;macaroonfilepath=/var/lib/lnd-system-{variant}/invoice/invoice+readonly.macaroon;certfilepath=/var/lib/lnd-system-{variant}/public/tls.cert"
