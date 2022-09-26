@@ -1,3 +1,10 @@
+btcpayserver (1.6.11-1) buster; urgency=high
+
+  * Updated upstream version
+  * Use certfilepath instead of certhumbprint to keep cert in sync
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 26 Sep 2022 21:01:19 +0100
+
 btcpayserver (1.6.7-1) buster; urgency=high
 
   * Updated upstream version
