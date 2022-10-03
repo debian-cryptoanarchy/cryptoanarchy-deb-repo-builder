@@ -3,9 +3,9 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-fullchain-{variant}", "bitcoin-timechain-{variant}"]
+depends = ["bitcoin-timechain-{variant}"]
 recommends = ["lnd-unlocker-system-{variant}"]
-suggests = ["tor"]
+suggests = ["tor", "bitcoin-fullchain-{variant}"]
 conflicts = ["btcpayserver-lnp-system-{variant} (<< 1.3.6)"]
 extended_by = ["tor-hs-patch-config", "selfhost-clearnet"]
 summary = "Lightning Network Daemon"
