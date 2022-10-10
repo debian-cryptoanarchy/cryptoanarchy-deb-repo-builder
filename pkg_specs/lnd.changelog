@@ -1,3 +1,10 @@
+lnd (0.15.2-1) buster; urgency=critical
+
+  * Updated upstream version
+  * Fixes critical chain parsing bug
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 10 Oct 2022 10:10:42 +0100
+
 lnd (0.14.2-2) buster; urgency=medium
 
   * Removed dependency on fullchain since it's no longer required.

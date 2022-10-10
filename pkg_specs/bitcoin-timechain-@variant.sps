@@ -20,6 +20,7 @@ allowed_calls = [
 	"getchaintips",
 	"getdifficulty",
 	"getnetworkinfo",
+	"getnodeaddresses",
 	"getmempoolinfo",
 	"getmempoolentry",
 	"getmempoolancestors",

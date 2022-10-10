@@ -3,7 +3,7 @@ bin_package = "lnd"
 binary = "/usr/bin/lnd"
 conf_param = "-C"
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-timechain-{variant}"]
+depends = ["bitcoin-timechain-{variant} (>= 0.3.0-4)"]
 recommends = ["lnd-unlocker-system-{variant}"]
 suggests = ["tor", "bitcoin-fullchain-{variant}"]
 conflicts = ["btcpayserver-lnp-system-{variant} (<< 1.3.6)"]

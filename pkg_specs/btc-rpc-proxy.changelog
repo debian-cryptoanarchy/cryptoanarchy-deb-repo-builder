@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.3.0-4) buster; urgency=medium
+
+  * Added getnodeaddresses to allowed public calls
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 10 Oct 2022 10:57:42 +0100
+
 btc-rpc-proxy (0.3.0-3) buster; urgency=medium
 
   * Added getindexinfo to allowed public calls
