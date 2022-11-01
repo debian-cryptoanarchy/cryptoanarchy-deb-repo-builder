@@ -29,6 +29,7 @@ allowed_calls = [
 	"gettxout",
 	"gettxoutproof",
 	"gettxoutsetinfo",
+	"getzmqnotifications",
 	"verifytxoutproof",
 	"createrawtransaction",
 	"decoderawtransaction",

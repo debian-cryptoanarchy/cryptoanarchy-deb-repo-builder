@@ -1,3 +1,10 @@
+lnd (0.15.4-1) buster; urgency=critical
+
+  * Updated upstream version
+  * Fixes critical chain parsing bug
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 1 Nov 2022 14:39:34 +0100
+
 lnd (0.15.2-1) buster; urgency=critical
 
   * Updated upstream version

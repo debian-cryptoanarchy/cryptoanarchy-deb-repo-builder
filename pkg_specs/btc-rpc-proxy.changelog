@@ -1,3 +1,9 @@
+btc-rpc-proxy (0.3.0-5) buster; urgency=medium
+
+  * Added getzmqnotifications to allowed public calls
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 1 Nov 2022 16:31:42 +0100
+
 btc-rpc-proxy (0.3.0-4) buster; urgency=medium
 
   * Added getnodeaddresses to allowed public calls
