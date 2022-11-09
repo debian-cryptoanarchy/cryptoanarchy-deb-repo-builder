@@ -9,3 +9,16 @@ verify_tag: true
 build_system: cargo
 #cargo_env: ROCKSDB_INCLUDE_DIR=/usr/include ROCKSDB_LIB_DIR=/usr/lib SNAPPY_LIB_DIR=/usr/lib LZ4_LIB_DIR=/usr/lib ZSTD_LIB_DIR=/usr/lib Z_LIB_DIR=/usr/lib BZ2_LIB_DIR=/usr/lib
 #cargo_args: --no-default-features
+
+copy_assets:
+        - from: electrs/patches/series
+          to: debian/patches/series
+        - from: electrs/patches/update-bitcoin-lib.diff
+          to: debian/patches/update-bitcoin-lib.diff
+        - from: electrs/patches/update-rocksdb.diff
+          to: debian/patches/update-rocksdb.diff
+        - from: electrs/patches/msrv.diff
+          to: debian/patches/msrv.diff
+
+dirs:
+        - dir: debian/patches

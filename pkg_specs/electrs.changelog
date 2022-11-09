@@ -1,3 +1,16 @@
+electrs (0.9.3-2) buster; urgency=high
+
+  * Fix setting log filters
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 11 Nov 2022 17:00:17 +0100
+
+electrs (0.9.3-1) buster; urgency=high
+
+  * Updated upstream version
+  * Patch to use the newer version of the bitcoin library fixing block parsing bug
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 9 Nov 2022 13:06:19 +0100
+
 electrs (0.9.0-1) buster; urgency=medium
 
   * Experimental only: Updated upstream version

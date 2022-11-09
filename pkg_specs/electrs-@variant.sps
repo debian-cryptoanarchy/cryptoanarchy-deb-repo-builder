@@ -22,6 +22,26 @@ regtest = "60401"
 mainnet = "4224"
 regtest = "24224"
 
+[migrations."<< 0.9.9-1"]
+config = """
+db_get electrs-{variant}/verbose || RET="2"
+if [ "$RET" -eq 0 ];
+then
+\tlog_filters=error
+elif [ "$RET" -eq 1 ];
+then
+\tlog_filters=warn
+elif [ "$RET" -eq 2 ];
+then
+\tlog_filters=info
+else
+\tlog_filters=debug
+fi
+\techo "Migrating verbose level $RET to log_filters=$log_filters" >&2
+\tdb_set electrs-{variant}/log_filters "$log_filters"
+\tdb_fset electrs-{variant}/log_filters seen false || true
+"""
+
 [config."conf.d/interface.toml"]
 format = "toml"
 public = true
@@ -54,9 +74,9 @@ default = "/var/lib/electrs-{variant}"
 priority = "low"
 summary = "Database directory of electrs ({variant})"
 
-[config."conf.d/behavior.toml".ivars.verbose]
-type = "uint"
-default = "2"
+[config."conf.d/behavior.toml".ivars.log_filters]
+type = "string"
+default = "info"
 priority = "medium"
 summary = "Logging verbosity of electrs ({variant})"
 
