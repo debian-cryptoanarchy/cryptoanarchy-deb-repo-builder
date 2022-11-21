@@ -115,4 +115,4 @@ constant = "false"
 
 [config."../../etc/selfhost-dashboard/apps/btcpayserver-system-{variant}/meta.toml".hvars.entry_point]
 type = "uint"
-constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/Account/Login\\\" } }"
+constant = "{ \\\"Static\\\" = { \\\"url\\\" = \\\"/\\\" } }"
