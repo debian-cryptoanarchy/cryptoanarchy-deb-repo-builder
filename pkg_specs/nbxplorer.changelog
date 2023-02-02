@@ -1,3 +1,10 @@
+nbxplorer (2.3.58-1) buster; urgency=high
+
+  * Updated upstream version
+  * To minimize the risk dbtrie is still used
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 2 Feb 2023 14:43:42 +0100
+
 nbxplorer (2.2.4-1) buster; urgency=medium
 
   * Updated upstream version

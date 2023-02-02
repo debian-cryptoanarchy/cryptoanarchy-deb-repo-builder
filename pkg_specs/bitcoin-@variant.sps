@@ -89,6 +89,10 @@ default = "{default_rpc_port}"
 priority = "low"
 summary = "Bitcoin RPC port"
 
+[config."bitcoin.conf".hvars.whitelist]
+type = "string"
+template = "127.0.0.1"
+
 [config."bitcoin.conf".ivars.dbcache]
 type = "uint"
 default = "450"
