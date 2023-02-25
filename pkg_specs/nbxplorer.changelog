@@ -1,3 +1,9 @@
+nbxplorer (2.3.58-2) buster; urgency=medium
+
+  * Fixed dotnet dependency version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 2 Feb 2023 16:50:07 +0100
+
 nbxplorer (2.3.58-1) buster; urgency=high
 
   * Updated upstream version
