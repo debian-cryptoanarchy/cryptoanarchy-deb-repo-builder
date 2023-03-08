@@ -3,6 +3,7 @@ bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
+depends = ["bitcoin-{variant}"]
 conflicts = ["btcpayserver-system-selfhost-{variant}"]
 # The former two of these recommends handle the situation when lnd is installed on the command line
 # without explicitly selecting the network or when the selected network is mainnet only, the latter
