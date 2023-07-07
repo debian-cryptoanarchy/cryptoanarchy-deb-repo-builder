@@ -91,7 +91,8 @@ driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
 eprint("Retrieving payment details")
 
 driver.find_element_by_class_name("invoice-checkout-link").click()
-payment_link = driver.find_element_by_class_name("payment__details__instruction__open-wallet__btn").get_attribute("href")
+sleep(5)
+payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
 
 if payment_link.find("pj=") < 0:
     eprint("PayJoin disabled")
@@ -102,7 +103,7 @@ network().auto_pay(payment_link)
 
 sleep(10)
 
-if driver.find_element_by_class_name("success-message").text != "This invoice has been paid":
+if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
     eprint("Failed to pay chain address")
     ret = 1
 
@@ -115,22 +116,17 @@ driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
 eprint("Retrieving Lightning invoice")
 
 driver.find_element_by_class_name("invoice-checkout-link").click()
-driver.find_element_by_class_name("payment__currencies").click()
-
-for element in driver.find_elements_by_class_name("vexmenuitem"):
-    a = element.find_element_by_css_selector("a")
-    if a.text.find("Lightning") > 0:
-        a.click()
-        break
+sleep(1)
+driver.find_element_by_class_name("payment-method").click()
 
 sleep(1)
 
-payment_link = driver.find_element_by_class_name("payment__details__instruction__open-wallet__btn").get_attribute("href")
+payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
 network().auto_pay(payment_link)
 
 sleep(5)
 
-if driver.find_element_by_class_name("success-message").text != "This invoice has been paid":
+if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
     eprint("Failed to pay Lightning invoice")
     ret = 1
 
