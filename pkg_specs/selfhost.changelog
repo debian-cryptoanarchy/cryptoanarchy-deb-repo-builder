@@ -1,3 +1,9 @@
+selfhost (0.1.9-1) buster; urgency=medium
+
+  * Fixed IPv6
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 1 Aug 2022 15:01:10 +0100
+
 selfhost (0.1.8-1) buster; urgency=low
 
   * Added X-Forwarded-Host

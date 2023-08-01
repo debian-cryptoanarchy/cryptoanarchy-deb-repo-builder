@@ -1,5 +1,6 @@
 server {
 {{#tls_key}}
+	listen {{#public}}[::]{{/public}}{{^public}}[::1]{{/public}}:443 ssl http2;
 	listen {{#public}}0.0.0.0{{/public}}{{^public}}127.0.0.1{{/public}}:443 ssl http2;
 	ssl_certificate {{{tls_cert}}};
 	ssl_certificate_key {{{tls_key}}};
@@ -32,6 +33,7 @@ server {
 {{#tls_key}}
 {{#public}}
 server {
+	listen [::]:80;
 	listen 0.0.0.0:80;
 	server_name {{{domain}}};
 	return 301 https://$host$request_uri;
