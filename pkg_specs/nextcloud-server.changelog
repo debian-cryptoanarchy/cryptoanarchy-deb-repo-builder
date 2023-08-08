@@ -1,3 +1,9 @@
+nextcloud-server (21.0.0-3) buster; urgency=medium
+
+  * Fix libcap-ng problem
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 10 Jul 2021 09:52:26 +0100
+
 nextcloud-server (21.0.0-2) buster; urgency=medium
 
   * Fixed webdav
