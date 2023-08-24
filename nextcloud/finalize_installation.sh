@@ -2,6 +2,8 @@
 
 set -e
 
+current_php_version="`dpkg-query --showformat '${Version}' -W php-fpm | sed -e 's/^2://' -e 's/[+-].*$//'`"
+old_php_version="`grep -v '^#' /etc/nextcloud-server-system/php_version 2>/dev/null`" || old_php_version=""
 user_name="nextcloud-server-system"
 group_name="$user_name"
 nextcloud_selfhost_resource_dir="/usr/share/nextcloud-server-system"
@@ -26,13 +28,8 @@ apcu_config="$internal_conf_dir/apcu.config.php"
 apcu_config_tmp="$apcu_config.tmp"
 nginx_conf_file="/etc/nginx/nextcloud-server.conf"
 nginx_conf_file_tmp="$nginx_conf_file.tmp"
-fpm_config_file="/etc/php/7.3/fpm/pool.d/nextcloud-server-system.conf"
-fpm_config_file_tmp="$fpm_config_file.tmp"
 cache_dir="/var/cache/nextcloud-server"
 fpm_log_dir="/var/log/nextcloud-server-system"
-
-# Quick hack
-#echo 'apc.enable_cli=1' > '/etc/php/7.3/cli/conf.d/21-apcu-enable-cli.ini'
 
 adduser --system --quiet --group --home "/var/lib/$user_name" "$user_name"
 mkdir -p -m 750 "$internal_conf_dir"
@@ -41,6 +38,27 @@ mkdir -p -m 750 "$data_dir"
 chown "$user_name":"$user_name" "$data_dir"
 mkdir -p -m 750 "$cache_dir"
 chown "$user_name":"$user_name" "$cache_dir"
+
+if [ "$old_php_version" '!=' "$current_php_version" ];
+then
+	test -n "$old_php_version" || old_php_version=7.3
+	current_fpm_config_file="/etc/php/$current_php_version/fpm/pool.d/nextcloud-server-system.conf"
+	old_fpm_config_file="/etc/php/$old_php_version/fpm/pool.d/nextcloud-server-system.conf"
+	if [ -n "$old_php_version" ] && [ -e "$old_fpm_config_file" ];
+	then
+		mv "$old_fpm_config_file" "$current_fpm_config_file"
+		dpkg-trigger --no-await "/etc/php/$old_php_version/fpm/conf.d"
+	elif [ '!' -e "$current_fpm_config_file" ];
+	then
+		cp "$nextcloud_selfhost_resource_dir/fpm-pool.conf" "$current_fpm_config_file.tmp"
+		sync "$current_fpm_config_file.tmp"
+		mv "$current_fpm_config_file.tmp" "$current_fpm_config_file"
+	fi
+	dpkg-trigger --await "/etc/php/$current_php_version/fpm/conf.d"
+	echo -e '# Internal, do not change!\n'"$current_php_version" > /etc/nextcloud-server-system/php_version.tmp
+	sync /etc/nextcloud-server-system/php_version.tmp
+	mv /etc/nextcloud-server-system/php_version.tmp /etc/nextcloud-server-system/php_version
+fi
 
 if [ '!' -e "$main_config_file" ];
 then
@@ -99,10 +117,6 @@ sync "$admin_pass_file_tmp"
 mv "$admin_pass_file_tmp" "$admin_pass_file"
 fi
 
-cp "$nextcloud_selfhost_resource_dir/fpm-pool.conf" "$fpm_config_file_tmp"
-sync "$fpm_config_file_tmp"
-mv "$fpm_config_file_tmp" "$fpm_config_file"
-
 cat <<EOF > "$selfhost_config_tmp"
 <?php
 
@@ -144,7 +158,7 @@ EOF
 sync "$carddav_config_file_tmp"
 mv "$carddav_config_file_tmp" "$carddav_config_file"
 
-if [ -e "/etc/php/7.3/mods-available/apcu.ini" ];
+if [ -e "/etc/php/$php_version/mods-available/apcu.ini" ];
 then
 cat <<EOF > "$apcu_config_tmp"
 <?php
@@ -161,8 +175,6 @@ fi
 
 mkdir -p -m 750 "$fpm_log_dir"
 chown "$user_name":"$user_name" "$fpm_log_dir"
-
-dpkg-trigger "/etc/php/7.3/fpm/conf.d"
 
 if grep -q "'installed' => true," "$main_config_file";
 then

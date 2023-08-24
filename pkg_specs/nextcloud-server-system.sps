@@ -2,11 +2,15 @@ name = "nextcloud-server-system"
 summary = "Automates deployment of Nextcloud server using selfhost"
 architecture = "all"
 recommends = ["selfhost (>= 0.1.6-2)", "selfhost (<< 0.2.0)", "nextcloud-server-redis"]
-depends = ["default-selfhost-domain | selfhost-domain", "nextcloud-server (>= 20.0.4)", "php-fpm", "ruby-mustache", "php-pgsql"]
+depends = ["default-selfhost-domain | selfhost-domain", "nextcloud-server (>= 20.0.4)", "php-fpm (>= 2:7.3)", "ruby-mustache", "php-pgsql"]
 add_files = ["selfhost_tools/* /usr/share/nextcloud-server-system", "nextcloud-server-periodic.service /usr/lib/systemd/system", "nextcloud-server-periodic.timer /usr/lib/systemd/system"]
 add_links = [ "/usr/share/nextcloud-server-system/main_icon.png /usr/share/selfhost-dashboard/apps/icons/nextcloud-system/entry_main.png" ]
 add_dirs = ["/etc/nginx/selfhost-subsites-enabled"]
-extra_triggers = ["/etc/selfhost/domains"]
+extra_triggers = ["/etc/selfhost/domains", "/usr/share/doc/php-fpm/changelog.gz"]
+custom_postrm_script = """
+php_version="`grep -v '^#' /etc/nextcloud-server-system/php_version`"
+rm -f "/etc/php/$php_version/fpm/pool.d/nextcloud-server-system.conf"
+"""
 
 [alternatives."/etc/nextcloud-server-system/caldav.conf"]
 name = "selfhost-well-known-caldav"
@@ -22,6 +26,7 @@ priority = 100
 run_as_user = "nextcloud-server-system"
 register_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--off"]
 unregister_cmd = ["/usr/share/nextcloud-server-system/cli_helper.sh", "occ", "maintenance:mode", "--on"]
+read_only_root = false
 
 [databases.pgsql]
 template = """
@@ -46,6 +51,10 @@ internal = true
 [[config."nextcloud.conf".postprocess.generates]]
 file = "/etc/nextcloud-server-system/carddav.conf"
 # Not really, but triggers on links don't work and reconfiguration already activates correct trigger.
+internal = true
+
+[[config."nextcloud.conf".postprocess.generates]]
+file = "/etc/nextcloud-server-system/php_version"
 internal = true
 
 [config."nextcloud.conf".ivars.root_path]
