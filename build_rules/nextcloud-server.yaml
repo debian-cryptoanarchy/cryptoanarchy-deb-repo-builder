@@ -18,7 +18,7 @@ git_tag: v$(NEXTCLOUD_SERVER_VERSION)
 #verify_tag: true
 build_system: none
 copy_all: /usr/share/nextcloud-server
-copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer setup_redis.sh
+copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer setup_redis.sh fpm-pool.conf
 
 copy_assets:
         - from: nextcloud/nginx_template.mustache
@@ -30,7 +30,7 @@ copy_assets:
         - from: nextcloud/cli_helper.sh
           to: selfhost_tools/cli_helper.sh
         - from: nextcloud/fpm-pool.conf
-          to: selfhost_tools/fpm-pool.conf
+          to: fpm-pool.conf
         - from: nextcloud/main_icon.png
           to: selfhost_tools/main_icon.png
         - from: nextcloud/patches/debian-specific.patch

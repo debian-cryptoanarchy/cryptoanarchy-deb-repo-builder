@@ -3,7 +3,7 @@
 set -e
 
 current_php_version="`dpkg-query --showformat '${Version}' -W php-fpm | sed -e 's/^2://' -e 's/[+-].*$//'`"
-old_php_version="`grep -v '^#' /etc/nextcloud-server-system/php_version 2>/dev/null`" || old_php_version=""
+old_php_version="`grep -v '^#' /etc/nextcloud-server-system/php_version 2>/dev/null`" || old_php_version="7.3"
 user_name="nextcloud-server-system"
 group_name="$user_name"
 nextcloud_selfhost_resource_dir="/usr/share/nextcloud-server-system"
@@ -30,6 +30,8 @@ nginx_conf_file="/etc/nginx/nextcloud-server.conf"
 nginx_conf_file_tmp="$nginx_conf_file.tmp"
 cache_dir="/var/cache/nextcloud-server"
 fpm_log_dir="/var/log/nextcloud-server-system"
+current_fpm_config_file="/etc/php/$current_php_version/fpm/pool.d/nextcloud-server-system.conf"
+old_fpm_config_file="/etc/php/$old_php_version/fpm/pool.d/nextcloud-server-system.conf"
 
 adduser --system --quiet --group --home "/var/lib/$user_name" "$user_name"
 mkdir -p -m 750 "$internal_conf_dir"
@@ -39,26 +41,28 @@ chown "$user_name":"$user_name" "$data_dir"
 mkdir -p -m 750 "$cache_dir"
 chown "$user_name":"$user_name" "$cache_dir"
 
-if [ "$old_php_version" '!=' "$current_php_version" ];
+if [ '!' -e "$current_fpm_config_file" ];
 then
-	test -n "$old_php_version" || old_php_version=7.3
-	current_fpm_config_file="/etc/php/$current_php_version/fpm/pool.d/nextcloud-server-system.conf"
-	old_fpm_config_file="/etc/php/$old_php_version/fpm/pool.d/nextcloud-server-system.conf"
-	if [ -n "$old_php_version" ] && [ -e "$old_fpm_config_file" ];
+	if [ -e "$old_fpm_config_file" ];
 	then
-		mv "$old_fpm_config_file" "$current_fpm_config_file"
-		dpkg-trigger --no-await "/etc/php/$old_php_version/fpm/conf.d"
-	elif [ '!' -e "$current_fpm_config_file" ];
-	then
-		cp "$nextcloud_selfhost_resource_dir/fpm-pool.conf" "$current_fpm_config_file.tmp"
-		sync "$current_fpm_config_file.tmp"
-		mv "$current_fpm_config_file.tmp" "$current_fpm_config_file"
+		if [ -L "$old_fpm_config_file" ];
+		then
+			mv "$old_fpm_config_file" "$current_fpm_config_file"
+			dpkg-trigger --no-await "/etc/php/$old_php_version/fpm/conf.d"
+		else
+			mv -T "$old_fpm_config_file" "$etc_conf_dir/fpm-pool.conf"
+			dpkg-trigger --no-await "/etc/php/$old_php_version/fpm/conf.d"
+			ln -s "$etc_conf_dir/fpm-pool.conf" "$current_fpm_config_file"
+		fi
+	else
+		ln -s "$etc_conf_dir/fpm-pool.conf" "$current_fpm_config_file"
 	fi
 	dpkg-trigger --await "/etc/php/$current_php_version/fpm/conf.d"
-	echo -e '# Internal, do not change!\n'"$current_php_version" > /etc/nextcloud-server-system/php_version.tmp
-	sync /etc/nextcloud-server-system/php_version.tmp
-	mv /etc/nextcloud-server-system/php_version.tmp /etc/nextcloud-server-system/php_version
 fi
+
+echo -e '# Internal, do not change!\n'"$current_php_version" > /etc/nextcloud-server-system/php_version.tmp
+sync /etc/nextcloud-server-system/php_version.tmp
+mv /etc/nextcloud-server-system/php_version.tmp /etc/nextcloud-server-system/php_version
 
 if [ '!' -e "$main_config_file" ];
 then
