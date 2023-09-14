@@ -13,7 +13,7 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 
 ## About
 
-This is an (extra)ordinary Debian repository that you can add to your Debian 10 system (see below).
+This is an (extra)ordinary Debian repository that you can add to your Debian 11 system (see below).
 It integrates deeply into the OS giving you great UX and security.
 
 Keep in mind it's still considered beta even though very stable and usable.
@@ -21,19 +21,51 @@ There's intensive work going on to make it stable soon.
 
 ### Upgrading to Debian 11 - Bullseye
 
-**Do NOT upgrade to Debian 11 TODAY! It would break your setup.**
+**Please follow these instructions carefully to ensure smooth upgrade!**
 
-Debian 11 will be supported shortly after it's released and it's expected to be the only version considered stable.
-Some initial research was done but it's nowhere ready.
-It provides **significant** advantages over Buster so that's the reason why stable will target it.
-If you know you won't be able to upgrade to Buster until more than three months after it's released please open an issue and explain your situation.
+All commands in this guide assume you're logged in as `root`. If not, log in as root or use `sudo` in front of each.
 
-The most important reasons for upgrade:
+Consider also reading the [Debian upgrade guide](https://www.debian.org/releases/bullseye/amd64/release-notes/ch-upgrading.en.html),
+however you do not need to uninstall any CADR packages/sources as suggested in section 4.2 - direct upgrade is supported by CADR!
 
-* Newer version of Rust which should support compiling some very important Rust libraries
-* Newer version of nodejs which might make ThunderHub deterministically buildable (not tested if it's the case)
+#### Preparation
 
-Please stay patient an don't worry about upgrades - they are well-tested by the Debian team and our software will be tested properly as well.
+0. Make sure you have enough space.
+1. Run `apt update` and `apt dist-upgrade`, possibly also `apt autoremove --purge` and `apt clean`
+2. A catastrophic failure is very unlikely but it's still recommended to backup the channels and stopping LND immediatelly afterwards by running `systemctl stop lnd-system-mainnet`
+3. Edit `/etc/apt/sources.list` and all the files in `/etc/apt/sources.list.d` according to these rules:
+    * Change `buster/updates` to `bullseye-security`
+    * Change `https://packages.microsoft.com/debian/10/prod buster` to `https://packages.microsoft.com/debian/11/prod bullseye` - note *also* the 10 to 11 change!
+    * Change all the remaining instances of `buster` to `bullseye`. The vim command `:%s/buster/bullseye/` can be used.
+4. Run `apt update`
+
+#### Running upgrade
+
+Run `apt dist-upgrade`. You may want to check for suspicious changes such as removing packages that should be installed, however this is unlikely to happen.
+The process is interactive and you will be shown changelog (press `q` to quit it), asked about `glibc` upgrade (select yes) and about restarting of the services (yes is recommended).
+This step takes around 30 minutes on usual hardware.
+
+You may be asked about configuration changes.
+If you changed a configuration file that is also changed by the upgrade you'll be asked what to do about it.
+Keeping the file as-is (`N` option) is the safest but if you're unsure select diff to see the difference.
+Just note that `sudo` configuration is one of the changed files so be careful to not lock yourself out!
+
+#### Finishing touches
+
+If you've stopped LND you can start it now: `systemctl start lnd-system-mainnet`
+
+During upgrade you'll be reminded to upgrade postgres cluster. Run these commands:
+
+1. `pg_dropcluster --stop 13 main` - **WARNING: this command is dangerous! It's recommended to prevent it from being in history by putting a space in front of it.**
+2. `pg_upgradecluster 11 main`
+3. After verifying that everything works: `pg_dropcluster --stop 11 main`
+
+You can also cleanup unneeded packages:
+
+1. `apt autoremove --purge`
+2. `apt clean`
+
+Finally consider rebooting as you will get a new kernel. There's no annoying window forcing you to do so though. ;)
 
 ## Supported applications
 
@@ -48,10 +80,8 @@ This is not a joke, several people were already confused by not having to manual
 
 **Please read [five things to know before you start using this](#five-things-to-know-before-you-start-using-this) to avoid confusion.**
 
-Only Debian 10 (Buster) is currently tested, distributions based
-on it (Ubuntu, Mint...) could work too but there is at least one known, hard to solve problem.
-(It leads to error message "libpcap-ng is too old".)
-I hope to solve it in the future but it's best to use Debian anyway.
+Only Debian 11 (Bullseye) is currently tested, distributions based
+on it (Ubuntu, Mint...) could work too but may be less reliable.
 
 It's highly recommended to use decent hardware: at least 8GB of RAM and 1TB SSD (ideally NVMe).
 Your experience and the experience of your peers routing LN transactions through your node may suck otherwise!
@@ -64,8 +94,8 @@ gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 3D9E81D3CA76CDCBE768C4B4D
 gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys BC528686B50D79E339D3721CEB3E94ADBE1229CF
 gpg --export 3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C | sudo apt-key add -
 gpg --export BC528686B50D79E339D3721CEB3E94ADBE1229CF | sudo apt-key add -
-echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/10/prod buster main' | sudo tee /etc/apt/sources.list.d/microsoft.list > /dev/null
-echo 'deb [signed-by=3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C] https://deb.ln-ask.me/beta buster common local desktop' | sudo tee /etc/apt/sources.list.d/cryptoanarchy.list > /dev/null
+echo 'deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/debian/11/prod bullseye main' | sudo tee /etc/apt/sources.list.d/microsoft.list > /dev/null
+echo 'deb [signed-by=3D9E81D3CA76CDCBE768C4B4DC6B4F8E60B8CF4C] https://deb.ln-ask.me/beta bullseye common local desktop' | sudo tee /etc/apt/sources.list.d/cryptoanarchy.list > /dev/null
 sudo apt update
 ```
 
@@ -97,7 +127,7 @@ An example of a known problem is adding nodejs repository - don't do it!
 
 Reach out for help with using additional software that requires higher dependency versions.
 
-It should be safe to add repositories that are explicitly tested to work with Debian Buster and this repository.
+It should be safe to add repositories that are explicitly tested to work with Debian Bullseye and this repository.
 
 ## Security
 
