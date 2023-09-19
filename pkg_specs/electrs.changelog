@@ -1,3 +1,9 @@
+electrs (0.10.0-1) bookworm; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 18 Sep 2023 14:32:56 +0100
+
 electrs (0.9.9-1) bullseye; urgency=medium
 
   * Updated and adapted upstream version

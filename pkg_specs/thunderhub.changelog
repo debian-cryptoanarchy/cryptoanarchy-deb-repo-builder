@@ -1,3 +1,9 @@
+thunderhub (0.11.2-4) bookworm; urgency=critical
+
+  * Bookworm build
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Mon, 18 Sep 2023 14:33:55 +0100
+
 thunderhub (0.11.2-3) bullseye; urgency=critical
 
   * Bullseye build
