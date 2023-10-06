@@ -1,3 +1,9 @@
+nextcloud-server (21.0.0-5) buster; urgency=medium
+
+  * Fix PHP dependency specification
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 6 Oct 2023 11:17:16 +0100
+
 nextcloud-server (21.0.0-4) buster; urgency=medium
 
   * Dynamically select PHP version
