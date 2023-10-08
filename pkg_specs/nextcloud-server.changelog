@@ -1,3 +1,9 @@
+nextcloud-server (27.1.2-1) buster; urgency=medium
+
+  * Upgrade upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 7 Oct 2023 13:37:30 +0100
+
 nextcloud-server (21.0.0-5) buster; urgency=medium
 
   * Fix PHP dependency specification

@@ -35,8 +35,6 @@ copy_assets:
           to: selfhost_tools/main_icon.png
         - from: nextcloud/patches/debian-specific.patch
           to: debian/patches/debian-specific.patch
-        - from: nextcloud/patches/fix-infinite-loop.patch
-          to: debian/patches/fix-infinite-loop.patch
         - from: nextcloud/patches/series
           to: debian/patches/series
         - from: nextcloud/nextcloud-server-periodic.service

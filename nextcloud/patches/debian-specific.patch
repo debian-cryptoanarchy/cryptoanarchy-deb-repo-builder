@@ -1,16 +1,16 @@
 Description: Include config in maintenance:install
  These changes ensure config is read in maintenance::install, enabling safe
  initialization of the server.
- .
- nextcloud-server (20.0.4-1) buster; urgency=medium
- .
 Author: Martin Habovstiak <martin.habovstiak@gmail.com>
-Last-Update: 2021-02-02
-
---- nextcloud-server-20.0.4.orig/core/Command/Maintenance/Install.php
-+++ nextcloud-server-20.0.4/core/Command/Maintenance/Install.php
-@@ -31,6 +31,9 @@
- 
+Last-Update: 2023-10-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Index: nextcloud-server-27.1.2/core/Command/Maintenance/Install.php
+===================================================================
+--- nextcloud-server-27.1.2.orig/core/Command/Maintenance/Install.php
++++ nextcloud-server-27.1.2/core/Command/Maintenance/Install.php
+@@ -30,6 +30,9 @@
+  */
  namespace OC\Core\Command\Maintenance;
  
 +require_once __DIR__ . '/../../../lib/base.php';
@@ -19,10 +19,10 @@ Last-Update: 2021-02-02
  use bantu\IniGetWrapper\IniGetWrapper;
  use InvalidArgumentException;
  use OC\Installer;
-@@ -112,6 +115,27 @@ class Install extends Command {
+@@ -113,6 +116,27 @@ class Install extends Command {
  		return 0;
  	}
- 
+
 +	protected function getOption(InputInterface $input, string $name) {
 +		$option_mapping = [
 +			'database' => 'dbtype',
@@ -35,6 +35,7 @@ Last-Update: 2021-02-02
 +			'admin-email' => 'adminemail',
 +			'data-dir' => 'datadirectory',
 +		];
++
 +		// Ideally CLI args would override conf args not the other way around but Symfony doesn't
 +		// expose an API to check if argument was given. >:(
 +		if (in_array($option_mapping[$name], OC::$config->getKeys())) {
@@ -43,11 +44,10 @@ Last-Update: 2021-02-02
 +			return $input->getOption($name);
 +		}
 +	}
-+
  	/**
  	 * @param InputInterface $input
  	 * @param OutputInterface $output
-@@ -119,33 +143,33 @@ class Install extends Command {
+@@ -120,33 +144,33 @@ class Install extends Command {
  	 * @return array
  	 */
  	protected function validateInput(InputInterface $input, OutputInterface $output, $supportedDatabases) {
@@ -55,7 +55,7 @@ Last-Update: 2021-02-02
 +		$db = strtolower($this->getOption($input, 'database'));
  
  		if (!in_array($db, $supportedDatabases)) {
- 			throw new InvalidArgumentException("Database <$db> is not supported.");
+ 			throw new InvalidArgumentException("Database <$db> is not supported. " . implode(", ", $supportedDatabases) . " are supported.");
  		}
  
 -		$dbUser = $input->getOption('database-user');
@@ -92,14 +92,16 @@ Last-Update: 2021-02-02
  
  		if ($db !== 'sqlite') {
  			if (is_null($dbUser)) {
---- nextcloud-server-20.0.4.orig/lib/base.php
-+++ nextcloud-server-20.0.4/lib/base.php
+Index: nextcloud-server-27.1.2/lib/base.php
+===================================================================
+--- nextcloud-server-27.1.2.orig/lib/base.php
++++ nextcloud-server-27.1.2/lib/base.php
 @@ -130,7 +130,7 @@ class OC {
- 	/**
- 	 * @var \OC\Config
- 	 */
--	private static $config = null;
-+	public static $config = null;
+ 
+ 	public static \OC\Server $server;
+ 
+-	private static \OC\Config $config;
++	public static \OC\Config $config;
  
  	/**
  	 * @throws \RuntimeException when the 3rdparty directory is missing or
