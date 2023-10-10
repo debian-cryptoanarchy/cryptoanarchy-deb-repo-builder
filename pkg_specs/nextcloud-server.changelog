@@ -1,3 +1,9 @@
+nextcloud-server (27.1.2-2) buster; urgency=medium
+
+  * Fix missing files in the release
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Tue, 10 Oct 2023 12:21:59 +0100
+
 nextcloud-server (27.1.2-1) buster; urgency=medium
 
   * Upgrade upstream version
