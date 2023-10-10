@@ -2,20 +2,15 @@ pkg_name_upper: NEXTCLOUD_SERVER
 pkg_name_snake: nextcloud_server
 source_name: nextcloud-server
 
-#unpack:
-#        url: https://github.com/nextcloud/server/releases/download/v$(NEXTCLOUD_SERVER_VERSION)/nextcloud-$(NEXTCLOUD_SERVER_VERSION).tar.bz2
-#        file_name: /nextcloud-server_$(NEXTCLOUD_SERVER_VERSION).orig.tar.bz2
-#        rename: $(BUILD_DIR)/nextcloud
-#        compression: j
-#
-#chmod:
-#        - file: occ
-#          perms: +x
+unpack:
+        url: https://download.nextcloud.com/server/releases/nextcloud-$(NEXTCLOUD_SERVER_VERSION).tar.bz2
+        file_name: /nextcloud-server_$(NEXTCLOUD_SERVER_VERSION).orig.tar.bz2
+        rename: $(BUILD_DIR)/nextcloud
+        compression: j
+        signature: https://download.nextcloud.com/server/releases/nextcloud-$(NEXTCLOUD_SERVER_VERSION).tar.bz2.asc
 
-clone_url: https://github.com/nextcloud/server
-git_tag: v$(NEXTCLOUD_SERVER_VERSION)
-#fingerprint: 
-#verify_tag: true
+fingerprint: 28806A878AE423A28372792ED75899B9A724937A
+
 build_system: none
 copy_all: /usr/share/nextcloud-server
 copy_exclude_files: selfhost_tools CHANGELOG.md CODE_OF_CONDUCT.md SECURITY.md nextcloud-server-periodic.service nextcloud-server-periodic.timer setup_redis.sh fpm-pool.conf

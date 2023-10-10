@@ -1,3 +1,9 @@
+nextcloud-server (21.0.0-6) buster; urgency=medium
+
+  * Fix missing files in the release
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 11 Oct 2023 11:57:07 +0100
+
 nextcloud-server (21.0.0-5) buster; urgency=medium
 
   * Fix PHP dependency specification
