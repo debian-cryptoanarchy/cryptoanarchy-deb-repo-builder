@@ -1,0 +1,14 @@
+[Desktop Entry]
+Comment=Trustless Bitcoin Client - Regtest
+Exec=electrum-trustless-regtest %u
+GenericName[en_US]=Bitcoin Wallet
+GenericName=Bitcoin Wallet
+Icon=electrum
+Name[en_US]=Electrum Bitcoin Wallet - Regtest (trustless)
+Name=Electrum Bitcoin Wallet - Regtest (trustless)
+Categories=Finance;Network;
+StartupNotify=true
+StartupWMClass=electrum
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/bitcoin;

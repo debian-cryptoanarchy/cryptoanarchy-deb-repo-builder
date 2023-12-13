@@ -11,7 +11,9 @@ get_assets:
           signature: https://download.electrum.org/$(ELECTRUM_VERSION)/electrum-$(ELECTRUM_VERSION)-$(ARCH).AppImage.asc
 
 copy_assets:
+        - from: electrum/assets/electrum-trustless-launcher
+          to: electrum-trustless-launcher
         - from: electrum/assets/electrum-trustless-mainnet.desktop
           to: electrum-trustless-mainnet.desktop
-        - from: electrum/assets/electrum-trustless-mainnet
-          to: electrum-trustless-mainnet
+        - from: electrum/assets/electrum-trustless-regtest.desktop
+          to: electrum-trustless-regtest.desktop
