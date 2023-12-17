@@ -3,6 +3,7 @@ include $(SOURCE_DIR){{{include}}}
 {{/include}}
 
 {{pkg_name_upper}}_BUILD_DIR=$(BUILD_DIR)/{{{source_name}}}-$({{{pkg_name_upper}}}_VERSION)
+BUILD_DIRS+=$({{pkg_name_upper}}_BUILD_DIR)
 {{pkg_name_upper}}_DEPS=$({{{pkg_name_upper}}}_BUILD_DIR)
 {{pkg_name_upper}}_ASSETS={{#copy_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{to}}} {{/copy_assets}}{{#get_assets}}$({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} {{/get_assets}}
 {{#shasums}}
@@ -93,20 +94,11 @@ $({{{pkg_name_upper}}}_FILTERED_SHASUMS): $({{{pkg_name_upper}}}_SHASUMS_SIG) {{
 {{/shasums}}
 {{/unpack}}
 
-$(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX){{/signature}}{{/get_assets}}{{#verify_tag}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_tag}}{{#verify_commit}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_commit}}
+$(BUILD_DIR)/verify-signature-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}} $({{{pkg_name_upper}}}_FILTERED_SHASUMS){{#get_assets}}{{#signature}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}}.sig $({{{pkg_name_upper}}}_BUILD_DIR)/{{{file_name}}} $(BUILD_DIR)/{{{fingerprint}}}$(KEY_INPUT_SUFFIX){{/signature}}{{/get_assets}}{{#verify_tag}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_tag}}{{#verify_commit}} $(BUILD_DIR)/{{fingerprint}}-gnupg-home.stamp{{/verify_commit}}
 {{#unpack}}
 {{#shasums}}
 	cd $(BUILD_DIR) && sha256sum -c $({{{pkg_name_upper}}}_FILTERED_SHASUMS_FILENAME)
 {{/shasums}}
-	tar -C $(BUILD_DIR) -x{{#compression}}{{{compression}}}{{/compression}}{{^compression}}z{{/compression}}mf $<
-	{{#rename}}
-	mv -T {{{rename}}} $({{{pkg_name_upper}}}_BUILD_DIR)
-	{{/rename}}
-	{{#remove}}
-	"$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
-	{{/remove}}
-	cd $({{{pkg_name_upper}}}_BUILD_DIR) && DEB_ARCH=$(DEB_ARCH) $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
-	mustache "$(SOURCE_DIR)build_rules/`echo {{pkg_name_snake}}.yaml | tr '_' '-'`" $(SOURCE_DIR)buildsystems/{{build_system}}/debian-makefile-template > $({{{pkg_name_upper}}}_BUILD_DIR)/Makefile
 {{/unpack}}
 	{{#get_assets}}
 	{{#signature}}
@@ -119,6 +111,34 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 	{{#verify_commit}}
 	cd $({{{pkg_name_upper}}}_BUILD_DIR) && GNUPGHOME=$(BUILD_DIR)/{{fingerprint}}-gnupg-home git verify-commit "`git rev-list -n 1 "{{git_tag}}"`"
 	{{/verify_commit}}
+	touch $@
+
+$(BUILD_DIR)/verify-pin-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_name}}}{{/unpack}}{{#clone_url}}$(BUILD_DIR)/fetch-{{{source_name}}}.stamp{{/clone_url}}
+	{{#unpack}}
+	cd $(BUILD_DIR) && sha256sum -c $(SOURCE_DIR)/build_rules/{{{source_name}}}.pin
+	{{/unpack}}
+	{{#clone_url}}
+	test "`cat $(SOURCE_DIR)/build_rules/{{{source_name}}}.pin`" = "`cd "$({{{pkg_name_upper}}}_BUILD_DIR)" && git rev-parse HEAD`"
+	{{/clone_url}}
+	touch $@
+
+{{#unpinned}}
+$(BUILD_DIR)/verify-{{{source_name}}}.stamp: $(BUILD_DIR)/verify-signature-{{{source_name}}}.stamp
+{{/unpinned}}
+{{^unpinned}}
+$(BUILD_DIR)/verify-{{{source_name}}}.stamp: $(BUILD_DIR)/verify-pin-{{{source_name}}}.stamp
+{{/unpinned}}
+{{#unpack}}
+	tar -C $(BUILD_DIR) -x{{#compression}}{{{compression}}}{{/compression}}{{^compression}}z{{/compression}}mf $(BUILD_DIR)/{{{file_name}}}
+	{{#rename}}
+	mv -T {{{rename}}} $({{{pkg_name_upper}}}_BUILD_DIR)
+	{{/rename}}
+	{{#remove}}
+	"$({{{pkg_name_upper}}}_BUILD_DIR)/{{{path}}}"
+	{{/remove}}
+	cd $({{{pkg_name_upper}}}_BUILD_DIR) && DEB_ARCH=$(DEB_ARCH) $(SOURCE_DIR)/buildsystems/{{build_system}}/fetch_deps.sh
+	mustache "$(SOURCE_DIR)build_rules/`echo {{pkg_name_snake}}.yaml | tr '_' '-'`" $(SOURCE_DIR)buildsystems/{{build_system}}/debian-makefile-template > $({{{pkg_name_upper}}}_BUILD_DIR)/Makefile
+{{/unpack}}
 	{{#chmod}}
 	chmod {{perms}} $({{{pkg_name_upper}}}_BUILD_DIR)/{{file}}
 	{{/chmod}}
@@ -127,6 +147,16 @@ $(BUILD_DIR)/verify-{{{source_name}}}.stamp: {{#unpack}}$(BUILD_DIR)/{{{file_nam
 {{#unpack}}
 $({{{pkg_name_upper}}}_BUILD_DIR)/: $(BUILD_DIR)/verify-{{{source_name}}}.stamp
 {{/unpack}}
+
+update-pin-{{{source_name}}}: $(BUILD_DIR)/verify-signature-{{{source_name}}}.stamp
+{{#unpack}}
+	cd $(BUILD_DIR) && sha256sum {{{file_name}}} > $(SOURCE_DIR)/build_rules/{{{source_name}}}.pin
+{{/unpack}}
+{{#clone_url}}
+	cd $({{{pkg_name_upper}}}_BUILD_DIR) && git rev-parse HEAD > $(SOURCE_DIR)/build_rules/{{{source_name}}}.pin
+{{/clone_url}}
+
+update-pin: update-pin-{{{source_name}}}
 
 $(BUILD_DIR)/packages-{{{source_name}}}.stamp: $({{{pkg_name_upper}}}_ASSETS)
 

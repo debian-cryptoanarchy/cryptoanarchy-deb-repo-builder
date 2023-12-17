@@ -37,10 +37,12 @@ all: $(addsuffix .mk,$(addprefix $(BUILD_DIR)/vars-,$(SOURCES)) $(addprefix $(BU
 
 clean:
 
+update-pin:
+
 include common_rules.mk
 
 build-dep:
-	sudo apt-get build-dep -a $(DEB_ARCH) $(realpath $(BITCOIN_DIR) $(BITCOIN_RPC_PROXY_BUILD_DIR) $(ELECTRS_BUILD_DIR) $(ELECTRUM_BUILD_DIR) $(TOR_EXTRAS_BUILD_DIR) $(LND_BUILD_DIR) $(NBXPLORER_BUILD_DIR) $(BTCPAYSERVER_BUILD_DIR) $(SELFHOST_BUILD_DIR) $(RIDETHELN_BUILD_DIR) $(LNPBP_TESTKIT_BUILD_DIR) $(REMIR_BUILD_DIR))
+	sudo apt-get build-dep -a $(DEB_ARCH) $(BUILD_DIRS)
 
 test: $(TEST_DEPS)
 
