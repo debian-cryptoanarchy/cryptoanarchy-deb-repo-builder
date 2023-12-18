@@ -82,7 +82,6 @@ jobs:
 
   test:
     needs: build
-    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
