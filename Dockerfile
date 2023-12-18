@@ -8,6 +8,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf.d/90assumeyes
 
 COPY tests/data/microsoft_key.gpg /tmp/
 COPY tests/data/microsoft_apt.list /tmp/
+COPY debcrafter-version /tmp/
 
 RUN apt-get update && apt-get dist-upgrade && \
     apt-get install apt-utils ca-certificates && \
@@ -18,7 +19,7 @@ RUN apt-get update && apt-get dist-upgrade && \
     mv /tmp/microsoft_apt.list /etc/apt/sources.list.d/microsoft.list && \
     apt-key add < /tmp/microsoft_key.gpg && \
     apt-get update && \
-    cargo install --root /usr/local --locked --git https://github.com/Kixunil/debcrafter && \
+    cargo install --root /usr/local --locked --git https://github.com/Kixunil/debcrafter --rev "`cat /tmp/debcrafter-version`" && \
     cargo install --root /usr/local --locked cfg_me && \
     apt-get autoremove && apt-get clean && \
     rm -rf /root/.cargo \
