@@ -12,55 +12,73 @@ env:
   BUILD_DIR: /home/user/cadr-build
   IMAGE_NAME: cadr/cadr
   CONTAINER_NAME: cadr
-  CI_SCRIPT: ci_build.sh
+  CI_SCRIPT: ci/build.sh
   PODMAN_CMD: "sudo -E XDG_RUNTIME_DIR= podman"
   SPAWN_CONTAINER: "$PODMAN_CMD run --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro --privileged --systemd=true -d -v $PWD:$BUILD_DIR --name=$CONTAINER_NAME $IMAGE_NAME"
   EXECUTE_CMD: "$PODMAN_CMD exec -u $USER_NAME -i $CONTAINER_NAME"
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+            sources: ${{ steps.list-sources.outputs.sources }}
     steps:
       - uses: actions/checkout@v2
-      - name: Setup CI Build Script
-        run: |
-          tee -a $CI_SCRIPT <<EOF
-          #!/bin/bash
-          set -ex
-          sudo apt-get update
-          sudo chown -R $USER_NAME $BUILD_DIR
-          cd $BUILD_DIR
-          MKCMD="make BUILD_DIR=${BUILD_DIR}/build"
-          \$MKCMD build-dep
-          \$MKCMD all
-          EOF
-          chmod +x $CI_SCRIPT
+      - name: Check CADR image cache
+        id: cache-cadr-image
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-cadr-image
+        with:
+          path: CADR_image.tar
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Dockerfile', 'debcrafter-version', 'tests/data/microsoft_apt.list', 'tests/data/microsoft_key.gpg') }}
+          lookup-only: true
       - name: Build CADR Running Environment Image
+        if: steps.cache-cadr-image.outputs.cache-hit != 'true'
         run: |
           sudo apt-get update
           sudo apt-get upgrade podman
           $PODMAN_CMD build -t $IMAGE_NAME .
           $PODMAN_CMD save $IMAGE_NAME > CADR_image.tar
-      - name: Upload the Running Environment Image to Artifact
-        uses: actions/upload-artifact@v2
-        if: ${{ always() }}
+      - name: Install jq
+        run: sudo apt-get install -y jq
+      - name: List sources
+        id: list-sources
+        run: echo "::set-output name=sources::$(ls build_rules/*.yaml | grep -v remir | sed -e 's:^build_rules/::' -e 's/\.yaml$//' | jq -R -s -c 'split("\n")[:-1]')"
+  build:
+    needs: prepare
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        source: ${{ fromJson(needs.prepare.outputs.sources) }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Fetch CADR image cache
+        id: cache-cadr-image
+        uses: actions/cache/restore@v3
+        env:
+          cache-name: cache-cadr-image
         with:
-          name: CADR_image
           path: CADR_image.tar
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Dockerfile', 'debcrafter-version', 'tests/data/microsoft_apt.list', 'tests/data/microsoft_key.gpg') }}
+      - name: Load Running Environment Image
+        run: |
+          $PODMAN_CMD load < CADR_image.tar
+          mkdir build
       - name: Spawn Podman Container to Prepare Running Environment
         run: |
           eval $SPAWN_CONTAINER
       - name: Build CADR
         run: |
-          eval $EXECUTE_CMD ${BUILD_DIR}/$CI_SCRIPT
+          eval $EXECUTE_CMD bash "${BUILD_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
       - name: Upload Debian Packages Just Built to Artifact
         uses: actions/upload-artifact@v2
-        if: ${{ always() }}
         with:
-          name: CADR_debs
+          name: ${{ matrix.source }}
           path: build/*.deb
       - name: Check SHA256
-        if: ${{ always() }}
         run: |
           sudo chown -R $USER build
           cd build
@@ -71,17 +89,15 @@ jobs:
           done
       - name: Upload SHA256 of Debian Packages Just Built to Artifact
         uses: actions/upload-artifact@v2
-        if: ${{ always() }}
         with:
           name: CADR_debs_sha256sum
           path: build/*.deb.sha256sum
       - name: Fix the Dir Permission for Post checkout
-        if: ${{ always() }}
         run: |
           sudo chown -R $USER $PWD
 
   test:
-    needs: build
+    needs: [build, prepare]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -109,22 +125,26 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade podman
-      - name: Download Pre-built Container Image
-        uses: actions/download-artifact@v3
+      - name: Fetch CADR image cache
+        id: cache-cadr-image
+        uses: actions/cache/restore@v3
+        env:
+          cache-name: cache-cadr-image
         with:
-          name: CADR_image
-          path: .
+          path: CADR_image.tar
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Dockerfile', 'debcrafter-version', 'tests/data/microsoft_apt.list', 'tests/data/microsoft_key.gpg') }}
       - name: Load Running Environment Image
         run: |
           $PODMAN_CMD load < CADR_image.tar
           mkdir build
       - name: Download Pre-built Debian Packages
-        uses: actions/download-artifact@v3
+        uses: thecodenebula/download-artifact@e9e49e9bbce8ff2b901957ee034714cab099644a
         with:
-          name: CADR_debs
+          #name: ${{ join(fromJson(needs.prepare.outputs.sources), '\n') }}
           path: build
       - name: Test CADR Basic
         run: |
+          mv build/*/*.deb build/
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-basic-${{ matrix.package }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
@@ -133,6 +153,5 @@ jobs:
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX SPLIT_STRATEGY=upgrade test-here-upgrade-${{ matrix.package }}\""
       - name: Fix the Dir Permission for Post checkout
-        if: ${{ always() }}
         run: |
           sudo chown -R $USER $PWD
