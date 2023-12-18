@@ -1,5 +1,4 @@
 name = "selfhost-clearnet"
-architecture = "all"
 summary = "Tooling for hosting web applications over clearnet domain"
 extends = "selfhost"
 recommends = ["selfhost", "default-selfhost-tls (>= 1.0) | selfhost-tls (>= 1.0)", "default-selfhost-tls (<< 2.0) | selfhost-tls (<< 2.0)"]

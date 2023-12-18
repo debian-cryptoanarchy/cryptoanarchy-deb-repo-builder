@@ -1,5 +1,4 @@
 name = "publish-bitcoin-whitepaper"
-architecture = "all"
 extends = "selfhost"
 depends_on_extended = true
 replaces = false

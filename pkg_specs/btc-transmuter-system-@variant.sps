@@ -1,5 +1,4 @@
 name = "btc-transmuter-system-@variant"
-pkg_type = "service"
 bin_package = "btc-transmuter"
 binary = "/usr/bin/btc-transmuter"
 conf_param = "--conf="

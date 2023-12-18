@@ -1,5 +1,4 @@
 name = "btc-transmuter"
-pkg_type = "basic"
 architecture = "any"
 summary = "A self-hosted ,modular IFTTT-inspired system for bitcoin services written in C# "
 depends = ["dotnet-runtime-3.1", "aspnetcore-runtime-3.1"]
