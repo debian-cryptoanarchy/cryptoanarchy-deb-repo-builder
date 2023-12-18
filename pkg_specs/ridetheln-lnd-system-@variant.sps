@@ -41,6 +41,7 @@ type = "string"
 template = "https://127.0.0.1:{lnd-system-@variant/rest_port}"
 structure = ["Settings", "lnServerUrl"]
 
+[[plug]]
 run_as_user = "root"
-register_cmd = ["bash", "-c", "echo -e '[Unit]\nAfter=lnd-system-{variant}\nRequires=lnd-system-{variant}' > /etc/systemd/system/ridetheln-system.d/bridge-lnd-system-{variant}.conf"]
+register_cmd = ["bash", "-c", "mkdir -p /etc/systemd/system/ridetheln-system.d && echo -e '[Unit]\nAfter=lnd-system-{variant}\nRequires=lnd-system-{variant}' > /etc/systemd/system/ridetheln-system.d/bridge-lnd-system-{variant}.conf"]
 unregister_cmd = ["rm", "-f", "/etc/systemd/system/ridetheln-system.d/bridge-lnd-system-{variant}.conf"]
