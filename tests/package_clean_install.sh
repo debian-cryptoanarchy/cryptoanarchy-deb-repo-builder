@@ -14,7 +14,14 @@ package_type="${package_type["$package"]}"
 # to init them at the beginning of each run due to purge being at the end.
 preload_config
 echo "Installing package $package" >&2
-sudo apt-get install -y "$package"
+if ! sudo apt-get install -y "$package";
+then
+	if [ "$package_type" = "service" ];
+	then
+		journalctl -eu $package
+	fi
+	exit 1
+fi
 echo "Checking package $package" >&2
 check "$package" "$package_type" "after_install"
 echo "Reinstalling package $package" >&2
