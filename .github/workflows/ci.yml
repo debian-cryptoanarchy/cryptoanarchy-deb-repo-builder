@@ -70,28 +70,44 @@ jobs:
       - name: Spawn Podman Container to Prepare Running Environment
         run: |
           eval $SPAWN_CONTAINER
-      - name: Build CADR
+      - name: Get cache key
+        id: get-cache-key
+        run: |
+          eval $EXECUTE_CMD bash "${BUILD_DIR}/ci/get_cache_key.sh" "${{ matrix.source }}" >> $GITHUB_OUTPUT
+      - name: Fetch package cache
+        id: cache-packages
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-packages
+        with:
+          path: packages
+          key: packages-${{ steps.get-cache-key.outputs.packages-cache-key }}
+      - name: Build packages
+        if: steps.cache-packages.outputs.cache-hit != 'true'
         run: |
           eval $EXECUTE_CMD bash "${BUILD_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
+          sudo mkdir -p -m 777 packages
+          sudo mv -n build/*.deb packages
       - name: Upload Debian Packages Just Built to Artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.source }}
-          path: build/*.deb
+          path: packages
       - name: Check SHA256
         run: |
           sudo chown -R $USER build
-          cd build
+          cd packages
           for file in *.deb
           do
             sha256sum $file > ${file}.sha256sum
             cat $file.sha256sum
           done
+        # Yes, this downloading of the cache and then uploding artifact is silly. I didn't figure out how to do it better, feel free to send a PR!
       - name: Upload SHA256 of Debian Packages Just Built to Artifact
         uses: actions/upload-artifact@v2
         with:
           name: CADR_debs_sha256sum
-          path: build/*.deb.sha256sum
+          path: packages/*.deb.sha256sum
       - name: Fix the Dir Permission for Post checkout
         run: |
           sudo chown -R $USER $PWD
@@ -141,10 +157,11 @@ jobs:
         uses: thecodenebula/download-artifact@e9e49e9bbce8ff2b901957ee034714cab099644a
         with:
           #name: ${{ join(fromJson(needs.prepare.outputs.sources), '\n') }}
-          path: build
+          path: packages
       - name: Test CADR Basic
         run: |
-          mv build/*/*.deb build/
+          mkdir -p build
+          mv packages/*/*.deb build/
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-basic-${{ matrix.package }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
