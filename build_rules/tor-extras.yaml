@@ -2,9 +2,3 @@ pkg_name_upper: TOR_EXTRAS
 pkg_name_snake: tor_extras
 source_name: tor-extras
 build_system: none
-
-copy_assets:
-        - from: tor-extras/assets/defaults.patch
-          to: defaults.patch
-        - from: tor-extras/assets/apparmor.patch
-          to: apparmor.patch

@@ -9,10 +9,12 @@ add_files = [
 	"lib/libbitcoinconsensus.so /usr/lib",
 	"lib/libbitcoinconsensus.so.0 /usr/lib",
 	"lib/libbitcoinconsensus.so.0.0.0 /usr/lib",
-	"definitions.sh /usr/share/bitcoind",
-	"check_needs_reindex.sh /usr/share/bitcoind",
-	"bitcoind /usr/share/bitcoind",
-	"notify_startup.sh /usr/share/bitcoind"
+]
+import_files = [
+	["../bitcoin/definitions.sh", "/usr/share/bitcoind/definitions.sh"],
+	["../bitcoin/check_needs_reindex.sh", "/usr/share/bitcoind/check_needs_reindex.sh"],
+	["../bitcoin/bitcoind", "/usr/share/bitcoind/bitcoind"],
+	["../bitcoin/notify_startup.sh", "/usr/share/bitcoind/notify_startup.sh"]
 ]
 add_manpages = ["share/man/man1/bitcoind.1"]
 long_doc = """Bitcoin Core is the original Bitcoin client and it builds the backbone

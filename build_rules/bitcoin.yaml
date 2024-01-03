@@ -14,14 +14,3 @@ shasums:
         url:  https://bitcoincore.org/bin/bitcoin-core-$(BITCOIN_VERSION)/SHA256SUMS.asc
 
 build_system: none
-copy_assets:
-        - from: bitcoin/xbitcoin-cli
-          to: xbitcoin-cli
-        - from: bitcoin/check_needs_reindex.sh
-          to: check_needs_reindex.sh
-        - from: bitcoin/bitcoind
-          to: bitcoind
-        - from: bitcoin/definitions.sh
-          to: definitions.sh
-        - from: bitcoin/notify_startup.sh
-          to: notify_startup.sh

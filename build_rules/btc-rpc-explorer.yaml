@@ -10,17 +10,3 @@ verify_commit: true
 build_system: npm
 npm_exclude_files: btc-rpc-explorer
 npm_bin_package_name: btc-rpc-explorer
-
-copy_assets:
-        - from: btc-rpc-explorer/btc-rpc-explorer
-          to: btc-rpc-explorer
-        - from: btc-rpc-explorer/selfhost-dashboard/entry_points/open
-          to: selfhost-dashboard/entry_points/open
-        - from: btc-rpc-explorer/logo-mainnet.png
-          to: public/img/logo/logo-mainnet.png
-        - from: btc-rpc-explorer/logo-regtest.png
-          to: public/img/logo/logo-regtest.png
-
-dirs:
-        - dir: selfhost-dashboard
-        - dir: selfhost-dashboard/entry_points

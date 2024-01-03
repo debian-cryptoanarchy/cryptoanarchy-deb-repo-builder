@@ -2,9 +2,3 @@ pkg_name_upper: LNDCONNECT
 pkg_name_snake: lndconnect
 source_name: lndconnect
 build_system: none
-
-copy_assets:
-        - from: lndconnect/lndconnect
-          to: lndconnect
-        - from: lndconnect/onion.sh
-          to: onion.sh

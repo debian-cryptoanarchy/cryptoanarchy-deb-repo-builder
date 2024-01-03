@@ -4,9 +4,9 @@ depends_on_extended = true
 depends = ["tor (>= 0.3.1.1)"]
 external = true
 summary = "A patch to make adding hidden services easier"
-add_files = [
-	"defaults.patch /usr/share/tor-hs-patch-config",
-	"apparmor.patch /usr/share/tor-hs-patch-config"
+import_files = [
+	["../tor-extras/assets/defaults.patch", "/usr/share/tor-hs-patch-config/defaults.patch"],
+	["../tor-extras/assets/apparmor.patch", "/usr/share/tor-hs-patch-config/apparmor.patch"]
 ]
 add_dirs = [
 	"/etc/tor/torrc.d",

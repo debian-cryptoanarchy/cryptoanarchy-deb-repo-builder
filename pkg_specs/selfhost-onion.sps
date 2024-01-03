@@ -4,10 +4,10 @@ extends = "selfhost"
 depends = ["tor-hs-patch-config", "bash"]
 provides = ["default-selfhost-domain (= 1.1)", "selfhost-domain (= 1.1)"]
 
-add_files = [
-	"onion/onion_domain.sh /usr/share/selfhost-onion",
-	"onion/hidden_service.conf /usr/share/selfhost-onion",
-	"onion/advertise_onion.sh /usr/share/selfhost-onion",
+import_files = [
+	["../selfhost/onion/onion_domain.sh", "/usr/share/selfhost-onion/onion_domain.sh"],
+	["../selfhost/onion/hidden_service.conf", "/usr/share/selfhost-onion/hidden_service.conf"],
+	["../selfhost/onion/advertise_onion.sh", "/usr/share/selfhost-onion/advertise_onion.sh"],
 ]
 
 [config."domains/onion.conf"]
