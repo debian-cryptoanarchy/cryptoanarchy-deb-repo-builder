@@ -10,19 +10,5 @@ build_system: npm
 npm_exclude_files: ridetheln
 npm_bin_package_name: ridetheln
 
-copy_assets:
-        - from: ridetheln/alloc_index.sh
-          to: alloc_index.sh
-        - from: ridetheln/update_config.sh
-          to: update_config.sh
-        - from: ridetheln/assets/ridetheln
-          to: ridetheln
-        - from: ridetheln/selfhost-dashboard/entry_points/open
-          to: selfhost-dashboard/entry_points/open
-
 remove:
         path: "product management"
-
-dirs:
-        - dir: selfhost-dashboard
-        - dir: selfhost-dashboard/entry_points

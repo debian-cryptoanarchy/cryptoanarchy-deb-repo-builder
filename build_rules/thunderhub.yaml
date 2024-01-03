@@ -18,18 +18,3 @@ build_system: npm
 npm_exclude_files: thunderhub
 npm_include_files: .next
 npm_bin_package_name: thunderhub
-
-copy_assets:
-        - from: thunderhub/thunderhub
-          to: thunderhub
-        - from: thunderhub/open-browser.sh
-          to: thunderhub-open
-        - from: thunderhub/selfhost-dashboard/entry_points/open
-          to: selfhost-dashboard/entry_points/open
-        - from: thunderhub/selfhost-dashboard/icons/entry_main.png
-          to: selfhost-dashboard/icons/entry_main.png
-
-dirs:
-        - dir: selfhost-dashboard
-        - dir: selfhost-dashboard/entry_points
-        - dir: selfhost-dashboard/icons

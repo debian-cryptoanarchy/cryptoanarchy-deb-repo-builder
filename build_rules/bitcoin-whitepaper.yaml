@@ -2,9 +2,3 @@ pkg_name_upper: BITCOIN_WHITEPAPER
 pkg_name_snake: bitcoin_whitepaper
 source_name: bitcoin-whitepaper
 build_system: none
-
-copy_assets:
-        - from: bitcoin-whitepaper/bitcoin.pdf
-          to: bitcoin.pdf
-        - from: bitcoin-whitepaper/publish-bitcoin-whitepaper.conf
-          to: publish-bitcoin-whitepaper.conf

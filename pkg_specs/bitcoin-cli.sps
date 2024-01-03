@@ -2,7 +2,8 @@ name = "bitcoin-cli"
 architecture = "any"
 summary = "Bitcoin CLI"
 suggests = ["bitcoin-mainnet | bitcoin-regtest"]
-add_files = ["bin/bitcoin-cli /usr/lib/bitcoin-cli", "xbitcoin-cli /usr/share/bitcoin-cli"]
+add_files = ["bin/bitcoin-cli /usr/lib/bitcoin-cli"]
+import_files = [["../bitcoin/xbitcoin-cli", "/usr/share/bitcoin-cli/xbitcoin-cli"]]
 add_manpages = ["share/man/man1/bitcoin-cli.1"]
 long_doc = """bitcoin-cli is a tool used for managing bitcoind from the command line. This package
 also contains a wrapper used to connect to the system-wide bitcoind by default.

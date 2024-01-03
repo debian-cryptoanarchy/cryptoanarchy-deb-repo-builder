@@ -2,7 +2,7 @@ name = "electrum-trustless-@variant"
 architecture = "all"
 summary = "Electrum - Lightweight Bitcoin client (secure launcher)"
 depends = ["electrum (>= 4.4.6)"]
-add_files = ["electrum-trustless-{variant}.desktop /usr/share/applications/"]
+import_files = [["../electrum/assets/electrum-trustless-{variant}.desktop", "/usr/share/applications/electrum-trustless-{variant}.desktop"]]
 add_links = ["/usr/share/electrum/electrum-trustless-launcher /usr/bin/electrum-trustless-{variant}"]
 long_doc = """Electrum is a powerful Bitcoin wallet capable of using hardware wallets.
 

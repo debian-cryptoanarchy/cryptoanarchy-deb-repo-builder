@@ -21,7 +21,7 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 $(BUILD_DIR)/debcrafter-%.stamp: pkg_specs/%.sss pkg_specs/%.changelog $(BUILD_DIR)/%.d $(BUILD_DIR)/verify-%.stamp $(shell which debcrafter)
-	DEBEMAIL=$(MAINTAINER) debcrafter $< $(BUILD_DIR) --split-source --write-deps $(BUILD_DIR)/$*.d
+	DEBEMAIL=$(MAINTAINER) debcrafter $< $(BUILD_DIR) --write-deps $(BUILD_DIR)/$*.d
 	touch $@
 
 $(BUILD_DIR)/packages-%.stamp: $(BUILD_DIR)/debcrafter-%.stamp

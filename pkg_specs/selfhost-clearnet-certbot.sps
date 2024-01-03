@@ -4,10 +4,10 @@ replaces = false
 depends = ["certbot", "python3-certbot-nginx", "bash"]
 provides = ["default-selfhost-tls (= 1.0)", "selfhost-tls (= 1.0)"]
 summary = "Integration of certbot into selfhost/nginx"
-add_files = [
-	"certbot/generate_certs.sh /usr/share/selfhost-clearnet-certbot",
-	"certbot/selfhost-clearnet-certbot-webroot.conf /usr/share/selfhost-clearnet-certbot",
-	"certbot/reload_nginx.sh /etc/letsencrypt/renewal-hooks/deploy",
+import_files = [
+	["../selfhost/certbot/generate_certs.sh", "/usr/share/selfhost-clearnet-certbot/generate_certs.sh"],
+	["../selfhost/certbot/selfhost-clearnet-certbot-webroot.conf", "/usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf"],
+	["../selfhost/certbot/reload_nginx.sh", "/etc/letsencrypt/renewal-hooks/deploy/reload_nginx.sh"]
 ]
 add_links = ["/usr/share/selfhost-clearnet-certbot/selfhost-clearnet-certbot-webroot.conf /etc/nginx/selfhost-subsites-enabled/selfhost-clearnet-certbot-webroot.conf"]
 extra_triggers = ["/usr/sbin/nginx", "/usr/bin/certbot", "/usr/lib/x86_64-linux-gnu/libssl.so.1.1", "/usr/lib/python3/dist-packages/certbot_nginx"]
