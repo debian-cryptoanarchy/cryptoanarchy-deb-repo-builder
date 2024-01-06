@@ -7,7 +7,7 @@ from time import sleep
 import sys
 from lnpbp_testkit.cadr import network
 # This is not public, but we control the API, so let's break privacy for now
-from lnpbp_testkit.parsing import parse_simple_config
+from lnpbp_testkit.parsing import parse_simple_config_lines
 import requests
 from requests.auth import HTTPBasicAuth
 import json
@@ -17,7 +17,8 @@ def eprint(msg):
 
 class NBXplorer:
     def __init__(self):
-        config = parse_simple_config("/etc/nbxplorer-regtest/nbxplorer.conf")
+        config = subprocess.run(["sudo", "cat", "/etc/nbxplorer-regtest/nbxplorer.conf"], stdout=subprocess.PIPE).stdout.decode("utf-8").split('\n')
+        config = parse_simple_config_lines(config)
 
         self._port = config["port"]
         cookie = subprocess.run(["sudo", "cat", "/var/lib/nbxplorer-regtest/RegTest/.cookie"], stdout=subprocess.PIPE)

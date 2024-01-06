@@ -9,6 +9,12 @@ extra_service_config = """
 Restart=always
 """
 
+[databases.pgsql]
+template = """
+postgres=User ID=_DBC_DBUSER_;Password=_DBC_DBPASS_;Host=_DBC_DBSERVER_;Port=_DBC_DBPORT_;Database=_DBC_DBNAME_;
+"""
+min_version = "13"
+
 [map_variants.mainnet_enabled]
 mainnet = "1"
 regtest = "0"
@@ -24,18 +30,34 @@ regtest = "24447"
 [extra_groups."nbxplorer-{variant}-access-rpc"]
 create = true
 
+[migrations."<< 2.4.5-1"]
+config = """
+# This version started including secret information
+chmod o-r /etc/nbxplorer-{variant}/nbxplorer.conf
+"""
+
 [config."nbxplorer.conf"]
 format = "plain"
-public = true
 cat_dir = "conf.d"
+cat_files = ["database"]
 
 [config."nbxplorer.conf".hvars."network"]
 type = "string"
 template = "{variant}"
 
+[config."nbxplorer.conf".hvars."automigrate"]
+type = "uint"
+constant = "1"
+
+[config."nbxplorer.conf".ivars."deleteaftermigration"]
+type = "bool"
+default = "true"
+priority = "low"
+summary = "Delete old NBxplorer's database after migration"
+
 [config."nbxplorer.conf".hvars."dbtrie"]
 type = "string"
-template = "1"
+template = "0"
 
 [config."nbxplorer.conf".ivars.datadir]
 type = "path"
