@@ -4,7 +4,7 @@ source_name: btcpayserver
 
 clone_url: https://github.com/btcpayserver/btcpayserver
 git_tag: v$(BTCPAYSERVER_VERSION)
-fingerprint: AB4CFA9895ACA0DBE27F6B346618763EF09186FE
+fingerprint: 836C08CF3F523BB7A8CB8ECF8E5530D9D1C93097
 verify_commit: true
 build_system: dotnet
 dotnet_csproj: BTCPayServer/BTCPayServer.csproj
