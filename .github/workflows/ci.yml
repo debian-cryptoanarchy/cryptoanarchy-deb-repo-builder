@@ -171,3 +171,46 @@ jobs:
       - name: Fix the Dir Permission for Post checkout
         run: |
           sudo chown -R $USER $PWD
+  test-multi-package:
+    needs: [build, prepare]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ["btcpayserver-regtest", "electrum"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Test Prefix
+        run: |
+          echo "TEST_PREFIX=sudo chown -R $USER_NAME $BUILD_DIR && cd $BUILD_DIR && make BUILD_DIR=$BUILD_DIR/build" >> $GITHUB_ENV
+      - name: Prepare Podman Container Running Environment
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade podman
+      - name: Fetch CADR image cache
+        id: cache-cadr-image
+        uses: actions/cache/restore@v3
+        env:
+          cache-name: cache-cadr-image
+        with:
+          path: CADR_image.tar
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Dockerfile', 'debcrafter-version', 'tests/data/microsoft_apt.list', 'tests/data/microsoft_key.gpg') }}
+      - name: Load Running Environment Image
+        run: |
+          $PODMAN_CMD load < CADR_image.tar
+          mkdir build
+      - name: Download Pre-built Debian Packages
+        uses: thecodenebula/download-artifact@e9e49e9bbce8ff2b901957ee034714cab099644a
+        with:
+          #name: ${{ join(fromJson(needs.prepare.outputs.sources), '\n') }}
+          path: packages
+      - name: Test multi-package CADR integration
+        run: |
+          mkdir -p build
+          mv packages/*/*.deb build/
+          eval $SPAWN_CONTAINER
+          eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-multi-package-${{ matrix.test }}\""
+          $PODMAN_CMD rm -f $CONTAINER_NAME
+      - name: Fix the Dir Permission for Post checkout
+        run: |
+          sudo chown -R $USER $PWD

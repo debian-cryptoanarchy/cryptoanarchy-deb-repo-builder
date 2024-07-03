@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 import subprocess
 from time import sleep
 import sys
+import os
 from lnpbp_testkit.cadr import network
 # This is not public, but we control the API, so let's break privacy for now
 from lnpbp_testkit.parsing import parse_simple_config_lines
@@ -50,6 +51,8 @@ eprint("The default domain is " + default_domain)
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("ignore-certificate-errors")
+if "DISPLAY" not in os.environ:
+    chrome_options.add_argument("headless=new")
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
 eprint("Registering an admin account")
