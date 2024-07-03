@@ -8,7 +8,7 @@ test_dir="$(realpath "$(dirname "$0")/..")"
 
 preload_config
 
-sudo apt-get install -y bitcoin-regtest bitcoin-cli electrs electrum-trustless-regtest jq
+sudo apt-get install -y bitcoin-regtest bitcoin-cli electrs electrum-trustless-regtest jq libfuse2 fuse3
 
 # Heavily inspired by the one in electrs itself
 
