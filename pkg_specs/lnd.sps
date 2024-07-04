@@ -4,6 +4,7 @@ summary = "Lightnning Network Daemon"
 recommends = ["bitcoin-mainnet | bitcoin-regtest, lnd-system-mainnet | bitcoin-regtest, lnd-system-regtest | bitcoin-mainnet, lnd-system-both | lnd-system-mainnet | lnd-system-regtest"]
 suggests = ["lncli"]
 add_files = ["lnd /usr/bin"]
+add_manpages = ["lnd.1"]
 import_files = [
 	["../lnd/bash_lib.sh", "/usr/share/lnd/lib/bash.sh"],
 	["../lnd/get_external_addr.sh", "/usr/share/lnd/get_external_addr.sh"]
