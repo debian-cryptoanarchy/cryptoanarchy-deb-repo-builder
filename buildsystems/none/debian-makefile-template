@@ -7,3 +7,6 @@ install:
 	mkdir -p $(DESTDIR){{{copy_all}}}
 	cp -at $(DESTDIR){{{copy_all}}} $(filter-out debian Dockerfile% %.Dockerfile docker README.md .% LICENSE% CONTRIBUTING% docs {{copy_exclude_files}}, $(wildcard *))
 {{/copy_all}}
+{{#run}}
+	{{{run}}}
+{{/run}}

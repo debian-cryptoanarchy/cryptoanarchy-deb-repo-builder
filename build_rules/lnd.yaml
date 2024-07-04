@@ -15,4 +15,6 @@ shasums:
         url: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-v$(LND_VERSION)-beta.txt
         detached_sig: https://github.com/lightningnetwork/lnd/releases/download/v$(LND_VERSION)-beta/manifest-guggero-v$(LND_VERSION)-beta.sig
 
+run: ./lncli generatemanpage
+
 build_system: none
