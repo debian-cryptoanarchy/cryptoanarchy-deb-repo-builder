@@ -42,7 +42,7 @@ jobs:
           $PODMAN_CMD save $IMAGE_NAME > CADR_image.tar
       - name: List sources
         id: list-sources
-        run: echo "::set-output name=sources::$(ls build_rules/*.yaml | grep -v remir | sed -e 's:^build_rules/::' -e 's/\.yaml$//' | jq -R -s -c 'split("\n")[:-1]')"
+        run: echo "sources=$(ls build_rules/*.yaml | grep -v remir | sed -e 's:^build_rules/::' -e 's/\.yaml$//' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
   build:
     needs: prepare
     if: ${{ success() }}
