@@ -40,8 +40,6 @@ jobs:
           sudo apt-get upgrade podman
           $PODMAN_CMD build -t $IMAGE_NAME .
           $PODMAN_CMD save $IMAGE_NAME > CADR_image.tar
-      - name: Install jq
-        run: sudo apt-get install -y jq
       - name: List sources
         id: list-sources
         run: echo "::set-output name=sources::$(ls build_rules/*.yaml | grep -v remir | sed -e 's:^build_rules/::' -e 's/\.yaml$//' | jq -R -s -c 'split("\n")[:-1]')"
