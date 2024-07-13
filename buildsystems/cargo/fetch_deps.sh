@@ -2,4 +2,4 @@
 
 set -e
 
-cargo fetch --locked
+cargo fetch --locked --target x86_64-unknown-linux-gnu
