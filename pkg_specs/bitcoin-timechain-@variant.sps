@@ -18,6 +18,7 @@ allowed_calls = [
 	"getblockhash",
 	"getblockheader",
 	"getchaintips",
+	"getdeploymentinfo",
 	"getdifficulty",
 	"getnetworkinfo",
 	"getnodeaddresses",
