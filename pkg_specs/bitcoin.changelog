@@ -1,3 +1,8 @@
+bitcoin (27.1-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 13 Jul 2024 19:15:22 +0000
 bitcoin (0.21.1-5) buster; urgency=medium
 
   * Rebuilt with newest debcrafter to fix setpriv

@@ -1,7 +1,7 @@
 name = "bitcoind"
 architecture = "any"
 summary = "Bitcoin full node daemon binaries"
-conflicts = ["nbxplorer (<< 2.1.47)", "python3-lnpbp-testkit (<< 0.1.4)"]
+conflicts = ["nbxplorer (<< 2.1.47)", "python3-lnpbp-testkit (<< 0.1.4)", "bitcoin-rpc-proxy-mainnet (<< 0.4.0-1)", "bitcoin-rpc-proxy-regtest (<< 0.4.0-1)"]
 recommends = ["bitcoin-mainnet | bitcoin-regtest"]
 suggests = ["bitcoin-cli"]
 add_files = [
