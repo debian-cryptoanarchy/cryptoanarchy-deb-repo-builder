@@ -1,3 +1,9 @@
+btcpayserver (1.13.5-1) buster; urgency=medium
+
+  * Updated upstream version
+  * Allow btcpayserver to access nbxplorer database directly
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Fri, 19 Jul 2024 10:55:56 +0000
 btcpayserver (1.13.4-2) buster; urgency=medium
 
   * Fixed database handling
