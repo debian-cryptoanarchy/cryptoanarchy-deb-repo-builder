@@ -3,7 +3,7 @@ bin_package = "btcpayserver"
 binary = "/usr/bin/btcpayserver"
 conf_param = "--conf="
 user = { group = true, create = { home = true } }
-depends = ["bitcoin-{variant}"]
+depends = ["bitcoin-{variant}", "nbxplorer-{variant} (>= 2.4.5-1)"]
 conflicts = ["btcpayserver-system-selfhost-{variant}"]
 # The former two of these recommends handle the situation when lnd is installed on the command line
 # without explicitly selecting the network or when the selected network is mainnet only, the latter
@@ -78,6 +78,12 @@ template = "{nbxplorer-@variant/datadir}/{nbxplorer_network}/.cookie"
 [config."btcpayserver.conf".hvars."debuglog"]
 type = "path"
 template = "/var/log/btcpayserver-system-{variant}/debug.log"
+
+[config."btcpayserver.conf".hvars."explorer.postgres"]
+type = "string"
+script = """
+sed 's/^postgres=//' /etc/nbxplorer-{variant}/database
+"""
 
 [config."conf.d/root_path.conf"]
 format = "plain"
