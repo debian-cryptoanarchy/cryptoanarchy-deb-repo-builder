@@ -14,6 +14,7 @@ template = """
 postgres=User ID=_DBC_DBUSER_;Password=_DBC_DBPASS_;Host=_DBC_DBSERVER_;Port=_DBC_DBPORT_;Database=_DBC_DBNAME_;
 """
 min_version = "13"
+since = "2.4.5-1"
 
 [map_variants.mainnet_enabled]
 mainnet = "1"
