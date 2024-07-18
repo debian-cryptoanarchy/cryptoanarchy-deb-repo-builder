@@ -1,3 +1,8 @@
+nbxplorer (2.4.5-2) buster; urgency=medium
+
+  * Fixed database handling
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 18 Jul 2024 07:18:24 +0000
 nbxplorer (2.4.5-1) buster; urgency=medium
 
   * Updated upstream version
