@@ -2,7 +2,7 @@
 
 set -e
 
-cd /home/user/cadr-build
+cd /home/user/cryptoanarchy-deb-repo-builder
 
 dep="$1"
 src="build_rules/$dep.yaml"

@@ -9,12 +9,13 @@ on:
 
 env:
   USER_NAME: user
+  REPO_DIR: /home/user/cryptoanarchy-deb-repo-builder
   BUILD_DIR: /home/user/cadr-build
   IMAGE_NAME: cadr/cadr
   CONTAINER_NAME: cadr
   CI_SCRIPT: ci/build.sh
   PODMAN_CMD: "sudo -E XDG_RUNTIME_DIR= podman"
-  SPAWN_CONTAINER: "$PODMAN_CMD run --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro --privileged --systemd=true -d -v $PWD:$BUILD_DIR --name=$CONTAINER_NAME $IMAGE_NAME"
+  SPAWN_CONTAINER: "$PODMAN_CMD run --tmpfs /tmp --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro --privileged --systemd=true -d -v $PWD:$REPO_DIR --name=$CONTAINER_NAME $IMAGE_NAME"
   EXECUTE_CMD: "$PODMAN_CMD exec -u $USER_NAME -i $CONTAINER_NAME"
 
 jobs:
@@ -71,7 +72,7 @@ jobs:
       - name: Get cache key
         id: get-cache-key
         run: |
-          eval $EXECUTE_CMD bash "${BUILD_DIR}/ci/get_cache_key.sh" "${{ matrix.source }}" >> $GITHUB_OUTPUT
+          eval $EXECUTE_CMD bash "${REPO_DIR}/ci/get_cache_key.sh" "${{ matrix.source }}" >> $GITHUB_OUTPUT
       - name: Fetch package cache
         id: cache-packages
         uses: actions/cache@v3
@@ -83,9 +84,8 @@ jobs:
       - name: Build packages
         if: steps.cache-packages.outputs.cache-hit != 'true'
         run: |
-          eval $EXECUTE_CMD bash "${BUILD_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
           sudo mkdir -p -m 777 packages
-          sudo mv -n build/*.deb packages
+          eval $EXECUTE_CMD bash "${REPO_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
       - name: Upload Debian Packages Just Built to Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -93,7 +93,7 @@ jobs:
           path: packages
       - name: Check SHA256
         run: |
-          sudo chown -R $USER build
+          sudo chown -R $USER packages
           cd packages
           for file in *.deb
           do
@@ -133,7 +133,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Test Prefix
         run: |
-          echo "TEST_PREFIX=sudo chown -R $USER_NAME $BUILD_DIR && cd $BUILD_DIR && make BUILD_DIR=$BUILD_DIR/build" >> $GITHUB_ENV
+          echo "TEST_PREFIX=sudo chown -R $USER_NAME $REPO_DIR && cd $REPO_DIR && make BUILD_DIR=$REPO_DIR/packages" >> $GITHUB_ENV
       - name: Prepare Podman Container Running Environment
         run: |
           sudo apt-get update
@@ -158,7 +158,7 @@ jobs:
       - name: Test CADR Basic
         run: |
           mkdir -p build
-          mv packages/*/*.deb build/
+          mv packages/*/*.deb packages/
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-basic-${{ matrix.package }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
@@ -180,7 +180,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Test Prefix
         run: |
-          echo "TEST_PREFIX=sudo chown -R $USER_NAME $BUILD_DIR && cd $BUILD_DIR && make BUILD_DIR=$BUILD_DIR/build" >> $GITHUB_ENV
+          echo "TEST_PREFIX=sudo chown -R $USER_NAME $REPO_DIR && cd $REPO_DIR && make BUILD_DIR=$REPO_DIR/packages" >> $GITHUB_ENV
       - name: Prepare Podman Container Running Environment
         run: |
           sudo apt-get update
@@ -204,8 +204,7 @@ jobs:
           path: packages
       - name: Test multi-package CADR integration
         run: |
-          mkdir -p build
-          mv packages/*/*.deb build/
+          mv packages/*/*.deb packages
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-multi-package-${{ matrix.test }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
