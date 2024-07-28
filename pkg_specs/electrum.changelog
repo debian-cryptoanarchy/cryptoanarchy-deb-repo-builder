@@ -1,3 +1,8 @@
+electrum (4.5.5-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 28 Jul 2024 15:49:49 +0000
 electrum (4.4.6-1) buster; urgency=medium
 
   * Updated upstream version
