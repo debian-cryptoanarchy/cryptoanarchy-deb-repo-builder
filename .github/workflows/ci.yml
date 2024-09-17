@@ -87,7 +87,7 @@ jobs:
           sudo mkdir -p -m 777 packages
           eval $EXECUTE_CMD bash "${REPO_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
       - name: Upload Debian Packages Just Built to Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.source }}
           path: packages
@@ -102,7 +102,7 @@ jobs:
           done
         # Yes, this downloading of the cache and then uploding artifact is silly. I didn't figure out how to do it better, feel free to send a PR!
       - name: Upload SHA256 of Debian Packages Just Built to Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: CADR_debs_sha256sum
           path: packages/*.deb.sha256sum
