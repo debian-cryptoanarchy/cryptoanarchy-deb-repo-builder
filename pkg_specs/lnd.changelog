@@ -1,3 +1,8 @@
+lnd (0.18.5-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Wed, 12 Feb 2025 11:27:16 +0000
 lnd (0.18.4-1) buster; urgency=medium
 
   * Updated upstream version
