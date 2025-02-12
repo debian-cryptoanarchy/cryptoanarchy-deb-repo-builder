@@ -87,9 +87,9 @@ jobs:
           sudo mkdir -p -m 777 packages
           eval $EXECUTE_CMD bash "${REPO_DIR}/$CI_SCRIPT" "${{ matrix.source }}"
       - name: Upload Debian Packages Just Built to Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.source }}
+          name: packages-${{ matrix.source }}
           path: packages
       - name: Check SHA256
         run: |
@@ -102,9 +102,9 @@ jobs:
           done
         # Yes, this downloading of the cache and then uploding artifact is silly. I didn't figure out how to do it better, feel free to send a PR!
       - name: Upload SHA256 of Debian Packages Just Built to Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: CADR_debs_sha256sum
+          name: CADR_debs_sha256sum-${{ matrix.source }}
           path: packages/*.deb.sha256sum
       - name: Fix the Dir Permission for Post checkout
         run: |
@@ -151,14 +151,14 @@ jobs:
           $PODMAN_CMD load < CADR_image.tar
           mkdir build
       - name: Download Pre-built Debian Packages
-        uses: thecodenebula/download-artifact@e9e49e9bbce8ff2b901957ee034714cab099644a
+        uses: actions/download-artifact@v4
         with:
-          #name: ${{ join(fromJson(needs.prepare.outputs.sources), '\n') }}
+          pattern: packages-*
+          merge-multiple: true
           path: packages
       - name: Test CADR Basic
         run: |
           mkdir -p build
-          mv packages/*/*.deb packages/
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-basic-${{ matrix.package }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
@@ -198,13 +198,13 @@ jobs:
           $PODMAN_CMD load < CADR_image.tar
           mkdir build
       - name: Download Pre-built Debian Packages
-        uses: thecodenebula/download-artifact@e9e49e9bbce8ff2b901957ee034714cab099644a
+        uses: actions/download-artifact@v4
         with:
-          #name: ${{ join(fromJson(needs.prepare.outputs.sources), '\n') }}
+          pattern: packages-*
+          merge-multiple: true
           path: packages
       - name: Test multi-package CADR integration
         run: |
-          mv packages/*/*.deb packages
           eval $SPAWN_CONTAINER
           eval $EXECUTE_CMD bash -c "\"$TEST_PREFIX test-here-multi-package-${{ matrix.test }}\""
           $PODMAN_CMD rm -f $CONTAINER_NAME
