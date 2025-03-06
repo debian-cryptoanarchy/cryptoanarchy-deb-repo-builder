@@ -1,3 +1,8 @@
+nbxplorer (2.5.26-1) buster; urgency=high
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Thu, 06 Mar 2025 15:02:36 +0000
 nbxplorer (2.4.5-2) buster; urgency=medium
 
   * Fixed database handling
