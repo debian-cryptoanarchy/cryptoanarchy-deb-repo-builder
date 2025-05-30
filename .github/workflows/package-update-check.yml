@@ -39,7 +39,8 @@ jobs:
       - name: Run update packages script
         id: update-check
         run: |
-          python tools/update_packages.py
+          # Ignore errors because while some packages may fail to update, others may succeed and we want successes to still pass
+          python tools/update_packages.py || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
