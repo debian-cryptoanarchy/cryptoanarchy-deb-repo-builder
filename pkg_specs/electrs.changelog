@@ -1,3 +1,9 @@
+electrs (0.10.9-1) bullseye; urgency=medium
+
+  * Update to upstream version 0.10.9
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Fri, 30 May 2025 17:51:35 +0000
+
 electrs (0.9.9-1) bullseye; urgency=medium
 
   * Updated and adapted upstream version

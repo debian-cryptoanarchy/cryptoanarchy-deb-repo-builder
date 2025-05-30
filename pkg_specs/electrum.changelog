@@ -1,3 +1,9 @@
+electrum (4.5.8-1) bullseye; urgency=medium
+
+  * Update to upstream version 4.5.8
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Fri, 30 May 2025 17:51:44 +0000
+
 electrum (4.5.5-1) buster; urgency=medium
 
   * Updated upstream version
