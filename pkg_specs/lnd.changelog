@@ -1,3 +1,9 @@
+lnd (0.19.0-1) bullseye; urgency=medium
+
+  * Update to upstream version 0.19.0
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Fri, 30 May 2025 17:51:47 +0000
+
 lnd (0.18.5-1) buster; urgency=medium
 
   * Updated upstream version
