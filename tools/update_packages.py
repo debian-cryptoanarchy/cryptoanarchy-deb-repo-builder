@@ -209,9 +209,12 @@ def run_update_pin(package_name, source_name):
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
     try:
-        # Run make update-pin
+        # Set BUILD_DIR to an absolute path (equivalent to $HOME/cadr-build)
+        build_dir = os.path.expanduser("~/cadr-build")
+        
+        # Run make update-pin with BUILD_DIR set to absolute path
         run_command(
-            ["make", f"SOURCES={source_name}", "update-pin"],
+            ["make", f"SOURCES={source_name}", f"BUILD_DIR={build_dir}", "update-pin"],
             cwd=repo_root,
             capture_output=False
         )
