@@ -1,0 +1,85 @@
+name: Package Update Check
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+  
+  # Scheduled trigger (commented out as requested)
+  # Uncomment the following lines to enable daily execution at midnight UTC
+  # schedule:
+  #   - cron: '0 0 * * *'  # Run at midnight UTC every day
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for proper changelog updates
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          sudo apt-get update
+          sudo apt-get install -y make jq
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+      
+      - name: Run update packages script
+        id: update-check
+        run: |
+          python tools/update_packages.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create Pull Requests
+        if: success()
+        run: |
+          # This script will read the update_results from the previous step
+          # and create a PR for each successful update
+          
+          # Parse the update results
+          UPDATE_RESULTS="${{ steps.update-check.outputs.update_results }}"
+          
+          if [ -z "$UPDATE_RESULTS" ]; then
+            echo "No update results found"
+            exit 0
+          fi
+          
+          echo "Processing update results: $UPDATE_RESULTS"
+          
+          # Process each result and create PRs
+          echo "$UPDATE_RESULTS" | jq -c '.[]' | while read -r result; do
+            status=$(echo "$result" | jq -r '.status')
+            
+            if [ "$status" = "success" ]; then
+              package=$(echo "$result" | jq -r '.package')
+              version=$(echo "$result" | jq -r '.version')
+              branch=$(echo "$result" | jq -r '.branch')
+              
+              echo "Creating PR for $package update to $version"
+              
+              # Push the branch
+              git push origin "$branch"
+              
+              # Create PR using GitHub CLI
+              gh pr create \
+                --title "Update $package to $version" \
+                --body "Automated update of $package to upstream version $version" \
+                --base master \
+                --head "$branch"
+            fi
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
