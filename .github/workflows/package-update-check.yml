@@ -80,6 +80,7 @@ jobs:
                 --body "Automated update of $package to upstream version $version" \
                 --base master \
                 --head "$branch"
+              gh workflow run "ci.yml" --ref "$branch"
             fi
           done
         env:
