@@ -1,3 +1,9 @@
+btc-rpc-explorer (3.5.0-1) bullseye; urgency=medium
+
+  * Update to upstream version 3.5.0
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Sat, 28 Jun 2025 15:02:13 +0000
+
 btc-rpc-explorer (3.1.1-2) bullseye; urgency=medium
 
   * Bullseye build
