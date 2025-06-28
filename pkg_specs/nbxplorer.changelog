@@ -1,3 +1,9 @@
+nbxplorer (2.5.27-1) bullseye; urgency=medium
+
+  * Update to upstream version 2.5.27
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Sat, 28 Jun 2025 15:04:14 +0000
+
 nbxplorer (2.5.26-1) buster; urgency=high
 
   * Updated upstream version
