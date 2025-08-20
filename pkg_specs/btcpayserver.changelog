@@ -1,3 +1,9 @@
+btcpayserver (2.1.5-1) bullseye; urgency=medium
+
+  * Update to upstream version 2.1.5
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Sat, 28 Jun 2025 15:04:03 +0000
+
 btcpayserver (1.13.5-1) buster; urgency=medium
 
   * Updated upstream version
