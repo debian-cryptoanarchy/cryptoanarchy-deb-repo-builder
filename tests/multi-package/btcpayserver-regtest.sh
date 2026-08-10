@@ -20,5 +20,11 @@ fi
 
 sudo apt-get install -y bitcoin-regtest lnd btcpayserver python3-selenium selfhost-clearnet python3-lnpbp-testkit
 
+echo "Waiting for NBXplorer to start" >&2
+while ! sudo test -s "/var/lib/nbxplorer-regtest/RegTest/.cookie";
+do
+       sleep 1
+done
+
 echo "Starting selenium test" >&2
 $test_dir/multi-package/btcpayserver-regtest/selenium_after_install.py

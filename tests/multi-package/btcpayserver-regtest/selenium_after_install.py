@@ -2,6 +2,8 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 import subprocess
 from time import sleep
 import sys
@@ -12,6 +14,19 @@ from lnpbp_testkit.parsing import parse_simple_config_lines
 import requests
 from requests.auth import HTTPBasicAuth
 import json
+
+def find_element_by_id(self, value):
+    return self.find_element(By.ID, value)
+
+def find_element_by_class_name(self, value):
+    return self.find_element(By.CLASS_NAME, value)
+
+def find_element_by_css_selector(self, value):
+    return self.find_element(By.CSS_SELECTOR, value)
+
+for name, f in [("find_element_by_id", find_element_by_id), ("find_element_by_class_name", find_element_by_class_name), ("find_element_by_css_selector", find_element_by_css_selector)]:
+    if not hasattr(WebDriver, name):
+        setattr(WebDriver, name, f)
 
 def eprint(msg):
     print(msg, file=sys.stderr)
@@ -38,100 +53,105 @@ class NBXplorer:
 
 network().warm_up()
 
-nbxplorer = NBXplorer()
+try:
+    nbxplorer = NBXplorer()
 
-while not nbxplorer.is_synced():
+    while not nbxplorer.is_synced():
+        sleep(1)
+
+    ret = 0
+
+    default_domain = subprocess.run(["sudo", "/usr/share/selfhost/lib/get_default_domain.sh"], stdout=subprocess.PIPE).stdout.decode("utf-8")
+
+    eprint("The default domain is " + default_domain)
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("ignore-certificate-errors")
+    if "DISPLAY" not in os.environ:
+        chrome_options.add_argument("headless=new")
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+
+    eprint("Registering an admin account")
+
+    driver.get(default_domain + "/btcpay-rt")
+    driver.find_element_by_id("Email").send_keys("admin@example.com")
+    driver.find_element_by_id("Password").send_keys("super secure password")
+    driver.find_element_by_id("ConfirmPassword").send_keys("super secure password")
+    driver.find_element_by_id("ConfirmPassword").send_keys(Keys.RETURN)
+
+    eprint("Setting up a test store")
+
+    driver.get(default_domain + "/btcpay-rt/stores/create")
+    driver.find_element_by_id("Name").send_keys("Test")
+    driver.find_element_by_id("Name").send_keys(Keys.RETURN)
+    store_url = driver.current_url
+    store_id = store_url[(store_url.rfind('/') + 1):]
+
+    eprint("Setting up a chain hot wallet")
+
+    driver.get(store_url + "/onchain/BTC/generate/hotwallet")
+    driver.find_element_by_id("Continue").click()
+
+    eprint("Waiting for genmacaroon")
+
+    while subprocess.call(["sudo", "test", "-e", "/var/lib/lnd-system-regtest/invoice/invoice+readonly.macaroon"]) != 0:
+        sleep(1)
+
+    eprint("Setting up lightning")
+
+    driver.get(store_url + "/lightning/BTC/settings")
+    driver.find_element_by_id("page-primary").click()
+
+    eprint("Creating an invoice")
+
+    driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
+    driver.find_element_by_id("Amount").send_keys("10")
+    driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
+
+    eprint("Retrieving payment details")
+
+    driver.find_element_by_class_name("invoice-checkout-link").click()
+    sleep(5)
+    payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
+
+    if payment_link.find("pj=") < 0:
+        eprint("PayJoin disabled")
+        ret = 1
+
+    eprint("Attempting to pay " + payment_link)
+    network().auto_pay(payment_link)
+
+    sleep(10)
+
+    if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
+        eprint("Failed to pay chain address")
+        ret = 1
+
+    eprint("Creating an invoice")
+
+    driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
+    driver.find_element_by_id("Amount").send_keys("10")
+    driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
+
+    eprint("Retrieving Lightning invoice")
+
+    driver.find_element_by_class_name("invoice-checkout-link").click()
+    sleep(1)
+    driver.find_element_by_class_name("payment-method").click()
+
     sleep(1)
 
-ret = 0
+    payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
+    network().auto_pay(payment_link)
 
-default_domain = subprocess.run(["sudo", "/usr/share/selfhost/lib/get_default_domain.sh"], stdout=subprocess.PIPE).stdout.decode("utf-8")
+    sleep(5)
 
-eprint("The default domain is " + default_domain)
+    if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
+        eprint("Failed to pay Lightning invoice")
+        ret = 1
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("ignore-certificate-errors")
-if "DISPLAY" not in os.environ:
-    chrome_options.add_argument("headless=new")
-driver = webdriver.Chrome(chrome_options=chrome_options)
-
-eprint("Registering an admin account")
-
-driver.get(default_domain + "/btcpay-rt")
-driver.find_element_by_id("Email").send_keys("admin@example.com")
-driver.find_element_by_id("Password").send_keys("super secure password")
-driver.find_element_by_id("ConfirmPassword").send_keys("super secure password")
-driver.find_element_by_id("ConfirmPassword").send_keys(Keys.RETURN)
-
-eprint("Setting up a test store")
-
-driver.get(default_domain + "/btcpay-rt/stores/create")
-driver.find_element_by_id("Name").send_keys("Test")
-driver.find_element_by_id("Name").send_keys(Keys.RETURN)
-store_url = driver.current_url
-store_id = store_url[(store_url.rfind('/') + 1):]
-
-eprint("Setting up a chain hot wallet")
-
-driver.get(store_url + "/onchain/BTC/generate/hotwallet")
-driver.find_element_by_id("Continue").click()
-
-eprint("Waiting for genmacaroon")
-
-while subprocess.call(["sudo", "test", "-e", "/var/lib/lnd-system-regtest/invoice/invoice+readonly.macaroon"]) != 0:
-    sleep(1)
-
-eprint("Setting up lightning")
-
-driver.get(store_url + "/lightning/BTC/settings")
-driver.find_element_by_id("save").click()
-
-eprint("Creating an invoice")
-
-driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
-driver.find_element_by_id("Amount").send_keys("10")
-driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
-
-eprint("Retrieving payment details")
-
-driver.find_element_by_class_name("invoice-checkout-link").click()
-sleep(5)
-payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
-
-if payment_link.find("pj=") < 0:
-    eprint("PayJoin disabled")
-    ret = 1
-
-eprint("Attempting to pay " + payment_link)
-network().auto_pay(payment_link)
-
-sleep(10)
-
-if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
-    eprint("Failed to pay chain address")
-    ret = 1
-
-eprint("Creating an invoice")
-
-driver.get(default_domain + "/btcpay-rt/invoices/create/?storeId=" + store_id)
-driver.find_element_by_id("Amount").send_keys("10")
-driver.find_element_by_id("Amount").send_keys(Keys.RETURN)
-
-eprint("Retrieving Lightning invoice")
-
-driver.find_element_by_class_name("invoice-checkout-link").click()
-sleep(1)
-driver.find_element_by_class_name("payment-method").click()
-
-sleep(1)
-
-payment_link = driver.find_element_by_id("PayInWallet").get_attribute("href")
-network().auto_pay(payment_link)
-
-sleep(5)
-
-if driver.find_element_by_css_selector("div.top h4").text != "Invoice Paid":
-    eprint("Failed to pay Lightning invoice")
-    ret = 1
-
-sys.exit(ret)
+    sys.exit(ret)
+except Exception as e:
+    print(e)
+    input("Press Enter to continue...")
+    sys.exit(1)
