@@ -1,3 +1,8 @@
+nextcloud-server (21.0.0-7) bullseye; urgency=medium
+
+  * Fix cross-PHP-version upgrades
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 15 Aug 2026 13:48:28 +0000
 nextcloud-server (21.0.0-6) buster; urgency=medium
 
   * Fix missing files in the release
