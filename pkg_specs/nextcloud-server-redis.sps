@@ -2,7 +2,6 @@ name = "nextcloud-server-redis"
 bin_package = "redis-server"
 binary = "/usr/bin/redis-server"
 bare_conf_param = true
-positional_conf_param = true
 runtime_dir = { mode = "750" }
 user = { name = "nextcloud-server-system", group = true }
 summary = "Redis integration for Nextcloud"
