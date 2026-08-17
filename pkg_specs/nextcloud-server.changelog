@@ -1,3 +1,8 @@
+nextcloud-server (21.0.0-8) buster; urgency=medium
+
+  * Detect missing dependencies in prerm
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sun, 16 Aug 2026 13:36:48 +0000
 nextcloud-server (21.0.0-7) bullseye; urgency=medium
 
   * Fix cross-PHP-version upgrades
