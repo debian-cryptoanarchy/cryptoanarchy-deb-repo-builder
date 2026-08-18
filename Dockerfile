@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:bookworm
 
 LABEL repository="https://github.com/debian-cryptoanarchy/cryptoanarchy-deb-repo-builder"
 
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get dist-upgrade && \
     apt-get install apt-utils ca-certificates && \
     apt-get install wget cargo npm git apt-transport-https \
     ruby-mustache dirmngr sudo libvips-dev ca-certificates gpg \
-    systemd systemd-sysv net-tools netcat xxd && \
+    systemd systemd-sysv net-tools netcat-openbsd xxd && \
     update-ca-certificates && \
     mv /tmp/microsoft_apt.list /etc/apt/sources.list.d/microsoft.list && \
     apt-key add < /tmp/microsoft_key.gpg && \
