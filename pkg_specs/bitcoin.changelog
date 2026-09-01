@@ -1,3 +1,9 @@
+bitcoin (29.0-1) bullseye; urgency=medium
+
+  * Update to upstream version 29.0
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Sat, 28 Jun 2025 15:02:05 +0000
+
 bitcoin (27.1-2) buster; urgency=medium
 
   * Improve dependency specification
