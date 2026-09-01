@@ -1,3 +1,9 @@
+btc-transmuter (0.0.59-1) bullseye; urgency=medium
+
+  * Update to upstream version 0.0.59
+
+ -- Martin Habovštiak <martin.habovstiak@gmail.com>  Fri, 30 May 2025 17:51:33 +0000
+
 btc-transmuter (0.0.55-3) buster; urgency=medium
 
   * Fixed database handling
