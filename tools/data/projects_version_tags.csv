@@ -3,7 +3,6 @@ bitcoin-rpc-proxy,btc-rpc-proxy,https://github.com/Kixunil/btc-rpc-proxy,True,v$
 bitcoin-whitepaper,bitcoin-whitepaper,,False,
 bitcoin,bitcoin,https://github.com/bitcoin/bitcoin,True,
 btc-rpc-explorer,btc-rpc-explorer,https://github.com/janoside/btc-rpc-explorer,True,v$(BTC_RPC_EXPLORER_VERSION)
-btc-transmuter,btc-transmuter,https://github.com/btcpayserver/btcTransmuter,True,v$(BTC_TRANSMUTER_VERSION)
 btcpayserver,btcpayserver,https://github.com/btcpayserver/btcpayserver,True,v$(BTCPAYSERVER_VERSION)
 electrs,electrs,https://github.com/romanz/electrs,True,v$(ELECTRS_VERSION)
 electrum,electrum,https://github.com/spesmilo/electrum,True,

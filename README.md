@@ -142,8 +142,6 @@ Please open an issue if you are interested in development and I will try to fill
 - [x] btcpayserver
 - [x] btcpayserver-system-mainnet
 - [x] btcpayserver-lnp-system-mainnet (connects LND with BTCPayServer)
-- [x] btc-transmuter
-- [x] btc-transmuter-system-mainnet
 - [x] selfhost (a tooling/framework for selfhosting applications easily)
 - [x] selfhost-nginx (nginx gateway for selfhost)
 - [x] selfhost-clearnet (sets up clearnet domain)
