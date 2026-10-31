@@ -10,6 +10,7 @@ Securely install Bitcoin and freedom-related apps with a single `apt install` co
 * [Documentation](docs/README.md)
 * [Development](#development-and-contributions)
 
+**Deprecation notice: NodeJS-based packages are deprecated - read below**
 
 ## About
 
@@ -91,6 +92,13 @@ No project is 100% secure. There are more secure ones and less secure ones.
 This one is very secure and is being improved constantly.
 
 Read more in the [security documentation](docs/security).
+
+## NodeJS applications are deprecated
+
+NodeJS suffers huge problems that make working with it completely unbearable. For that reason I have decided to deprecate the support.
+The plan is to eventually stop updating these applications and replace them with something better.
+
+If you're curious read [the detailed write up](docs/nodejs-deprecation.md).
 
 ## Policy on Bitcoin consensus forks
 
