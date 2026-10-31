@@ -11,7 +11,7 @@ endif
 
 all:
 	if [ -x ./node_modules/next/dist/bin/next ]; then CC=$(TOOLCHAIN_ARCH)-gcc CXX=$(TOOLCHAIN_ARCH)-g++ CC_host=gcc CXX_host=g++ ./node_modules/next/dist/bin/next build; fi
-	npm prune --production
+	npm prune --production --legacy-peer-deps
 
 check:
 

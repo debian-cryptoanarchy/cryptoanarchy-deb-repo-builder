@@ -1,3 +1,8 @@
+ridetheln (0.15.16-1) buster; urgency=medium
+
+  * Updated upstream version
+
+ -- Martin Habovstiak <martin.habovstiak@gmail.com>  Sat, 31 Oct 2026 15:12:27 +0000
 ridetheln (0.10.1-4) bullseye; urgency=medium
 
   * Bullseye build

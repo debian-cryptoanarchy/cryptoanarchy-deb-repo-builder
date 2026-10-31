@@ -19,4 +19,4 @@ case "$DEB_ARCH" in
 		;;
 esac
 
-CC_target=$toolchain_arch-gcc CXX_target=$toolchain_arch-g++ CC_host=gcc CXX_host=g++ npm_config_arch="$target_arch" npm install --build-from-source
+CC_target=$toolchain_arch-gcc CXX_target=$toolchain_arch-g++ CC_host=gcc CXX_host=g++ npm_config_arch="$target_arch" npm install --build-from-source --legacy-peer-deps
